@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 
 import com.stage.newRAH.dto.CompositionDTO;
 import com.stage.newRAH.model.Composition;
@@ -13,6 +14,7 @@ import com.stage.newRAH.model.Equipe;
 import com.stage.newRAH.repository.CompositionRepository;
 import com.stage.newRAH.repository.EquipeRepository;
 
+@Service
 public class CompositionService {
 	
 	@Autowired
