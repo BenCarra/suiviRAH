@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.stage.newRAH.dto.ProjetDTO;
-import com.stage.newRAH.model.Projet;
 import com.stage.newRAH.service.ProjetService;
 
 @RestController
@@ -40,7 +39,4 @@ public class ProjetController {
 	public ResponseEntity<ProjetDTO> createProjet(@RequestBody ProjetDTO request ) {
 		return projetService.createProjet(request);
 	}
-	
-
-
 }
