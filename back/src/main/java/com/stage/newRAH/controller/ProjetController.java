@@ -6,9 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.stage.newRAH.dto.ProjetDTO;
+import com.stage.newRAH.model.Projet;
 import com.stage.newRAH.service.ProjetService;
 
 @RestController
@@ -31,6 +34,11 @@ public class ProjetController {
 	@GetMapping("/projetsByUtilisateur/{id}")
 	public ResponseEntity<List<ProjetDTO>> getProjetsByUtilisateur(@PathVariable int id) {
 		return projetService.getProjetsByUtilisateur(id);
+	}
+
+	@PostMapping("/createProjet")
+	public ResponseEntity<ProjetDTO> createProjet(@RequestBody ProjetDTO request ) {
+		return projetService.createProjet(request);
 	}
 	
 
