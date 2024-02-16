@@ -1,171 +1,49 @@
 header {
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  gap: 63px;
 }
-.img-logo {
+
+#talaron-logo {
   display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
-  padding: 10px;
-  gap: 10px;
+  margin-bottom: 62px;
 }
-.frame-2 {
+
+img {
+  width: 50%;
+  height: 50%;
+  max-width: 421px;
+  max-height: 123px;
+  margin: auto;
+  box-shadow: 1px 1px 1px 1px; 
+}
+
+#nav-container {
+  border: 1px solid black;
+  background-color: rgba(167, 162, 158, 1);
+  width: 55%;
+  margin: auto;
+  box-shadow: 1px 1px 1px 1px;
+}
+
+nav {
   display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
-  gap: 10px;
-  background-color: #ffffff;
+  flex-wrap: wrap;
+  justify-content: center;
 }
-.img-1 {
-  height: 123px;
-  width: 519px;
-  border: 1px solid #000000;
+
+.link-container {
+  padding: 5px;
 }
-nav{
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
-  background-color: #a6a29e;
-  border: 1px solid #000000;
+
+.link-container a {
+  text-decoration: none;
 }
-.frame-2-2 {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
-  gap: 10px;
+
+.link-container a span{
+  color: white;
+  font-weight: bold;
 }
-.text-2 {
-  text-align: center;
-  vertical-align: middle;
-  font-size: 16px;
-  font-family: Arial, Helvetica, sans-serif;
-  line-height: auto;
-  color: #ffffff;
-}
-.frame-2-3 {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
-  gap: 10px;
-}
-.text-3 {
-  text-align: center;
-  vertical-align: middle;
-  font-size: 16px;
-  font-family: Arial, Helvetica, sans-serif;
-  line-height: auto;
-  color: #ffffff;
-}
-.frame-2-4 {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
-  gap: 10px;
-}
-.text-4 {
-  text-align: center;
-  vertical-align: middle;
-  font-size: 16px;
-  font-family: Arial, Helvetica, sans-serif;
-  line-height: auto;
-  color: #ffffff;
-}
-.frame-2-5 {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
-  gap: 10px;
-}
-.text-5 {
-  text-align: center;
-  vertical-align: middle;
-  font-size: 16px;
-  font-family: Arial, Helvetica, sans-serif;
-  line-height: auto;
-  color: #ffffff;
-}
-.frame-2-8 {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
-  gap: 10px;
-}
-.text-6 {
-  text-align: center;
-  vertical-align: middle;
-  font-size: 16px;
-  font-family: Arial, Helvetica, sans-serif;
-  line-height: auto;
-  color: #ffffff;
-}
-.frame-3-1 {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
-  gap: 10px;
-}
-.text-7 {
-  text-align: center;
-  vertical-align: middle;
-  font-size: 16px;
-  font-family: Arial, Helvetica, sans-serif;
-  line-height: auto;
-  color: #ffffff;
-}
-.frame-2-7 {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
-  gap: 10px;
-}
-.text-8 {
-  text-align: center;
-  vertical-align: middle;
-  font-size: 16px;
-  font-family: Arial, Helvetica, sans-serif;
-  line-height: auto;
-  color: #ffffff;
-}
-.frame-2-6 {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
-  gap: 10px;
-}
-.text-9 {
-  text-align: center;
-  vertical-align: middle;
-  font-size: 16px;
-  font-family: Arial, Helvetica, sans-serif;
-  line-height: auto;
-  color: #ffffff;
-}
-.frame-3-0 {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
-  gap: 10px;
-}
-.text-1-0 {
-  text-align: center;
-  vertical-align: middle;
-  font-size: 16px;
-  font-family: Arial, Helvetica, sans-serif;
-  line-height: auto;
-  color: #ffffff;
+
+.link-container a span:hover {
+  color: rgb(35, 68, 233)
 }

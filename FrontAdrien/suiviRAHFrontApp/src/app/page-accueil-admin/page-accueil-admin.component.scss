@@ -1,0 +1,81 @@
+main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: auto;
+    width: 75%;
+}
+
+#liste-projets {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+#filtrage {
+    display: flex;
+    width: 100%;
+    margin-top: 20px;
+}
+
+table {
+    width: 100%;
+    box-shadow: 1px 1px 1px 1px;
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+th {
+    background-color: #B9B9B9;
+}
+
+td {
+    background-color: white;
+}
+
+#tools-box-container{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.tools-box{
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.conteneur-btn {
+     background: linear-gradient(180deg, white 0%, rgba(255, 255, 255, 0) 100%); justify-content: flex-start; align-items: center; display: flex;
+     box-shadow: 1px 1px 1px 1px;
+}
+
+.conteneur-btn .btn a{
+    display: inline;
+}
+
+.conteneur-btn .btn img{
+    width: 50%; height: 50%;
+}
+
+.conteneur-btn .btn img:hover{
+    transform: scale(1.5);
+}
+
+.libelle-btn {
+    display: flex;
+    align-items: center;
+    width: 50%; 
+    height: 50%;
+}
+
+.libelle-btn span {
+    font-weight: bold;
+}
