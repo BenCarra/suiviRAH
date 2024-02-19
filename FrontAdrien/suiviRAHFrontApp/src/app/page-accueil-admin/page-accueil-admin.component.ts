@@ -1,11 +1,15 @@
 import { Component } from '@angular/core';
+import { HeaderComponent } from "../header/header.component";
+import { FooterComponent } from "../footer/footer.component";
+import { Router } from '@angular/router';
+import { ProjetListComponent } from '../projet-list/projet-list.component';
 
 @Component({
-  selector: 'app-page-accueil-admin',
-  standalone: true,
-  imports: [],
-  templateUrl: './page-accueil-admin.component.html',
-  styleUrl: './page-accueil-admin.component.scss'
+    selector: 'app-page-accueil-admin',
+    standalone: true,
+    templateUrl: './page-accueil-admin.component.html',
+    styleUrl: './page-accueil-admin.component.scss',
+    imports: [HeaderComponent,ProjetListComponent, FooterComponent]
 })
 export class PageAccueilAdminComponent {
 

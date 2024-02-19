@@ -1,0 +1,49 @@
+<table border="1">
+    <tbody>
+        <tr>
+            <th>Nom</th>
+            <th>Jira</th>
+            <th>Technologie</th>
+            <th>Service</th>
+            <th>Date demande</th>
+            <th>Date livraison souhaitée</th>
+            <th>Date livraison révisée</th>
+            <th>Date affectation CDS</th>
+            <th>Date prise en compte CDS</th>
+            <th>Date estimation</th>
+            <th>Devis estimation</th>
+            <th>Dont Garantie</th>
+            <th>Date Feu Vert</th>
+            <th>Date livraison</th>
+            <th>MCO</th>
+            <th>Date Passage MCO</th>
+            <th>Date sortie MCO</th>
+            <th>Commentaires</th>
+            <th>Client</th>
+        </tr>
+        @for (projet of listProjets; track $index) {
+        <tr>
+            <td>{{ projet.nomProjet }}</td>
+            <td>{{ projet.jira }}</td>
+            <td>{{ projet.techno }}</td>
+            <td>{{ projet.service }}</td>
+            <td>{{ projet.dateDemande }}</td>
+            <td>{{ projet.livraisonSouhaitee }}</td>
+            <td>{{ projet.livraisonRevisee }}</td>
+            <td>{{ projet.affectationCDS }}</td>
+            <td>{{ projet.priseEnCompteCDS }}</td>
+            <td><{{ projet.dateEstimation }}</td>
+            <td>{{ projet.devisEstimation }}</td>
+            <td>{{ projet.dontGarantie }}</td>
+            <td>{{ projet.dateFeuVert }}</td>
+            <td>{{ projet.dateLivraison }}</td>
+            <td>{{ projet.MCO }}</td>
+            <td>{{ projet.datePassageMCO }}</td>
+            <td>{{ projet.dateSortieMCO }}</td>
+            <td>{{ projet.commentaires }}</td>
+            <td>{{ projet.idClient }}</td>
+        </tr>
+        }
+        <!-- Ajouter lignes par Angular pour récupérer les données de l'API-->
+    </tbody>
+</table>

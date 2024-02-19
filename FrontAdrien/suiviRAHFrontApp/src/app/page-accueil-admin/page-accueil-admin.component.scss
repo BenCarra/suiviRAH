@@ -1,9 +1,16 @@
+@media screen and (max-width: 620px){
+    tr {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
 main {
     display: flex;
     flex-direction: column;
     justify-content: center;
     margin: auto;
-    width: 75%;
+    width:75%;
 }
 
 #liste-projets {
@@ -16,27 +23,16 @@ main {
 
 #filtrage {
     display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
     width: 100%;
     margin-top: 20px;
 }
 
-table {
+app-projet-list{
+    overflow: scroll;
     width: 100%;
-    box-shadow: 1px 1px 1px 1px;
-}
-
-td, th {
-    border: 1px solid #dddddd;
-    text-align: left;
-    padding: 8px;
-}
-
-th {
-    background-color: #B9B9B9;
-}
-
-td {
-    background-color: white;
+    margin: auto;
 }
 
 #tools-box-container{
