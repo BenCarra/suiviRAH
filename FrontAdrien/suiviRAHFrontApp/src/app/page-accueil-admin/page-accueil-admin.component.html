@@ -1,22 +1,5 @@
 <app-header></app-header>
 <main>
-    <div id="liste-projets">
-        <h3>LISTE DES PROJETS</h3>
-        <form id="filtrage">
-            <label><select name="filtrage-demande" id="filtrage-demande">
-                    <option value="Par nom de projet">Rechercher par nom de projet</option>
-                    <option value="Par type de projet">Rechercher par type de projet</option>
-                    <option value="Par nom d'équipe">Rechercher par nom d'équipe</option>
-                    <option value="Par nom d'utilisateur">Rechercher par nom d'utilisateur</option>
-                </select> | </label>
-
-            <label for="projet-recherche"> |&ThinSpace;</label>
-            <input type="text" name="projet-recherche" id="projet-recherche">
-            <input type="submit" value="OK">
-        </form>
-
-        <!-- Ajouter listes déroulantes dynamiques et FormGroup -->
-    </div>
     <app-projet-list></app-projet-list>
     <div id="tools-box-container">
         <div class="tools-box">
@@ -50,8 +33,6 @@
                     </p>
                 </div>
             </div>
-        </div>
-        <div class="tools-box">
             <div class="conteneur-btn">
                 <div class="btn">
                     <a href="#"><img src="../../assets/img/plus-btn.png" alt="plus-btn" /></a>
@@ -72,7 +53,7 @@
                     </p>
                 </div>
             </div>
-        </div>
+        </div>    
     </div>
 
 

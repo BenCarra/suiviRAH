@@ -1,27 +1,83 @@
 import { Component } from '@angular/core';
 import { ProjetService } from '../projet.service';
 import { Projet } from '../projet';
+import {FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-projet-list',
   standalone: true,
-  imports: [],
+  imports: [ReactiveFormsModule],
   templateUrl: './projet-list.component.html',
   styleUrl: './projet-list.component.scss'
 })
 export class ProjetListComponent {
 
+  valeurParDefautList: string = "Filtrer";
+  listNomsProjet: String[] = [];
   listProjets!: Projet[];
+  formFiltrage!: FormGroup<{ filtrageDemande: FormControl<string | null>; projetRecherche: FormControl<string | null>; boutonSoumission: FormControl<string | null>; }>; 
+
 
   constructor(private projetService: ProjetService){
-
+    
   }
 
   ngOnInit(){
+    this.formFiltrage = new FormGroup({
+      filtrageDemande: new FormControl('', Validators.required), 
+      projetRecherche: new FormControl('', Validators.required),
+      boutonSoumission: new FormControl('OK', Validators.required)
+    });
     this.projetService.findAll().subscribe(data => {
-      console.log(data);
+      //console.log(data);
       this.listProjets = data;
     })
+    this.formFiltrage.get('projetRecherche')?.disable();
+    this.formFiltrage.get('boutonSoumission')?.disable();
+
+  }
+
+  updateFiltrage(){
+    //console.log(this.formFiltrage.value.filtrageDemande);
+    if (this.formFiltrage.value.filtrageDemande != ""){
+
+      this.listNomsProjet = [];
+
+      this.formFiltrage.get('projetRecherche')?.enable();
+      this.formFiltrage.get('boutonSoumission')?.enable();
+
+      if (this.formFiltrage.value.filtrageDemande ==  'Par nom de projet') {
+        console.log("Recherche par nom de projet");
+        this.projetService.findAll().subscribe((data) => {
+          (data.forEach((projet) =>
+            {
+              console.log(projet.nomProjet);
+              this.listNomsProjet.push(projet.nomProjet);
+              console.log(this.listNomsProjet);
+            }
+          ));
+        });
+
+      } else if  (this.formFiltrage.value.filtrageDemande ==  'Par type de projet'){
+        console.log("Recherche par type de projet");
+      } else if (this.formFiltrage.value.filtrageDemande ==  'Par nom d\'équipe'){
+        console.log("Recherche par nom d'équipe");
+      } else if (this.formFiltrage.value.filtrageDemande == 'Par nom d\'utilisateur'){
+        console.log("Recherche par nom d'utilisateur");
+    } else {
+      this.formFiltrage.get('projetRecherche')?.disable();
+      this.formFiltrage.get('boutonSoumission')?.disable();
+      console.log("Sélectionner un filtre");
+      }
+    }
+  }
+
+  onInputChange() {
+    console.log(this.formFiltrage.get('projetRecherche')?.value);
+    if (this.listNomsProjet.includes(this.formFiltrage.get('projetRecherche')?.value)){
+      
+    }
+
   }
 
 }
