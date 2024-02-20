@@ -15,7 +15,7 @@ export class HomeComponent {
   }
 
   onClickButton(){
-    this.router.navigate(['accueil']);
+    this.router.navigate(['admin/accueil']);
   }
 
 }

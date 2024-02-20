@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { HeaderComponent } from "../header/header.component";
 import { FooterComponent } from "../footer/footer.component";
-import { Router } from '@angular/router';
 import { ProjetListComponent } from '../projet-list/projet-list.component';
 
 @Component({

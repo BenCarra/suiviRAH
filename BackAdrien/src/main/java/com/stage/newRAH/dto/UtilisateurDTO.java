@@ -8,6 +8,7 @@ public class UtilisateurDTO {
 	private String login ;
 	private String mail;
 	private boolean actif;
+	private int idSite;
 	private int idTypeUtilisateur;
 	
 	public UtilisateurDTO() {
@@ -15,18 +16,16 @@ public class UtilisateurDTO {
 	}
 
 	public UtilisateurDTO(int idUtilisateur, String nomUtilisateur, String prenomUtilisateur, String login, String mail,
-			boolean actif, int idTypeUtilisateur) {
+			boolean actif,int idSite, int idTypeUtilisateur) {
 		this.idUtilisateur = idUtilisateur;
 		this.nomUtilisateur = nomUtilisateur;
 		this.prenomUtilisateur = prenomUtilisateur;
 		this.login = login;
 		this.mail = mail;
 		this.actif = actif;
+		this.idSite = idSite;
 		this.idTypeUtilisateur = idTypeUtilisateur;
 	}
-
-
-
 
 	public int getIdUtilisateur() {
 		return idUtilisateur;
@@ -74,6 +73,14 @@ public class UtilisateurDTO {
 
 	public void setActif(boolean actif) {
 		this.actif = actif;
+	}
+
+	public int getIdSite() {
+		return idSite;
+	}
+
+	public void setIdSite(int idSite) {
+		this.idSite = idSite;
 	}
 
 	public int getIdTypeUtilisateur() {

@@ -1,5 +1,6 @@
-<div id="liste-projets">
+<div id="liste">
     <h3>LISTE DES PROJETS</h3>
+    <!-- Ajouter listes déroulantes dynamiques et (submit)=onSubmit() pour le filtrage-->
     <form id="filtrage" [formGroup]="formFiltrage">
         <label for="filtrage-demande"></label>
         <select name="filtrage-demande" id="filtrage-demande" formControlName="filtrageDemande" (change)="updateFiltrage()">
@@ -15,7 +16,7 @@
         <input type="submit" name="btn-soumission" id="btn-soumission" formControlName="boutonSoumission">
     </form>
 
-    <!-- Ajouter listes déroulantes dynamiques et (submit)=onSubmit() -->
+    <!-- Modifier table : ajouter des colonnes éventuellement -->
     <div id="table">
         <table border="2">
             <tbody>
@@ -39,31 +40,38 @@
                     <th>Date sortie MCO</th>
                     <th>Commentaires</th>
                     <th>Client</th>
+                    <th>Modifier</th>
+                    <th>Dupliquer</th>
+                    <th>Supprimer</th>
                 </tr>
                 @for (projet of listProjets; track $index) {
-                <tr>
-                    <td>{{ projet.nomProjet }}</td>
-                    <td>{{ projet.jira }}</td>
-                    <td>{{ projet.techno }}</td>
-                    <td>{{ projet.service }}</td>
-                    <td>{{ projet.dateDemande }}</td>
-                    <td>{{ projet.livraisonSouhaitee }}</td>
-                    <td>{{ projet.livraisonRevisee }}</td>
-                    <td>{{ projet.affectationCDS }}</td>
-                    <td>{{ projet.priseEnCompteCDS }}</td>
-                    <td>{{ projet.dateEstimation }}</td>
-                    <td>{{ projet.devisEstimation }}</td>
-                    <td>{{ projet.dontGarantie }}</td>
-                    <td>{{ projet.dateFeuVert }}</td>
-                    <td>{{ projet.dateLivraison }}</td>
-                    <td>{{ projet.MCO }}</td>
-                    <td>{{ projet.datePassageMCO }}</td>
-                    <td>{{ projet.dateSortieMCO }}</td>
-                    <td>{{ projet.commentaires }}</td>
-                    <td>{{ projet.idClient }}</td>
-                </tr>
+                    <tr id="{{ projet.idProjet }}">
+                        <td>{{ projet.nomProjet }}</td>
+                        <td>{{ projet.jira }}</td>
+                        <td>{{ projet.techno }}</td>
+                        <td>{{ projet.service }}</td>
+                        <td>{{ projet.dateDemande }}</td>
+                        <td>{{ projet.livraisonSouhaitee }}</td>
+                        <td>{{ projet.livraisonRevisee }}</td>
+                        <td>{{ projet.affectationCDS }}</td>
+                        <td>{{ projet.priseEnCompteCDS }}</td>
+                        <td>{{ projet.dateEstimation }}</td>
+                        <td>{{ projet.devisEstimation }}</td>
+                        <td>{{ projet.dontGarantie }}</td>
+                        <td>{{ projet.dateFeuVert }}</td>
+                        <td>{{ projet.dateLivraison }}</td>
+                        <td>{{ projet.MCO }}</td>
+                        <td>{{ projet.datePassageMCO }}</td>
+                        <td>{{ projet.dateSortieMCO }}</td>
+                        <td>{{ projet.commentaires }}</td>
+                        <td>{{ projet.idClient }}</td>
+                        <!-- Gérer les opérations CRUD liées au boutons ci-dessous via l'API-->
+                        <td><button type="button" (click)="onUpdateProjet()">Modifier</button></td>
+                        <td><button type="button" (click)="onDuplicateProjet()">Dupliquer</button></td>
+                        <td><button type="button" (click)="onDeleteProjet($event)">Supprimer</button></td>
+                    </tr>
                 }
-                <!-- Ajouter lignes par Angular pour récupérer les données de l'API-->
+                
             </tbody>
         </table>
     </div>

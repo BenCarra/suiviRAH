@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Projet } from './projet';
+import { Projet } from '../model/projet';
 import { ActivatedRoute } from '@angular/router';
 
 @Injectable({
@@ -33,5 +33,10 @@ export class ProjetService {
 
   public save(projet: Projet){
     return this.http.post<Projet>(this.url, projet);
+  }
+
+  public deleteById(id: string | undefined): Observable<Projet> {
+    // penser à recharger le tableau du DOM après suppression
+    return this.http.delete<Projet>(this.url+"/deleteProjet/"+id);
   }
 }

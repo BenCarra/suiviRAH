@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { ProjetService } from '../projet.service';
-import { Projet } from '../projet';
-import {FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ProjetService } from '../services/projet.service';
+import { Projet } from '../model/projet';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-projet-list',
@@ -15,16 +15,13 @@ export class ProjetListComponent {
   valeurParDefautList: string = "Filtrer";
   listNomsProjet: String[] = [];
   listProjets!: Projet[];
-  formFiltrage!: FormGroup<{ filtrageDemande: FormControl<string | null>; projetRecherche: FormControl<string | null>; boutonSoumission: FormControl<string | null>; }>; 
+  formFiltrage!: FormGroup<{ filtrageDemande: FormControl<string | null>; projetRecherche: FormControl<string | null>; boutonSoumission: FormControl<string | null>; }>;
 
+  constructor(private projetService: ProjetService) {}
 
-  constructor(private projetService: ProjetService){
-    
-  }
-
-  ngOnInit(){
+  ngOnInit() {
     this.formFiltrage = new FormGroup({
-      filtrageDemande: new FormControl('', Validators.required), 
+      filtrageDemande: new FormControl('', Validators.required),
       projetRecherche: new FormControl('', Validators.required),
       boutonSoumission: new FormControl('OK', Validators.required)
     });
@@ -34,49 +31,62 @@ export class ProjetListComponent {
     })
     this.formFiltrage.get('projetRecherche')?.disable();
     this.formFiltrage.get('boutonSoumission')?.disable();
-
   }
 
-  updateFiltrage(){
+  onDeleteProjet(e: MouseEvent) {
+    if (e.target instanceof HTMLElement) {
+      e.target.style.color = "red";
+      const id: string | undefined = e.target.parentElement?.parentElement?.id;
+      console.log(id);
+      this.projetService.deleteById(id).subscribe();
+    }
+  }
+  onDuplicateProjet() {
+    throw new Error('Method not implemented.');
+  }
+  onUpdateProjet() {
+    throw new Error('Method not implemented.');
+  }
+
+  updateFiltrage() {
     //console.log(this.formFiltrage.value.filtrageDemande);
-    if (this.formFiltrage.value.filtrageDemande != ""){
+    if (this.formFiltrage.value.filtrageDemande != "") {
 
       this.listNomsProjet = [];
 
       this.formFiltrage.get('projetRecherche')?.enable();
       this.formFiltrage.get('boutonSoumission')?.enable();
 
-      if (this.formFiltrage.value.filtrageDemande ==  'Par nom de projet') {
+      if (this.formFiltrage.value.filtrageDemande == 'Par nom de projet') {
         console.log("Recherche par nom de projet");
         this.projetService.findAll().subscribe((data) => {
-          (data.forEach((projet) =>
-            {
-              console.log(projet.nomProjet);
-              this.listNomsProjet.push(projet.nomProjet);
-              console.log(this.listNomsProjet);
-            }
+          (data.forEach((projet) => {
+            console.log(projet.nomProjet);
+            this.listNomsProjet.push(projet.nomProjet);
+            console.log(this.listNomsProjet);
+          }
           ));
         });
 
-      } else if  (this.formFiltrage.value.filtrageDemande ==  'Par type de projet'){
+      } else if (this.formFiltrage.value.filtrageDemande == 'Par type de projet') {
         console.log("Recherche par type de projet");
-      } else if (this.formFiltrage.value.filtrageDemande ==  'Par nom d\'équipe'){
+      } else if (this.formFiltrage.value.filtrageDemande == 'Par nom d\'équipe') {
         console.log("Recherche par nom d'équipe");
-      } else if (this.formFiltrage.value.filtrageDemande == 'Par nom d\'utilisateur'){
+      } else if (this.formFiltrage.value.filtrageDemande == 'Par nom d\'utilisateur') {
         console.log("Recherche par nom d'utilisateur");
-    } else {
-      this.formFiltrage.get('projetRecherche')?.disable();
-      this.formFiltrage.get('boutonSoumission')?.disable();
-      console.log("Sélectionner un filtre");
+      } else {
+        this.formFiltrage.get('projetRecherche')?.disable();
+        this.formFiltrage.get('boutonSoumission')?.disable();
+        console.log("Sélectionner un filtre");
       }
     }
   }
 
   onInputChange() {
     console.log(this.formFiltrage.get('projetRecherche')?.value);
-    if (this.listNomsProjet.includes(this.formFiltrage.get('projetRecherche')?.value)){
+    /*if (this.listNomsProjet.includes(this.formFiltrage.get('projetRecherche')?.value)){
       
-    }
+    }*/
 
   }
 

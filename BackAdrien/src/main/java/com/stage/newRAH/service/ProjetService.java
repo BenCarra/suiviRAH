@@ -192,8 +192,13 @@ public class ProjetService {
 	}
 
 	public ResponseEntity<ProjetDTO> deleteProjet(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		Projet projetASupprimer = projetRepository.findById(id).get();
+
+		ProjetDTO projetASupprimerDTO = this.mapProjetToDTO(projetASupprimer);
+		
+		projetRepository.deleteById(id);
+
+		return ResponseEntity.ok(projetASupprimerDTO);
 	}
 
 	

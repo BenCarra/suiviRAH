@@ -12,10 +12,14 @@ import com.stage.newRAH.dto.UtilisateurDTO;
 import com.stage.newRAH.model.Site;
 import com.stage.newRAH.model.Utilisateur;
 import com.stage.newRAH.repository.SiteRepository;
+import com.stage.newRAH.repository.UtilisateurRepository;
 
 @Service
 public class UtilisateurService {
 	
+	@Autowired
+	UtilisateurRepository utilisateurRepository;
+
 	@Autowired
 	SiteRepository siteRepository;
 	
@@ -29,10 +33,30 @@ public class UtilisateurService {
 		utilisateurDTO.setLogin(utilisateur.getLogin());
 		utilisateurDTO.setMail(utilisateur.getMail());
 		utilisateurDTO.setActif(utilisateur.isActif());
-		utilisateurDTO.setIdTypeUtilisateur(utilisateur.getIdUtilisateur());
+		utilisateurDTO.setIdSite(utilisateur.getSite().getIdSite());
+		utilisateurDTO.setIdTypeUtilisateur(utilisateur.getTypeUtilisateur().getIdTypeUtilisateur());
 		
 		return utilisateurDTO;
 	}
+
+	public ResponseEntity<List<UtilisateurDTO>> getUtilisateurs() {
+        
+		Iterable<Utilisateur> utilisateurs = utilisateurRepository.findAll();
+
+		if (utilisateurs.iterator().hasNext()) {
+			List<UtilisateurDTO> utilisateursDTO = new ArrayList<>();
+
+			for (Utilisateur utilisateur: utilisateurs) {
+				UtilisateurDTO utilisateurDTO = this.mapUtilisateurToDTO(utilisateur);
+				utilisateursDTO.add(utilisateurDTO);
+			}
+
+			return ResponseEntity.ok(utilisateursDTO);
+		} else {
+			return ResponseEntity.notFound().build();
+		}
+
+    }
 
 	public ResponseEntity<List<UtilisateurDTO>> getUtilisateursBySite(int id) {
 		Optional<Site> siteChoisi = siteRepository.findById(id);
@@ -50,4 +74,18 @@ public class UtilisateurService {
 			return ResponseEntity.notFound().build();
 		}
 	}
+
+    public ResponseEntity<UtilisateurDTO> deleteUtilisateur(int id) {
+        Utilisateur utilisateurASupprimer = utilisateurRepository.findById(id).get();
+
+		UtilisateurDTO utilisateurASupprimerDTO = this.mapUtilisateurToDTO(utilisateurASupprimer);
+
+		System.out.println(utilisateurASupprimerDTO);
+
+		utilisateurRepository.deleteById(id);
+
+		return ResponseEntity.ok(utilisateurASupprimerDTO);
+    }
+
+    
 }

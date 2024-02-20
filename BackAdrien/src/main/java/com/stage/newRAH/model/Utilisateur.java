@@ -3,6 +3,7 @@ package com.stage.newRAH.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -56,7 +57,7 @@ public class Utilisateur {
 	List<Equipe> listEquipes = new ArrayList<>();
 	
 	// J'ai rajouté ce lien entre Utilisateur et Composition
-	@OneToMany(mappedBy="utilisateur")
+	@OneToMany(mappedBy="utilisateur", cascade = CascadeType.ALL)
 	private List<Composition> listCompositions;
 	
 		

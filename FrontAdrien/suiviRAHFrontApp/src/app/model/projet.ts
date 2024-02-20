@@ -1,5 +1,5 @@
 export class Projet {
-    id!: number;
+    idProjet!: number;
     nomProjet!: string;
     jira!: string;
     techno!: string;
@@ -22,5 +22,4 @@ export class Projet {
     idEtat!: number;
     idTypeDefaut!: number;
     idTypeProjet!: number;
-
 }
