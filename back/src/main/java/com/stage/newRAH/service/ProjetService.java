@@ -85,7 +85,21 @@ public class ProjetService {
 		
 		return projetDTO;	
 	}
+
+	public ResponseEntity<List<ProjetDTO>> getProjets() {
+		Iterable<Projet> projets = projetRepository.findAll();
+		List<ProjetDTO> projetsDTO = new ArrayList<>();
+
+		for (Projet projet : projets) {
+			ProjetDTO projetDTO = mapProjetToDTO(projet);
+			projetsDTO.add(projetDTO);
+		}
+
+		return ResponseEntity.ok(projetsDTO);
+	}
 	
+	// Je n'ai pas utilisé ResponseEntity comme retour afin de pouvoir réutiliser
+	// facilement cette méthode dans getProjetsByEquipe
 	public List<ProjetDTO> getProjetsByComposition(int id) {
 		Optional<Composition> compositionChoisie = compositionRepository.findById(id);
 		
@@ -98,7 +112,7 @@ public class ProjetService {
 				projetsDTO.add(projetDTO);
 			}
 			
-			return projetsDTO;
+			return(projetsDTO);
 		} else {
 			return null;
 		}
