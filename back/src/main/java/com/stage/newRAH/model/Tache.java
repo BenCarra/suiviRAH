@@ -51,6 +51,12 @@ public class Tache {
 	public Tache() {
 	}
 
+	// Constructeur à supprimer après avoir testé la connexion avec Angular
+	// (utilisation de ce constructeur dans NewRahApplication)
+	public Tache(String nomTache) {
+		this.nomTache = nomTache;
+	}
+
 	public Tache(int idTache, String nomTache, LocalDateTime debutTache, LocalDateTime finTache, String commentaires,
 			TypeTache typeTache, Projet projet) {
 		this.idTache = idTache;

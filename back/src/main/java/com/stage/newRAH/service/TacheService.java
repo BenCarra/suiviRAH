@@ -48,6 +48,18 @@ public class TacheService {
 		
 		return tacheDTO;
 	}
+
+	public ResponseEntity<List<TacheDTO>> getTaches() {
+		Iterable<Tache> taches = tacheRepository.findAll();
+		List<TacheDTO> tachesDTO = new ArrayList<>();
+			
+			for (Tache tache : taches) {
+				TacheDTO tacheDTO = this.mapTacheToDTO(tache);
+				tachesDTO.add(tacheDTO);
+			}
+			return ResponseEntity.ok(tachesDTO);
+
+	}
 	
 	public ResponseEntity<TacheDTO> getTacheById(int id) {
 		
