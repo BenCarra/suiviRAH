@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { HeaderComponent } from "../header/header.component";
-import { UtilisateurListComponent } from "../utilisateur-list/utilisateur-list.component";
+import { UtilisateurListComponent } from '../utilisateur-list/utilisateur-list.component';
 import { FooterComponent } from "../footer/footer.component";
 
 @Component({

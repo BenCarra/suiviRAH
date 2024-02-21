@@ -19,6 +19,10 @@ export class UtilisateurService {
     return this.http.get<Utilisateur[]>(this.url+"/utilisateurs");
   }
 
+  public findById(id: string | undefined): Observable<Utilisateur> {
+    return this.http.get<Utilisateur>(this.url+"/utilisateurById/"+id);
+  }
+
   public findByNom(): Observable<Utilisateur> {
 
     let nom : string | null = '';

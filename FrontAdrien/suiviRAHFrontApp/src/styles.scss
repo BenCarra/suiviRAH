@@ -1,7 +1,29 @@
 /* You can add global styles to this file, and also import other style files */
+@font-face {
+    font-family: 'Filson Soft Book';
+    src: url('./assets/fonts/Mostardesign\ -\ FilsonSoftBook.otf');
+}
+
 body {
-    width: 100%;
     height: 100%;
+    width: 100%;
     margin: auto;
-    background: linear-gradient(180deg, rgba(162.56, 155.17, 148.34, 0) 0%, #A7A29E 100%);
+    font-size: 10pt;
+    font-family: 'Filson Soft Book', Calibri, sans-serif;
+    background: linear-gradient(180deg, #00884C , #312B6D) no-repeat;
+}
+
+h1 {
+    font-size: 30pt;
+    font-kerning: 0;
+}
+
+h2, h3 {
+    font-size: 18pt; 
+}
+
+h1, h2, h3 {
+    color: #FFFFFF;
+    line-height: 120%;
+    font-family: 'Filson Soft Medium',Calibri, sans-serif
 }

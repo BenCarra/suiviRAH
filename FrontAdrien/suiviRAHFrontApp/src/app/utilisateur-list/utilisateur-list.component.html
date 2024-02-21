@@ -40,7 +40,7 @@
                         <td>{{ utilisateur.idSite }}</td>
                         <td>{{ utilisateur.idTypeUtilisateur }}</td>
                         <!-- Gérer les opérations CRUD liées au boutons ci-dessous via l'API-->
-                        <td><button type="button" (click)="onUpdateUtilisateur()">Modifier</button></td>
+                        <td><button type="button" (click)="onUpdateUtilisateur($event)">Modifier</button></td>
                         <td><button type="button" (click)="onDeleteUtilisateur($event)">Supprimer</button></td>
                     </tr>
                 }
@@ -49,5 +49,6 @@
         </table>
     </div>
     
+   <app-form-update-utilisateur id="form-update-utilisateur"></app-form-update-utilisateur>
 
 </div>

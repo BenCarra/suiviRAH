@@ -1,4 +1,5 @@
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 720px) {
+
     .tools-box {
        display: flex;
        flex-direction: column;
@@ -32,7 +33,7 @@ app-projet-list{
 }
 
 .conteneur-btn {
-    background: linear-gradient(180deg, white 0%, rgba(255, 255, 255, 0) 100%);
+    background-color: white; 
     justify-content: center;
     align-items: center;
     display: flex;

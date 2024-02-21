@@ -38,7 +38,11 @@ export class ProjetListComponent {
       e.target.style.color = "red";
       const id: string | undefined = e.target.parentElement?.parentElement?.id;
       console.log(id);
-      this.projetService.deleteById(id).subscribe();
+      if(confirm("Voulez-vous vraiment supprimer ce projet ?")){
+        // Régler les problèmes de contraintes d'intégrité pour la base de données
+        this.projetService.deleteById(id).subscribe();
+      }
+      
     }
   }
   onDuplicateProjet() {

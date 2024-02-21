@@ -58,6 +58,19 @@ public class UtilisateurService {
 
     }
 
+	public ResponseEntity<UtilisateurDTO> getUtilisateurById(int id) {
+        
+		Optional<Utilisateur> utilisateurChoisi = utilisateurRepository.findById(id);
+
+		if (utilisateurChoisi.isPresent()) {
+				UtilisateurDTO utilisateurChoisiDTO = this.mapUtilisateurToDTO(utilisateurChoisi.get());
+				return ResponseEntity.ok(utilisateurChoisiDTO);
+		} else {
+			return ResponseEntity.notFound().build();
+		}
+
+    }
+
 	public ResponseEntity<List<UtilisateurDTO>> getUtilisateursBySite(int id) {
 		Optional<Site> siteChoisi = siteRepository.findById(id);
 		

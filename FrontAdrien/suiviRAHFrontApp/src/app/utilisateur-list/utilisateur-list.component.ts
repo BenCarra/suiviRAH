@@ -2,13 +2,15 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Utilisateur } from '../model/utilisateur';
 import { UtilisateurService } from '../services/utilisateur.service';
+import { Router } from '@angular/router';
+import { FormUpdateUtilisateurComponent } from '../../forms/form-update-utilisateur/form-update-utilisateur.component';
 
 @Component({
-  selector: 'app-utilisateur-list',
-  standalone: true,
-  imports: [ReactiveFormsModule],
-  templateUrl: './utilisateur-list.component.html',
-  styleUrl: './utilisateur-list.component.scss'
+    selector: 'app-utilisateur-list',
+    standalone: true,
+    templateUrl: './utilisateur-list.component.html',
+    styleUrl: './utilisateur-list.component.scss',
+    imports: [ReactiveFormsModule, FormUpdateUtilisateurComponent]
 })
 export class UtilisateurListComponent {
 
@@ -17,7 +19,7 @@ export class UtilisateurListComponent {
   listUtilisateurs!: Utilisateur[];
   formFiltrage!: FormGroup<{ filtrageDemande: FormControl<string | null>; utilisateurRecherche: FormControl<string | null>; boutonSoumission: FormControl<string | null>; }>;
 
-  constructor(private utilisateurService: UtilisateurService){}
+  constructor(private utilisateurService: UtilisateurService, private router: Router){}
 
   ngOnInit(){
     this.formFiltrage = new FormGroup({
@@ -44,8 +46,18 @@ export class UtilisateurListComponent {
       }
     }
   }
-  onUpdateUtilisateur() {
-    throw new Error('Method not implemented.');
+  onUpdateUtilisateur(e: MouseEvent) {
+    if (e.target instanceof HTMLElement){
+      const id: string | undefined = e.target.parentElement?.parentElement?.id;
+      console.log(id);
+        let formUpdateUtilisateur: (HTMLElement | null) = document.getElementById('form-update-utilisateur');
+        if (formUpdateUtilisateur != null){
+          formUpdateUtilisateur.style.display = "block";
+        }
+      
+      //this.router.navigate(['admin','utilisateurs','update',id]);
+      // Ajouter fenêtre par dessus la courante pour afficher le formulaire avec les champs pré-remplis
+    }
   }
 
   onInputChange() {

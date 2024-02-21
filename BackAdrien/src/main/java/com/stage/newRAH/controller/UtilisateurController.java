@@ -25,6 +25,11 @@ public class UtilisateurController {
 	public ResponseEntity<List<UtilisateurDTO>> getUtilisateurs() {
 		return utilisateurService.getUtilisateurs();
 	}
+
+	@GetMapping("/utilisateurById/{id}")
+	public ResponseEntity<UtilisateurDTO> getUtilisateurById(@PathVariable int id) {
+		return utilisateurService.getUtilisateurById(id);
+	}
 	
 	@GetMapping("/utilisateursBySite/{id}")
 	public ResponseEntity<List<UtilisateurDTO>> getUtilisateursBySite(@PathVariable int id) {
