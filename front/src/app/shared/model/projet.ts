@@ -23,5 +23,4 @@ export class Projet {
     idEtat!: number;
     commentaires!: string;
 
-    
 }

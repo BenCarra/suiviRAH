@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { Projet } from '../../model/projet';
-import { ProjetService } from '../../service/projet.service';
 import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
+import { Projet } from '../../shared/model/projet';
+import { ProjetService } from '../../shared/service/projet.service';
 
 @Component({
   selector: 'app-list-projets',
@@ -11,8 +11,8 @@ import { CommonModule } from '@angular/common';
   templateUrl: './list-projets.component.html',
   styleUrl: './list-projets.component.css'
 })
-export class ListProjetsComponent implements OnInit{
- 
+export class ListProjetsComponent {
+
   projets!: Projet[];
 
   constructor(private projetService: ProjetService) {
