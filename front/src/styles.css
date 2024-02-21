@@ -1,1 +1,23 @@
 /* You can add global styles to this file, and also import other style files */
+@font-face {
+    font-family: 'PoliceTexte';
+    src: url('/assets/fonts/Mostardesign - FilsonSoftBook.otf') format('opentype');
+  }
+
+  @font-face {
+    font-family: 'PoliceTitre';
+    src: url('/assets/fonts/Mostardesign - FilsonSoftMedium.otf') format('opentype');
+  }
+
+
+html, body { height: 100%; }
+body { margin: 0; font-family: 'PoliceTexte', sans-serif; }
+
+* {
+    font-family: 'PoliceTexte', sans-serif;
+}
+
+.title {
+    font-family: 'PoliceTitre', sans-serif;
+}
+

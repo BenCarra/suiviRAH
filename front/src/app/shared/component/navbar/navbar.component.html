@@ -1,4 +1,23 @@
-<header class="text-gray-400 bg-gray-900 body-font">
+<mat-toolbar color="primary">
+  <!-- Nom de l'entreprise -->
+  <span class="toolbar-element title">TALARON Services</span>
+
+  <!-- Espace flexible pour pousser les éléments suivants à droite -->
+  <span class="toolbar-spacer"></span>
+
+  <!-- Liens de navigation -->
+  <span class="toolbar-element">
+    <button mat-button routerLink="/">Accueil</button>
+    <button mat-button routerLink="/calendrier">Calendrier</button>
+    <button mat-button routerLink="/listProjets">Liste des projets</button>
+    <button mat-button routerLink="/listTaches">Liste des tâches</button>
+    <!-- Bouton de déconnexion -->
+    <button mat-button>Déconnexion</button>
+  </span>
+</mat-toolbar>
+
+
+<!-- <header class="text-gray-400 bg-gray-900 body-font">
     <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
       <a class="flex title-font font-medium items-center text-white mb-4 md:mb-0">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-10 h-10 text-white p-2 bg-green-500 rounded-full" viewBox="0 0 24 24">
@@ -18,4 +37,4 @@
         </svg>
       </button>
     </div>
-  </header>
+  </header> -->

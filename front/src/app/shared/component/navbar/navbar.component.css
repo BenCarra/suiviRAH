@@ -1,0 +1,8 @@
+.toolbar-spacer {
+    flex: 1 1 auto;
+  }
+/* Ajouter une marge à droite pour tous les boutons sauf le dernier */
+.toolbar-element button:not(:last-child) {
+    margin-right: 10px; /* Vous pouvez ajuster la valeur de l'espace selon vos besoins */
+  }
+    
