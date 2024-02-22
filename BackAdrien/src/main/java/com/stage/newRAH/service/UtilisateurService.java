@@ -1,6 +1,7 @@
 package com.stage.newRAH.service;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
@@ -10,8 +11,13 @@ import org.springframework.stereotype.Service;
 
 import com.stage.newRAH.dto.UtilisateurDTO;
 import com.stage.newRAH.model.Site;
+import com.stage.newRAH.model.TypeUtilisateur;
 import com.stage.newRAH.model.Utilisateur;
+import com.stage.newRAH.repository.CompositionRepository;
+import com.stage.newRAH.repository.EquipeRepository;
 import com.stage.newRAH.repository.SiteRepository;
+import com.stage.newRAH.repository.TacheRepository;
+import com.stage.newRAH.repository.TypeUtilisateurRepository;
 import com.stage.newRAH.repository.UtilisateurRepository;
 
 @Service
@@ -22,10 +28,24 @@ public class UtilisateurService {
 
 	@Autowired
 	SiteRepository siteRepository;
+
+	@Autowired
+	TypeUtilisateurRepository typeUtilisateurRepository;
+
+	@Autowired
+	TacheRepository tacheRepository;
+
+	@Autowired
+	EquipeRepository equipeRepository;
+
+	@Autowired
+	CompositionRepository compositionRepository;
 	
 	public UtilisateurDTO mapUtilisateurToDTO(Utilisateur utilisateur) {
 		
 		UtilisateurDTO utilisateurDTO = new UtilisateurDTO();
+
+		Iterable<Site> sites = siteRepository.findAll();
 		
 		utilisateurDTO.setIdUtilisateur(utilisateur.getIdUtilisateur());
 		utilisateurDTO.setNomUtilisateur(utilisateur.getNomUtilisateur());
@@ -33,8 +53,6 @@ public class UtilisateurService {
 		utilisateurDTO.setLogin(utilisateur.getLogin());
 		utilisateurDTO.setMail(utilisateur.getMail());
 		utilisateurDTO.setActif(utilisateur.isActif());
-		utilisateurDTO.setIdSite(utilisateur.getSite().getIdSite());
-		utilisateurDTO.setIdTypeUtilisateur(utilisateur.getTypeUtilisateur().getIdTypeUtilisateur());
 		
 		return utilisateurDTO;
 	}

@@ -16,6 +16,7 @@ export class ProjetListComponent {
   listNomsProjet: String[] = [];
   listProjets!: Projet[];
   formFiltrage!: FormGroup<{ filtrageDemande: FormControl<string | null>; projetRecherche: FormControl<string | null>; boutonSoumission: FormControl<string | null>; }>;
+  idProjet!: string;
 
   constructor(private projetService: ProjetService) {}
 
@@ -35,12 +36,13 @@ export class ProjetListComponent {
 
   onDeleteProjet(e: MouseEvent) {
     if (e.target instanceof HTMLElement) {
-      e.target.style.color = "red";
-      const id: string | undefined = e.target.parentElement?.parentElement?.id;
-      console.log(id);
+      if(e.target.parentElement?.parentElement?.id){
+        this.idProjet = e.target.parentElement?.parentElement?.id;
+      }
+      //console.log(this.idProjet);
       if(confirm("Voulez-vous vraiment supprimer ce projet ?")){
         // Régler les problèmes de contraintes d'intégrité pour la base de données
-        this.projetService.deleteById(id).subscribe();
+        this.projetService.deleteById(this.idProjet).subscribe();
       }
       
     }

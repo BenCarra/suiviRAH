@@ -35,8 +35,8 @@ export class UtilisateurService {
 
   }
 
-  public save(utilisateur: Utilisateur){
-    return this.http.post<Utilisateur>(this.url, utilisateur);
+  public update(utilisateur: Utilisateur){
+    return this.http.post<Utilisateur>(this.url+"/updateUtilisateur/"+utilisateur.idUtilisateur, utilisateur);
   }
 
   public deleteById(id: string | undefined): Observable<Utilisateur> {

@@ -54,7 +54,7 @@ public class Utilisateur {
 	private List<Tache> listTaches = new ArrayList<>();
 	
 	@ManyToMany(mappedBy="listUtilisateurs")
-	List<Equipe> listEquipes = new ArrayList<>();
+	private List<Equipe> listEquipes = new ArrayList<>();
 	
 	// J'ai rajouté ce lien entre Utilisateur et Composition
 	@OneToMany(mappedBy="utilisateur", cascade = CascadeType.ALL)
