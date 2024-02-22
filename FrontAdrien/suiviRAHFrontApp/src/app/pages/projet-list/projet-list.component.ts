@@ -43,6 +43,7 @@ export class ProjetListComponent {
       if(confirm("Voulez-vous vraiment supprimer ce projet ?")){
         // Régler les problèmes de contraintes d'intégrité pour la base de données
         this.projetService.deleteById(this.idProjet).subscribe();
+        window.location.reload();
       }
       
     }
