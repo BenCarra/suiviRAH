@@ -1,65 +1,131 @@
-<section class="text-gray-400 bg-gray-900 body-font">
+  
+  <h1 >Liste des projets</h1>
+
+
+    <div class="table-container">
+      <table >
+        <thead>
+          <tr>
+            <th>Id projet</th>
+            <th>Nom </th>
+            <th>Id Client</th>
+            <th>Jira</th>
+            <th>Id Type Projet</th>
+            <th>Id Type Defaut </th>
+            <th>Techno </th>
+            <th>Service </th>
+            <th>Date demande </th>
+            <th>Livraison souhaitée </th>
+            <th>Livraison révisée </th>
+            <th>Affectation CDS </th>
+            <th>Prise en compte CDS </th>
+            <th>Date Estimation </th>
+            <th>Devis Estimation </th>
+            <th>Dont Garantie </th>
+            <th>Date Feu Vert </th>
+            <th>Date Livraison </th>
+            <th>MCO </th>
+            <th>Date passage MCO </th>
+            <th>Date sortie MCO </th>
+            <th>Id Etat </th>
+            <th>Commentaires </th>
+        </thead>
+        <tbody>
+          <tr *ngFor="let projet of projets">
+            <td>{{ projet.idProjet}}</td>
+            <td>{{ projet.nomProjet}}</td>
+            <td>{{ projet.idClient}}</td>
+            <td>{{ projet.jira}}</td>
+            <td>{{ projet.idTypeProjet}}</td>
+            <td>{{ projet.idTypeDefaut}}</td>
+            <td>{{ projet.techno}}</td>
+            <td>{{ projet.service}}</td>
+            <td>{{ projet.dateDemande}}</td>
+            <td>{{ projet.livraisonSouhaitee}}</td>
+            <td>{{ projet.livraisonRevisee}}</td>
+            <td>{{ projet.affectationCDS}}</td>
+            <td>{{ projet.priseEnCompteCDS}}</td>
+            <td>{{ projet.dateEstimation}}</td>
+            <td>{{ projet.devisEstimation}}</td>
+            <td>{{ projet.dontGarantie}}</td>
+            <td>{{ projet.dateFeuVert}}</td>
+            <td>{{ projet.dateLivraison}}</td>
+            <td>{{ projet.mco}}</td>
+            <td>{{ projet.datePassageMCO}}</td>
+            <td>{{ projet.dateSortieMCO}}</td>
+            <td>{{ projet.idEtat}}</td>
+            <td>{{ projet.commentaires}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+
+
+
+
+<!-- <section class="text-gray-400 bg-gray-900 body-font list-projets">
     <div class="container px-5 py-24 mx-auto">
       <div class="flex flex-col text-center w-full mb-20">
         <h1 class="sm:text-4xl text-3xl font-medium title-font mb-2 text-white">Liste des Projets</h1>
-        <!-- <p class="lg:w-2/3 mx-auto leading-relaxed text-base">Banh mi cornhole echo park skateboard authentic crucifix neutra tilde lyft biodiesel artisan direct trade mumblecore 3 wolf moon twee</p> -->
       </div>
       <div class="lg:w-2/3 w-full mx-auto overflow-auto">
         <table class="table-auto w-full text-left whitespace-no-wrap">
           <thead>
             <tr>
               <th class="px-4 py-3 title-font tracking-wider font-medium text-white text-sm bg-gray-800 rounded-tl rounded-bl">Id projet</th>
-              <th class="px-4 py-3 title-font tracking-wider font-medium text-white text-sm bg-gray-800">Nom </th>
-              <th class="px-4 py-3 title-font tracking-wider font-medium text-white text-sm bg-gray-800">Id Client</th>
-              <th class="px-4 py-3 title-font tracking-wider font-medium text-white text-sm bg-gray-800">Jira</th>
-              <th class="px-4 py-3 title-font tracking-wider font-medium text-white text-sm bg-gray-800">Id Type Projet</th>
-              <th class="px-4 py-3 title-font tracking-wider font-medium text-white text-sm bg-gray-800">Id Type Defaut </th>
-              <th class="px-4 py-3 title-font tracking-wider font-medium text-white text-sm bg-gray-800">Techno </th>
-              <th class="px-4 py-3 title-font tracking-wider font-medium text-white text-sm bg-gray-800">Service </th>
-              <th class="px-4 py-3 title-font tracking-wider font-medium text-white text-sm bg-gray-800">Date demande </th>
-              <th class="px-4 py-3 title-font tracking-wider font-medium text-white text-sm bg-gray-800">Livraison souhaitée </th>
-              <th class="px-4 py-3 title-font tracking-wider font-medium text-white text-sm bg-gray-800">Livraison révisée </th>
-              <th class="px-4 py-3 title-font tracking-wider font-medium text-white text-sm bg-gray-800">Affectation CDS </th>
-              <th class="px-4 py-3 title-font tracking-wider font-medium text-white text-sm bg-gray-800">Prise en compte CDS </th>
-              <th class="px-4 py-3 title-font tracking-wider font-medium text-white text-sm bg-gray-800">Date Estimation </th>
-              <th class="px-4 py-3 title-font tracking-wider font-medium text-white text-sm bg-gray-800">Devis Estimation </th>
-              <th class="px-4 py-3 title-font tracking-wider font-medium text-white text-sm bg-gray-800">Dont Garantie </th>
-              <th class="px-4 py-3 title-font tracking-wider font-medium text-white text-sm bg-gray-800">Date Feu Vert </th>
-              <th class="px-4 py-3 title-font tracking-wider font-medium text-white text-sm bg-gray-800">Date Livraison </th>
-              <th class="px-4 py-3 title-font tracking-wider font-medium text-white text-sm bg-gray-800">MCO </th>
-              <th class="px-4 py-3 title-font tracking-wider font-medium text-white text-sm bg-gray-800">Date passage MCO </th>
-              <th class="px-4 py-3 title-font tracking-wider font-medium text-white text-sm bg-gray-800">Date sortie MCO </th>
-              <th class="px-4 py-3 title-font tracking-wider font-medium text-white text-sm bg-gray-800">Id Etat </th>
-              <th class="px-4 py-3 title-font tracking-wider font-medium text-white text-sm bg-gray-800">Commentaires </th>
+              <th>Nom </th>
+              <th>Id Client</th>
+              <th>Jira</th>
+              <th>Id Type Projet</th>
+              <th>Id Type Defaut </th>
+              <th>Techno </th>
+              <th>Service </th>
+              <th>Date demande </th>
+              <th>Livraison souhaitée </th>
+              <th>Livraison révisée </th>
+              <th>Affectation CDS </th>
+              <th>Prise en compte CDS </th>
+              <th>Date Estimation </th>
+              <th>Devis Estimation </th>
+              <th>Dont Garantie </th>
+              <th>Date Feu Vert </th>
+              <th>Date Livraison </th>
+              <th>MCO </th>
+              <th>Date passage MCO </th>
+              <th>Date sortie MCO </th>
+              <th>Id Etat </th>
+              <th>Commentaires </th>
           </thead>
           <tbody>
             <tr *ngFor="let projet of projets">
-              <td class="border-t-2 border-gray-800 px-4 py-3">{{ projet.idProjet}}</td>
-              <td class="border-t-2 border-gray-800 px-4 py-3">{{ projet.nomProjet}}</td>
-              <td class="border-t-2 border-gray-800 px-4 py-3">{{ projet.idClient}}</td>
-              <td class="border-t-2 border-gray-800 px-4 py-3">{{ projet.jira}}</td>
-              <td class="border-t-2 border-gray-800 px-4 py-3">{{ projet.idTypeProjet}}</td>
-              <td class="border-t-2 border-gray-800 px-4 py-3">{{ projet.idTypeDefaut}}</td>
-              <td class="border-t-2 border-gray-800 px-4 py-3">{{ projet.techno}}</td>
-              <td class="border-t-2 border-gray-800 px-4 py-3">{{ projet.service}}</td>
-              <td class="border-t-2 border-gray-800 px-4 py-3">{{ projet.dateDemande}}</td>
-              <td class="border-t-2 border-gray-800 px-4 py-3">{{ projet.livraisonSouhaitee}}</td>
-              <td class="border-t-2 border-gray-800 px-4 py-3">{{ projet.livraisonRevisee}}</td>
-              <td class="border-t-2 border-gray-800 px-4 py-3">{{ projet.affectationCDS}}</td>
-              <td class="border-t-2 border-gray-800 px-4 py-3">{{ projet.priseEnCompteCDS}}</td>
-              <td class="border-t-2 border-gray-800 px-4 py-3">{{ projet.dateEstimation}}</td>
-              <td class="border-t-2 border-gray-800 px-4 py-3">{{ projet.devisEstimation}}</td>
-              <td class="border-t-2 border-gray-800 px-4 py-3">{{ projet.dontGarantie}}</td>
-              <td class="border-t-2 border-gray-800 px-4 py-3">{{ projet.dateFeuVert}}</td>
-              <td class="border-t-2 border-gray-800 px-4 py-3">{{ projet.dateLivraison}}</td>
-              <td class="border-t-2 border-gray-800 px-4 py-3">{{ projet.mco}}</td>
-              <td class="border-t-2 border-gray-800 px-4 py-3">{{ projet.datePassageMCO}}</td>
-              <td class="border-t-2 border-gray-800 px-4 py-3">{{ projet.dateSortieMCO}}</td>
-              <td class="border-t-2 border-gray-800 px-4 py-3">{{ projet.idEtat}}</td>
-              <td class="border-t-2 border-gray-800 px-4 py-3">{{ projet.commentaires}}</td>
+              <td>{{ projet.idProjet}}</td>
+              <td>{{ projet.nomProjet}}</td>
+              <td>{{ projet.idClient}}</td>
+              <td>{{ projet.jira}}</td>
+              <td>{{ projet.idTypeProjet}}</td>
+              <td>{{ projet.idTypeDefaut}}</td>
+              <td>{{ projet.techno}}</td>
+              <td>{{ projet.service}}</td>
+              <td>{{ projet.dateDemande}}</td>
+              <td>{{ projet.livraisonSouhaitee}}</td>
+              <td>{{ projet.livraisonRevisee}}</td>
+              <td>{{ projet.affectationCDS}}</td>
+              <td>{{ projet.priseEnCompteCDS}}</td>
+              <td>{{ projet.dateEstimation}}</td>
+              <td>{{ projet.devisEstimation}}</td>
+              <td>{{ projet.dontGarantie}}</td>
+              <td>{{ projet.dateFeuVert}}</td>
+              <td>{{ projet.dateLivraison}}</td>
+              <td>{{ projet.mco}}</td>
+              <td>{{ projet.datePassageMCO}}</td>
+              <td>{{ projet.dateSortieMCO}}</td>
+              <td>{{ projet.idEtat}}</td>
+              <td>{{ projet.commentaires}}</td>
             </tr>
           </tbody>
         </table>
       </div>
     </div>
-  </section>
+  </section> -->
+  

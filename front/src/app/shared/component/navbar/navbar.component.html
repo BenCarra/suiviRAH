@@ -1,20 +1,31 @@
-<mat-toolbar color="primary">
-  <!-- Nom de l'entreprise -->
-  <span class="toolbar-element title">TALARON Services</span>
+<nav class="navbar">
+  <img src="/assets/img/logoTest.png" alt="Logo TALARON" class="navbar-logo">
+  <div class="navbar-links">
+    <a routerLink="/" class="navbar-item">Accueil</a>
+    <a routerLink="/calendrier" class="navbar-item">Calendrier</a>
+    <a routerLink="/listProjets" class="navbar-item">Liste des projets</a>
+    <a routerLink="/listTaches" class="navbar-item">Liste des tâches</a>
+    <a routerLink="/deconnexion" class="navbar-item">Déconnexion</a>
+  </div>
+</nav>
 
-  <!-- Espace flexible pour pousser les éléments suivants à droite -->
+<!-- <mat-toolbar class="toolbar">
+
+  <img src="/assets/img/logoTest.png" alt="Logo TALARON" class="logo">
+
+
   <span class="toolbar-spacer"></span>
 
-  <!-- Liens de navigation -->
+
   <span class="toolbar-element">
     <button mat-button routerLink="/">Accueil</button>
     <button mat-button routerLink="/calendrier">Calendrier</button>
     <button mat-button routerLink="/listProjets">Liste des projets</button>
     <button mat-button routerLink="/listTaches">Liste des tâches</button>
-    <!-- Bouton de déconnexion -->
+
     <button mat-button>Déconnexion</button>
   </span>
-</mat-toolbar>
+</mat-toolbar> -->
 
 
 <!-- <header class="text-gray-400 bg-gray-900 body-font">

@@ -14,6 +14,7 @@ import { ProjetService } from '../../shared/service/projet.service';
 export class ListProjetsComponent {
 
   projets!: Projet[];
+dataSource: any;
 
   constructor(private projetService: ProjetService) {
 

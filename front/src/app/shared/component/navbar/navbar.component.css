@@ -1,8 +1,55 @@
+.navbar {
+  background-color: #312B6D; 
+  color: white;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  height: 80px;
+}
+
+.navbar-logo {
+  height: 50px; /* Ajustez à la taille de votre logo */
+}
+
+.navbar-links {
+  margin-left: auto; /* Pousse les liens vers la droite */
+  display: flex;
+}
+
+.navbar-item {
+  padding: 10px 15px;
+  text-decoration: none;
+  color: white;
+}
+
+/* .navbar-item:hover {
+  background-color: #312B6D; /* Couleur de fond au survol 
+} */
+
+
+/* .logo {
+  height: 45px; 
+  width: auto;
+}
+
 .toolbar-spacer {
     flex: 1 1 auto;
   }
-/* Ajouter une marge à droite pour tous les boutons sauf le dernier */
+
 .toolbar-element button:not(:last-child) {
-    margin-right: 10px; /* Vous pouvez ajuster la valeur de l'espace selon vos besoins */
+    margin-right: 10px; 
   }
+
+  .toolbar-element {
+    font-size: 16px;
+  }
+
+  .toolbar {
+    
+    background: #312B6D;
+    color : white;
+    height: 80px;
+  } */
+
+  /* background: linear-gradient(180deg, #00884C , #312B6D) no-repeat; */
     
