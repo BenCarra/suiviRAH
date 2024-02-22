@@ -4,6 +4,8 @@ import { Utilisateur } from '../../shared/model/utilisateur';
 import { UtilisateurService } from '../../shared/service/utilisateur.service';
 import { Router } from '@angular/router';
 import { FormUpdateUtilisateurComponent } from '../forms/form-update-utilisateur/form-update-utilisateur.component';
+import { TypeUtilisateur } from '../../shared/model/type-utilisateur';
+import { Site } from '../../shared/model/site';
 
 @Component({
     selector: 'app-utilisateur-list',
@@ -14,9 +16,8 @@ import { FormUpdateUtilisateurComponent } from '../forms/form-update-utilisateur
 })
 export class UtilisateurListComponent {
 
-  childEnabled = false;
   valeurParDefautList: string = "Filtrer";
-  idUtilisateur!: string | undefined;
+  idUtilisateur!: string ;
   listNomsUtilisateur: String[] = [];
   listUtilisateurs!: Utilisateur[];
   formFiltrage!: FormGroup<{ filtrageDemande: FormControl<string | null>; utilisateurRecherche: FormControl<string | null>; boutonSoumission: FormControl<string | null>; }>;
@@ -43,8 +44,10 @@ export class UtilisateurListComponent {
   
   onDeleteUtilisateur(e: MouseEvent) {
     if (e.target instanceof HTMLElement) {
-      this.idUtilisateur = e.target.parentElement?.parentElement?.id;
-      console.log(this.idUtilisateur);
+      if (e.target.parentElement?.parentElement?.id){
+        this.idUtilisateur = e.target.parentElement?.parentElement?.id;
+      }
+      //console.log(this.idUtilisateur);
       if(confirm("Voulez-vous vraiment supprimer cet utilisateur ?")){
         // Régler les problèmes de contraintes d'intégrité pour la base de données
         this.utilisateurService.deleteById(this.idUtilisateur).subscribe();
@@ -53,13 +56,11 @@ export class UtilisateurListComponent {
   }
   onUpdateUtilisateur(e: MouseEvent) {
     if (e.target instanceof HTMLElement){
-      this.idUtilisateur = e.target.parentElement?.parentElement?.id;
-      console.log(this.idUtilisateur);
-        this.childEnabled = true;
-        let formUpdateUtilisateur: (HTMLElement | null) = document.getElementById('form-update-utilisateur');
-        if (formUpdateUtilisateur != null){
-          formUpdateUtilisateur.style.display = "block";
-        }
+      if (e.target.parentElement?.parentElement?.id){
+        this.idUtilisateur = e.target.parentElement?.parentElement?.id;
+      }
+      //console.log(this.idUtilisateur);
+      this.router.navigateByUrl("/admin/utilisateurs/update/"+this.idUtilisateur);
       // Ajouter fenêtre par dessus la courante pour afficher le formulaire avec les champs pré-remplis
     }
   }
@@ -72,8 +73,8 @@ export class UtilisateurListComponent {
     if (this.formFiltrage.value.filtrageDemande != "") {
 
       let listNomsUtilisateur: string[] = [];
-      let listTypesUtilisateur: number[] = [];
-      let listSitesUtilisateur: number[] = [];
+      let listTypesUtilisateur: TypeUtilisateur[] = [];
+      let listSitesUtilisateur: Site[] = [];
 
       this.formFiltrage.get('utilisateurRecherche')?.enable();
       this.formFiltrage.get('boutonSoumission')?.enable();
@@ -92,8 +93,8 @@ export class UtilisateurListComponent {
         console.log("Recherche par type d'utilisateur");
         this.utilisateurService.findAll().subscribe((data) => {
           (data.forEach((utilisateur) => {
-            console.log(utilisateur.idTypeUtilisateur);
-            listTypesUtilisateur.push(utilisateur.idTypeUtilisateur);
+            console.log(utilisateur.typeUtilisateur);
+            listTypesUtilisateur.push(utilisateur.typeUtilisateur);
             console.log(listTypesUtilisateur);
           }
           ));
@@ -102,8 +103,8 @@ export class UtilisateurListComponent {
         console.log("Recherche par nom de site");
         this.utilisateurService.findAll().subscribe((data) => {
           (data.forEach((utilisateur) => {
-            console.log(utilisateur.idSite);
-            listSitesUtilisateur.push(utilisateur.idSite);
+            console.log(utilisateur.site);
+            listSitesUtilisateur.push(utilisateur.site);
             console.log(listSitesUtilisateur);
           }
           ));

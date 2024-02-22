@@ -1,5 +1,13 @@
 package com.stage.newRAH.dto;
 
+import java.util.List;
+
+import com.stage.newRAH.model.Composition;
+import com.stage.newRAH.model.Equipe;
+import com.stage.newRAH.model.Site;
+import com.stage.newRAH.model.Tache;
+import com.stage.newRAH.model.TypeUtilisateur;
+
 public class UtilisateurDTO {
 	
 	private int idUtilisateur;
@@ -8,23 +16,30 @@ public class UtilisateurDTO {
 	private String login ;
 	private String mail;
 	private boolean actif;
-	private int idSite;
-	private int idTypeUtilisateur;
+	private Site site;
+	private TypeUtilisateur typeUtilisateur;
+	private List<Tache> listTaches;
+	private List<Equipe> listEquipes;
+	private List<Composition> listCompositions;
 	
 	public UtilisateurDTO() {
 
 	}
 
 	public UtilisateurDTO(int idUtilisateur, String nomUtilisateur, String prenomUtilisateur, String login, String mail,
-			boolean actif,int idSite, int idTypeUtilisateur) {
+			boolean actif, Site site, TypeUtilisateur typeUtilisateur, List<Tache> listTaches, List<Equipe> listEquipes,
+			List<Composition> listCompositions) {
 		this.idUtilisateur = idUtilisateur;
 		this.nomUtilisateur = nomUtilisateur;
 		this.prenomUtilisateur = prenomUtilisateur;
 		this.login = login;
 		this.mail = mail;
 		this.actif = actif;
-		this.idSite = idSite;
-		this.idTypeUtilisateur = idTypeUtilisateur;
+		this.site = site;
+		this.typeUtilisateur = typeUtilisateur;
+		this.listTaches = listTaches;
+		this.listEquipes = listEquipes;
+		this.listCompositions = listCompositions;
 	}
 
 	public int getIdUtilisateur() {
@@ -75,20 +90,56 @@ public class UtilisateurDTO {
 		this.actif = actif;
 	}
 
-	public int getIdSite() {
-		return idSite;
+	public Site getSite() {
+		return site;
 	}
 
-	public void setIdSite(int idSite) {
-		this.idSite = idSite;
+	public void setSite(Site site) {
+		this.site = site;
 	}
 
-	public int getIdTypeUtilisateur() {
-		return idTypeUtilisateur;
+	public TypeUtilisateur getTypeUtilisateur() {
+		return typeUtilisateur;
 	}
 
-	public void setIdTypeUtilisateur(int idTypeUtilisateur) {
-		this.idTypeUtilisateur = idTypeUtilisateur;
+	public void setTypeUtilisateur(TypeUtilisateur typeUtilisateur) {
+		this.typeUtilisateur = typeUtilisateur;
 	}
+
+	public List<Tache> getListTaches() {
+		return listTaches;
+	}
+
+	public void setListTaches(List<Tache> listTaches) {
+		this.listTaches = listTaches;
+	}
+
+	public List<Equipe> getListEquipes() {
+		return listEquipes;
+	}
+
+	public void setListEquipes(List<Equipe> listEquipes) {
+		this.listEquipes = listEquipes;
+	}
+
+	public List<Composition> getListCompositions() {
+		return listCompositions;
+	}
+
+	public void setListCompositions(List<Composition> listCompositions) {
+		this.listCompositions = listCompositions;
+	}
+
+	@Override
+	public String toString() {
+		return "UtilisateurDTO [idUtilisateur=" + idUtilisateur + ", nomUtilisateur=" + nomUtilisateur
+				+ ", prenomUtilisateur=" + prenomUtilisateur + ", login=" + login + ", mail=" + mail + ", actif="
+				+ actif + ", site=" + site + ", typeUtilisateur=" + typeUtilisateur + ", listTaches=" + listTaches
+				+ ", listEquipes=" + listEquipes + ", listCompositions=" + listCompositions + "]";
+	}
+
+	
+
+
 
 }

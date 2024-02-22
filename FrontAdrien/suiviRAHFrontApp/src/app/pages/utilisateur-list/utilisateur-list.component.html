@@ -27,6 +27,9 @@
                     <th>Actif</th>
                     <th>Site</th>
                     <th>Type utilisateur</th>
+                    <th>Tâches associées</th>
+                    <th>Equipes intégrées</th>
+                    <th>Compositions intégrées</th>
                     <th>Modifier</th>
                     <th>Supprimer</th>
                 </tr>
@@ -37,8 +40,11 @@
                         <td>{{ utilisateur.nomUtilisateur }}</td>
                         <td>{{ utilisateur.mail }}</td>
                         <td>{{ utilisateur.actif }}</td>
-                        <td>{{ utilisateur.idSite }}</td>
-                        <td>{{ utilisateur.idTypeUtilisateur }}</td>
+                        <td>{{ utilisateur.site }}</td>
+                        <td>{{ utilisateur.typeUtilisateur }}</td>
+                        <td>{{ utilisateur.listTaches}}</td>
+                        <td>{{ utilisateur.listEquipes}}</td>
+                        <td>{{ utilisateur.listCompositions}}</td>
                         <!-- Gérer les opérations CRUD liées au boutons ci-dessous via l'API-->
                         <td><button type="button" (click)="onUpdateUtilisateur($event)">Modifier</button></td>
                         <td><button type="button" (click)="onDeleteUtilisateur($event)">Supprimer</button></td>

@@ -8,4 +8,4 @@ import { FormUpdateUtilisateurComponent } from './pages/forms/form-update-utilis
 
 export const routes: Routes = [{path: '', component:HomeComponent},{path:'admin/accueil', component:PageAccueilAdminComponent},
 {path:'admin/calendrier', component: HeaderComponent}, {path:'admin/utilisateurs', component: PageUtilisateursAdminComponent},
-{path: 'admin/utilisateurs/update', component:FormUpdateUtilisateurComponent},{path: "**", component:NotFoundComponent}];
+{path: 'admin/utilisateurs/update/:id', component:FormUpdateUtilisateurComponent},{path: "**", component:NotFoundComponent}];

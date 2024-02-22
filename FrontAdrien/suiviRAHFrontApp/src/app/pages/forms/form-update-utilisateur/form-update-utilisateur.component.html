@@ -1,101 +1,109 @@
-<mat-dialog-content>
-  <form [formGroup]="formUpdate" novalidate (ngSubmit)="onSubmit()">
-    <mat-card class="shipping-card">
-      <mat-card-header>
-        <mat-card-title>Mise à jour de l'utilisateur {{ idUtilisateur }}</mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
-        <div class="row">
-          <div class="col">
-            <mat-form-field class="full-width">
-              <input matInput [placeholder]="utilisateurById.login" formControlName="login">
-              @if (formUpdate.controls['login'].hasError('required')) {
-                <mat-error>Login <strong>requis</strong></mat-error>
-                }
-            </mat-form-field>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col">
-            <mat-form-field class="full-width">
-              <input matInput [placeholder]="utilisateurById.prenomUtilisateur" formControlName="prénom">
-              @if (formUpdate.controls['prénom'].hasError('required')) {
-              <mat-error>Prénom <strong>requis</strong></mat-error>
-              }
-            </mat-form-field>
-          </div>
-          <div class="col">
-            <mat-form-field class="full-width">
-              <input matInput [placeholder]="utilisateurById.nomUtilisateur" formControlName="nom">
-              @if (formUpdate.controls['nom'].hasError('required')) {
-                <mat-error>Nom <strong>requis</strong></mat-error>
-                }
-            </mat-form-field>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col">
-            <mat-form-field class="full-width">
-              <input matInput [placeholder]="utilisateurById.mail" formControlName="mail">
-              @if (formUpdate.controls['mail'].hasError('required')) {
-                <mat-error>Mail <strong>requis</strong></mat-error>
-                }
-            </mat-form-field>
-          </div>
-        </div>
-        <!-- <div class="row">
-          <div class="col">
-            @if (hasUnitNumber) {
-              <mat-form-field class="full-width">
-                <textarea matInput placeholder="Address 2" formControlName="address2"></textarea>
-              </mat-form-field>
-            } @else {
-              <button mat-button type="button" (click)="hasUnitNumber = !hasUnitNumber">
-                + Add C/O, Apt, Suite, Unit
-              </button>
+<form [formGroup]="formUpdate">
+  <mat-card class="shipping-card">
+    <mat-card-header>
+      <mat-card-title>Mise à jour de l'utilisateur</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input matInput formControlName="login">
+            @if (formUpdate.controls['login'].hasError('required')) {
+              <mat-error>Login <strong>requis</strong></mat-error>
             }
-          </div>
-        </div> -->
-        <div class="row">
-          <div class="col">
-            <mat-form-field class="full-width">
-              <input matInput [placeholder]="utilisateurById.idSite.toString()" formControlName="site">
-              <!-- @if (formUpdate.controls['mail'].hasError('required')) {
-                <mat-error>Mail <strong>requis</strong></mat-error>
-                } -->
-            </mat-form-field>
-          </div>
-          <!-- <div class="col">
-            <select aria-placeholder="State" formControlName="state">
-              @for (state of states; track state) {
-                <option [value]="state.abbreviation">{{ state.name }}</option>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input matInput formControlName="prénom">
+            @if (formUpdate.controls['prénom'].hasError('required')) {
+            <mat-error>Prénom <strong>requis</strong></mat-error>
+            }
+          </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input matInput formControlName="nom">
+            @if (formUpdate.controls['nom'].hasError('required')) {
+            <mat-error>Nom <strong>requis</strong></mat-error>
+            }
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input matInput formControlName="mail">
+            @if (formUpdate.controls['mail'].hasError('required')) {
+            <mat-error>Mail <strong>requis</strong></mat-error>
+            }
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input matInput formControlName="actif">
+            @if (formUpdate.controls['actif'].hasError('required')) {
+            <mat-error>Actif <strong>requis</strong></mat-error>
+            }
+          </mat-form-field>
+        </div>
+      </div>
+      <!-- <div class="row">
+            <div class="col">
+              @if (hasUnitNumber) {
+                <mat-form-field class="full-width">
+                  <textarea matInput placeholder="Address 2" formControlName="address2"></textarea>
+                </mat-form-field>
+              } @else {
+                <button mat-button type="button" (click)="hasUnitNumber = !hasUnitNumber">
+                  + Add C/O, Apt, Suite, Unit
+                </button>
               }
-            </select>
-            <!-- <mat-form-field class="full-width">
-              <mat-select placeholder="State" formControlName="state">
-                @for (state of states; track state) {
-                  <mat-option [value]="state.abbreviation">{{ state.name }}</mat-option>
-                }
-              </mat-select>
-              @if (addressForm.controls['state'].hasError('required')) {
-                <mat-error>State is <strong>required</strong></mat-error>
-              }
-            </mat-form-field>
+            </div>
           </div> -->
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input matInput formControlName="site">
+            <!-- @if (formUpdate.controls['mail'].hasError('required')) {
+                  <mat-error>Mail <strong>requis</strong></mat-error>
+                  } -->
+          </mat-form-field>
         </div>
-        <div class="row">
-          <div class="col">
-            <mat-form-field class="full-width">
-              <input matInput [placeholder]="utilisateurById.idTypeUtilisateur.toString()" formControlName="typeUrilisateur">
-            </mat-form-field>
-          </div>
+        <!-- <div class="col">
+              <select aria-placeholder="State" formControlName="state">
+                @for (state of states; track state) {
+                  <option [value]="state.abbreviation">{{ state.name }}</option>
+                }
+              </select>
+              <!-- <mat-form-field class="full-width">
+                <mat-select placeholder="State" formControlName="state">
+                  @for (state of states; track state) {
+                    <mat-option [value]="state.abbreviation">{{ state.name }}</mat-option>
+                  }
+                </mat-select>
+                @if (addressForm.controls['state'].hasError('required')) {
+                  <mat-error>State is <strong>required</strong></mat-error>
+                }
+              </mat-form-field>
+            </div> -->
+      </div>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input matInput formControlName="typeUtilisateur">
+          </mat-form-field>
         </div>
-      </mat-card-content>
-      <mat-card-actions>
-        <button mat-raised-button color="primary" type="submit">Submit</button>
-        <button mat-raised-button color="primary" type="reset">Reset</button>
-        <button mat-icon-button aria-label="close dialog" mat-dialog-close>Close</button>
-      </mat-card-actions>
-    </mat-card>
-  </form>
-</mat-dialog-content>
+      </div>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button color="primary" type="submit" (click)="onSubmit()">Envoyer</button>
+      <!-- <button mat-raised-button color="primary" type="reset">Reset</button> -->
+      <button mat-icon-button color="primary" (click)="onClose()">Retour</button>
+    </mat-card-actions>
+  </mat-card>
+</form>
