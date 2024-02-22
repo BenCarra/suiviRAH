@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Utilisateur } from '../model/utilisateur';
-import { UtilisateurService } from '../services/utilisateur.service';
+import { Utilisateur } from '../../shared/model/utilisateur';
+import { UtilisateurService } from '../../shared/service/utilisateur.service';
 import { Router } from '@angular/router';
-import { FormUpdateUtilisateurComponent } from '../../forms/form-update-utilisateur/form-update-utilisateur.component';
+import { FormUpdateUtilisateurComponent } from '../forms/form-update-utilisateur/form-update-utilisateur.component';
 
 @Component({
     selector: 'app-utilisateur-list',
@@ -14,7 +14,9 @@ import { FormUpdateUtilisateurComponent } from '../../forms/form-update-utilisat
 })
 export class UtilisateurListComponent {
 
+  childEnabled = false;
   valeurParDefautList: string = "Filtrer";
+  idUtilisateur!: string | undefined;
   listNomsUtilisateur: String[] = [];
   listUtilisateurs!: Utilisateur[];
   formFiltrage!: FormGroup<{ filtrageDemande: FormControl<string | null>; utilisateurRecherche: FormControl<string | null>; boutonSoumission: FormControl<string | null>; }>;
@@ -22,6 +24,7 @@ export class UtilisateurListComponent {
   constructor(private utilisateurService: UtilisateurService, private router: Router){}
 
   ngOnInit(){
+
     this.formFiltrage = new FormGroup({
       filtrageDemande: new FormControl('', Validators.required),
       utilisateurRecherche: new FormControl('', Validators.required),
@@ -33,29 +36,30 @@ export class UtilisateurListComponent {
     })
     this.formFiltrage.get('utilisateurRecherche')?.disable();
     this.formFiltrage.get('boutonSoumission')?.disable();
+
+    
   }
 
   
   onDeleteUtilisateur(e: MouseEvent) {
     if (e.target instanceof HTMLElement) {
-      const id: string | undefined = e.target.parentElement?.parentElement?.id;
-      console.log(id);
+      this.idUtilisateur = e.target.parentElement?.parentElement?.id;
+      console.log(this.idUtilisateur);
       if(confirm("Voulez-vous vraiment supprimer cet utilisateur ?")){
         // Régler les problèmes de contraintes d'intégrité pour la base de données
-        this.utilisateurService.deleteById(id).subscribe();
+        this.utilisateurService.deleteById(this.idUtilisateur).subscribe();
       }
     }
   }
   onUpdateUtilisateur(e: MouseEvent) {
     if (e.target instanceof HTMLElement){
-      const id: string | undefined = e.target.parentElement?.parentElement?.id;
-      console.log(id);
+      this.idUtilisateur = e.target.parentElement?.parentElement?.id;
+      console.log(this.idUtilisateur);
+        this.childEnabled = true;
         let formUpdateUtilisateur: (HTMLElement | null) = document.getElementById('form-update-utilisateur');
         if (formUpdateUtilisateur != null){
           formUpdateUtilisateur.style.display = "block";
         }
-      
-      //this.router.navigate(['admin','utilisateurs','update',id]);
       // Ajouter fenêtre par dessus la courante pour afficher le formulaire avec les champs pré-remplis
     }
   }

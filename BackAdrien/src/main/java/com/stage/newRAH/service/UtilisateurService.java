@@ -88,17 +88,37 @@ public class UtilisateurService {
 		}
 	}
 
+	public ResponseEntity<UtilisateurDTO> updateUtilisateur(UtilisateurDTO utilisateurDTO, int id) {
+        Utilisateur utilisateurAModifier = utilisateurRepository.findById(id).get();
+
+		
+		utilisateurAModifier.setNomUtilisateur(utilisateurDTO.getNomUtilisateur());
+		utilisateurAModifier.setPrenomUtilisateur(utilisateurDTO.getPrenomUtilisateur());
+		utilisateurAModifier.setLogin(utilisateurDTO.getLogin());
+		utilisateurAModifier.setMail(utilisateurDTO.getMail());
+		utilisateurAModifier.setActif(utilisateurDTO.isActif());
+		// TODO : Récupérer site par id utilisateur, récupérer type utilisateur par utilisateur
+		//utilisateurAModifier.setSite(...);
+		//utilisateurAModifier.setTypeUtilisateur(...);
+
+		utilisateurRepository.save(utilisateurAModifier);
+
+		UtilisateurDTO utilisateurAModifierDTO  = this.mapUtilisateurToDTO(utilisateurAModifier);
+
+		return ResponseEntity.ok(utilisateurAModifierDTO);
+    }
+
     public ResponseEntity<UtilisateurDTO> deleteUtilisateur(int id) {
         Utilisateur utilisateurASupprimer = utilisateurRepository.findById(id).get();
 
 		UtilisateurDTO utilisateurASupprimerDTO = this.mapUtilisateurToDTO(utilisateurASupprimer);
 
-		System.out.println(utilisateurASupprimerDTO);
-
 		utilisateurRepository.deleteById(id);
 
 		return ResponseEntity.ok(utilisateurASupprimerDTO);
     }
+
+    
 
     
 }

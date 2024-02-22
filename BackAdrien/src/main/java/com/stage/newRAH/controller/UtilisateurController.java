@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.stage.newRAH.dto.UtilisateurDTO;
 import com.stage.newRAH.service.UtilisateurService;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 
 @RestController
@@ -35,6 +38,12 @@ public class UtilisateurController {
 	public ResponseEntity<List<UtilisateurDTO>> getUtilisateursBySite(@PathVariable int id) {
 		return utilisateurService.getUtilisateursBySite(id);
 	}
+
+	@PostMapping("/updateUtilisateur/{id}")
+	public ResponseEntity<UtilisateurDTO> updateUtilisateur(@RequestBody UtilisateurDTO utilisateurDTO, @PathVariable int id) {
+		return utilisateurService.updateUtilisateur(utilisateurDTO, id);
+	}
+	
 
 	@DeleteMapping("/deleteUtilisateur/{id}")
 	public ResponseEntity<UtilisateurDTO> deleteUtilisateur(@PathVariable int id){

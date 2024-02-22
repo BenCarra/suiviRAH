@@ -1,46 +1,49 @@
 <mat-dialog-content>
-  <form [formGroup]="addressForm" novalidate (ngSubmit)="onSubmit()">
+  <form [formGroup]="formUpdate" novalidate (ngSubmit)="onSubmit()">
     <mat-card class="shipping-card">
       <mat-card-header>
-        <mat-card-title>Shipping Information</mat-card-title>
+        <mat-card-title>Mise à jour de l'utilisateur {{ idUtilisateur }}</mat-card-title>
       </mat-card-header>
       <mat-card-content>
         <div class="row">
           <div class="col">
             <mat-form-field class="full-width">
-              <input matInput placeholder="Company" formControlName="company">
+              <input matInput [placeholder]="utilisateurById.login" formControlName="login">
+              @if (formUpdate.controls['login'].hasError('required')) {
+                <mat-error>Login <strong>requis</strong></mat-error>
+                }
             </mat-form-field>
           </div>
         </div>
         <div class="row">
           <div class="col">
             <mat-form-field class="full-width">
-              <input matInput placeholder="First name" formControlName="firstName">
-              @if (addressForm.controls['firstName'].hasError('required')) {
-              <mat-error>First name is <strong>required</strong></mat-error>
+              <input matInput [placeholder]="utilisateurById.prenomUtilisateur" formControlName="prénom">
+              @if (formUpdate.controls['prénom'].hasError('required')) {
+              <mat-error>Prénom <strong>requis</strong></mat-error>
               }
             </mat-form-field>
           </div>
           <div class="col">
             <mat-form-field class="full-width">
-              <input matInput placeholder="Last name" formControlName="lastName">
-              @if (addressForm.controls['lastName'].hasError('required')) {
-              <mat-error>Last name is <strong>required</strong></mat-error>
-              }
+              <input matInput [placeholder]="utilisateurById.nomUtilisateur" formControlName="nom">
+              @if (formUpdate.controls['nom'].hasError('required')) {
+                <mat-error>Nom <strong>requis</strong></mat-error>
+                }
             </mat-form-field>
           </div>
         </div>
         <div class="row">
           <div class="col">
             <mat-form-field class="full-width">
-              <textarea matInput placeholder="Address" formControlName="address"></textarea>
-              @if (addressForm.controls['address'].hasError('required')) {
-                <mat-error>Address is <strong>required</strong></mat-error>
-              }
+              <input matInput [placeholder]="utilisateurById.mail" formControlName="mail">
+              @if (formUpdate.controls['mail'].hasError('required')) {
+                <mat-error>Mail <strong>requis</strong></mat-error>
+                }
             </mat-form-field>
           </div>
         </div>
-        <div class="row">
+        <!-- <div class="row">
           <div class="col">
             @if (hasUnitNumber) {
               <mat-form-field class="full-width">
@@ -52,17 +55,17 @@
               </button>
             }
           </div>
-        </div>
+        </div> -->
         <div class="row">
           <div class="col">
             <mat-form-field class="full-width">
-              <input matInput placeholder="City" formControlName="city">
-              @if (addressForm.controls['city'].hasError('required')) {
-                <mat-error>City is <strong>required</strong></mat-error>
-              }
+              <input matInput [placeholder]="utilisateurById.idSite.toString()" formControlName="site">
+              <!-- @if (formUpdate.controls['mail'].hasError('required')) {
+                <mat-error>Mail <strong>requis</strong></mat-error>
+                } -->
             </mat-form-field>
           </div>
-          <div class="col">
+          <!-- <div class="col">
             <select aria-placeholder="State" formControlName="state">
               @for (state of states; track state) {
                 <option [value]="state.abbreviation">{{ state.name }}</option>
@@ -77,24 +80,14 @@
               @if (addressForm.controls['state'].hasError('required')) {
                 <mat-error>State is <strong>required</strong></mat-error>
               }
-            </mat-form-field> -->
-          </div>
+            </mat-form-field>
+          </div> -->
         </div>
         <div class="row">
           <div class="col">
             <mat-form-field class="full-width">
-              <input matInput #postalCode maxlength="5" placeholder="Postal Code" type="number" formControlName="postalCode">
-              <mat-hint align="end">{{postalCode.value.length}} / 5</mat-hint>
+              <input matInput [placeholder]="utilisateurById.idTypeUtilisateur.toString()" formControlName="typeUrilisateur">
             </mat-form-field>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col">
-            <mat-radio-group formControlName="shipping">
-              <mat-radio-button value="free">Free Shipping</mat-radio-button>
-              <mat-radio-button value="priority">Priority Shipping</mat-radio-button>
-              <mat-radio-button value="nextday">Next Day Shipping</mat-radio-button>
-            </mat-radio-group>
           </div>
         </div>
       </mat-card-content>

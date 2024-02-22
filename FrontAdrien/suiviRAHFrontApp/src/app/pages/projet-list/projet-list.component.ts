@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { ProjetService } from '../services/projet.service';
-import { Projet } from '../model/projet';
+import { ProjetService } from '../../shared/service/projet.service';
+import { Projet } from '../../shared/model/projet';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
