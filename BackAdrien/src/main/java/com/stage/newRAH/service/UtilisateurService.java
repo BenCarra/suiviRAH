@@ -1,7 +1,6 @@
 package com.stage.newRAH.service;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
@@ -11,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import com.stage.newRAH.dto.UtilisateurDTO;
 import com.stage.newRAH.model.Site;
-import com.stage.newRAH.model.TypeUtilisateur;
 import com.stage.newRAH.model.Utilisateur;
 import com.stage.newRAH.repository.CompositionRepository;
 import com.stage.newRAH.repository.EquipeRepository;
@@ -44,8 +42,6 @@ public class UtilisateurService {
 	public UtilisateurDTO mapUtilisateurToDTO(Utilisateur utilisateur) {
 		
 		UtilisateurDTO utilisateurDTO = new UtilisateurDTO();
-
-		Iterable<Site> sites = siteRepository.findAll();
 		
 		utilisateurDTO.setIdUtilisateur(utilisateur.getIdUtilisateur());
 		utilisateurDTO.setNomUtilisateur(utilisateur.getNomUtilisateur());
@@ -53,6 +49,11 @@ public class UtilisateurService {
 		utilisateurDTO.setLogin(utilisateur.getLogin());
 		utilisateurDTO.setMail(utilisateur.getMail());
 		utilisateurDTO.setActif(utilisateur.isActif());
+		utilisateurDTO.setSite(utilisateur.getSite());
+		utilisateurDTO.setTypeUtilisateur(utilisateur.getTypeUtilisateur());
+		utilisateurDTO.setListTaches(utilisateur.getListTaches());
+		utilisateurDTO.setListEquipes(utilisateur.getListEquipes());
+		utilisateurDTO.setListCompositions(utilisateur.getListCompositions());
 		
 		return utilisateurDTO;
 	}

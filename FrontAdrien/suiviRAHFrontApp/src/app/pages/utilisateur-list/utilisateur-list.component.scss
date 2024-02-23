@@ -38,6 +38,9 @@ td {
     background-color: white;
 }
 
-.test {
-    pointer-events: none;
+td ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    text-decoration-line: underline;
 }

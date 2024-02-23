@@ -48,16 +48,6 @@ export class FormUpdateUtilisateurComponent {
       typeUtilisateur: new FormControl('')
     })
 
-    /*this.formUpdate = new FormGroup({
-      login: new FormControl(this.utilisateurById.login, Validators.required),
-      prénom: new FormControl(this.utilisateurById.prenomUtilisateur, Validators.required),
-      nom: new FormControl(this.utilisateurById.nomUtilisateur, Validators.required),
-      mail: new FormControl(this.utilisateurById.mail, Validators.required),
-      actif: new FormControl(this.utilisateurById.actif, Validators.required),
-      site: new FormControl(this.utilisateurById.idSite),
-      typeUtilisateur: new FormControl(this.utilisateurById.idTypeUtilisateur)
-    })*/
-
     this.activatedRoute.paramMap.subscribe(
       id => {
         let temp = id.get("id");
