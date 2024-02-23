@@ -7,5 +7,6 @@ import com.stage.newRAH.model.TypeTache;
 
 @Repository
 public interface TypeTacheRepository extends CrudRepository<TypeTache, Integer> {
+    TypeTache findByLibelle(String libelle);
 
 }

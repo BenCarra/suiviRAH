@@ -37,15 +37,29 @@ public class TacheService {
 	public TacheDTO mapTacheToDTO(Tache tache) {
 		
 		TacheDTO tacheDTO = new TacheDTO();
+		List<String> listNomsUtilisateurs = new ArrayList<>();
 		
 		tacheDTO.setIdTache(tache.getIdTache());
 		tacheDTO.setNomTache(tache.getNomTache());
 		tacheDTO.setDebutTache(tache.getDebutTache());
 		tacheDTO.setFinTache(tache.getFinTache());
 		tacheDTO.setCommentaires(tache.getCommentaires());
-		tacheDTO.setIdTypeTache(tache.getTypeTache().getIdTypeTache());
-		tacheDTO.setIdProjet(tache.getProjet().getIdProjet());
+		if (tache.getTypeTache() != null) { 
+			tacheDTO.setLibelleTypeTache(tache.getTypeTache().getLibelle());
+		}
+		if (tache.getProjet() != null) { 
+			tacheDTO.setNomProjet(tache.getProjet().getNomProjet());
+		}
+
+		if (tache.getListUtilisateurs() != null) {
+		for (Utilisateur utilisateur : tache.getListUtilisateurs()) {
+			listNomsUtilisateurs.add(utilisateur.getNomUtilisateur());
+			}
+		}
+
+		tacheDTO.setListNomsUtilisateurs(listNomsUtilisateurs);
 		
+				
 		return tacheDTO;
 	}
 
@@ -118,8 +132,8 @@ public class TacheService {
 		Tache nouvelleTache = new Tache();
 		
 		 // Récupération du type de tâche et du projet par leurs identifiants 
-		 TypeTache typeTache = typeTacheRepository.findById(tacheDTO.getIdTypeTache()).orElse(null);
-		 Projet projet = projetRepository.findById(tacheDTO.getIdProjet()).orElse(null);
+		 TypeTache typeTache = typeTacheRepository.findByLibelle(tacheDTO.getLibelleTypeTache());
+		 Projet projet = projetRepository.findByNomProjet(tacheDTO.getNomProjet());
 		
 		nouvelleTache.setNomTache(tacheDTO.getNomTache());
 		nouvelleTache.setDebutTache(tacheDTO.getDebutTache());

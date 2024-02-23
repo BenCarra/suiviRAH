@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Projet } from '../../shared/model/projet';
 import { ProjetService } from '../../shared/service/projet.service';
 
@@ -11,11 +11,9 @@ import { ProjetService } from '../../shared/service/projet.service';
   templateUrl: './list-projets.component.html',
   styleUrl: './list-projets.component.css'
 })
-export class ListProjetsComponent {
+export class ListProjetsComponent implements OnInit{
 
   projets!: Projet[];
-dataSource: any;
-
   constructor(private projetService: ProjetService) {
 
   }

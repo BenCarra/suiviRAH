@@ -1,1 +1,42 @@
-<p>list-taches works!</p>
+<h1 >Liste des tâches</h1>
+<div class="table-container">
+  <table >
+    <thead>
+      <tr>
+        <th>Id tache</th>
+        <th>Liste des utilisateurs</th>
+        <th>Nom</th>
+        <th>Type de tâche</th>
+        <th>Début</th>
+        <th>Fin </th>
+        <th>Commentaires </th>
+        <th>Projet </th>
+        <th>Modifier</th>
+        <th>Supprimer</th>
+        <th>Dupliquer</th>
+
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let tache of taches">
+        <td>{{ tache.idTache}}</td>
+        <td>{{ tache.listNomsUtilisateurs}}</td>
+        <td>{{ tache.nomTache}}</td>
+        <td>{{ tache.libelleTypeTache}}</td>
+        <td>{{ tache.debutTache}}</td>
+        <td>{{ tache.finTache }}</td>
+        <td>{{ tache.commentaires }}</td>
+        <td>{{ tache.nomProjet }}</td>
+        <td><button>Modifier</button></td>
+        <td><button>Supprimer</button></td>
+        <td><button>Dupliquer</button></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<div class="create-tache" >
+    <p>Ajouter une tâche</p>
+    <img src="/assets/img/PlusVert.png" [routerLink]="['/formCreateTache']" alt="Ajout d'une tâche">
+</div>
+
+

@@ -1,0 +1,56 @@
+h1 {
+    text-align: center; 
+    font-size:30px; 
+    color: #00884C;
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
+td, th {
+    border: 1px solid black;
+    text-align: left;
+    padding: 8px;
+}
+
+.table-container {
+    padding-left: 30px;
+    padding-bottom: 10px; 
+    overflow-x: auto;
+    /* overflow est sur auto pour afficher une barre si le tableau déborde */
+  }
+  
+  /* effet d'élevation */
+  .table-container table {
+    box-shadow: 5px 6px 8px 0 rgba(0,0,0,0.3);
+  }
+
+table {
+     border-collapse: collapse; 
+    /* Enlève les doubles bordures */
+}
+
+th {
+    background-color: #00884C;
+    white-space: nowrap; 
+    
+}
+
+td {
+    background-color:#E8E7E7 ;
+    /* white-space: nowrap; */
+    /* Si long commentaire : retour à la ligne */
+}
+
+.create-tache {
+    text-align: center;
+}
+
+.create-tache p {
+    font-size: 20px;
+}
+
+.create-tache img {
+    height: 100px;
+    cursor: pointer;
+}
+  

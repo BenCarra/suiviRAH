@@ -8,7 +8,5 @@ import com.stage.newRAH.model.Projet;
 
 @Repository
 public interface ProjetRepository extends CrudRepository<Projet, Integer> {
-
-	
-
+    Projet findByNomProjet(String nomProjet);
 }
