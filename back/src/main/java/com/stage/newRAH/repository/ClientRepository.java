@@ -7,5 +7,6 @@ import com.stage.newRAH.model.Client;
 
 @Repository
 public interface ClientRepository extends CrudRepository<Client, Integer> {
+    Client findByNomClient(String nomClient);
 
 }

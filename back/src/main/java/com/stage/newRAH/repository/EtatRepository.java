@@ -6,5 +6,6 @@ import com.stage.newRAH.model.Etat;
 
 
 public interface EtatRepository extends CrudRepository<Etat, Integer> {
+    Etat findByLibelle(String libelle);
 
 }

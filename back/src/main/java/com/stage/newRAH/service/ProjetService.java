@@ -78,10 +78,13 @@ public class ProjetService {
 		projetDTO.setDatePassageMCO(projet.getDatePassageMCO());
 		projetDTO.setDateSortieMCO(projet.getDateSortieMCO());
 		projetDTO.setCommentaires(projet.getCommentaires());
-		projetDTO.setIdClient(projet.getClient().getIdClient());
-		projetDTO.setIdEtat(projet.getEtat().getIdEtat());
-		projetDTO.setIdTypeProjet(projet.getTypeProjet().getIdTypeProjet());
-		projetDTO.setIdTypeDefaut(projet.getTypeDefaut().getIdTypeDefaut());
+		projetDTO.setNomClient(projet.getClient().getNomClient());
+		projetDTO.setLibelleEtat(projet.getEtat().getLibelle());
+		// Il faut gérer le cas où le type de défaut est nul 
+		if (projet.getTypeDefaut() != null) {
+			projetDTO.setLibelleTypeDefaut(projet.getTypeDefaut().getLibelle());
+		} 		
+		projetDTO.setLibelleTypeProjet(projet.getTypeProjet().getLibelle());
 		
 		return projetDTO;	
 	}
@@ -162,11 +165,11 @@ public class ProjetService {
 	public ResponseEntity<ProjetDTO> createProjet(ProjetDTO projetDTO) {
 		Projet nouveauProjet = new Projet();
 
-		// Récupération de certains objets par leurs identifiants 
-		Client client = clientRepository.findById(projetDTO.getIdClient()).orElse(null);
-		Etat etat = etatRepository.findById(projetDTO.getIdEtat()).orElse(null);
-		TypeDefaut typeDefaut = typeDefautRepository.findById(projetDTO.getIdTypeDefaut()).orElse(null);
-		TypeProjet typeProjet = typeProjetRepository.findById(projetDTO.getIdTypeProjet()).orElse(null);
+		// Récupération de certains objets 
+		Client client = clientRepository.findByNomClient(projetDTO.getNomClient());
+		Etat etat = etatRepository.findByLibelle(projetDTO.getLibelleEtat());
+		TypeDefaut typeDefaut = typeDefautRepository.findByLibelle(projetDTO.getLibelleTypeDefaut());
+		TypeProjet typeProjet = typeProjetRepository.findByLibelle(projetDTO.getLibelleTypeProjet());
 
 		nouveauProjet.setNomProjet(projetDTO.getNomProjet());
 		nouveauProjet.setJira(projetDTO.getJira());
