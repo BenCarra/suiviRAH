@@ -1,6 +1,29 @@
 h1 {
     text-align: center; 
-    font-size:30px; 
+    font-size:25px; 
     margin-top: 25px;
+}
+
+.text-under-connexion {
+    text-align: center; 
+    font-size:15px; 
     margin-bottom: 25px;
+}
+
+form {
+    text-align: center;
+    color: #00884C;  
+}
+
+button {
+    background-color: #00884C;
+    font-size: 20px; 
+    padding: 5px 10px; 
+    cursor: pointer;
+    color: white; 
+    border: none;
+}
+
+input {
+    margin-right: 15px;
 }

@@ -1,17 +1,14 @@
-  
   <h1 >Liste des projets</h1>
-
-
     <div class="table-container">
       <table >
         <thead>
           <tr>
             <th>Id projet</th>
             <th>Nom </th>
-            <th>Id Client</th>
+            <th>Client</th>
             <th>Jira</th>
-            <th>Id Type Projet</th>
-            <th>Id Type Defaut </th>
+            <th>Type de projet</th>
+            <th>Type de défaut </th>
             <th>Techno </th>
             <th>Service </th>
             <th>Date demande </th>
@@ -27,17 +24,17 @@
             <th>MCO </th>
             <th>Date passage MCO </th>
             <th>Date sortie MCO </th>
-            <th>Id Etat </th>
+            <th>Etat </th>
             <th>Commentaires </th>
         </thead>
         <tbody>
           <tr *ngFor="let projet of projets">
             <td>{{ projet.idProjet}}</td>
             <td>{{ projet.nomProjet}}</td>
-            <td>{{ projet.idClient}}</td>
+            <td>{{ projet.nomClient}}</td>
             <td>{{ projet.jira}}</td>
-            <td>{{ projet.idTypeProjet}}</td>
-            <td>{{ projet.idTypeDefaut}}</td>
+            <td>{{ projet.libelleTypeProjet}}</td>
+            <td>{{ projet.libelleTypeDefaut}}</td>
             <td>{{ projet.techno}}</td>
             <td>{{ projet.service}}</td>
             <td>{{ projet.dateDemande}}</td>
@@ -53,7 +50,7 @@
             <td>{{ projet.mco}}</td>
             <td>{{ projet.datePassageMCO}}</td>
             <td>{{ projet.dateSortieMCO}}</td>
-            <td>{{ projet.idEtat}}</td>
+            <td>{{ projet.libelleEtat}}</td>
             <td>{{ projet.commentaires}}</td>
           </tr>
         </tbody>

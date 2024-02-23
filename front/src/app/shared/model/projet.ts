@@ -1,10 +1,10 @@
 export class Projet {
     idProjet!: number;
     nomProjet!: string;
-    idClient!: number;
+    nomClient!: string;
     jira!:string;
-    idTypeProjet!: number;
-    idTypeDefaut!:number;
+    libelleTypeProjet!: string;
+    libelleTypeDefaut!: string;
     techno!: string;
     service!: string;
     dateDemande!: Date;
@@ -20,7 +20,7 @@ export class Projet {
     mco!: boolean;
     datePassageMCO!: Date;
     dateSortieMCO!: Date;
-    idEtat!: number;
+    libelleEtat!: string;
     commentaires!: string;
 
 }
