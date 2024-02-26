@@ -1,10 +1,12 @@
 package com.stage.newRAH.dto;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
+import com.stage.newRAH.model.Composition;
+import com.stage.newRAH.model.Equipe;
+import com.stage.newRAH.model.Site;
 import com.stage.newRAH.model.Tache;
+import com.stage.newRAH.model.TypeUtilisateur;
 
 public class UtilisateurDTO {
 	
@@ -14,27 +16,27 @@ public class UtilisateurDTO {
 	private String login ;
 	private String mail;
 	private boolean actif;
-	private String nomSite;
-	private String libelleTypeUtilisateur;
-	private List<List<String>> listTaches;
-	private List<List<String>> listEquipes;
-	private List<List<String>> listCompositions;
+	private Site site;
+	private TypeUtilisateur typeUtilisateur;
+	private List<Tache> listTaches;
+	private List<Equipe> listEquipes;
+	private List<Composition> listCompositions;
 	
 	public UtilisateurDTO() {
 
 	}
 
 	public UtilisateurDTO(int idUtilisateur, String nomUtilisateur, String prenomUtilisateur, String login, String mail,
-			boolean actif, String nomSite, String libelleTypeUtilisateur, List<List<String>> listTaches,
-			List<List<String>> listEquipes, List<List<String>> listCompositions) {
+			boolean actif, Site site, TypeUtilisateur typeUtilisateur, List<Tache> listTaches, List<Equipe> listEquipes,
+			List<Composition> listCompositions) {
 		this.idUtilisateur = idUtilisateur;
 		this.nomUtilisateur = nomUtilisateur;
 		this.prenomUtilisateur = prenomUtilisateur;
 		this.login = login;
 		this.mail = mail;
 		this.actif = actif;
-		this.nomSite = nomSite;
-		this.libelleTypeUtilisateur = libelleTypeUtilisateur;
+		this.site = site;
+		this.typeUtilisateur = typeUtilisateur;
 		this.listTaches = listTaches;
 		this.listEquipes = listEquipes;
 		this.listCompositions = listCompositions;
@@ -88,43 +90,43 @@ public class UtilisateurDTO {
 		this.actif = actif;
 	}
 
-	public String getNomSite() {
-		return nomSite;
+	public Site getSite() {
+		return site;
 	}
 
-	public void setNomSite(String nomSite) {
-		this.nomSite = nomSite;
+	public void setSite(Site site) {
+		this.site = site;
 	}
 
-	public String getLibelleTypeUtilisateur() {
-		return libelleTypeUtilisateur;
+	public TypeUtilisateur getTypeUtilisateur() {
+		return typeUtilisateur;
 	}
 
-	public void setLibelleTypeUtilisateur(String libelleTypeUtilisateur) {
-		this.libelleTypeUtilisateur = libelleTypeUtilisateur;
+	public void setTypeUtilisateur(TypeUtilisateur typeUtilisateur) {
+		this.typeUtilisateur = typeUtilisateur;
 	}
 
-	public List<List<String>> getListTaches() {
+	public List<Tache> getListTaches() {
 		return listTaches;
 	}
 
-	public void setListTaches(List<List<String>> listTaches) {
+	public void setListTaches(List<Tache> listTaches) {
 		this.listTaches = listTaches;
 	}
 
-	public List<List<String>> getListEquipes() {
+	public List<Equipe> getListEquipes() {
 		return listEquipes;
 	}
 
-	public void setListEquipes(List<List<String>> listEquipes) {
+	public void setListEquipes(List<Equipe> listEquipes) {
 		this.listEquipes = listEquipes;
 	}
 
-	public List<List<String>> getListCompositions() {
+	public List<Composition> getListCompositions() {
 		return listCompositions;
 	}
 
-	public void setListCompositions(List<List<String>> listCompositions) {
+	public void setListCompositions(List<Composition> listCompositions) {
 		this.listCompositions = listCompositions;
 	}
 
@@ -132,10 +134,12 @@ public class UtilisateurDTO {
 	public String toString() {
 		return "UtilisateurDTO [idUtilisateur=" + idUtilisateur + ", nomUtilisateur=" + nomUtilisateur
 				+ ", prenomUtilisateur=" + prenomUtilisateur + ", login=" + login + ", mail=" + mail + ", actif="
-				+ actif + ", nomSite=" + nomSite + ", libelleTypeUtilisateur=" + libelleTypeUtilisateur
-				+ ", listTaches=" + listTaches + ", listEquipes=" + listEquipes + ", listCompositions="
-				+ listCompositions + "]";
+				+ actif + ", site=" + site + ", typeUtilisateur=" + typeUtilisateur + ", listTaches=" + listTaches
+				+ ", listEquipes=" + listEquipes + ", listCompositions=" + listCompositions + "]";
 	}
 
 	
+
+
+
 }

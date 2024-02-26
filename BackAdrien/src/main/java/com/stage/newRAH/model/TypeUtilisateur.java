@@ -3,6 +3,8 @@ package com.stage.newRAH.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -26,9 +28,11 @@ public class TypeUtilisateur {
 	private String libelle;
 	
 	@OneToMany(mappedBy="typeUtilisateur", targetEntity=Utilisateur.class)
+	@JsonBackReference
 	private List<Utilisateur> listUtilisateurs = new ArrayList<>();
 
 	@ManyToMany(mappedBy = "listTypeUtilisateurs")
+	@JsonBackReference
     private List<Fonctionnalite> listFonctionnalites = new ArrayList<>();
 
 	

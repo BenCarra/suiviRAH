@@ -3,6 +3,10 @@ package com.stage.newRAH.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -40,25 +44,30 @@ public class Utilisateur {
 
 	@ManyToOne (targetEntity=Site.class)
 	@JoinColumn(name="id_site")
+	@JsonManagedReference // Manages the forward part of the reference and the fields marked by this annotation are the ones that get Serialised
 	private Site site;
 	
 	private boolean actif;
 	
 	@ManyToOne (targetEntity=TypeUtilisateur.class)
 	@JoinColumn(name="id_type_utilisateur")
+	@JsonManagedReference
 	private TypeUtilisateur typeUtilisateur;
 	
 	@ManyToMany 
 	@JoinTable(name="UtilisateurTache",
 					joinColumns = @JoinColumn(name="id_utilisateur"),
 					inverseJoinColumns = @JoinColumn(name="id_tache"))
+	@JsonManagedReference
 	private List<Tache> listTaches = new ArrayList<>();
 	
 	@ManyToMany(mappedBy="listUtilisateurs")
+	@JsonBackReference
 	private List<Equipe> listEquipes = new ArrayList<>();
 	
 	// J'ai rajouté ce lien entre Utilisateur et Composition
 	@OneToMany(mappedBy="utilisateur", cascade = CascadeType.ALL)
+	@JsonBackReference
 	private List<Composition> listCompositions;
 	
 		

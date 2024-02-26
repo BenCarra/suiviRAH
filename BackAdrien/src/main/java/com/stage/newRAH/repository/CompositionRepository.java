@@ -13,8 +13,5 @@ public interface CompositionRepository extends CrudRepository<Composition, Integ
 
 	@Query("SELECT c FROM Composition c WHERE c.equipe=:equipe")
 	List<Composition> findByEquipe(@Param(value="equipe")Equipe equipe);
-
-	/*@Query("SELECT c FROM Composition c WHERE c.utilisateur=:utilisateur")
-    List<Composition> findByUtilisateur(@Param(value="utilisateur") Utilisateur utilisateur);*/
 	
 }

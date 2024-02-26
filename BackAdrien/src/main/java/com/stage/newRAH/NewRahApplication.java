@@ -1,7 +1,11 @@
 package com.stage.newRAH;
 
+//import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+//import org.springframework.context.annotation.Bean;
+
+//import com.stage.newRAH.repository.UtilisateurRepository;
 
 @SpringBootApplication
 public class NewRahApplication {
@@ -11,9 +15,9 @@ public class NewRahApplication {
 	}
 
 	/*@Bean
-    CommandLineRunner init(CompositionRepository compositionRepository) {
+    CommandLineRunner init(UtilisateurRepository utilisateurRepository) {
         return args -> {
-            compositionRepository.findAll().forEach(System.out::println);
+            utilisateurRepository.findAll().forEach(System.out::println);
         };
     }*/
 
