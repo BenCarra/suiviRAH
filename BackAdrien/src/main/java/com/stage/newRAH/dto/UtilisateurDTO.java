@@ -1,7 +1,14 @@
 package com.stage.newRAH.dto;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+<<<<<<< HEAD
+=======
+import com.stage.newRAH.model.Tache;
+
+>>>>>>> b3185788160d36824140921ee9937b95835881cd
 public class UtilisateurDTO {
 	
 	private int idUtilisateur;
