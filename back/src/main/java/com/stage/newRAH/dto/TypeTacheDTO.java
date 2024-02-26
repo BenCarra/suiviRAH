@@ -1,5 +1,8 @@
 package com.stage.newRAH.dto;
 
+import lombok.Data;
+
+@Data
 public class TypeTacheDTO {
 	
 	private int idTypeTache;
@@ -15,20 +18,6 @@ public class TypeTacheDTO {
 		this.libelle = libelle;
 	}
 
-	public int getIdTypeTache() {
-		return idTypeTache;
-	}
-
-	public void setIdTypeTache(int idTypeTache) {
-		this.idTypeTache = idTypeTache;
-	}
-
-	public String getCategorie() {
-		return libelle;
-	}
-
-	public void setCategorie(String libelle) {
-		this.libelle = libelle;
-	}
+	
 
 }

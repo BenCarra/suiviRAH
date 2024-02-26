@@ -1,1 +1,45 @@
-<p>form-create-tache works!</p>
+<h1>Ajouter une tâche</h1>
+
+<form >  
+    <div class="form-element">
+        <label for="nomTache">Nom </label>
+        <input type="text" id="nomTache" name="nomTache" />
+    </div>
+
+    <div class="form-element">
+        <label for="typeTache">Type de tâche </label>
+        <select name="typeTache" >
+            <option *ngFor="let typeTache of typeTaches" [value]="typeTache.libelle" >
+            {{typeTache.libelle}}
+            </option>
+        </select>
+    </div>
+
+    <div class="form-element">
+        <label for="projet">Projet </label>
+        <select name="projet" >
+            <option *ngFor="let projet of projets " [value]="projet.nomProjet" >
+            {{projet.nomProjet}}
+            </option>
+        </select>
+    </div>
+
+    <div class="form-element">
+        <h4>Durée</h4>
+        <label for="jours">En jour </label>
+        <input type="date" id="jours" name="jours" style="margin-right: 15px;" />
+
+        <label for="heures"> ou en heures </label>
+        <input type="text" id="heures" name="heures" />
+
+    </div>
+
+    <div class="form-element">
+        <label for="commentaires">Commentaires </label>
+        <textarea id="commentaires" name="commentaires"></textarea>
+    </div>      
+    
+    <div class="button-position">
+        <button type="submit">Valider </button>
+    </div>
+</form>
