@@ -22,6 +22,7 @@ td, th {
   /* effet d'élevation */
   .table-container table {
     box-shadow: 5px 6px 8px 0 rgba(0,0,0,0.3);
+    margin: auto;
   }
 
 table {

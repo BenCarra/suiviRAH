@@ -23,8 +23,8 @@
         <td>{{ tache.listNomsUtilisateurs}}</td>
         <td>{{ tache.nomTache}}</td>
         <td>{{ tache.libelleTypeTache}}</td>
-        <td>{{ tache.debutTache}}</td>
-        <td>{{ tache.finTache }}</td>
+        <td>{{ tache.debutTache | date: 'dd.MM.yy - HH:mm'}}</td>
+        <td>{{ tache.finTache | date: 'dd.MM.yy - HH:mm' }}</td>
         <td>{{ tache.commentaires }}</td>
         <td>{{ tache.nomProjet }}</td>
         <td><button>Modifier</button></td>
