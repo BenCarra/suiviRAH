@@ -134,6 +134,9 @@ public class TacheService {
 		 // Récupération du type de tâche et du projet par leurs identifiants 
 		 TypeTache typeTache = typeTacheRepository.findByLibelle(tacheDTO.getLibelleTypeTache());
 		 Projet projet = projetRepository.findByNomProjet(tacheDTO.getNomProjet());
+
+		 List<String> nomUtilisateurs = tacheDTO.getListNomsUtilisateurs();
+		 List<Utilisateur> utilisateurs = new ArrayList<>();
 		
 		nouvelleTache.setNomTache(tacheDTO.getNomTache());
 		nouvelleTache.setDebutTache(tacheDTO.getDebutTache());
@@ -141,6 +144,17 @@ public class TacheService {
 		nouvelleTache.setCommentaires(tacheDTO.getCommentaires());
 		nouvelleTache.setTypeTache(typeTache);
 		nouvelleTache.setProjet(projet);
+
+		for (String nom : nomUtilisateurs) {
+			// J'ajoute à chaque utilisateur la tache que je suis en train de créér
+			// En résumé, je remplis la table "utilisateur_tache"
+			Utilisateur utilisateur = utilisateurRepository.findByNomUtilisateur(nom);
+			List<Tache> taches = utilisateur.getListTaches();
+			taches.add(nouvelleTache);
+			utilisateurs.add(utilisateur);
+		}
+
+		nouvelleTache.setListUtilisateurs(utilisateurs);
 		
 		// Enregistrement de la nouvelle tache dans la base de données
 		Tache tacheSauvegardee = tacheRepository.save(nouvelleTache);
