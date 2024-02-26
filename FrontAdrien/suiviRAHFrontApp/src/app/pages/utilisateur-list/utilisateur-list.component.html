@@ -40,27 +40,33 @@
                         <td>{{ utilisateur.nomUtilisateur }}</td>
                         <td>{{ utilisateur.mail }}</td>
                         <td>{{ utilisateur.actif }}</td>
-                        <td>{{ utilisateur.site.nomSite }}</td>
-                        <td>{{ utilisateur.typeUtilisateur.libelle }}</td>
+                        <td>{{ utilisateur.nomSite }}</td>
+                        <td>{{ utilisateur.libelleTypeUtilisateur }}</td>
                         <td>
-                            <ul>
-                                @for (tache of utilisateur.listTaches; track $index) {
-                                    <li>{{ tache.nomTache }}</li>
-                                    <br>
-                                }
-                            </ul>
+                            @for (tache of utilisateur.listTaches; track $index){
+                                <ul>
+                                    <li>Tâche n°{{ tache[0] }}</li>
+                                    <li>{{ tache[1] }}</li>
+                                </ul>
+                                <br>
+                            }
                         </td>
                         <td>
-                            <ul>
-                                @for (equipe of utilisateur.listEquipes; track $index) {
-                                    <li>{{ equipe.libelle }}</li>
-                                    <br>
-                                }
-                            </ul>
+                            @for (equipe of utilisateur.listEquipes; track $index){
+                                <ul>
+                                    <li>Equipe n°{{ equipe[0] }}</li>
+                                    <li>{{ equipe[1] }}</li>
+                                </ul>
+                                <br>
+                            }
                         </td>
                         <td>
-                            @for (composition of utilisateur.listCompositions; track $index) {
-                                <li>{{ composition.idComposition }} : Equipe n°{{ composition.idEquipe }}, Utilisateur n°{{ composition.idUtilisateur }}</li>
+                            @for (composition of utilisateur.listCompositions; track $index){
+                                <ul>
+                                    <li>Composition n°{{ composition[0] }}</li>
+                                    <li>Equipe {{ composition[1] }}</li>
+                                    <li>Utilisateur {{ composition[2] }}</li>
+                                </ul>
                                 <br>
                             }
                         </td>

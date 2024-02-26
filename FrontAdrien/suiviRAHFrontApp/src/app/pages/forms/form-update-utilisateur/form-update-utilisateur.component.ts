@@ -44,8 +44,6 @@ export class FormUpdateUtilisateurComponent {
       nom: new FormControl('', Validators.required),
       mail: new FormControl('', Validators.required),
       actif: new FormControl('', Validators.required),
-      site: new FormControl(''),
-      typeUtilisateur: new FormControl('')
     })
 
     this.activatedRoute.paramMap.subscribe(
@@ -68,8 +66,6 @@ export class FormUpdateUtilisateurComponent {
         this.formUpdate.get("nom")?.setValue(this.utilisateurById.nomUtilisateur);
         this.formUpdate.get("mail")?.setValue(this.utilisateurById.mail);
         this.formUpdate.get("actif")?.setValue(this.utilisateurById.actif);
-        this.formUpdate.get("site")?.setValue(this.utilisateurById.site);
-        this.formUpdate.get("typeUtilisateur")?.setValue(this.utilisateurById.typeUtilisateur);
         //console.log(this.formUpdate);
       }
       
@@ -89,9 +85,6 @@ export class FormUpdateUtilisateurComponent {
     this.utilisateurById.nomUtilisateur = this.formUpdate.get("nom")?.value;
     this.utilisateurById.mail = this.formUpdate.get("mail")?.value;
     this.utilisateurById.actif = this.formUpdate.get("actif")?.value;
-    this.utilisateurById.site = this.formUpdate.get("site")?.value;
-    this.utilisateurById.typeUtilisateur = this.formUpdate.get("typeUtilisateur")?.value;
-    console.log(this.utilisateurById);
     this.utilisateurService.update(this.utilisateurById).subscribe();
     alert('Thanks!');
     this.router.navigateByUrl("/admin/utilisateurs");

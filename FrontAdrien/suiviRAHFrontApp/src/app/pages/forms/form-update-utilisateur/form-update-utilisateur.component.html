@@ -9,7 +9,7 @@
           <mat-form-field class="full-width">
             <input matInput formControlName="login">
             @if (formUpdate.controls['login'].hasError('required')) {
-              <mat-error>Login <strong>requis</strong></mat-error>
+            <mat-error>Login <strong>requis</strong></mat-error>
             }
           </mat-form-field>
         </div>
@@ -65,16 +65,7 @@
               }
             </div>
           </div> -->
-      <div class="row">
-        <div class="col">
-          <mat-form-field class="full-width">
-            <input matInput formControlName="site">
-            <!-- @if (formUpdate.controls['mail'].hasError('required')) {
-                  <mat-error>Mail <strong>requis</strong></mat-error>
-                  } -->
-          </mat-form-field>
-        </div>
-        <!-- <div class="col">
+      <!-- <div class="col">
               <select aria-placeholder="State" formControlName="state">
                 @for (state of states; track state) {
                   <option [value]="state.abbreviation">{{ state.name }}</option>
@@ -91,14 +82,6 @@
                 }
               </mat-form-field>
             </div> -->
-      </div>
-      <div class="row">
-        <div class="col">
-          <mat-form-field class="full-width">
-            <input matInput formControlName="typeUtilisateur">
-          </mat-form-field>
-        </div>
-      </div>
     </mat-card-content>
     <mat-card-actions>
       <button mat-raised-button color="primary" type="submit" (click)="onSubmit()">Envoyer</button>

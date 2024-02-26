@@ -15,6 +15,7 @@ import { Site } from '../../shared/model/site';
     imports: [ReactiveFormsModule, FormUpdateUtilisateurComponent]
 })
 export class UtilisateurListComponent {
+[x: string]: any;
 
   valeurParDefautList: string = "Filtrer";
   idUtilisateur!: string ;
@@ -74,8 +75,8 @@ export class UtilisateurListComponent {
     if (this.formFiltrage.value.filtrageDemande != "") {
 
       let listNomsUtilisateur: string[] = [];
-      let listTypesUtilisateur: TypeUtilisateur[] = [];
-      let listSitesUtilisateur: Site[] = [];
+      let listTypesUtilisateur: string[] = [];
+      let listSitesUtilisateur: string[] = [];
 
       this.formFiltrage.get('utilisateurRecherche')?.enable();
       this.formFiltrage.get('boutonSoumission')?.enable();
@@ -94,8 +95,8 @@ export class UtilisateurListComponent {
         console.log("Recherche par type d'utilisateur");
         this.utilisateurService.findAll().subscribe((data) => {
           (data.forEach((utilisateur) => {
-            console.log(utilisateur.typeUtilisateur);
-            listTypesUtilisateur.push(utilisateur.typeUtilisateur);
+            console.log(utilisateur.libelleTypeUtilisateur);
+            listTypesUtilisateur.push(utilisateur.libelleTypeUtilisateur);
             console.log(listTypesUtilisateur);
           }
           ));
@@ -104,8 +105,8 @@ export class UtilisateurListComponent {
         console.log("Recherche par nom de site");
         this.utilisateurService.findAll().subscribe((data) => {
           (data.forEach((utilisateur) => {
-            console.log(utilisateur.site);
-            listSitesUtilisateur.push(utilisateur.site);
+            console.log(utilisateur.nomSite);
+            listSitesUtilisateur.push(utilisateur.nomSite);
             console.log(listSitesUtilisateur);
           }
           ));
