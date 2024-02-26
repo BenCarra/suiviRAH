@@ -1,7 +1,8 @@
 package com.stage.newRAH.dto;
 
+import lombok.Data;
 
-
+@Data
 public class ClientDTO {
 	
 	private int idClient;
