@@ -8,6 +8,7 @@ import com.stage.newRAH.model.Utilisateur;
 
 @Repository
 public interface UtilisateurRepository extends CrudRepository<Utilisateur, Integer> {
+    Utilisateur findByNomUtilisateur(String nomUtilisateur);
 	
 
 }
