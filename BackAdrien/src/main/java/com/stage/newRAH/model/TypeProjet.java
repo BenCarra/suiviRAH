@@ -3,8 +3,6 @@ package com.stage.newRAH.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -27,7 +25,6 @@ public class TypeProjet {
 	private String libelle;
 	
 	@OneToMany(mappedBy="typeProjet")
-	@JsonBackReference
 	private List<Projet> listProjets = new ArrayList<>();
 	
 	public TypeProjet() {

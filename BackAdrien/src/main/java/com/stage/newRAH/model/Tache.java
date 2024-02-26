@@ -4,9 +4,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -42,17 +39,14 @@ public class Tache {
 	
 
 	@ManyToMany(mappedBy="listTaches", cascade = {CascadeType.ALL})
-	@JsonBackReference
 	private List<Utilisateur> listUtilisateurs = new ArrayList<>();
 	
 	@ManyToOne
 	@JoinColumn(name="id_type_tache")
-	@JsonManagedReference
 	private TypeTache typeTache;
 	
 	@ManyToOne
 	@JoinColumn(name="id_projet")
-	@JsonManagedReference
 	private Projet projet;
 	
 	public Tache() {

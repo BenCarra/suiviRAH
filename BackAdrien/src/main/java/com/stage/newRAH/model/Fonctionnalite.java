@@ -3,8 +3,6 @@ package com.stage.newRAH.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -33,7 +31,6 @@ public class Fonctionnalite {
         name = "Droit",
         joinColumns = @JoinColumn(name = "id_fonctionnalite"),
         inverseJoinColumns = @JoinColumn(name = "id_type_utilisateur"))
-	@JsonManagedReference
     private List<TypeUtilisateur> listTypeUtilisateurs = new ArrayList<>();
 	
 	public Fonctionnalite() {

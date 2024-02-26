@@ -9,7 +9,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.stage.newRAH.dto.UtilisateurDTO;
+import com.stage.newRAH.model.Composition;
+import com.stage.newRAH.model.Equipe;
 import com.stage.newRAH.model.Site;
+import com.stage.newRAH.model.Tache;
 import com.stage.newRAH.model.Utilisateur;
 import com.stage.newRAH.repository.CompositionRepository;
 import com.stage.newRAH.repository.EquipeRepository;
@@ -42,6 +45,13 @@ public class UtilisateurService {
 	public UtilisateurDTO mapUtilisateurToDTO(Utilisateur utilisateur) {
 		
 		UtilisateurDTO utilisateurDTO = new UtilisateurDTO();
+
+		List<List<String>> listCompositions = new ArrayList<>();
+
+		List<List<String>> listTaches = new ArrayList<>();
+
+		List<List<String>> listEquipes = new ArrayList<>();
+
 		
 		utilisateurDTO.setIdUtilisateur(utilisateur.getIdUtilisateur());
 		utilisateurDTO.setNomUtilisateur(utilisateur.getNomUtilisateur());
@@ -49,12 +59,45 @@ public class UtilisateurService {
 		utilisateurDTO.setLogin(utilisateur.getLogin());
 		utilisateurDTO.setMail(utilisateur.getMail());
 		utilisateurDTO.setActif(utilisateur.isActif());
-		utilisateurDTO.setSite(utilisateur.getSite());
-		utilisateurDTO.setTypeUtilisateur(utilisateur.getTypeUtilisateur());
-		utilisateurDTO.setListTaches(utilisateur.getListTaches());
-		utilisateurDTO.setListEquipes(utilisateur.getListEquipes());
-		utilisateurDTO.setListCompositions(utilisateur.getListCompositions());
+
+		if (utilisateur.getSite() != null){
+			utilisateurDTO.setNomSite(utilisateur.getSite().getNomSite());
+		}
+		if (utilisateur.getTypeUtilisateur() != null){
+			utilisateurDTO.setLibelleTypeUtilisateur(utilisateur.getTypeUtilisateur().getLibelle());
+		}
+		if (utilisateur.getListTaches() != null) {
+			for (Tache tache : utilisateur.getListTaches()) {
+				List<String> tacheObject = new ArrayList<>();
+				tacheObject.add(String.valueOf(tache.getIdTache()));
+				tacheObject.add(tache.getNomTache());
+				listTaches.add(tacheObject);
+			}
+			utilisateurDTO.setListTaches(listTaches);
+		}
 		
+		if (utilisateur.getListEquipes() != null) {
+			for (Equipe equipe : utilisateur.getListEquipes()) {
+				List<String> equipeObject = new ArrayList<>();
+				equipeObject.add(String.valueOf(equipe.getIdEquipe()));
+				equipeObject.add(equipe.getLibelle());
+				listEquipes.add(equipeObject);
+			}
+			utilisateurDTO.setListEquipes(listEquipes);
+		}
+
+		//utilisateurDTO.setLibelleEquipe(utilisateur.getListEquipes());
+		if (utilisateur.getListCompositions() != null) {
+			for (Composition composition : utilisateur.getListCompositions()) {
+				List<String> compositionObject = new ArrayList<>();
+				compositionObject.add(String.valueOf(composition.getIdComposition()));
+				compositionObject.add(composition.getEquipe().getLibelle());
+				compositionObject.add(composition.getUtilisateur().getNomUtilisateur());
+				listCompositions.add(compositionObject);
+			}
+			utilisateurDTO.setListCompositions(listCompositions);
+		}
+
 		return utilisateurDTO;
 	}
 
