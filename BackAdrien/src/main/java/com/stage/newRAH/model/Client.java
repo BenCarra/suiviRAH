@@ -37,7 +37,6 @@ public class Client {
 	private String villeClient;
 	
 	@OneToMany(mappedBy="client")
-	@JsonBackReference
 	private List<Projet> listProjets = new ArrayList<>();
 
 	public Client() {

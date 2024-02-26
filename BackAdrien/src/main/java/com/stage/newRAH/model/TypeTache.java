@@ -27,7 +27,6 @@ public class TypeTache {
 	private String libelle;
 	
 	@OneToMany(mappedBy="typeTache")
-	@JsonBackReference	
 	private List<Tache> listTaches = new ArrayList<>();
 
 	public TypeTache() {

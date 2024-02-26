@@ -27,7 +27,6 @@ public class Etat {
 	private String libelle;
 	
 	@OneToMany(mappedBy="etat")
-	@JsonBackReference
 	private List<Projet> listProjets = new ArrayList<>();
 	
 	public Etat( ) {

@@ -28,11 +28,9 @@ public class TypeUtilisateur {
 	private String libelle;
 	
 	@OneToMany(mappedBy="typeUtilisateur", targetEntity=Utilisateur.class)
-	@JsonBackReference
 	private List<Utilisateur> listUtilisateurs = new ArrayList<>();
 
 	@ManyToMany(mappedBy = "listTypeUtilisateurs")
-	@JsonBackReference
     private List<Fonctionnalite> listFonctionnalites = new ArrayList<>();
 
 	

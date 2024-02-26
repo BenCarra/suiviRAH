@@ -7,8 +7,6 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
-import jakarta.persistence.CascadeType;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -82,34 +80,28 @@ public class Projet {
 	private String commentaires;
 
 	@OneToMany(mappedBy="projet")
-	@JsonBackReference
 	private List<Tache> listTaches = new ArrayList<>();
 	
 	@ManyToOne
 	@JoinColumn(name="id_client")
-	@JsonManagedReference
 	private Client client;
 	
 	@ManyToOne
 	@JoinColumn(name="id_type_projet")
-	@JsonManagedReference
 	private TypeProjet typeProjet;
 	
 	@ManyToOne
 	@JoinColumn(name="id_type_defaut")
-	@JsonManagedReference
 	private TypeDefaut typeDefaut;
 	
 	@ManyToOne
 	@JoinColumn(name="id_etat")
-	@JsonManagedReference
 	private Etat etat;	
 	
 	@ManyToMany
 	@JoinTable(name="ProjetComposition",
 			joinColumns = @JoinColumn(name="id_projet"),
 			inverseJoinColumns = @JoinColumn(name="id_composition"))
-	@JsonManagedReference
 	private List<Composition> listCompositions;
 
 	public Projet() {
@@ -120,7 +112,6 @@ public class Projet {
 			Date dateEstimation, double devisEstimation, double dontGarantie, Date dateFeuVert, Date dateLivraison,
 			boolean mCO, Date datePassageMCO, Date dateSortieMCO, String commentaires, Client client,
 			TypeProjet typeProjet, TypeDefaut typeDefaut, Etat etat) {
-		super();
 		this.idProjet = idProjet;
 		this.nomProjet = nomProjet;
 		this.jira = jira;

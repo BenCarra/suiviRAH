@@ -27,7 +27,6 @@ public class TypeProjet {
 	private String libelle;
 	
 	@OneToMany(mappedBy="typeProjet")
-	@JsonBackReference
 	private List<Projet> listProjets = new ArrayList<>();
 	
 	public TypeProjet() {

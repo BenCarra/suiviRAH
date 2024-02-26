@@ -42,17 +42,14 @@ public class Tache {
 	
 
 	@ManyToMany(mappedBy="listTaches", cascade = {CascadeType.ALL})
-	@JsonBackReference
 	private List<Utilisateur> listUtilisateurs = new ArrayList<>();
 	
 	@ManyToOne
 	@JoinColumn(name="id_type_tache")
-	@JsonManagedReference
 	private TypeTache typeTache;
 	
 	@ManyToOne
 	@JoinColumn(name="id_projet")
-	@JsonManagedReference
 	private Projet projet;
 	
 	public Tache() {

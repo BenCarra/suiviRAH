@@ -29,16 +29,13 @@ public class Composition {
 	
 	@ManyToOne
 	@JoinColumn(name="id_equipe")
-	@JsonManagedReference
 	private Equipe equipe;
 	
 	@ManyToOne
 	@JoinColumn(name="id_utilisateur")
-	@JsonManagedReference
 	private Utilisateur utilisateur;
 	
 	@ManyToMany(mappedBy="listCompositions")
-	@JsonBackReference
 	private List<Projet> listProjets = new ArrayList<>();
 	
 	

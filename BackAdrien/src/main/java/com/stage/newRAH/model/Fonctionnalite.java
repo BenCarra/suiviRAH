@@ -33,7 +33,6 @@ public class Fonctionnalite {
         name = "Droit",
         joinColumns = @JoinColumn(name = "id_fonctionnalite"),
         inverseJoinColumns = @JoinColumn(name = "id_type_utilisateur"))
-	@JsonManagedReference
     private List<TypeUtilisateur> listTypeUtilisateurs = new ArrayList<>();
 	
 	public Fonctionnalite() {

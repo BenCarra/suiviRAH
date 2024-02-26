@@ -27,7 +27,6 @@ public class TypeDefaut {
 	private String libelle;
 	
 	@OneToMany(mappedBy="typeDefaut")
-	@JsonBackReference
 	private List<Projet> listProjets = new ArrayList<>();
 	
 	public TypeDefaut() {

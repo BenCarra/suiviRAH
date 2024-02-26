@@ -35,12 +35,10 @@ public class Equipe {
 			joinColumns = @JoinColumn(name="id_equipe"),
 			inverseJoinColumns = @JoinColumn(name ="id_utilisateur")
 			)
-	@JsonBackReference
 	List<Utilisateur> listUtilisateurs = new ArrayList<>();
 	
 	// J'ai rajouté ce lien entre Equipe et Composition
 	@OneToMany(mappedBy="equipe")
-	@JsonBackReference
 	private List<Composition> listCompositions;
 	
 	public Equipe() {

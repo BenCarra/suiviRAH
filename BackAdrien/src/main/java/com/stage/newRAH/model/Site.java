@@ -37,7 +37,6 @@ public class Site {
 	private String villeSite;
 	
 	@OneToMany(mappedBy="site", targetEntity=Utilisateur.class)
-	@JsonBackReference() // Manages the reverse part of the reference and the fields/collections marked with this annotation are not serialised.
 	private List<Utilisateur> listUtilisateurs = new ArrayList<>();
 
 	public Site() {
