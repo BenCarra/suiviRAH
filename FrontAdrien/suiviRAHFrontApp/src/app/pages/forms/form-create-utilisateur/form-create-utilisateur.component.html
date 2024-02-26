@@ -1,6 +1,6 @@
-<h1>Mise à jour de l'utilisateur</h1>
+<h1>Création d'un utilisateur</h1>
 
-<form [formGroup]="formUpdate">
+<form [formGroup]="formCreate">
   <mat-card class="shipping-card">
     <mat-card-content>
       <div class="row">
@@ -8,7 +8,7 @@
           <mat-form-field class="full-width">
             <label>Login : </label>
             <input matInput formControlName="login">
-            @if (formUpdate.controls['login'].hasError('required')) {
+            @if (formCreate.controls['login'].hasError('required')) {
             <mat-error>Login <strong>requis</strong></mat-error>
             }
           </mat-form-field>
@@ -19,7 +19,7 @@
           <mat-form-field class="full-width">
             <label>Prénom : </label>
             <input matInput formControlName="prénom">
-            @if (formUpdate.controls['prénom'].hasError('required')) {
+            @if (formCreate.controls['prénom'].hasError('required')) {
             <mat-error>Prénom <strong>requis</strong></mat-error>
             }
           </mat-form-field>
@@ -28,7 +28,7 @@
           <mat-form-field class="full-width">
             <label>Nom :</label>
             <input matInput formControlName="nom">
-            @if (formUpdate.controls['nom'].hasError('required')) {
+            @if (formCreate.controls['nom'].hasError('required')) {
             <mat-error>Nom <strong>requis</strong></mat-error>
             }
           </mat-form-field>
@@ -39,7 +39,7 @@
           <mat-form-field class="full-width">
             <label>Mail :</label>
             <input matInput formControlName="mail">
-            @if (formUpdate.controls['mail'].hasError('required')) {
+            @if (formCreate.controls['mail'].hasError('required')) {
             <mat-error>Mail <strong>requis</strong></mat-error>
             }
           </mat-form-field>
@@ -50,7 +50,7 @@
           <mat-form-field class="full-width">
             <label>Actif ? :</label>
             <input matInput formControlName="actif">
-            @if (formUpdate.controls['actif'].hasError('required')) {
+            @if (formCreate.controls['actif'].hasError('required')) {
             <mat-error>Actif <strong>requis</strong></mat-error>
             }
           </mat-form-field>

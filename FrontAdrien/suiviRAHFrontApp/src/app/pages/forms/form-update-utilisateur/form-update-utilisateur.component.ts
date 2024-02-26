@@ -46,6 +46,7 @@ export class FormUpdateUtilisateurComponent {
       actif: new FormControl('', Validators.required),
     })
 
+
     this.activatedRoute.paramMap.subscribe(
       id => {
         let temp = id.get("id");
@@ -72,21 +73,28 @@ export class FormUpdateUtilisateurComponent {
     );
   }
 
-  /*hasUnitNumber = false; */ 
-
   onClose(){
     this.router.navigateByUrl("/admin/utilisateurs");
   }
 
   onSubmit(): void {
-    console.log();
-    this.utilisateurById.login = this.formUpdate.get("login")?.value;
-    this.utilisateurById.prenomUtilisateur = this.formUpdate.get("prénom")?.value;
-    this.utilisateurById.nomUtilisateur = this.formUpdate.get("nom")?.value;
-    this.utilisateurById.mail = this.formUpdate.get("mail")?.value;
-    this.utilisateurById.actif = this.formUpdate.get("actif")?.value;
-    this.utilisateurService.update(this.utilisateurById).subscribe();
-    alert('Thanks!');
-    this.router.navigateByUrl("/admin/utilisateurs");
+    
+    if (this.formUpdate.controls['login'].hasError('required') ||
+    this.formUpdate.controls['prénom'].hasError('required') ||
+    this.formUpdate.controls['nom'].hasError('required') ||
+    this.formUpdate.controls['mail'].hasError('required') ||
+    this.formUpdate.controls['actif'].hasError('required')) {
+      console.log("Un ou plusieurs champs sont requis");
+    } else {
+      this.utilisateurById.login = this.formUpdate.get("login")?.value;
+      this.utilisateurById.prenomUtilisateur = this.formUpdate.get("prénom")?.value;
+      this.utilisateurById.nomUtilisateur = this.formUpdate.get("nom")?.value;
+      this.utilisateurById.mail = this.formUpdate.get("mail")?.value;
+      this.utilisateurById.actif = this.formUpdate.get("actif")?.value;
+      this.utilisateurService.update(this.utilisateurById).subscribe();
+      alert('Utilisateur Modifié!');
+      this.router.navigateByUrl("/admin/utilisateurs");
+    }
+    
   }
 }

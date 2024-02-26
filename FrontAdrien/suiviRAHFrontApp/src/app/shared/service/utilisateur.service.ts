@@ -35,6 +35,11 @@ export class UtilisateurService {
 
   }
 
+  public create(utilisateur: Utilisateur) {
+    console.log(utilisateur);
+    return this.http.put<Utilisateur>(this.url+"/createUtilisateur/"+utilisateur.idUtilisateur, utilisateur);
+  }
+
   public update(utilisateur: Utilisateur){
     return this.http.post<Utilisateur>(this.url+"/updateUtilisateur/"+utilisateur.idUtilisateur, utilisateur);
   }

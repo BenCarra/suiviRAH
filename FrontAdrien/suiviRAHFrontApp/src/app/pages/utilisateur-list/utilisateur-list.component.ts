@@ -50,8 +50,9 @@ export class UtilisateurListComponent {
       }
       //console.log(this.idUtilisateur);
       if(confirm("Voulez-vous vraiment supprimer cet utilisateur ?")){
-        // Régler les problèmes de contraintes d'intégrité pour la base de données
         this.utilisateurService.deleteById(this.idUtilisateur).subscribe();
+        alert("Utilisateur supprimé")
+        // Régler les problèmes de contraintes d'intégrité pour la base de données
         window.location.reload();
       }
     }
@@ -63,7 +64,6 @@ export class UtilisateurListComponent {
       }
       //console.log(this.idUtilisateur);
       this.router.navigateByUrl("/admin/utilisateurs/update/"+this.idUtilisateur);
-      // Ajouter fenêtre par dessus la courante pour afficher le formulaire avec les champs pré-remplis
     }
   }
 
