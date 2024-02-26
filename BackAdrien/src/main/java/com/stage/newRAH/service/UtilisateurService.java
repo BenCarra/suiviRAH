@@ -75,7 +75,6 @@ public class UtilisateurService {
 			}
 			utilisateurDTO.setListTaches(listTaches);
 		}
-		
 		if (utilisateur.getListEquipes() != null) {
 			for (Equipe equipe : utilisateur.getListEquipes()) {
 				List<String> equipeObject = new ArrayList<>();
@@ -85,8 +84,6 @@ public class UtilisateurService {
 			}
 			utilisateurDTO.setListEquipes(listEquipes);
 		}
-
-		//utilisateurDTO.setLibelleEquipe(utilisateur.getListEquipes());
 		if (utilisateur.getListCompositions() != null) {
 			for (Composition composition : utilisateur.getListCompositions()) {
 				List<String> compositionObject = new ArrayList<>();
@@ -150,18 +147,30 @@ public class UtilisateurService {
 		}
 	}
 
+	public ResponseEntity<UtilisateurDTO> createUtilisateur(UtilisateurDTO utilisateurDTO) {
+        Utilisateur utilisateurACreer = new Utilisateur();
+
+		utilisateurACreer.setNomUtilisateur(utilisateurDTO.getNomUtilisateur());
+		utilisateurACreer.setPrenomUtilisateur(utilisateurDTO.getPrenomUtilisateur());
+		utilisateurACreer.setLogin(utilisateurDTO.getLogin());
+		utilisateurACreer.setMail(utilisateurDTO.getMail());
+		utilisateurACreer.setActif(utilisateurDTO.isActif());
+
+		utilisateurRepository.save(utilisateurACreer);
+
+		UtilisateurDTO utilisateurACreerDTO  = this.mapUtilisateurToDTO(utilisateurACreer);
+
+		return ResponseEntity.ok(utilisateurACreerDTO);
+    }
+
 	public ResponseEntity<UtilisateurDTO> updateUtilisateur(UtilisateurDTO utilisateurDTO, int id) {
         Utilisateur utilisateurAModifier = utilisateurRepository.findById(id).get();
-
 		
 		utilisateurAModifier.setNomUtilisateur(utilisateurDTO.getNomUtilisateur());
 		utilisateurAModifier.setPrenomUtilisateur(utilisateurDTO.getPrenomUtilisateur());
 		utilisateurAModifier.setLogin(utilisateurDTO.getLogin());
 		utilisateurAModifier.setMail(utilisateurDTO.getMail());
 		utilisateurAModifier.setActif(utilisateurDTO.isActif());
-		// TODO : Récupérer site par id utilisateur, récupérer type utilisateur par utilisateur
-		//utilisateurAModifier.setSite(...);
-		//utilisateurAModifier.setTypeUtilisateur(...);
 
 		utilisateurRepository.save(utilisateurAModifier);
 
@@ -179,6 +188,8 @@ public class UtilisateurService {
 
 		return ResponseEntity.ok(utilisateurASupprimerDTO);
     }
+
+    
 
     
 

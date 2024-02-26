@@ -14,6 +14,8 @@ import com.stage.newRAH.dto.UtilisateurDTO;
 import com.stage.newRAH.service.UtilisateurService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PutMapping;
+
 
 
 
@@ -37,6 +39,11 @@ public class UtilisateurController {
 	@GetMapping("/utilisateursBySite/{id}")
 	public ResponseEntity<List<UtilisateurDTO>> getUtilisateursBySite(@PathVariable int id) {
 		return utilisateurService.getUtilisateursBySite(id);
+	}
+
+	@PutMapping("createUtilisateur/{id}")
+	public ResponseEntity<UtilisateurDTO> createUtilisateur(@RequestBody UtilisateurDTO utilisateurDTO) {
+		return utilisateurService.createUtilisateur(utilisateurDTO);
 	}
 
 	@PostMapping("/updateUtilisateur/{id}")
