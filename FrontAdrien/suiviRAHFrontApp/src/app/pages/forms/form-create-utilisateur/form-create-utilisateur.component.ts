@@ -41,8 +41,8 @@ export class FormCreateUtilisateurComponent {
       login: new FormControl('', Validators.required),
       prénom: new FormControl('', Validators.required),
       nom: new FormControl('', Validators.required),
-      mail: new FormControl('', Validators.required),
-      actif: new FormControl('', Validators.required),
+      mail: new FormControl('', Validators.compose([Validators.required, Validators.email])),
+      actif: new FormControl('',Validators.required),
     })
 
   }
@@ -59,6 +59,8 @@ export class FormCreateUtilisateurComponent {
     this.formCreate.controls['mail'].hasError('required') ||
     this.formCreate.controls['actif'].hasError('required')) {
       console.log("Un ou plusieurs champs sont requis");
+    } else if (this.formCreate.controls['mail'].hasError('email')) {
+      console.log("Mail mal formé");
     } else {
       this.utilisateurCree.login = this.formCreate.get("login")?.value;
       this.utilisateurCree.prenomUtilisateur = this.formCreate.get("prénom")?.value;

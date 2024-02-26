@@ -41,6 +41,8 @@
             <input matInput formControlName="mail">
             @if (formUpdate.controls['mail'].hasError('required')) {
             <mat-error>Mail <strong>requis</strong></mat-error>
+            } @else if (formUpdate.controls['mail'].hasError('email')) {
+              <mat-error>Mail <strong>mal formé</strong></mat-error>
             }
           </mat-form-field>
         </div>
@@ -49,7 +51,10 @@
         <div class="col">
           <mat-form-field class="full-width">
             <label>Actif ? :</label>
-            <input matInput formControlName="actif">
+            <mat-select [value]="utilisateurById.actif" [placeholder]="utilisateurById.actif.toString()" formControlName="actif">
+                <mat-option value="true">true</mat-option>
+                <mat-option value="false">false</mat-option>
+            </mat-select>
             @if (formUpdate.controls['actif'].hasError('required')) {
             <mat-error>Actif <strong>requis</strong></mat-error>
             }
@@ -75,7 +80,7 @@
                   <option [value]="state.abbreviation">{{ state.name }}</option>
                 }
               </select>
-              <!-- <mat-form-field class="full-width">
+              <mat-form-field class="full-width">
                 <mat-select placeholder="State" formControlName="state">
                   @for (state of states; track state) {
                     <mat-option [value]="state.abbreviation">{{ state.name }}</mat-option>

@@ -41,6 +41,8 @@
             <input matInput formControlName="mail">
             @if (formCreate.controls['mail'].hasError('required')) {
             <mat-error>Mail <strong>requis</strong></mat-error>
+            }  @else if (formCreate.controls['mail'].hasError('email')) {
+              <mat-error>Mail <strong>mal formé</strong></mat-error>
             }
           </mat-form-field>
         </div>
@@ -49,7 +51,10 @@
         <div class="col">
           <mat-form-field class="full-width">
             <label>Actif ? :</label>
-            <input matInput formControlName="actif">
+            <mat-select formControlName="actif">
+                <mat-option value="true">true</mat-option>
+                <mat-option value="false">false</mat-option>
+            </mat-select>
             @if (formCreate.controls['actif'].hasError('required')) {
             <mat-error>Actif <strong>requis</strong></mat-error>
             }

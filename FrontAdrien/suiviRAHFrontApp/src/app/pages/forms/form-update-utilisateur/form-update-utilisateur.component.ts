@@ -42,8 +42,8 @@ export class FormUpdateUtilisateurComponent {
       login: new FormControl('', Validators.required),
       prénom: new FormControl('', Validators.required),
       nom: new FormControl('', Validators.required),
-      mail: new FormControl('', Validators.required),
-      actif: new FormControl('', Validators.required),
+      mail: new FormControl('', Validators.compose([Validators.required, Validators.email])),
+      actif: new FormControl('',Validators.required),
     })
 
 
@@ -85,7 +85,10 @@ export class FormUpdateUtilisateurComponent {
     this.formUpdate.controls['mail'].hasError('required') ||
     this.formUpdate.controls['actif'].hasError('required')) {
       console.log("Un ou plusieurs champs sont requis");
+    } else if (this.formUpdate.controls['mail'].hasError('email')) {
+      console.log("Mail mal formé");
     } else {
+      console.log(this.formUpdate.get("actif")?.value);
       this.utilisateurById.login = this.formUpdate.get("login")?.value;
       this.utilisateurById.prenomUtilisateur = this.formUpdate.get("prénom")?.value;
       this.utilisateurById.nomUtilisateur = this.formUpdate.get("nom")?.value;

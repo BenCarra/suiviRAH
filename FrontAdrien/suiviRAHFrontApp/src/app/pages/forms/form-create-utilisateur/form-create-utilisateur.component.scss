@@ -6,6 +6,10 @@ form {
     width: 100%;
 }
 
+::ng-deep .cdk-overlay-container {
+    color: white;
+  }
+
 .shipping-card {
     min-width: 120px;
     margin: 20px auto;
