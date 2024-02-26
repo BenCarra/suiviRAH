@@ -3,8 +3,6 @@ package com.stage.newRAH.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -35,12 +33,10 @@ public class Equipe {
 			joinColumns = @JoinColumn(name="id_equipe"),
 			inverseJoinColumns = @JoinColumn(name ="id_utilisateur")
 			)
-	@JsonBackReference
 	List<Utilisateur> listUtilisateurs = new ArrayList<>();
 	
 	// J'ai rajouté ce lien entre Equipe et Composition
 	@OneToMany(mappedBy="equipe")
-	@JsonBackReference
 	private List<Composition> listCompositions;
 	
 	public Equipe() {

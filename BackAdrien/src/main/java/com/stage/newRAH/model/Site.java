@@ -3,8 +3,6 @@ package com.stage.newRAH.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -37,7 +35,6 @@ public class Site {
 	private String villeSite;
 	
 	@OneToMany(mappedBy="site", targetEntity=Utilisateur.class)
-	@JsonBackReference() // Manages the reverse part of the reference and the fields/collections marked with this annotation are not serialised.
 	private List<Utilisateur> listUtilisateurs = new ArrayList<>();
 
 	public Site() {

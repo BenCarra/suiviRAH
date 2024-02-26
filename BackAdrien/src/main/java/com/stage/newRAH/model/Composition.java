@@ -3,9 +3,6 @@ package com.stage.newRAH.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -29,16 +26,13 @@ public class Composition {
 	
 	@ManyToOne
 	@JoinColumn(name="id_equipe")
-	@JsonManagedReference
 	private Equipe equipe;
 	
 	@ManyToOne
 	@JoinColumn(name="id_utilisateur")
-	@JsonManagedReference
 	private Utilisateur utilisateur;
 	
 	@ManyToMany(mappedBy="listCompositions")
-	@JsonBackReference
 	private List<Projet> listProjets = new ArrayList<>();
 	
 	
