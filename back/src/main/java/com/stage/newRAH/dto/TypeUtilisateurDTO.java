@@ -1,5 +1,8 @@
 package com.stage.newRAH.dto;
 
+import lombok.Data;
+
+@Data
 public class TypeUtilisateurDTO {
 	
 	private int idTypeUtilisateur;
@@ -14,25 +17,4 @@ public class TypeUtilisateurDTO {
 		this.idTypeUtilisateur = idTypeUtilisateur;
 		this.libelle = libelle;
 	}
-
-
-
-	public int getIdTypeUtilisateur() {
-		return idTypeUtilisateur;
-	}
-
-	public void setIdTypeUtilisateur(int idTypeUtilisateur) {
-		this.idTypeUtilisateur = idTypeUtilisateur;
-	}
-
-	public String getLibelle() {
-		return libelle;
-	}
-
-	public void setLibelle(String libelle) {
-		this.libelle = libelle;
-	}
-	
-	
-
 }

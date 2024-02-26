@@ -34,8 +34,6 @@ public class ProjetDTO {
 	public ProjetDTO() {
 	}
 
-
-
 	public ProjetDTO(int idProjet, String nomProjet, String jira, String techno, String service, Date dateDemande, Date livraisonSouhaitee, Date livraisonRevisee, Date affectationCDS, Date priseEnCompteCDS, Date dateEstimation, double devisEstimation, double dontGarantie, Date dateFeuVert, Date dateLivraison, boolean MCO, Date datePassageMCO, Date dateSortieMCO, String commentaires, String nomClient, String libelleEtat, String libelleTypeDefaut, String libelleTypeProjet) {
 		this.idProjet = idProjet;
 		this.nomProjet = nomProjet;
@@ -61,6 +59,4 @@ public class ProjetDTO {
 		this.libelleTypeDefaut = libelleTypeDefaut;
 		this.libelleTypeProjet = libelleTypeProjet;
 	}
-		
-
 }

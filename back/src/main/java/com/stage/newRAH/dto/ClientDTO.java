@@ -24,44 +24,4 @@ public class ClientDTO {
 		this.codePostalClient = codePostalClient;
 		this.villeClient = villeClient;
 	}
-
-	public int getIdClient() {
-		return idClient;
-	}
-
-	public void setIdClient(int idClient) {
-		this.idClient = idClient;
-	}
-
-	public String getNomClient() {
-		return nomClient;
-	}
-
-	public void setNomClient(String nomClient) {
-		this.nomClient = nomClient;
-	}
-
-	public String getAdresseClient() {
-		return adresseClient;
-	}
-
-	public void setAdresseClient(String adresseClient) {
-		this.adresseClient = adresseClient;
-	}
-
-	public String getCodePostalClient() {
-		return codePostalClient;
-	}
-
-	public void setCodePostalClient(String codePostalClient) {
-		this.codePostalClient = codePostalClient;
-	}
-
-	public String getVilleClient() {
-		return villeClient;
-	}
-
-	public void setVilleClient(String villeClient) {
-		this.villeClient = villeClient;
-	}
 }

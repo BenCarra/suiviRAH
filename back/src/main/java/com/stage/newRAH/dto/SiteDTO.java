@@ -1,6 +1,8 @@
 package com.stage.newRAH.dto;
 
+import lombok.Data;
 
+@Data
 public class SiteDTO {
 	
 	private int idSite;
@@ -17,46 +19,6 @@ public class SiteDTO {
 		this.nomSite = nomSite;
 		this.adresseSite = adresseSite;
 		this.codePostalSite = codePostalSite;
-		this.villeSite = villeSite;
-	}
-
-	public int getIdSite() {
-		return idSite;
-	}
-
-	public void setIdSite(int idSite) {
-		this.idSite = idSite;
-	}
-
-	public String getNomSite() {
-		return nomSite;
-	}
-
-	public void setNomSite(String nomSite) {
-		this.nomSite = nomSite;
-	}
-
-	public String getAdresseSite() {
-		return adresseSite;
-	}
-
-	public void setAdresseSite(String adresseSite) {
-		this.adresseSite = adresseSite;
-	}
-
-	public String getCodePostalSite() {
-		return codePostalSite;
-	}
-
-	public void setCodePostalSite(String codePostalSite) {
-		this.codePostalSite = codePostalSite;
-	}
-
-	public String getVilleSite() {
-		return villeSite;
-	}
-
-	public void setVilleSite(String villeSite) {
 		this.villeSite = villeSite;
 	}
 

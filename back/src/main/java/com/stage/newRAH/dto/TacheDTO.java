@@ -20,8 +20,6 @@ public class TacheDTO {
 		public TacheDTO() {
 		}
 
-
-
 	public TacheDTO(int idTache, String nomTache, LocalDateTime debutTache, LocalDateTime finTache, String commentaires, String libelleTypeTache, String nomProjet) {
 		this.idTache = idTache;
 		this.nomTache = nomTache;
@@ -31,7 +29,4 @@ public class TacheDTO {
 		this.libelleTypeTache = libelleTypeTache;
 		this.nomProjet = nomProjet;
 	}
-	
-
-		
-	}
+}

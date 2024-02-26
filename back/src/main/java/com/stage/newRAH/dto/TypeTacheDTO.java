@@ -17,7 +17,4 @@ public class TypeTacheDTO {
 		this.idTypeTache = idTypeTache;
 		this.libelle = libelle;
 	}
-
-	
-
 }
