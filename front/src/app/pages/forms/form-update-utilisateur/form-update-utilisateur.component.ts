@@ -85,6 +85,9 @@ export class FormUpdateUtilisateurComponent {
   }
 
   onSubmit(): void {
+
+    console.log(this.formUpdate.get("dateNaissance")?.value);
+
     if (this.formUpdate.controls['login'].hasError('required') ||
     this.formUpdate.controls['prénom'].hasError('required') ||
     this.formUpdate.controls['nom'].hasError('required') ||
