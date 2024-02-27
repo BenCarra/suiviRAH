@@ -2,6 +2,7 @@ export class Utilisateur {
     idUtilisateur!: number;
     nomUtilisateur!: string;
     prenomUtilisateur!: string;
+    dateNaissance!: Date;
     login!: string
     mail!: string
     actif!: boolean

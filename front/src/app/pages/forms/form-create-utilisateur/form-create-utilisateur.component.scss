@@ -1,39 +1,30 @@
 form {
     background-color: white;
-}
-
-.full-width {
-    width: 100%;
-}
-
-::ng-deep .cdk-overlay-container {
-    color: white;
   }
-
-.shipping-card {
+  
+  .card {
     min-width: 120px;
     margin: 20px auto;
-}
-
-.mat-radio-button {
+  }
+  
+  .mat-radio-button {
     display: block;
     margin: 5px 0;
-}
-
-.row {
+  }
+  
+  .row {
     display: flex;
     flex-direction: row;
-}
-
-.col {
+  }
+  
+  .col {
     flex: 1;
     margin-right: 20px;
-}
-
-.col:last-child {
+  }
+  
+  .col:last-child {
     margin-right: 0;
-}
-
-.col mat-option {
-    background-color: white;
-}
+  }
+  
+  
+  

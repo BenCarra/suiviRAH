@@ -4,18 +4,16 @@ import { Utilisateur } from '../../shared/model/utilisateur';
 import { UtilisateurService } from '../../shared/service/utilisateur.service';
 import { Router } from '@angular/router';
 import { FormUpdateUtilisateurComponent } from '../forms/form-update-utilisateur/form-update-utilisateur.component';
-import { TypeUtilisateur } from '../../shared/model/type-utilisateur';
-import { Site } from '../../shared/model/site';
+import { DatePipe } from '@angular/common';
 
 @Component({
     selector: 'app-utilisateur-list',
     standalone: true,
     templateUrl: './utilisateur-list.component.html',
     styleUrl: './utilisateur-list.component.scss',
-    imports: [ReactiveFormsModule, FormUpdateUtilisateurComponent]
+    imports: [DatePipe,ReactiveFormsModule, FormUpdateUtilisateurComponent]
 })
 export class UtilisateurListComponent {
-[x: string]: any;
 
   valeurParDefautList: string = "Filtrer";
   idUtilisateur!: string ;
@@ -37,9 +35,7 @@ export class UtilisateurListComponent {
       this.listUtilisateurs = data;
     })
     this.formFiltrage.get('utilisateurRecherche')?.disable();
-    this.formFiltrage.get('boutonSoumission')?.disable();
-
-    
+    this.formFiltrage.get('boutonSoumission')?.disable();  
   }
 
   
