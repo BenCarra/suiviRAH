@@ -41,6 +41,7 @@ export class UtilisateurService {
   }
 
   public update(utilisateur: Utilisateur){
+    console.log(utilisateur.dateNaissance);
     return this.http.post<Utilisateur>(this.url+"/updateUtilisateur/"+utilisateur.idUtilisateur, utilisateur);
   }
 
