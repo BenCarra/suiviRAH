@@ -1,8 +1,8 @@
 export class Tache {
     idTache!: number;
     nomTache!: string;
-    debutTache!: Date;
-    finTache!: Date;
+    dateTache!: Date;
+    dureeTache!: number;
     commentaires!: string;
     libelleTypeTache!:string;
     nomProjet!: string;

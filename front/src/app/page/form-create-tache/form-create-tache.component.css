@@ -6,7 +6,27 @@ h1 {
     margin-bottom: 25px;
 }
 
-form {
+.form-field {
+    margin-left: 25px; 
+}
+
+.form-container {
+    text-align: center;
+}
+
+.button-element {
+        font-size: 20px; 
+        height: 30px; 
+        padding: 0 10px; 
+        border-radius: 5px; /* bouton plus arrondi */
+}
+    
+
+
+
+
+
+/* form {
     text-align: center;
     color: #00884C;  
 }
@@ -17,4 +37,4 @@ form {
 
 .button-position {
     margin-top: 25px
-}
+} */

@@ -1,6 +1,56 @@
 <h1>Ajouter une tâche</h1>
 
-<form >  
+<form class="form-container" [formGroup]="monFormulaire">
+    <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Nom de la tâche</mat-label>
+        <input formControlName="nomTache" matInput>
+    </mat-form-field>
+
+    <mat-form-field color="primary" class="form-field">
+        <mat-label>Type de tâche</mat-label>
+            <mat-select>
+                <mat-option *ngFor="let typeTache of typeTaches" [value]="typeTache.libelle">
+                {{typeTache.libelle}}</mat-option>
+            </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="form-field">
+        <mat-label>Projet</mat-label>
+            <mat-select>
+                <mat-option *ngFor="let projet of projets" [value]="projet.nomProjet">
+                {{projet.nomProjet}}</mat-option>
+            </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="form-field">
+        <mat-label>Date</mat-label>
+            <input matInput [matDatepicker]="picker">
+            <mat-hint>JJ/MM/AAAA</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-checkbox color="primary" class="form-field">Journée ou </mat-checkbox>
+   
+    <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Durée (en heures)</mat-label>
+        <input matInput>
+    </mat-form-field>
+
+
+    <mat-form-field class="form-field">
+        <mat-label>Commentaires</mat-label>
+            <textarea matInput></textarea>
+    </mat-form-field>
+
+    <div>
+        <button mat-raised-button class="button-element"color="primary">Valider</button>
+    </div>
+</form>
+
+
+
+<!-- <form >  
     <div class="form-element">
         <label for="nomTache">Nom </label>
         <input type="text" id="nomTache" name="nomTache" />
@@ -26,10 +76,10 @@
 
     <div class="form-element">
         <h4>Durée</h4>
-        <label for="jours">En jour </label>
+        <label for="jours">Date </label>
         <input type="date" id="jours" name="jours" style="margin-right: 15px;" />
 
-        <label for="heures"> ou en heures </label>
+        <label for="heures"> Durée (en heures) </label>
         <input type="text" id="heures" name="heures" />
 
     </div>
@@ -42,4 +92,4 @@
     <div class="button-position">
         <button type="submit">Valider </button>
     </div>
-</form>
+</form> -->

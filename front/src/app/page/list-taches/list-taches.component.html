@@ -7,8 +7,8 @@
         <th>Liste des utilisateurs</th>
         <th>Nom</th>
         <th>Type de tâche</th>
-        <th>Début</th>
-        <th>Fin </th>
+        <th>Date</th>
+        <th>Durée </th>
         <th>Commentaires </th>
         <th>Projet </th>
         <th>Modifier</th>
@@ -23,8 +23,9 @@
         <td>{{ tache.listNomsUtilisateurs}}</td>
         <td>{{ tache.nomTache}}</td>
         <td>{{ tache.libelleTypeTache}}</td>
-        <td>{{ tache.debutTache | date: 'dd.MM.yy - HH:mm'}}</td>
-        <td>{{ tache.finTache | date: 'dd.MM.yy - HH:mm' }}</td>
+        <td>{{ tache.dateTache | date: 'dd/MM/yyyy'  }}</td>
+        <!-- <td>{{ tache.debutTache | date: 'dd.MM.yy - HH:mm'}}</td> -->
+        <td>{{ tache.dureeTache }}</td>
         <td>{{ tache.commentaires }}</td>
         <td>{{ tache.nomProjet }}</td>
         <td><button>Modifier</button></td>
