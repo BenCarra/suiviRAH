@@ -56,6 +56,7 @@ export class FormCreateUtilisateurComponent {
 
   onSubmit(): void {
 
+    console.log(this.formCreate.get("dateNaissance")?.value);
     if (this.formCreate.controls['login'].hasError('required') ||
     this.formCreate.controls['prénom'].hasError('required') ||
     this.formCreate.controls['nom'].hasError('required') ||

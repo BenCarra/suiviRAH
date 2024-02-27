@@ -1,4 +1,4 @@
-<h1>Mise à jour de l'utilisateur</h1>
+<h1>Mise à jour d'un utilisateur</h1>
 
 <form [formGroup]="formUpdate">
   <mat-card class="card">
@@ -6,7 +6,7 @@
       <div class="row">
         <div class="col">
           <mat-form-field>
-            <label>Login : </label>
+            <mat-label>Login :</mat-label>
             <input matInput formControlName="login">
             @if (formUpdate.controls['login'].hasError('required')) {
             <mat-error>Login <strong>requis</strong></mat-error>
@@ -18,7 +18,7 @@
       <div class="row">
         <div class="col">
           <mat-form-field>
-            <label>Prénom : </label>
+            <mat-label>Prénom : </mat-label>
             <input matInput formControlName="prénom">
             @if (formUpdate.controls['prénom'].hasError('required')) {
             <mat-error>Prénom <strong>requis</strong></mat-error>
@@ -27,7 +27,7 @@
         </div>
         <div class="col">
           <mat-form-field>
-            <label>Nom :</label>
+            <mat-label>Nom :</mat-label>
             <input matInput formControlName="nom">
             @if (formUpdate.controls['nom'].hasError('required')) {
             <mat-error>Nom <strong>requis</strong></mat-error>
@@ -38,12 +38,15 @@
       <br>
       <div class="row">
         <div class="col">
+          <mat-form-field>
             <label>Date de naissance :</label>
-            <br>
-            <input type="datetime-local" formControlName="dateNaissance">
+            <input matInput [matDatepicker]="picker" formControlName="dateNaissance">
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
             @if (formUpdate.controls['dateNaissance'].hasError('required')) {
               <mat-error>Date de naissance <strong>requise</strong></mat-error>
             }
+          </mat-form-field>
         </div>
       </div>
       <br>
@@ -63,15 +66,16 @@
       <br>
       <div class="row">
         <div class="col">
-            <label>Actif ? :</label>
-            <br>
-            <select formControlName="actif">
-              <option value="true"> true </option>
-              <option value="false"> false </option>
-            </select>
+          <mat-form-field>
+            <mat-label>Actif ? :</mat-label>
+            <mat-select formControlName="actif">
+              <mat-option value="true">Oui</mat-option>
+              <mat-option value="false">Non</mat-option>
+            </mat-select>
             @if (formUpdate.controls['actif'].hasError('required')) {
             <mat-error>Actif <strong>requis</strong></mat-error>
             }
+          </mat-form-field>
         </div>
       </div>
       <br>

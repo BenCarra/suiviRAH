@@ -7,7 +7,7 @@
 body {
     height: 100%;
     width: 100%;
-    margin: auto;
+    margin: 0 auto;
     font-size: 10pt;
     font-family: 'Filson Soft Book', Calibri, sans-serif;
     background: linear-gradient(180deg, #00884C , #312B6D) no-repeat;
@@ -27,3 +27,5 @@ h1, h2, h3 {
     line-height: 120%;
     font-family: 'Filson Soft Medium',Calibri, sans-serif
 }
+
+
