@@ -1,6 +1,6 @@
 package com.stage.newRAH.model;
 
-import java.time.LocalDateTime;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,15 +28,14 @@ public class Tache {
 	@Column(name="nom_tache")
 	private String nomTache;
 	
-	@Column(name="debut_tache", columnDefinition="datetime")
-	private LocalDateTime debutTache;
+	@Column(name="date_tache")
+	private Date dateTache;
 	
-	@Column(name="fin_tache", columnDefinition="datetime")
-	private LocalDateTime finTache;
+	@Column(name="duree_tache")
+	private double dureeTache;
 	
 	private String commentaires;
 	
-
 	@ManyToMany(mappedBy="listTaches")
 	private List<Utilisateur> listUtilisateurs = new ArrayList<>();
 	
@@ -51,21 +50,16 @@ public class Tache {
 	public Tache() {
 	}
 
-	// Constructeur à supprimer après avoir testé la connexion avec Angular
-	// (utilisation de ce constructeur dans NewRahApplication)
-	public Tache(String nomTache) {
-		this.nomTache = nomTache;
-	}
 
-	public Tache(int idTache, String nomTache, LocalDateTime debutTache, LocalDateTime finTache, String commentaires,
-			TypeTache typeTache, Projet projet) {
+	public Tache(int idTache, String nomTache, Date dateTache, double dureeTache, String commentaires, TypeTache typeTache, Projet projet) {
 		this.idTache = idTache;
 		this.nomTache = nomTache;
-		this.debutTache = debutTache;
-		this.finTache = finTache;
+		this.dateTache = dateTache;
+		this.dureeTache = dureeTache;
 		this.commentaires = commentaires;
 		this.typeTache = typeTache;
 		this.projet = projet;
 	}
+	
 	
 }

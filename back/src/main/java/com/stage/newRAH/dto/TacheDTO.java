@@ -1,6 +1,6 @@
 package com.stage.newRAH.dto;
 
-import java.time.LocalDateTime;
+import java.sql.Date;
 import java.util.List;
 
 import lombok.Data;
@@ -10,8 +10,8 @@ public class TacheDTO {
 	
 		private int idTache;
 	    private String nomTache;
-	    private LocalDateTime debutTache;
-	    private LocalDateTime finTache;
+	    private Date dateTache;
+	    private double dureeTache;
 	    private String commentaires;
 	    private String libelleTypeTache;
 	    private String nomProjet;
@@ -20,13 +20,15 @@ public class TacheDTO {
 		public TacheDTO() {
 		}
 
-	public TacheDTO(int idTache, String nomTache, LocalDateTime debutTache, LocalDateTime finTache, String commentaires, String libelleTypeTache, String nomProjet) {
+
+	public TacheDTO(int idTache, String nomTache, Date dateTache, double dureeTache, String commentaires, String libelleTypeTache, String nomProjet) {
 		this.idTache = idTache;
 		this.nomTache = nomTache;
-		this.debutTache = debutTache;
-		this.finTache = finTache;
+		this.dateTache = dateTache;
+		this.dureeTache = dureeTache;
 		this.commentaires = commentaires;
 		this.libelleTypeTache = libelleTypeTache;
 		this.nomProjet = nomProjet;
 	}
+	
 }

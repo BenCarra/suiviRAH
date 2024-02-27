@@ -41,8 +41,8 @@ public class TacheService {
 		
 		tacheDTO.setIdTache(tache.getIdTache());
 		tacheDTO.setNomTache(tache.getNomTache());
-		tacheDTO.setDebutTache(tache.getDebutTache());
-		tacheDTO.setFinTache(tache.getFinTache());
+		tacheDTO.setDateTache(tache.getDateTache());
+		tacheDTO.setDureeTache(tache.getDureeTache());
 		tacheDTO.setCommentaires(tache.getCommentaires());
 		if (tache.getTypeTache() != null) { 
 			tacheDTO.setLibelleTypeTache(tache.getTypeTache().getLibelle());
@@ -139,8 +139,8 @@ public class TacheService {
 		 List<Utilisateur> utilisateurs = new ArrayList<>();
 		
 		nouvelleTache.setNomTache(tacheDTO.getNomTache());
-		nouvelleTache.setDebutTache(tacheDTO.getDebutTache());
-		nouvelleTache.setFinTache(tacheDTO.getFinTache());
+		nouvelleTache.setDateTache(tacheDTO.getDateTache());
+		nouvelleTache.setDureeTache(tacheDTO.getDureeTache());
 		nouvelleTache.setCommentaires(tacheDTO.getCommentaires());
 		nouvelleTache.setTypeTache(typeTache);
 		nouvelleTache.setProjet(projet);
@@ -163,8 +163,4 @@ public class TacheService {
 		
 		return ResponseEntity.ok(tacheSauvegardeeDTO);
 	}
-	
-	
-    
-
 }
