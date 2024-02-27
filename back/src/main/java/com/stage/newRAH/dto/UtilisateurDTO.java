@@ -1,12 +1,14 @@
 package com.stage.newRAH.dto;
 
 
+import java.time.LocalDateTime;
 import java.util.List;
 public class UtilisateurDTO {
 	
 	private int idUtilisateur;
 	private String nomUtilisateur;
 	private String prenomUtilisateur;
+	private LocalDateTime dateNaissance;
 	private String login ;
 	private String mail;
 	private boolean actif;
@@ -20,12 +22,13 @@ public class UtilisateurDTO {
 
 	}
 
-	public UtilisateurDTO(int idUtilisateur, String nomUtilisateur, String prenomUtilisateur, String login, String mail,
-			boolean actif, String nomSite, String libelleTypeUtilisateur, List<List<String>> listTaches,
-			List<List<String>> listEquipes, List<List<String>> listCompositions) {
+	public UtilisateurDTO(int idUtilisateur, String nomUtilisateur, String prenomUtilisateur, LocalDateTime dateNaissance,
+			String login, String mail, boolean actif, String nomSite, String libelleTypeUtilisateur,
+			List<List<String>> listTaches, List<List<String>> listEquipes, List<List<String>> listCompositions) {
 		this.idUtilisateur = idUtilisateur;
 		this.nomUtilisateur = nomUtilisateur;
 		this.prenomUtilisateur = prenomUtilisateur;
+		this.dateNaissance = dateNaissance;
 		this.login = login;
 		this.mail = mail;
 		this.actif = actif;
@@ -35,6 +38,8 @@ public class UtilisateurDTO {
 		this.listEquipes = listEquipes;
 		this.listCompositions = listCompositions;
 	}
+
+
 
 	public int getIdUtilisateur() {
 		return idUtilisateur;
@@ -59,6 +64,15 @@ public class UtilisateurDTO {
 	public void setPrenomUtilisateur(String prenomUtilisateur) {
 		this.prenomUtilisateur = prenomUtilisateur;
 	}
+
+	public LocalDateTime getDateNaissance() {
+		return dateNaissance;
+	}
+
+	public void setDateNaissance(LocalDateTime dateNaissance) {
+		this.dateNaissance = dateNaissance;
+	}
+
 
 	public String getLogin() {
 		return login;
@@ -127,11 +141,10 @@ public class UtilisateurDTO {
 	@Override
 	public String toString() {
 		return "UtilisateurDTO [idUtilisateur=" + idUtilisateur + ", nomUtilisateur=" + nomUtilisateur
-				+ ", prenomUtilisateur=" + prenomUtilisateur + ", login=" + login + ", mail=" + mail + ", actif="
-				+ actif + ", nomSite=" + nomSite + ", libelleTypeUtilisateur=" + libelleTypeUtilisateur
-				+ ", listTaches=" + listTaches + ", listEquipes=" + listEquipes + ", listCompositions="
-				+ listCompositions + "]";
+				+ ", prenomUtilisateur=" + prenomUtilisateur + ", dateNaissance=" + dateNaissance + ", login=" + login
+				+ ", mail=" + mail + ", actif=" + actif + ", nomSite=" + nomSite + ", libelleTypeUtilisateur="
+				+ libelleTypeUtilisateur + ", listTaches=" + listTaches + ", listEquipes=" + listEquipes
+				+ ", listCompositions=" + listCompositions + "]";
 	}
-
 	
 }	

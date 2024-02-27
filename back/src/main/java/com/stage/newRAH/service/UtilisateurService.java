@@ -14,11 +14,7 @@ import com.stage.newRAH.model.Equipe;
 import com.stage.newRAH.model.Site;
 import com.stage.newRAH.model.Tache;
 import com.stage.newRAH.model.Utilisateur;
-import com.stage.newRAH.repository.CompositionRepository;
-import com.stage.newRAH.repository.EquipeRepository;
 import com.stage.newRAH.repository.SiteRepository;
-import com.stage.newRAH.repository.TacheRepository;
-import com.stage.newRAH.repository.TypeUtilisateurRepository;
 import com.stage.newRAH.repository.UtilisateurRepository;
 
 @Service
@@ -29,18 +25,6 @@ public class UtilisateurService {
 
 	@Autowired
 	SiteRepository siteRepository;
-
-	@Autowired
-	TypeUtilisateurRepository typeUtilisateurRepository;
-
-	@Autowired
-	TacheRepository tacheRepository;
-
-	@Autowired
-	EquipeRepository equipeRepository;
-
-	@Autowired
-	CompositionRepository compositionRepository;
 	
 	public UtilisateurDTO mapUtilisateurToDTO(Utilisateur utilisateur) {
 		
@@ -52,10 +36,10 @@ public class UtilisateurService {
 
 		List<List<String>> listEquipes = new ArrayList<>();
 
-		
 		utilisateurDTO.setIdUtilisateur(utilisateur.getIdUtilisateur());
 		utilisateurDTO.setNomUtilisateur(utilisateur.getNomUtilisateur());
 		utilisateurDTO.setPrenomUtilisateur(utilisateur.getPrenomUtilisateur());
+		utilisateurDTO.setDateNaissance(utilisateur.getDateNaissance());
 		utilisateurDTO.setLogin(utilisateur.getLogin());
 		utilisateurDTO.setMail(utilisateur.getMail());
 		utilisateurDTO.setActif(utilisateur.isActif());
@@ -152,6 +136,7 @@ public class UtilisateurService {
 
 		utilisateurACreer.setNomUtilisateur(utilisateurDTO.getNomUtilisateur());
 		utilisateurACreer.setPrenomUtilisateur(utilisateurDTO.getPrenomUtilisateur());
+		utilisateurACreer.setDateNaissance(utilisateurDTO.getDateNaissance());
 		utilisateurACreer.setLogin(utilisateurDTO.getLogin());
 		utilisateurACreer.setMail(utilisateurDTO.getMail());
 		utilisateurACreer.setActif(utilisateurDTO.isActif());
@@ -168,6 +153,7 @@ public class UtilisateurService {
 		
 		utilisateurAModifier.setNomUtilisateur(utilisateurDTO.getNomUtilisateur());
 		utilisateurAModifier.setPrenomUtilisateur(utilisateurDTO.getPrenomUtilisateur());
+		utilisateurAModifier.setDateNaissance(utilisateurDTO.getDateNaissance());
 		utilisateurAModifier.setLogin(utilisateurDTO.getLogin());
 		utilisateurAModifier.setMail(utilisateurDTO.getMail());
 		utilisateurAModifier.setActif(utilisateurDTO.isActif());

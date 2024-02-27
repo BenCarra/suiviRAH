@@ -1,6 +1,8 @@
 package com.stage.newRAH.model;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
@@ -32,8 +34,11 @@ public class Utilisateur {
 	
 	@Column(name="prenom_utilisateur")
 	private String prenomUtilisateur;
-	
-	private String login ;
+
+	@Column(name="date_naissance", columnDefinition = "datetime")
+	private LocalDateTime dateNaissance;
+
+    private String login ;
 	
 	private String mail;
 
@@ -65,18 +70,22 @@ public class Utilisateur {
 
 	}
 
+	public Utilisateur(int idUtilisateur, String nomUtilisateur, String prenomUtilisateur, LocalDateTime dateNaissance,
+            String login, String mail, Site site, boolean actif, TypeUtilisateur typeUtilisateur,
+            List<Tache> listTaches, List<Equipe> listEquipes, List<Composition> listCompositions) {
+        this.idUtilisateur = idUtilisateur;
+        this.nomUtilisateur = nomUtilisateur;
+        this.prenomUtilisateur = prenomUtilisateur;
+        this.dateNaissance = dateNaissance;
+        this.login = login;
+        this.mail = mail;
+        this.site = site;
+        this.actif = actif;
+        this.typeUtilisateur = typeUtilisateur;
+        this.listTaches = listTaches;
+        this.listEquipes = listEquipes;
+        this.listCompositions = listCompositions;
+    }
 
-	public Utilisateur(int idUtilisateur, String nomUtilisateur, String prenomUtilisateur, String login, String mail,
-			Site site, boolean actif, TypeUtilisateur typeUtilisateur) {
-
-		this.idUtilisateur = idUtilisateur;
-		this.nomUtilisateur = nomUtilisateur;
-		this.prenomUtilisateur = prenomUtilisateur;
-		this.login = login;
-		this.mail = mail;
-		this.site = site;
-		this.actif = actif;
-		this.typeUtilisateur = typeUtilisateur;
-	}
 
 }
