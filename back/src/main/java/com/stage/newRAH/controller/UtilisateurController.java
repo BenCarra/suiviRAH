@@ -35,10 +35,15 @@ public class UtilisateurController {
 	public ResponseEntity<UtilisateurDTO> getUtilisateurById(@PathVariable int id) {
 		return utilisateurService.getUtilisateurById(id);
 	}
-	
+
 	@GetMapping("/utilisateursBySite/{id}")
 	public ResponseEntity<List<UtilisateurDTO>> getUtilisateursBySite(@PathVariable int id) {
 		return utilisateurService.getUtilisateursBySite(id);
+	}
+	
+	@GetMapping("/utilisateursByNom/{nom}")
+	public ResponseEntity<List<UtilisateurDTO>> getUtilisateursByNom(@PathVariable String nom) {
+		return utilisateurService.getUtilisateursByNom(nom);
 	}
 
 	@PutMapping("createUtilisateur/{id}")

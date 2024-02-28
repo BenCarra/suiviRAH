@@ -175,6 +175,22 @@ public class UtilisateurService {
 		return ResponseEntity.ok(utilisateurASupprimerDTO);
     }
 
+    public ResponseEntity<List<UtilisateurDTO>> getUtilisateursByNom(String nom) {
+        Iterable<Utilisateur> utilisateursChoisis = utilisateurRepository.findByNom(nom);
+		
+		if (utilisateursChoisis.iterator().hasNext()) {
+			List<UtilisateurDTO> utilisateursChoisisDTO = new ArrayList<>();
+			
+			for (Utilisateur utilisateurChoisi : utilisateursChoisis) {
+				UtilisateurDTO utilisateurChoisiDTO = this.mapUtilisateurToDTO(utilisateurChoisi);
+				utilisateursChoisisDTO.add(utilisateurChoisiDTO);
+			}
+			return ResponseEntity.ok(utilisateursChoisisDTO);
+		} else {
+			return ResponseEntity.notFound().build();
+		}
+    }
+
     
 
     
