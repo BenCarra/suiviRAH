@@ -13,6 +13,12 @@ public interface UtilisateurRepository extends CrudRepository<Utilisateur, Integ
 
     @Query("SELECT u FROM Utilisateur u WHERE u.nomUtilisateur=:nom")
     Iterable<Utilisateur> findByNom(@Param("nom") String nom);
+
+    @Query("SELECT u FROM Utilisateur u WHERE u.typeUtilisateur.libelle=:libelleTypeUtilisateur")
+    Iterable<Utilisateur> findByTypeUtilisateur(@Param("libelleTypeUtilisateur") String libelleTypeUtilisateur);
+
+    @Query("SELECT u FROM Utilisateur u WHERE u.site.nomSite=:nomSite")
+    Iterable<Utilisateur> findBySite(@Param("nomSite")String nomSite);
 	
 
 }

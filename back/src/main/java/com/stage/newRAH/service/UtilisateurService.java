@@ -114,22 +114,53 @@ public class UtilisateurService {
 
     }
 
-	public ResponseEntity<List<UtilisateurDTO>> getUtilisateursBySite(int id) {
-		Optional<Site> siteChoisi = siteRepository.findById(id);
+	public ResponseEntity<List<UtilisateurDTO>> getUtilisateursBySite(String nomSite) {
+		Iterable<Utilisateur> utilisateursChoisis = utilisateurRepository.findBySite(nomSite);
 		
-		if (siteChoisi.isPresent()) {
-			List<Utilisateur> utilisateurs = siteChoisi.get().getListUtilisateurs();
-			List<UtilisateurDTO> utilisateursDTO = new ArrayList<>();
+		if (utilisateursChoisis.iterator().hasNext()) {
+			List<UtilisateurDTO> utilisateursChoisisDTO = new ArrayList<>();
 			
-			for (Utilisateur utilisateur : utilisateurs) {
-				UtilisateurDTO utilisateurDTO = this.mapUtilisateurToDTO(utilisateur);
-				utilisateursDTO.add(utilisateurDTO);
+			for (Utilisateur utilisateurChoisi : utilisateursChoisis) {
+				UtilisateurDTO utilisateurChoisiDTO = this.mapUtilisateurToDTO(utilisateurChoisi);
+				utilisateursChoisisDTO.add(utilisateurChoisiDTO);
 			}
-			return ResponseEntity.ok(utilisateursDTO);
+			return ResponseEntity.ok(utilisateursChoisisDTO);
 		} else {
 			return ResponseEntity.notFound().build();
 		}
 	}
+
+	public ResponseEntity<List<UtilisateurDTO>> getUtilisateursByNom(String nom) {
+        Iterable<Utilisateur> utilisateursChoisis = utilisateurRepository.findByNom(nom);
+		
+		if (utilisateursChoisis.iterator().hasNext()) {
+			List<UtilisateurDTO> utilisateursChoisisDTO = new ArrayList<>();
+			
+			for (Utilisateur utilisateurChoisi : utilisateursChoisis) {
+				UtilisateurDTO utilisateurChoisiDTO = this.mapUtilisateurToDTO(utilisateurChoisi);
+				utilisateursChoisisDTO.add(utilisateurChoisiDTO);
+			}
+			return ResponseEntity.ok(utilisateursChoisisDTO);
+		} else {
+			return ResponseEntity.notFound().build();
+		}
+    }
+
+    public ResponseEntity<List<UtilisateurDTO>> getUtilisateursByTypeUtilisateur(String libelleTypeUtilisateur) {
+        Iterable<Utilisateur> utilisateursChoisis = utilisateurRepository.findByTypeUtilisateur(libelleTypeUtilisateur);
+		
+		if (utilisateursChoisis.iterator().hasNext()) {
+			List<UtilisateurDTO> utilisateursChoisisDTO = new ArrayList<>();
+			
+			for (Utilisateur utilisateurChoisi : utilisateursChoisis) {
+				UtilisateurDTO utilisateurChoisiDTO = this.mapUtilisateurToDTO(utilisateurChoisi);
+				utilisateursChoisisDTO.add(utilisateurChoisiDTO);
+			}
+			return ResponseEntity.ok(utilisateursChoisisDTO);
+		} else {
+			return ResponseEntity.notFound().build();
+		}
+    }
 
 	public ResponseEntity<UtilisateurDTO> createUtilisateur(UtilisateurDTO utilisateurDTO) {
         Utilisateur utilisateurACreer = new Utilisateur();
@@ -174,26 +205,4 @@ public class UtilisateurService {
 
 		return ResponseEntity.ok(utilisateurASupprimerDTO);
     }
-
-    public ResponseEntity<List<UtilisateurDTO>> getUtilisateursByNom(String nom) {
-        Iterable<Utilisateur> utilisateursChoisis = utilisateurRepository.findByNom(nom);
-		
-		if (utilisateursChoisis.iterator().hasNext()) {
-			List<UtilisateurDTO> utilisateursChoisisDTO = new ArrayList<>();
-			
-			for (Utilisateur utilisateurChoisi : utilisateursChoisis) {
-				UtilisateurDTO utilisateurChoisiDTO = this.mapUtilisateurToDTO(utilisateurChoisi);
-				utilisateursChoisisDTO.add(utilisateurChoisiDTO);
-			}
-			return ResponseEntity.ok(utilisateursChoisisDTO);
-		} else {
-			return ResponseEntity.notFound().build();
-		}
-    }
-
-    
-
-    
-
-    
 }

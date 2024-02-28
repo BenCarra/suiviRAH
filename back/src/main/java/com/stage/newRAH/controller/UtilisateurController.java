@@ -36,14 +36,19 @@ public class UtilisateurController {
 		return utilisateurService.getUtilisateurById(id);
 	}
 
-	@GetMapping("/utilisateursBySite/{id}")
-	public ResponseEntity<List<UtilisateurDTO>> getUtilisateursBySite(@PathVariable int id) {
-		return utilisateurService.getUtilisateursBySite(id);
-	}
-	
 	@GetMapping("/utilisateursByNom/{nom}")
 	public ResponseEntity<List<UtilisateurDTO>> getUtilisateursByNom(@PathVariable String nom) {
 		return utilisateurService.getUtilisateursByNom(nom);
+	}
+
+	@GetMapping("/utilisateursByTypeUtilisateur/{libelleTypeUtilisateur}")
+	public ResponseEntity<List<UtilisateurDTO>> getUtilisateursByTypeUtilisateur(@PathVariable String libelleTypeUtilisateur) {
+		return utilisateurService.getUtilisateursByTypeUtilisateur(libelleTypeUtilisateur);
+	}
+
+	@GetMapping("/utilisateursBySite/{nomSite}")
+	public ResponseEntity<List<UtilisateurDTO>> getUtilisateursBySite(@PathVariable String nomSite) {
+		return utilisateurService.getUtilisateursBySite(nomSite);
 	}
 
 	@PutMapping("createUtilisateur/{id}")
@@ -56,7 +61,6 @@ public class UtilisateurController {
 		return utilisateurService.updateUtilisateur(utilisateurDTO, id);
 	}
 	
-
 	@DeleteMapping("/deleteUtilisateur/{id}")
 	public ResponseEntity<UtilisateurDTO> deleteUtilisateur(@PathVariable int id){
 		return utilisateurService.deleteUtilisateur(id);
