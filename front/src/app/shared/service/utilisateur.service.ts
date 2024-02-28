@@ -23,16 +23,16 @@ export class UtilisateurService {
     return this.http.get<Utilisateur>(this.url+"/utilisateurById/"+id);
   }
 
-  public findByNom(utilisateurRecherche: string): Observable<Utilisateur[]> {
+  public findByNom(nom: string): Observable<Utilisateur[]> {
+    return this.http.get<Utilisateur[]>(this.url+"/utilisateursByNom/"+nom);
+  }
 
-    /*let nom : string | null = '';
+  public findByTypeUtilisateur(typeUtilisateurLibelle: string): Observable<Utilisateur[]> {
+    return this.http.get<Utilisateur[]>(this.url+"/utilisateursByTypeUtilisateur/"+typeUtilisateurLibelle);
+  }
 
-    this.activatedRoute.paramMap.subscribe((p) => {
-      nom = p.get("nom");
-    })*/
-
-    return this.http.get<Utilisateur[]>(this.url+"/utilisateursByNom/"+utilisateurRecherche);
-
+  public findBySite(nomSite: string) {
+    return this.http.get<Utilisateur[]>(this.url+"/utilisateursBySite/"+nomSite);
   }
 
   public create(utilisateur: Utilisateur) {

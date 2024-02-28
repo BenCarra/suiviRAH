@@ -17,14 +17,6 @@
     margin-bottom: 20px;
 }
 
-#noms-utilisateur-correspondant {
-    background-color: white;
-    z-index: 1;
-    list-style: none;
-    display: none;
-    visibility: hidden;
-}
-
 #table{
     width: 100%;
     overflow: scroll;

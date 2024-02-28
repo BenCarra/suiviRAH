@@ -19,13 +19,13 @@ import { MatSelectModule } from '@angular/material/select';
 })
 export class UtilisateurListComponent {
 
+
   idUtilisateur!: string;
   listUtilisateurs!: Utilisateur[];
   listNomsUtilisateur: String[] = [];
   listTypesUtilisateur: String[] = [];
   listSitesUtilisateur: String[] = [];
-  listNomsUtilisateurCorrespondants!: String[];
-  formFiltrage!: FormGroup<{ filtrageDemande: FormControl<string | null>; utilisateurRecherche: FormControl<string | null>; boutonSoumission: FormControl<string | null>; }>;
+  formFiltrage!: FormGroup<{ filtrageDemande: FormControl<string | null>; utilisateurRecherche: FormControl<string | null>; boutonSoumission: FormControl<string | null>; boutonReset: FormControl<string | null>; }>;
 
 
   constructor(private utilisateurService: UtilisateurService, private router: Router) { }
@@ -35,13 +35,15 @@ export class UtilisateurListComponent {
     this.formFiltrage = new FormGroup({
       filtrageDemande: new FormControl('', Validators.required),
       utilisateurRecherche: new FormControl('', Validators.required),
-      boutonSoumission: new FormControl('OK', Validators.required)
+      boutonSoumission: new FormControl('OK', Validators.required),
+      boutonReset: new FormControl('Reset')
     });
     this.utilisateurService.findAll().subscribe(data => {
       this.listUtilisateurs = data;
     })
     this.formFiltrage.get('utilisateurRecherche')?.disable();
     this.formFiltrage.get('boutonSoumission')?.disable();
+    this.formFiltrage.get('boutonReset')?.disable();
   }
 
 
@@ -70,64 +72,37 @@ export class UtilisateurListComponent {
   }
 
   updateFiltrage() {
-    if (this.formFiltrage.value.filtrageDemande != "Sélectionner un filtre") {
-      this.listNomsUtilisateur = [];
-      this.listTypesUtilisateur = [];
-      this.listSitesUtilisateur = [];
+    if (this.formFiltrage.value.filtrageDemande != "") {
 
       this.formFiltrage.get('utilisateurRecherche')?.enable();
       this.formFiltrage.get('boutonSoumission')?.enable();
-
-      document.getElementById("filtrage-demande")!.children[0].textContent = "Enlever le filtre"; 
+      this.formFiltrage.get('boutonReset')?.enable();
 
       if (this.formFiltrage.value.filtrageDemande == 'Par nom d\'utilisateur') {
-        console.log("Recherche par nom d'utilisateur");
-        this.utilisateurService.findAll().subscribe((data) => {
+        this.listNomsUtilisateur = [];
+        this.utilisateurService.findAll().subscribe(data => {
           data.forEach((utilisateur) => {
-            this.listNomsUtilisateur.push(utilisateur.nomUtilisateur);
-          })
-          this.listNomsUtilisateurCorrespondants = [];
-          let utilisateurRecherche = this.formFiltrage.get("utilisateurRecherche");
-          for (const nomUtilisateur of this.listNomsUtilisateur) {
-            if (nomUtilisateur.includes(utilisateurRecherche?.value!)) {
-              //console.log(nomUtilisateur);
-              this.listNomsUtilisateurCorrespondants.push(nomUtilisateur);
+            if (!this.listNomsUtilisateur.includes(utilisateur.nomUtilisateur)) {
+              this.listNomsUtilisateur.push(utilisateur.nomUtilisateur);
             }
-          }
-          //console.log(this.listNomsUtilisateurCorrespondants)
-          document.getElementById("noms-utilisateur-correspondant")!.style.display = "inline-block";
-          document.getElementById("noms-utilisateur-correspondant")!.style.visibility = "visible";
+          });
         });
       } else if (this.formFiltrage.value.filtrageDemande == 'Par type d\'utilisateur') {
-        console.log("Recherche par type d'utilisateur");
-        this.utilisateurService.findAll().subscribe((data) => {
-          (data.forEach((utilisateur) => {
-            //console.log(utilisateur.libelleTypeUtilisateur);
-            this.listTypesUtilisateur.push(utilisateur.libelleTypeUtilisateur);
-            //console.log(listTypesUtilisateur);
-          }
-          ));
+        this.listTypesUtilisateur = [];
+        this.utilisateurService.findAll().subscribe(data => {
+          data.forEach((utilisateur) => {
+            if (!this.listTypesUtilisateur.includes(utilisateur.libelleTypeUtilisateur)) {
+              this.listTypesUtilisateur.push(utilisateur.libelleTypeUtilisateur);            
+            }
+          })
         });
       } else if (this.formFiltrage.value.filtrageDemande == 'Par nom de site') {
-        console.log("Recherche par nom de site");
-        this.utilisateurService.findAll().subscribe((data) => {
+        this.listSitesUtilisateur = [];
+        this.utilisateurService.findAll().subscribe(data => {
           (data.forEach((utilisateur) => {
-            //console.log(utilisateur.nomSite);
-            this.listSitesUtilisateur.push(utilisateur.nomSite);
-            //console.log(listSitesUtilisateur);
-          }
-          ));
-        });
-      } else {
-        document.getElementById("filtrage-demande")!.children[0].textContent = "Sélectionner un filtre";
-        this.formFiltrage.get('utilisateurRecherche')?.disable();
-        this.formFiltrage.get('boutonSoumission')?.disable();
-        document.getElementById("noms-utilisateur-correspondant")!.style.display = "none";
-        document.getElementById("noms-utilisateur-correspondant")!.style.visibility = "hidden";
-        this.listUtilisateurs=[];
-        this.utilisateurService.findAll().subscribe((data) => {
-          (data.forEach((utilisateur) => {
-            this.listUtilisateurs.push(utilisateur);
+            if (!this.listSitesUtilisateur.includes(utilisateur.nomSite)) {
+              this.listSitesUtilisateur.push(utilisateur.nomSite);       
+            }
           }
           ));
         });
@@ -135,21 +110,42 @@ export class UtilisateurListComponent {
     }
   }
 
-  onInputChange() {
-    //console.log(this.listNomsUtilisateur);
-   
-    return this.listNomsUtilisateurCorrespondants;
-
-  }
-
   onSearch(e: MouseEvent) {
-    let utilisateurRecherche = this.formFiltrage.get('utilisateurRecherche')?.value;
-    console.log(utilisateurRecherche);
-    this.utilisateurService.findByNom(utilisateurRecherche!).subscribe(
-      data => {
-        this.listUtilisateurs = data;
-      }
-    ) 
+    let recherche = this.formFiltrage.get('utilisateurRecherche')?.value;
+
+    if (this.formFiltrage.value.filtrageDemande == 'Par nom d\'utilisateur') {
+      this.utilisateurService.findByNom(recherche!).subscribe(
+        data => {
+          this.listUtilisateurs = data;
+        }
+      )
+    } else if (this.formFiltrage.value.filtrageDemande == 'Par type d\'utilisateur'){
+      this.utilisateurService.findByTypeUtilisateur(recherche!).subscribe(
+        data => {
+          this.listUtilisateurs = data;
+        }
+      )
+    } else if (this.formFiltrage.value.filtrageDemande == 'Par nom de site'){
+      this.utilisateurService.findBySite(recherche!).subscribe(
+        data => {
+          this.listUtilisateurs = data;
+        }
+      )
+    }
+    
   }
 
+  onReset($event: MouseEvent) {
+    this.formFiltrage.get('filtrageDemande')?.setValue("");
+    this.formFiltrage.get('utilisateurRecherche')?.disable();
+    this.formFiltrage.get('boutonSoumission')?.disable();
+    this.formFiltrage.get('boutonReset')?.disable();
+    this.listUtilisateurs = [];
+    this.utilisateurService.findAll().subscribe((data) => {
+      (data.forEach((utilisateur) => {
+        this.listUtilisateurs.push(utilisateur);
+      }
+      ));
+    });
+  }
 }
