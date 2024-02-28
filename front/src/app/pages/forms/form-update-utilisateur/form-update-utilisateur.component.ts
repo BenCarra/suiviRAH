@@ -48,7 +48,7 @@ export class FormUpdateUtilisateurComponent {
       nom: new FormControl('', Validators.required),
       dateNaissance: new FormControl('', Validators.required),
       mail: new FormControl('', Validators.compose([Validators.required, Validators.email])),
-      actif: new FormControl('',Validators.required),
+      actif: new FormControl('', Validators.required),
     })
 
 
@@ -57,7 +57,6 @@ export class FormUpdateUtilisateurComponent {
         let temp = id.get("id");
         if (temp != null) {
           this.idUtilisateur = temp.toString();
-          //console.log(this.idUtilisateur);
         }
       }
     )
@@ -66,34 +65,32 @@ export class FormUpdateUtilisateurComponent {
     this.utilisateurService.findById(this.idUtilisateur).subscribe(
       data => {
         this.utilisateurById = data;
-        //console.log(this.utilisateurById);
         this.formUpdate.get("login")?.setValue(this.utilisateurById.login);
         this.formUpdate.get("prénom")?.setValue(this.utilisateurById.prenomUtilisateur);
         this.formUpdate.get("nom")?.setValue(this.utilisateurById.nomUtilisateur);
         this.formUpdate.get("dateNaissance")?.setValue(this.utilisateurById.dateNaissance);
         this.formUpdate.get("mail")?.setValue(this.utilisateurById.mail);
-        this.formUpdate.get("actif")?.setValue(this.utilisateurById.actif);
-        //console.log(this.formUpdate);
+        if (this.utilisateurById.actif == true) {
+          this.formUpdate.get("actif")?.setValue("Oui");
+        } else {
+          this.formUpdate.get("actif")?.setValue("Non");
+        }
       }
-      
     );
-
   }
 
-  onClose(){
+  onClose() {
     this.router.navigateByUrl("/admin/utilisateurs");
   }
 
   onSubmit(): void {
 
-    console.log(this.formUpdate.get("dateNaissance")?.value);
-
     if (this.formUpdate.controls['login'].hasError('required') ||
-    this.formUpdate.controls['prénom'].hasError('required') ||
-    this.formUpdate.controls['nom'].hasError('required') ||
-    this.formUpdate.controls['dateNaissance'].hasError('required') ||
-    this.formUpdate.controls['mail'].hasError('required') ||
-    this.formUpdate.controls['actif'].hasError('required')) {
+      this.formUpdate.controls['prénom'].hasError('required') ||
+      this.formUpdate.controls['nom'].hasError('required') ||
+      this.formUpdate.controls['dateNaissance'].hasError('required') ||
+      this.formUpdate.controls['mail'].hasError('required') ||
+      this.formUpdate.controls['actif'].hasError('required')) {
       console.log("Un ou plusieurs champs sont requis");
     } else if (this.formUpdate.controls['mail'].hasError('email')) {
       console.log("Mail mal formé");
@@ -108,6 +105,6 @@ export class FormUpdateUtilisateurComponent {
       alert('Utilisateur Modifié!');
       this.router.navigateByUrl("/admin/utilisateurs");
     }
-    
+
   }
 }

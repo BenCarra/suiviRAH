@@ -5,7 +5,7 @@
     <mat-card-content>
       <div class="row">
         <div class="col">
-          <mat-form-field>
+          <mat-form-field appearance="outline">
             <mat-label>Login :</mat-label>
             <input matInput formControlName="login">
             @if (formUpdate.controls['login'].hasError('required')) {
@@ -17,7 +17,7 @@
       <br>
       <div class="row">
         <div class="col">
-          <mat-form-field>
+          <mat-form-field appearance="outline">
             <mat-label>Prénom : </mat-label>
             <input matInput formControlName="prénom">
             @if (formUpdate.controls['prénom'].hasError('required')) {
@@ -26,7 +26,7 @@
           </mat-form-field>
         </div>
         <div class="col">
-          <mat-form-field>
+          <mat-form-field appearance="outline">
             <mat-label>Nom :</mat-label>
             <input matInput formControlName="nom">
             @if (formUpdate.controls['nom'].hasError('required')) {
@@ -38,8 +38,8 @@
       <br>
       <div class="row">
         <div class="col">
-          <mat-form-field>
-            <label>Date de naissance :</label>
+          <mat-form-field appearance="outline">
+            <mat-label>Date de naissance :</mat-label>
             <input matInput [matDatepicker]="picker" formControlName="dateNaissance">
             <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
@@ -52,8 +52,8 @@
       <br>
       <div class="row">
         <div class="col">
-          <mat-form-field>
-            <label>Mail :</label>
+          <mat-form-field appearance="outline">
+            <mat-label>Mail :</mat-label>
             <input matInput formControlName="mail">
             @if (formUpdate.controls['mail'].hasError('required')) {
             <mat-error>Mail <strong>requis</strong></mat-error>
@@ -66,23 +66,24 @@
       <br>
       <div class="row">
         <div class="col">
-          <mat-form-field>
             <mat-label>Actif ? :</mat-label>
-            <mat-select formControlName="actif">
-              <mat-option value="true">Oui</mat-option>
-              <mat-option value="false">Non</mat-option>
-            </mat-select>
+            <br>
+            <mat-radio-group formControlName="actif">
+              @if (utilisateurById != undefined) {
+                <mat-radio-button value="true" [checked]="utilisateurById.actif == true">Oui</mat-radio-button>
+                <mat-radio-button value="false" [checked]="utilisateurById.actif == false">Non</mat-radio-button>
+              }
+            </mat-radio-group>
             @if (formUpdate.controls['actif'].hasError('required')) {
             <mat-error>Actif <strong>requis</strong></mat-error>
             }
-          </mat-form-field>
         </div>
       </div>
       <br>
     </mat-card-content>
     <mat-card-actions>
-      <button mat-raised-button color="primary" type="submit" (click)="onSubmit()">Envoyer</button>
-      <button mat-raised-button color="primary" (click)="onClose()">Retour</button>
+      <button mat-raised-button (click)="onSubmit()">Envoyer</button>
+      <button mat-raised-button (click)="onClose()">Retour</button>
     </mat-card-actions>
   </mat-card>
 </form>
