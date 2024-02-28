@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -43,10 +44,14 @@ public class TacheController {
 		return tacheService.getTachesByUtilisateur(id);
 	}
 	
-	// Modification du /createTache pour tester le tuto
-	@PostMapping("/taches")
+	@PostMapping("/createTache")
 	public ResponseEntity<TacheDTO> createTache(@RequestBody TacheDTO request) {
 		return tacheService.createTache(request);
+	}
+
+	@DeleteMapping("/tache/{id}")
+	public ResponseEntity<?> deleteTache(@PathVariable int id) {
+		return tacheService.deleteTache(id);
 	}
 	
 }

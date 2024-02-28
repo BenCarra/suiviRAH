@@ -2,6 +2,7 @@ package com.stage.newRAH.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -125,13 +126,11 @@ public class TacheService {
 				return ResponseEntity.notFound().build();
 			}	
 		}
-		
-	
 	
 	public ResponseEntity<TacheDTO> createTache(TacheDTO tacheDTO) {
 		Tache nouvelleTache = new Tache();
 		
-		 // Récupération du type de tâche et du projet par leurs identifiants 
+		 // Récupération du type de tâche et du projet 
 		 TypeTache typeTache = typeTacheRepository.findByLibelle(tacheDTO.getLibelleTypeTache());
 		 Projet projet = projetRepository.findByNomProjet(tacheDTO.getNomProjet());
 
@@ -162,5 +161,27 @@ public class TacheService {
 		TacheDTO tacheSauvegardeeDTO = mapTacheToDTO(tacheSauvegardee);
 		
 		return ResponseEntity.ok(tacheSauvegardeeDTO);
+	}
+
+	public ResponseEntity<?> deleteTache(int idTache){
+		Optional<Tache> tacheChoisie = tacheRepository.findById(idTache);
+		
+		if (tacheChoisie.isPresent()) {
+			Tache tache = tacheChoisie.get();
+
+			// Suppression des associations avec les utilisateurs
+			for (Utilisateur utilisateur : tache.getListUtilisateurs()) {
+				utilisateur.getListTaches().remove(tache);
+				utilisateurRepository.save(utilisateur);
+			} 
+
+			// Une fois que j'ai supprimée la tâche aux utilisateurs je peux supprimer la tâche
+			tacheRepository.delete(tache);
+
+			String message = String.format("La tâche n° %s a bien été supprimée.", idTache);
+        	return ResponseEntity.ok(Map.of("message", message));
+		} else {
+			return ResponseEntity.notFound().build();
+		}
 	}
 }

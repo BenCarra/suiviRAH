@@ -1,7 +1,7 @@
 h1 {
     text-align: center; 
     font-size:30px; 
-    color: #00884C;
+    color: #312B6D;
     margin-top: 25px;
     margin-bottom: 25px;
 }
@@ -18,7 +18,15 @@ h1 {
         font-size: 20px; 
         height: 30px; 
         padding: 0 10px; 
-        border-radius: 5px; /* bouton plus arrondi */
+        color: #312B6D;
+        /* border-radius: 5px; bouton plus arrondi */
+}
+
+.error-message {
+    margin-top: 20px;
+    font-size: 20px;
+    color: rgb(253, 64, 64);
+    text-align: center;
 }
     
 

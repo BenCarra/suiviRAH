@@ -23,5 +23,18 @@ export class ListTachesComponent implements OnInit {
     })
   }
 
-
+  onDeleteTache(id:number) {
+    this.tacheService.deleteTache(id).subscribe({
+      next:(response) => {
+        alert (response.message);
+        // Après le message, j'actualise ma page sans la tâche supprimée
+        this.tacheService.findAll().subscribe(data => {
+          this.taches = data;
+        })
+      }, 
+      error:(error) => {
+        console.error('Erreur lors de la suppression de la tâche', error);
+      }     
+    });
+  }
 }

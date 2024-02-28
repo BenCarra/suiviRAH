@@ -8,13 +8,25 @@ import { Tache } from '../model/tache';
 })
 export class TacheService {
 
-  private tachesURL: string;
+  private getTachesURL: string;
+  private createTacheURL: string;
+  private deleteTacheURL:string;
 
   constructor(private http:HttpClient) {
-    this.tachesURL = 'http://localhost:8080/taches'
+    this.getTachesURL = 'http://localhost:8080/taches'
+    this.createTacheURL = 'http://localhost:8080/createTache'
+    this.deleteTacheURL = 'http://localhost:8080/tache'
    }
 
    public findAll(): Observable<Tache[]> {
-    return this.http.get<Tache[]>(this.tachesURL);
+    return this.http.get<Tache[]>(this.getTachesURL);
+   }
+
+   public createTache(tache:Tache): Observable<Tache> {
+    return this.http.post<Tache>(this.createTacheURL, tache);
+   }
+
+   public deleteTache(id:number): Observable<any> {
+    return this.http.delete<any>(`${this.deleteTacheURL}/${id}`);
    }
 }
