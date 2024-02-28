@@ -11,7 +11,6 @@ import { MAT_DATE_LOCALE, provideNativeDateAdapter } from '@angular/material/cor
 export const appConfig: ApplicationConfig = {
   providers: [provideRouter(routes), 
     provideHttpClient(withFetch()),
-    provideClientHydration(),
     provideAnimations(),
     provideAnimationsAsync(),
     provideNativeDateAdapter(),

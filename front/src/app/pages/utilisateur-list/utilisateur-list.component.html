@@ -2,17 +2,18 @@
     <h3>LISTE DES UTILISATEURS</h3>
     <!-- Ajouter listes déroulantes dynamiques et (submit)=onSubmit() pour le filtrage-->
     <form id="filtrage" [formGroup]="formFiltrage">
-        <label for="filtrage-demande"></label>
-        <select name="filtrage-demande" id="filtrage-demande" formControlName="filtrageDemande" (change)="updateFiltrage()">
-            <option [value]="valeurParDefautList" [selected]="formFiltrage.value.filtrageDemande == ''">Sélectionner un filtre</option>
+        <select id="filtrage-demande" formControlName="filtrageDemande" (change)="updateFiltrage()">
+            <option [selected]="formFiltrage.value.filtrageDemande == ''">Sélectionner un filtre</option>
             <option value="Par nom d'utilisateur">Rechercher par nom d'utilisateur</option>
-            <option value="Par type d'utilisateur">Rechercher par type d' utilisateur</option>
+            <option value="Par type d'utilisateur">Rechercher par type d'utilisateur</option>
             <option value="Par nom de site">Rechercher par nom de site</option>
         </select>
-        <label for="utilisateur-recherche"></label>
-        <input type="text" name="utilisateur-recherche" id="utilisateur-recherche" formControlName="utilisateurRecherche" (input)="onInputChange()">
-        <label for="btn-soumission"></label>
-        <input type="submit" name="btn-soumission" id="btn-soumission" formControlName="boutonSoumission">
+        <select id="noms-utilisateur-correspondant" autocomplete formControlName="utilisateurRecherche">
+            @for (nomUtilisateurCorrespondant of listNomsUtilisateurCorrespondants; track $index) {
+                <option [value]="nomUtilisateurCorrespondant">{{ nomUtilisateurCorrespondant }}</option>
+            }
+        </select>
+        <input type="submit" id="btn-soumission" formControlName="boutonSoumission" (click)="onSearch($event)">
     </form>
 
     <!-- Modifier table : ajouter des colonnes éventuellement -->

@@ -23,15 +23,15 @@ export class UtilisateurService {
     return this.http.get<Utilisateur>(this.url+"/utilisateurById/"+id);
   }
 
-  public findByNom(): Observable<Utilisateur> {
+  public findByNom(utilisateurRecherche: string): Observable<Utilisateur[]> {
 
-    let nom : string | null = '';
+    /*let nom : string | null = '';
 
     this.activatedRoute.paramMap.subscribe((p) => {
       nom = p.get("nom");
-    })
+    })*/
 
-    return this.http.get<Utilisateur>(this.url+"/utilisateurByNom/"+nom);
+    return this.http.get<Utilisateur[]>(this.url+"/utilisateursByNom/"+utilisateurRecherche);
 
   }
 
@@ -41,7 +41,6 @@ export class UtilisateurService {
   }
 
   public update(utilisateur: Utilisateur){
-    console.log(utilisateur.dateNaissance);
     return this.http.post<Utilisateur>(this.url+"/updateUtilisateur/"+utilisateur.idUtilisateur, utilisateur);
   }
 
