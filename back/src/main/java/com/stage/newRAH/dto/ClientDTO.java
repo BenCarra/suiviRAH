@@ -1,5 +1,7 @@
 package com.stage.newRAH.dto;
 
+import java.util.List;
+
 public class ClientDTO {
 	
 	private int idClient;
@@ -7,19 +9,20 @@ public class ClientDTO {
 	private String adresseClient;
 	private String codePostalClient;
 	private String villeClient;
+	private List<List<String>> listProjets;
 	
 	public ClientDTO() {
 
 	}
 
-	public ClientDTO(int idClient, String nomClient, String adresseClient, String codePostalClient,
-			String villeClient) {
-
+	public ClientDTO(int idClient, String nomClient, String adresseClient, String codePostalClient, String villeClient,
+			List<List<String>> listProjets) {
 		this.idClient = idClient;
 		this.nomClient = nomClient;
 		this.adresseClient = adresseClient;
 		this.codePostalClient = codePostalClient;
 		this.villeClient = villeClient;
+		this.listProjets = listProjets;
 	}
 
 	public int getIdClient() {
@@ -62,11 +65,21 @@ public class ClientDTO {
 		this.villeClient = villeClient;
 	}
 
+	public List<List<String>> getListProjets() {
+		return listProjets;
+	}
+
+	public void setListProjets(List<List<String>> listProjets) {
+		this.listProjets = listProjets;
+	}
+
 	@Override
 	public String toString() {
 		return "ClientDTO [idClient=" + idClient + ", nomClient=" + nomClient + ", adresseClient=" + adresseClient
-				+ ", codePostalClient=" + codePostalClient + ", villeClient=" + villeClient + "]";
+				+ ", codePostalClient=" + codePostalClient + ", villeClient=" + villeClient + ", listProjets="
+				+ listProjets + "]";
 	}
+
 	
 	
 }

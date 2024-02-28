@@ -70,12 +70,8 @@ export class FormUpdateUtilisateurComponent {
         this.formUpdate.get("nom")?.setValue(this.utilisateurById.nomUtilisateur);
         this.formUpdate.get("dateNaissance")?.setValue(this.utilisateurById.dateNaissance);
         this.formUpdate.get("mail")?.setValue(this.utilisateurById.mail);
-        if (this.utilisateurById.actif == true) {
-          this.formUpdate.get("actif")?.setValue("Oui");
-        } else {
-          this.formUpdate.get("actif")?.setValue("Non");
+        this.formUpdate.get("actif")?.setValue(this.utilisateurById.actif);
         }
-      }
     );
   }
 

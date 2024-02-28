@@ -66,7 +66,6 @@ export class UtilisateurListComponent {
       if (e.target.parentElement?.parentElement?.id) {
         this.idUtilisateur = e.target.parentElement?.parentElement?.id;
       }
-      //console.log(this.idUtilisateur);
       this.router.navigateByUrl("/admin/utilisateurs/update/" + this.idUtilisateur);
     }
   }

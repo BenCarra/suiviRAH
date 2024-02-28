@@ -51,7 +51,7 @@ public class UtilisateurController {
 		return utilisateurService.getUtilisateursBySite(nomSite);
 	}
 
-	@PutMapping("createUtilisateur/{id}")
+	@PutMapping("/createUtilisateur")
 	public ResponseEntity<UtilisateurDTO> createUtilisateur(@RequestBody UtilisateurDTO utilisateurDTO) {
 		return utilisateurService.createUtilisateur(utilisateurDTO);
 	}

@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import com.stage.newRAH.dto.UtilisateurDTO;
 import com.stage.newRAH.model.Composition;
 import com.stage.newRAH.model.Equipe;
-import com.stage.newRAH.model.Site;
 import com.stage.newRAH.model.Tache;
 import com.stage.newRAH.model.Utilisateur;
 import com.stage.newRAH.repository.SiteRepository;
