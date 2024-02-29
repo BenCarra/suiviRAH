@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ProjetService } from '../../shared/service/projet.service';
 import { Projet } from '../../shared/model/projet';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-projet-list',
@@ -12,13 +13,16 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 })
 export class ProjetListComponent {
 
+  routerURL: string;
   valeurParDefautList: string = "Filtrer";
   listNomsProjet: String[] = [];
   listProjets!: Projet[];
   formFiltrage!: FormGroup<{ filtrageDemande: FormControl<string | null>; projetRecherche: FormControl<string | null>; boutonSoumission: FormControl<string | null>; }>;
   idProjet!: string;
 
-  constructor(private projetService: ProjetService) {}
+  constructor(private projetService: ProjetService, router: Router) {
+    this.routerURL = router.url;
+  }
 
   ngOnInit() {
     this.formFiltrage = new FormGroup({

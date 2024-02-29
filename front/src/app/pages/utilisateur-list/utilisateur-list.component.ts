@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Utilisateur } from '../../shared/model/utilisateur';
 import { UtilisateurService } from '../../shared/service/utilisateur.service';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { FormUpdateUtilisateurComponent } from '../forms/form-update-utilisateur/form-update-utilisateur.component';
 import { DatePipe } from '@angular/common';
 
@@ -11,11 +11,11 @@ import { DatePipe } from '@angular/common';
   standalone: true,
   templateUrl: './utilisateur-list.component.html',
   styleUrl: './utilisateur-list.component.scss',
-  imports: [DatePipe, ReactiveFormsModule, FormUpdateUtilisateurComponent]
+  imports: [DatePipe, RouterLink, ReactiveFormsModule, FormUpdateUtilisateurComponent]
 })
 export class UtilisateurListComponent {
 
-
+  routerURL: string;
   idUtilisateur!: string;
   listUtilisateurs!: Utilisateur[];
   listNomsUtilisateur: String[] = [];
@@ -24,7 +24,9 @@ export class UtilisateurListComponent {
   formFiltrage!: FormGroup<{ filtrageDemande: FormControl<string | null>; utilisateurRecherche: FormControl<string | null>; boutonSoumission: FormControl<string | null>; boutonReset: FormControl<string | null>; }>;
 
 
-  constructor(private utilisateurService: UtilisateurService, private router: Router) { }
+  constructor(private utilisateurService: UtilisateurService, private router: Router) { 
+    this.routerURL = router.url;
+  }
 
   ngOnInit() {
 

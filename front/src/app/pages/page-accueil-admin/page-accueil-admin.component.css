@@ -8,7 +8,12 @@
     }
 }
 
-app-projet-list{
+#accueil-lists{
+    display: flex;
+    align-items: first baseline;
+}
+
+app-projet-list, app-utilisateur-list{
     width: 100%;
-    margin: auto;
+    margin: 0 auto;
 }
