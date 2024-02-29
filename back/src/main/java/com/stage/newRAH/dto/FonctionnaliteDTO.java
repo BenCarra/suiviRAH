@@ -1,5 +1,8 @@
 package com.stage.newRAH.dto;
 
+import lombok.Data;
+
+@Data
 public class FonctionnaliteDTO {
 	
 	private int idFonctionnalite;	
@@ -13,25 +16,4 @@ public class FonctionnaliteDTO {
 		this.libelle = libelle;
 	}
 	
-	public int getIdFonctionnalite() {
-		return idFonctionnalite;
-	}
-	
-	public void setIdFonctionnalite(int idFonctionnalite) {
-		this.idFonctionnalite = idFonctionnalite;
-	}
-	
-	public String getLibelle() {
-		return libelle;
-	}
-	public void setLibelle(String libelle) {
-		this.libelle = libelle;
-	}
-	@Override
-	public String toString() {
-		return "FonctionnaliteDTO [idFonctionnalite=" + idFonctionnalite + ", libelle=" + libelle + "]";
-	}
-	
-	
-
 }

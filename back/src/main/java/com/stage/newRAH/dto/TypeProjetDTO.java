@@ -1,5 +1,8 @@
 package com.stage.newRAH.dto;
 
+import lombok.Data;
+
+@Data
 public class TypeProjetDTO {
 
 	private int idTypeProjet;
@@ -14,29 +17,4 @@ public class TypeProjetDTO {
 		this.libelle = libelle;
 	}
 
-	public int getIdTypeProjet() {
-		return idTypeProjet;
-	}
-
-	public void setIdTypeProjet(int idTypeProjet) {
-		this.idTypeProjet = idTypeProjet;
-	}
-
-	public String getLibelle() {
-		return libelle;
-	}
-
-	public void setLibelle(String libelle) {
-		this.libelle = libelle;
-	}
-
-	@Override
-	public String toString() {
-		return "TypeProjetDTO [idTypeProjet=" + idTypeProjet + ", libelle=" + libelle + "]";
-	}
-
-	
-	
-	
-	
 }

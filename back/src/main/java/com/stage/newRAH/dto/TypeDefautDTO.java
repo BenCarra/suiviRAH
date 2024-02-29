@@ -1,5 +1,8 @@
 package com.stage.newRAH.dto;
 
+import lombok.Data;
+
+@Data
 public class TypeDefautDTO {
 
 	private int idTypeDefaut;
@@ -13,28 +16,5 @@ public class TypeDefautDTO {
 		this.idTypeDefaut = idTypeDefaut;
 		this.libelle = libelle;
 	}
-
-	public int getIdTypeDefaut() {
-		return idTypeDefaut;
-	}
-
-	public void setIdTypeDefaut(int idTypeDefaut) {
-		this.idTypeDefaut = idTypeDefaut;
-	}
-
-	public String getLibelle() {
-		return libelle;
-	}
-
-	public void setLibelle(String libelle) {
-		this.libelle = libelle;
-	}
-
-	@Override
-	public String toString() {
-		return "TypeDefautDTO [idTypeDefaut=" + idTypeDefaut + ", libelle=" + libelle + "]";
-	}
-	
-	
 	
 }
