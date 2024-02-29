@@ -127,7 +127,7 @@ public class TacheService {
 			}	
 		}
 	
-	public ResponseEntity<TacheDTO> createTache(TacheDTO tacheDTO) {
+	public ResponseEntity<?> createTache(TacheDTO tacheDTO) {
 		Tache nouvelleTache = new Tache();
 		
 		 // Récupération du type de tâche et du projet 
@@ -160,7 +160,9 @@ public class TacheService {
 		
 		TacheDTO tacheSauvegardeeDTO = mapTacheToDTO(tacheSauvegardee);
 		
-		return ResponseEntity.ok(tacheSauvegardeeDTO);
+		String message = String.format("La tâche n° %s a bien été crée.", tacheSauvegardeeDTO.getIdTache());
+        return ResponseEntity.ok(Map.of("message", message));
+		// return ResponseEntity.ok(tacheSauvegardeeDTO);
 	}
 
 	public ResponseEntity<?> deleteTache(int idTache){
@@ -183,5 +185,35 @@ public class TacheService {
 		} else {
 			return ResponseEntity.notFound().build();
 		}
+	}
+
+	public ResponseEntity<?> updateTache(int idTache, TacheDTO tacheDTO) {
+		
+		Optional<Tache> tacheAModifierOptional = tacheRepository.findById(tacheDTO.getIdTache());
+
+
+		if (tacheAModifierOptional.isPresent()) {
+			Tache tacheAModifier = tacheAModifierOptional.get();
+		
+		// Récupération du type de tâche et du projet 
+		TypeTache typeTache = typeTacheRepository.findByLibelle(tacheDTO.getLibelleTypeTache());
+		Projet projet = projetRepository.findByNomProjet(tacheDTO.getNomProjet());
+
+		tacheAModifier.setDateTache(tacheDTO.getDateTache());
+		tacheAModifier.setDureeTache(tacheDTO.getDureeTache());
+		tacheAModifier.setProjet(projet);
+		tacheAModifier.setTypeTache(typeTache);
+		tacheAModifier.setCommentaires(tacheDTO.getCommentaires());
+		tacheAModifier.setNomTache(tacheDTO.getNomTache());
+
+		tacheRepository.save(tacheAModifier);
+
+		String message = String.format("La tâche n° %s a bien été modifiée", tacheDTO.getIdTache());
+        return ResponseEntity.ok(Map.of("message", message));
+		
+		} else {
+			return ResponseEntity.notFound().build();
+		}
+
 	}
 }

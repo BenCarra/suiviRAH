@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -45,7 +46,7 @@ public class TacheController {
 	}
 	
 	@PostMapping("/createTache")
-	public ResponseEntity<TacheDTO> createTache(@RequestBody TacheDTO request) {
+	public ResponseEntity<?> createTache(@RequestBody TacheDTO request) {
 		return tacheService.createTache(request);
 	}
 
@@ -53,5 +54,10 @@ public class TacheController {
 	public ResponseEntity<?> deleteTache(@PathVariable int id) {
 		return tacheService.deleteTache(id);
 	}
+
+	@PutMapping("/tache/{id}")
+	public ResponseEntity<?> updateTache(@PathVariable int id, @RequestBody TacheDTO tacheDTO) {
+		return tacheService.updateTache(id, tacheDTO);
+	} 
 	
 }

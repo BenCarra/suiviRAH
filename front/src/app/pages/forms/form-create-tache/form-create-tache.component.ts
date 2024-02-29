@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { TacheService } from '../../shared/service/tache.service';
-import { TypeTache } from '../../shared/model/type-tache';
-import { TypeTacheService } from '../../shared/service/type-tache.service';
+import { TacheService } from '../../../shared/service/tache.service';
+import { TypeTache } from '../../../shared/model/type-tache';
+import { TypeTacheService } from '../../../shared/service/type-tache.service';
 import { CommonModule } from '@angular/common';
-import { ProjetService } from '../../shared/service/projet.service';
-import { Projet } from '../../shared/model/projet';
+import { ProjetService } from '../../../shared/service/projet.service';
+import { Projet } from '../../../shared/model/projet';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatSelectModule} from '@angular/material/select';
 import {MatInputModule} from '@angular/material/input';
@@ -84,8 +84,12 @@ export class FormCreateTacheComponent implements OnInit {
   
     // Appeler mon service pour envoyer tache à mon backend/API
       this.tacheService.createTache(tache).subscribe({
-        next:(response) => console.log('Tâche créée avec succès', response),
-        error: (error) => console.error('Erreur', error)
+        next:(response) => {
+          alert (response.message);
+        }, 
+        error:(error) => {
+          console.error('Erreur lors de la suppression de la tâche', error);
+        }     
       });
     } else {
       console.log("Tous les champs doivent être renseignés")

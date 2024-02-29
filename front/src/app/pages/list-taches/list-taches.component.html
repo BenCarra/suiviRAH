@@ -28,7 +28,7 @@
         <td>{{ tache.dureeTache }}</td>
         <td>{{ tache.commentaires }}</td>
         <td>{{ tache.nomProjet }}</td>
-        <td><button>Modifier</button></td>
+        <td><button [routerLink]="['/formUpdateTache']" [queryParams]="{ id: tache.idTache }">Modifier</button></td>
         <td><button (click)="onDeleteTache(tache.idTache)">Supprimer</button></td>
         <td><button>Dupliquer</button></td>
       </tr>
