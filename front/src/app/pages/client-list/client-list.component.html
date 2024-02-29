@@ -6,12 +6,13 @@
             <option value="Par nom de client">Rechercher par nom d'utilisateur</option>
         </select>
         @if (formFiltrage.get("filtrageDemande")?.getRawValue() == "Par nom de client") {
-            <select id="noms-client" autocomplete formControlName="clientRecherche">
-                <option disabled [selected]="formFiltrage.value.filtrageDemande == 'Par nom de client'">-- Sélectionner un nom d'utilisateur --</option>
-                @for (nomClient of listNomsClient; track $index) {
-                    <option [value]="nomClient">{{ nomClient }}</option>
-                }
-            </select>
+        <select id="noms-client" autocomplete formControlName="clientRecherche">
+            <option disabled [selected]="formFiltrage.value.filtrageDemande == 'Par nom de client'">-- Sélectionner un
+                nom d'utilisateur --</option>
+            @for (nomClient of listNomsClient; track $index) {
+            <option [value]="nomClient">{{ nomClient }}</option>
+            }
+        </select>
         }
         <input type="submit" id="btn-soumission" formControlName="boutonSoumission" (click)="onSearch($event)">
         <input type="reset" id="btn-reset" (click)="onReset($event)" formControlName="boutonReset">
@@ -30,26 +31,26 @@
                     <th>Supprimer</th>
                 </tr>
                 @for (client of listClients; track $index) {
-                    <tr id="{{ client.idClient }}">
-                        <td>{{ client.nomClient }}</td>
-                        <td>{{ client.adresseClient }}</td>
-                        <td>{{ client.codePostalClient }}</td>
-                        <td>{{ client.villeClient }}</td>
-                        <td>
-                            @for (projet of client.listProjets; track $index){
-                                <ul>
-                                    <li>Projet n°{{ projet[0] }}</li>
-                                    <li>{{ projet[1] }}</li>
-                                </ul>
-                                <br>
-                            }
-                        </td>
-                        <td><button type="button" (click)="onUpdateClient($event)">Modifier</button></td>
-                        <td><button type="button" (click)="onDeleteClient($event)">Supprimer</button></td>
-                    </tr>
+                <tr id="{{ client.idClient }}">
+                    <td>{{ client.nomClient }}</td>
+                    <td>{{ client.adresseClient }}</td>
+                    <td>{{ client.codePostalClient }}</td>
+                    <td>{{ client.villeClient }}</td>
+                    <td>
+                        @for (projet of client.listProjets; track $index){
+                        <ul>
+                            <li>Projet n°{{ projet[0] }}</li>
+                            <li>{{ projet[1] }}</li>
+                        </ul>
+                        <br>
+                        }
+                    </td>
+                    <td><button type="button" (click)="onUpdateClient($event)">Modifier</button></td>
+                    <td><button type="button" (click)="onDeleteClient($event)">Supprimer</button></td>
+                </tr>
                 }
-                
+
             </tbody>
         </table>
     </div>
-</div> -->
+</div>

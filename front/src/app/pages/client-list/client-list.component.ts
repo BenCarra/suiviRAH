@@ -102,12 +102,8 @@ export class ClientListComponent {
     this.formFiltrage.get('clientRecherche')?.disable();
     this.formFiltrage.get('boutonSoumission')?.disable();
     this.formFiltrage.get('boutonReset')?.disable();
-    this.listClients = [];
-    this.clientService.findAll().subscribe((data) => {
-      (data.forEach((client) => {
-        this.listClients.push(client);
-      }
-      ));
-    });
+    this.clientService.findAll().subscribe(data => {
+      this.listClients = data;
+    })
   }
 }

@@ -1,5 +1,8 @@
 package com.stage.newRAH.dto;
 
+import lombok.Data;
+
+@Data
 public class EtatDTO {
 	
 	private int idEtat;
@@ -16,27 +19,4 @@ public class EtatDTO {
 		this.libelle = libelle;
 	}
 
-	public int getIdEtat() {
-		return idEtat;
-	}
-
-	public void setIdEtat(int idEtat) {
-		this.idEtat = idEtat;
-	}
-
-	public String getLibelle() {
-		return libelle;
-	}
-
-	public void setLibelle(String libelle) {
-		this.libelle = libelle;
-	}
-
-	@Override
-	public String toString() {
-		return "EtatDTO [idEtat=" + idEtat + ", libelle=" + libelle + "]";
-	}
-	
-	
-	
 }

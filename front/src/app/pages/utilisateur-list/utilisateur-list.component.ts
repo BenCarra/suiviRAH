@@ -135,12 +135,8 @@ export class UtilisateurListComponent {
     this.formFiltrage.get('utilisateurRecherche')?.disable();
     this.formFiltrage.get('boutonSoumission')?.disable();
     this.formFiltrage.get('boutonReset')?.disable();
-    this.listUtilisateurs = [];
-    this.utilisateurService.findAll().subscribe((data) => {
-      (data.forEach((utilisateur) => {
-        this.listUtilisateurs.push(utilisateur);
-      }
-      ));
-    });
+    this.utilisateurService.findAll().subscribe(data => {
+      this.listUtilisateurs = data;
+    })
   }
 }

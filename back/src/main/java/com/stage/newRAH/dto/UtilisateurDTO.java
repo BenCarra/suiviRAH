@@ -4,6 +4,9 @@ package com.stage.newRAH.dto;
 import java.sql.Date;
 import java.util.List;
 
+import lombok.Data;
+
+@Data
 public class UtilisateurDTO {
 	
 	private int idUtilisateur;
@@ -38,114 +41,6 @@ public class UtilisateurDTO {
 		this.listTaches = listTaches;
 		this.listEquipes = listEquipes;
 		this.listCompositions = listCompositions;
-	}
-
-
-
-	public int getIdUtilisateur() {
-		return idUtilisateur;
-	}
-
-	public void setIdUtilisateur(int idUtilisateur) {
-		this.idUtilisateur = idUtilisateur;
-	}
-
-	public String getNomUtilisateur() {
-		return nomUtilisateur;
-	}
-
-	public void setNomUtilisateur(String nomUtilisateur) {
-		this.nomUtilisateur = nomUtilisateur;
-	}
-
-	public String getPrenomUtilisateur() {
-		return prenomUtilisateur;
-	}
-
-	public void setPrenomUtilisateur(String prenomUtilisateur) {
-		this.prenomUtilisateur = prenomUtilisateur;
-	}
-
-	public Date getDateNaissance() {
-		return dateNaissance;
-	}
-
-	public void setDateNaissance(Date dateNaissance) {
-		this.dateNaissance = dateNaissance;
-	}
-
-
-	public String getLogin() {
-		return login;
-	}
-
-	public void setLogin(String login) {
-		this.login = login;
-	}
-
-	public String getMail() {
-		return mail;
-	}
-
-	public void setMail(String mail) {
-		this.mail = mail;
-	}
-
-	public boolean isActif() {
-		return actif;
-	}
-
-	public void setActif(boolean actif) {
-		this.actif = actif;
-	}
-
-	public String getNomSite() {
-		return nomSite;
-	}
-
-	public void setNomSite(String nomSite) {
-		this.nomSite = nomSite;
-	}
-
-	public String getLibelleTypeUtilisateur() {
-		return libelleTypeUtilisateur;
-	}
-
-	public void setLibelleTypeUtilisateur(String libelleTypeUtilisateur) {
-		this.libelleTypeUtilisateur = libelleTypeUtilisateur;
-	}
-
-	public List<List<String>> getListTaches() {
-		return listTaches;
-	}
-
-	public void setListTaches(List<List<String>> listTaches) {
-		this.listTaches = listTaches;
-	}
-
-	public List<List<String>> getListEquipes() {
-		return listEquipes;
-	}
-
-	public void setListEquipes(List<List<String>> listEquipes) {
-		this.listEquipes = listEquipes;
-	}
-
-	public List<List<String>> getListCompositions() {
-		return listCompositions;
-	}
-
-	public void setListCompositions(List<List<String>> listCompositions) {
-		this.listCompositions = listCompositions;
-	}
-
-	@Override
-	public String toString() {
-		return "UtilisateurDTO [idUtilisateur=" + idUtilisateur + ", nomUtilisateur=" + nomUtilisateur
-				+ ", prenomUtilisateur=" + prenomUtilisateur + ", dateNaissance=" + dateNaissance + ", login=" + login
-				+ ", mail=" + mail + ", actif=" + actif + ", nomSite=" + nomSite + ", libelleTypeUtilisateur="
-				+ libelleTypeUtilisateur + ", listTaches=" + listTaches + ", listEquipes=" + listEquipes
-				+ ", listCompositions=" + listCompositions + "]";
 	}
 	
 }	
