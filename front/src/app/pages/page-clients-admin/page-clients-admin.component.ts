@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { HeaderComponent } from "../../shared/component/header/header.component";
 import { FooterComponent } from "../../shared/component/footer/footer.component";
-import { ClientListComponent } from "../client-list/client-list.component";
 import { RouterLink } from '@angular/router';
+import { ClientListComponent } from '../client-list/client-list.component';
 
 @Component({
     selector: 'app-page-clients-admin',

@@ -43,8 +43,7 @@ export class UtilisateurService {
     return this.http.post<Utilisateur>(this.url+"/updateUtilisateur/"+utilisateur.idUtilisateur, utilisateur);
   }
 
-  public deleteById(id: string | undefined): Observable<Utilisateur> {
-    // penser à recharger le tableau du DOM après suppression
+  public delete(id: string | undefined): Observable<Utilisateur> {
     return this.http.delete<Utilisateur>(this.url+"/deleteUtilisateur/"+id);
   }
 }

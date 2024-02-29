@@ -1,3 +1,5 @@
+@import url(../pages.css);
+
 @media screen and (max-width: 720px) {
 
     .tools-box {
@@ -6,60 +8,7 @@
     }
 }
 
-main {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    margin: auto;
-    width: 75%;
-}
-
 app-projet-list{
     width: 100%;
     margin: auto;
-}
-
-#tools-box-container {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-}
-
-.tools-box {
-    display: flex;
-    justify-content: space-around;
-    margin-top: 20px;
-    margin-bottom: 20px;
-}
-
-.conteneur-btn {
-    background-color: white; 
-    justify-content: center;
-    align-items: center;
-    display: flex;
-    box-shadow: 1px 1px 1px 1px;
-}
-
-.conteneur-btn .btn a {
-    display: inline;
-}
-
-.conteneur-btn .btn img {
-    width: 60px;
-    height: 75px;
-}
-
-.conteneur-btn .btn img:hover {
-    transform: scale(1.5);
-}
-
-.libelle-btn {
-    display: flex;
-    align-items: center;
-    width: 50%;
-    height: 50%;
-}
-
-.libelle-btn span {
-    font-weight: bold;
 }

@@ -1,10 +1,9 @@
 package com.stage.newRAH.model;
 
-import java.time.LocalDateTime;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -35,7 +34,7 @@ public class Utilisateur {
 	private String prenomUtilisateur;
 
 	@Column(name="date_naissance", columnDefinition = "datetime")
-	private LocalDateTime dateNaissance;
+	private Date dateNaissance;
 
     private String login ;
 	
@@ -61,7 +60,7 @@ public class Utilisateur {
 	private List<Equipe> listEquipes = new ArrayList<>();
 	
 	// J'ai rajouté ce lien entre Utilisateur et Composition
-	@OneToMany(mappedBy="utilisateur", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy="utilisateur")
 	private List<Composition> listCompositions;
 	
 		
@@ -69,7 +68,7 @@ public class Utilisateur {
 
 	}
 
-	public Utilisateur(int idUtilisateur, String nomUtilisateur, String prenomUtilisateur, LocalDateTime dateNaissance,
+	public Utilisateur(int idUtilisateur, String nomUtilisateur, String prenomUtilisateur, Date dateNaissance,
             String login, String mail, Site site, boolean actif, TypeUtilisateur typeUtilisateur,
             List<Tache> listTaches, List<Equipe> listEquipes, List<Composition> listCompositions) {
         this.idUtilisateur = idUtilisateur;
