@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import com.stage.newRAH.dto.ClientDTO;
 import com.stage.newRAH.model.Client;
 import com.stage.newRAH.model.Projet;
-import com.stage.newRAH.model.Tache;
 import com.stage.newRAH.repository.ClientRepository;
 
 @Service
@@ -73,12 +72,18 @@ public class ClientService {
 		}
 	}
 
-	public ResponseEntity<ClientDTO> getClientByNom(String nom) {
-		Optional<Client> clientChoisi =  clientRepository.findByNom(nom);
+	public ResponseEntity<List<ClientDTO>> getClientsByNom(String nom) {
+		Iterable<Client> clientsChoisis =  clientRepository.findByNom(nom);
 		
-		if (clientChoisi.isPresent()) {	
-			ClientDTO clientDTO = this.mapClientToDTO(clientChoisi.get());
-			return ResponseEntity.ok(clientDTO);
+		if (clientsChoisis.iterator().hasNext()) {	
+			List<ClientDTO> clientsChoisisDTO = new ArrayList<>();
+
+			for (Client clientChoisi : clientsChoisis) {
+				ClientDTO clientChoisiDTO = this.mapClientToDTO(clientChoisi);
+				clientsChoisisDTO.add(clientChoisiDTO);
+			}
+
+			return ResponseEntity.ok(clientsChoisisDTO);
 		} else {
 			return ResponseEntity.notFound().build();		
 		}

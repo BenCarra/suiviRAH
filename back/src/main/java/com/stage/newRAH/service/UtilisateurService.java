@@ -198,9 +198,29 @@ public class UtilisateurService {
     public ResponseEntity<UtilisateurDTO> deleteUtilisateur(int id) {
         Utilisateur utilisateurASupprimer = utilisateurRepository.findById(id).get();
 
+
+		//TODO : A revoir pour respecter les contraintes de clé étrangères
+
+		/*utilisateurASupprimer.setListTaches(new ArrayList<>());
+		utilisateurASupprimer.setListCompositions(new ArrayList<>());
+		utilisateurASupprimer.setListEquipes(new ArrayList<>());
+		utilisateurRepository.save(utilisateurASupprimer);*/
+
+		/*for (Tache tache : utilisateurASupprimer.getListTaches()) {
+			utilisateurASupprimer.getListTaches().remove(tache);
+			utilisateurRepository.save(utilisateurASupprimer);
+		}
+		for (Equipe equipe : utilisateurASupprimer.getListEquipes()) {
+			utilisateurASupprimer.getListEquipes().remove(equipe);
+			utilisateurRepository.save(utilisateurASupprimer);
+		}
+		for (Composition composition : utilisateurASupprimer.getListCompositions()) {
+			utilisateurASupprimer.getListCompositions().remove(composition);
+		}*/
+
 		UtilisateurDTO utilisateurASupprimerDTO = this.mapUtilisateurToDTO(utilisateurASupprimer);
 
-		utilisateurRepository.deleteById(id);
+		utilisateurRepository.delete(utilisateurASupprimer);
 
 		return ResponseEntity.ok(utilisateurASupprimerDTO);
     }

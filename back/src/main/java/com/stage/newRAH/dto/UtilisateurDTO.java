@@ -1,7 +1,7 @@
 package com.stage.newRAH.dto;
 
 
-import java.time.LocalDateTime;
+import java.sql.Date;
 import java.util.List;
 
 public class UtilisateurDTO {
@@ -9,7 +9,7 @@ public class UtilisateurDTO {
 	private int idUtilisateur;
 	private String nomUtilisateur;
 	private String prenomUtilisateur;
-	private LocalDateTime dateNaissance;
+	private Date dateNaissance;
 	private String login ;
 	private String mail;
 	private boolean actif;
@@ -23,7 +23,7 @@ public class UtilisateurDTO {
 
 	}
 
-	public UtilisateurDTO(int idUtilisateur, String nomUtilisateur, String prenomUtilisateur, LocalDateTime dateNaissance,
+	public UtilisateurDTO(int idUtilisateur, String nomUtilisateur, String prenomUtilisateur, Date dateNaissance,
 			String login, String mail, boolean actif, String nomSite, String libelleTypeUtilisateur,
 			List<List<String>> listTaches, List<List<String>> listEquipes, List<List<String>> listCompositions) {
 		this.idUtilisateur = idUtilisateur;
@@ -66,11 +66,11 @@ public class UtilisateurDTO {
 		this.prenomUtilisateur = prenomUtilisateur;
 	}
 
-	public LocalDateTime getDateNaissance() {
+	public Date getDateNaissance() {
 		return dateNaissance;
 	}
 
-	public void setDateNaissance(LocalDateTime dateNaissance) {
+	public void setDateNaissance(Date dateNaissance) {
 		this.dateNaissance = dateNaissance;
 	}
 

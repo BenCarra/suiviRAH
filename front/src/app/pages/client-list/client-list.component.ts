@@ -1,18 +1,14 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Client
-import { UtilisateurService } from '../../shared/service/utilisateur.service';
+import { ClientService } from '../../shared/service/client.service';
 import { Router } from '@angular/router';
-import { FormUpdateUtilisateurComponent } from '../forms/form-update-utilisateur/form-update-utilisateur.component';
-import { DatePipe } from '@angular/common';
-import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
-import { MatSelectModule } from '@angular/material/select';
+import { Client } from '../../shared/model/client';
+
 
 @Component({
   selector: 'app-client-list',
   standalone: true,
-  imports: [],
+  imports: [ReactiveFormsModule],
   templateUrl: './client-list.component.html',
   styleUrl: './client-list.component.css'
 })
@@ -23,23 +19,23 @@ export class ClientListComponent {
   listNomsClient: String[] = [];
   listTypesClient: String[] = [];
   listSitesClient: String[] = [];
-  formFiltrage!: FormGroup<{ filtrageDemande: FormControl<string | null>; ClientRecherche: FormControl<string | null>; boutonSoumission: FormControl<string | null>; boutonReset: FormControl<string | null>; }>;
+  formFiltrage!: FormGroup<{ filtrageDemande: FormControl<string | null>; clientRecherche: FormControl<string | null>; boutonSoumission: FormControl<string | null>; boutonReset: FormControl<string | null>; }>;
 
 
-  constructor(private ClientService: ClientService, private router: Router) { }
+  constructor(private clientService: ClientService, private router: Router) { }
 
   ngOnInit() {
 
     this.formFiltrage = new FormGroup({
       filtrageDemande: new FormControl('', Validators.required),
-      ClientRecherche: new FormControl('', Validators.required),
+      clientRecherche: new FormControl('', Validators.required),
       boutonSoumission: new FormControl('OK', Validators.required),
       boutonReset: new FormControl('Reset')
     });
-    this.ClientService.findAll().subscribe(data => {
+    this.clientService.findAll().subscribe(data => {
       this.listClients = data;
     })
-    this.formFiltrage.get('ClientRecherche')?.disable();
+    this.formFiltrage.get('clientRecherche')?.disable();
     this.formFiltrage.get('boutonSoumission')?.disable();
     this.formFiltrage.get('boutonReset')?.disable();
   }
@@ -52,7 +48,7 @@ export class ClientListComponent {
       }
       //console.log(this.idClient);
       if (confirm("Voulez-vous vraiment supprimer cet Client ?")) {
-        this.ClientService.deleteById(this.idClient).subscribe();
+        this.clientService.delete(this.idClient).subscribe();
         alert("Client supprimé")
         // Régler les problèmes de contraintes d'intégrité pour la base de données
         window.location.reload();
@@ -64,66 +60,35 @@ export class ClientListComponent {
       if (e.target.parentElement?.parentElement?.id) {
         this.idClient = e.target.parentElement?.parentElement?.id;
       }
-      this.router.navigateByUrl("/admin/Clients/update/" + this.idClient);
+      this.router.navigateByUrl("/admin/clients/update/" + this.idClient);
     }
   }
 
   updateFiltrage() {
     if (this.formFiltrage.value.filtrageDemande != "") {
 
-      this.formFiltrage.get('ClientRecherche')?.enable();
+      this.formFiltrage.get('clientRecherche')?.enable();
       this.formFiltrage.get('boutonSoumission')?.enable();
       this.formFiltrage.get('boutonReset')?.enable();
 
-      if (this.formFiltrage.value.filtrageDemande == 'Par nom d\'Client') {
+      if (this.formFiltrage.value.filtrageDemande == 'Par nom de client') {
         this.listNomsClient = [];
-        this.ClientService.findAll().subscribe(data => {
-          data.forEach((Client) => {
-            if (!this.listNomsClient.includes(Client.nomClient)) {
-              this.listNomsClient.push(Client.nomClient);
+        this.clientService.findAll().subscribe(data => {
+          data.forEach((client) => {
+            if (!this.listNomsClient.includes(client.nomClient)) {
+              this.listNomsClient.push(client.nomClient);
             }
           });
         });
-      } else if (this.formFiltrage.value.filtrageDemande == 'Par type d\'Client') {
-        this.listTypesClient = [];
-        this.ClientService.findAll().subscribe(data => {
-          data.forEach((Client) => {
-            if (!this.listTypesClient.includes(Client.libelleTypeClient)) {
-              this.listTypesClient.push(Client.libelleTypeClient);            
-            }
-          })
-        });
-      } else if (this.formFiltrage.value.filtrageDemande == 'Par nom de site') {
-        this.listSitesClient = [];
-        this.ClientService.findAll().subscribe(data => {
-          (data.forEach((Client) => {
-            if (!this.listSitesClient.includes(Client.nomSite)) {
-              this.listSitesClient.push(Client.nomSite);       
-            }
-          }
-          ));
-        });
-      }
+      } 
     }
   }
 
   onSearch(e: MouseEvent) {
-    let recherche = this.formFiltrage.get('ClientRecherche')?.value;
+    let recherche = this.formFiltrage.get('clientRecherche')?.value;
 
-    if (this.formFiltrage.value.filtrageDemande == 'Par nom d\'Client') {
-      this.ClientService.findByNom(recherche!).subscribe(
-        data => {
-          this.listClients = data;
-        }
-      )
-    } else if (this.formFiltrage.value.filtrageDemande == 'Par type d\'Client'){
-      this.ClientService.findByTypeClient(recherche!).subscribe(
-        data => {
-          this.listClients = data;
-        }
-      )
-    } else if (this.formFiltrage.value.filtrageDemande == 'Par nom de site'){
-      this.ClientService.findBySite(recherche!).subscribe(
+    if (this.formFiltrage.value.filtrageDemande == 'Par nom de client') {
+      this.clientService.findByNom(recherche!).subscribe(
         data => {
           this.listClients = data;
         }
@@ -134,13 +99,13 @@ export class ClientListComponent {
 
   onReset($event: MouseEvent) {
     this.formFiltrage.get('filtrageDemande')?.setValue("");
-    this.formFiltrage.get('ClientRecherche')?.disable();
+    this.formFiltrage.get('clientRecherche')?.disable();
     this.formFiltrage.get('boutonSoumission')?.disable();
     this.formFiltrage.get('boutonReset')?.disable();
     this.listClients = [];
-    this.ClientService.findAll().subscribe((data) => {
-      (data.forEach((Client) => {
-        this.listClients.push(Client);
+    this.clientService.findAll().subscribe((data) => {
+      (data.forEach((client) => {
+        this.listClients.push(client);
       }
       ));
     });

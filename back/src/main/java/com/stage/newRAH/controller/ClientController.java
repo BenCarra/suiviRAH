@@ -5,9 +5,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -32,13 +34,13 @@ public class ClientController {
 		
 	}
 
-	@GetMapping("/clientByNom/{nom}")
-	public ResponseEntity<ClientDTO> getClientByNom(@PathVariable String nom) {
-		return clientService.getClientByNom(nom);
+	@GetMapping("/clientsByNom/{nom}")
+	public ResponseEntity<List<ClientDTO>> getClientsByNom(@PathVariable String nom) {
+		return clientService.getClientsByNom(nom);
 		
 	}
 	
-	@PostMapping("/createClient")
+	@PutMapping("/createClient")
 	public ResponseEntity<ClientDTO> createClient(@RequestBody ClientDTO clientDTO) {
 		return clientService.createClient(clientDTO);
 	}
@@ -48,7 +50,7 @@ public class ClientController {
 		return clientService.updateClient(clientDTO, id);
 	}
 	
-	@PostMapping("/deleteClient/{id}")
+	@DeleteMapping("/deleteClient/{id}")
 	public ResponseEntity<ClientDTO> deleteClient(@PathVariable int id) {
 		return clientService.deleteClient(id);
 	}

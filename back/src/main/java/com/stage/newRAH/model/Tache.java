@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -38,7 +37,7 @@ public class Tache {
 	private String commentaires;
 	
 
-	@ManyToMany(mappedBy="listTaches", cascade = {CascadeType.ALL})
+	@ManyToMany(mappedBy="listTaches")
 	private List<Utilisateur> listUtilisateurs = new ArrayList<>();
 	
 	@ManyToOne

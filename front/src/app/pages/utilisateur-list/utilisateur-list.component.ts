@@ -5,17 +5,13 @@ import { UtilisateurService } from '../../shared/service/utilisateur.service';
 import { Router } from '@angular/router';
 import { FormUpdateUtilisateurComponent } from '../forms/form-update-utilisateur/form-update-utilisateur.component';
 import { DatePipe } from '@angular/common';
-import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
-import { MatSelectModule } from '@angular/material/select';
-
 
 @Component({
   selector: 'app-utilisateur-list',
   standalone: true,
   templateUrl: './utilisateur-list.component.html',
   styleUrl: './utilisateur-list.component.scss',
-  imports: [DatePipe,MatInputModule,MatButtonModule,MatSelectModule, ReactiveFormsModule, FormUpdateUtilisateurComponent]
+  imports: [DatePipe, ReactiveFormsModule, FormUpdateUtilisateurComponent]
 })
 export class UtilisateurListComponent {
 
@@ -54,7 +50,7 @@ export class UtilisateurListComponent {
       }
       //console.log(this.idUtilisateur);
       if (confirm("Voulez-vous vraiment supprimer cet utilisateur ?")) {
-        this.utilisateurService.deleteById(this.idUtilisateur).subscribe();
+        this.utilisateurService.delete(this.idUtilisateur).subscribe();
         alert("Utilisateur supprimé")
         // Régler les problèmes de contraintes d'intégrité pour la base de données
         window.location.reload();

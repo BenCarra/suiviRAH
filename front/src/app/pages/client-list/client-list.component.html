@@ -21,60 +21,31 @@
         <table border="2">
             <tbody>
                 <tr>
-                    <th>Login</th>
-                    <th>Prénom</th>
                     <th>Nom</th>
-                    <th>Date de naissance</th>
-                    <th>Mail</th>
-                    <th>Actif</th>
-                    <th>Site</th>
-                    <th>Type utilisateur</th>
-                    <th>Tâches associées</th>
-                    <th>Equipes intégrées</th>
-                    <th>Compositions intégrées</th>
+                    <th>Adresse</th>
+                    <th>Code postal</th>
+                    <th>Ville</th>
+                    <th>Projets associés</th>
                     <th>Modifier</th>
                     <th>Supprimer</th>
                 </tr>
-                @for (utilisateur of listUtilisateurs; track $index) {
-                    <tr id="{{ utilisateur.idUtilisateur }}">
-                        <td>{{ utilisateur.login }}</td>
-                        <td>{{ utilisateur.prenomUtilisateur }}</td>
-                        <td>{{ utilisateur.nomUtilisateur }}</td>
-                        <td>{{ utilisateur.dateNaissance | date: 'dd/MM/yyyy'}}</td>
-                        <td>{{ utilisateur.mail }}</td>
-                        <td>{{ utilisateur.actif }}</td>
-                        <td>{{ utilisateur.nomSite }}</td>
-                        <td>{{ utilisateur.libelleTypeUtilisateur }}</td>
+                @for (client of listClients; track $index) {
+                    <tr id="{{ client.idClient }}">
+                        <td>{{ client.nomClient }}</td>
+                        <td>{{ client.adresseClient }}</td>
+                        <td>{{ client.codePostalClient }}</td>
+                        <td>{{ client.villeClient }}</td>
                         <td>
-                            @for (tache of utilisateur.listTaches; track $index){
+                            @for (projet of client.listProjets; track $index){
                                 <ul>
-                                    <li>Tâche n°{{ tache[0] }}</li>
-                                    <li>{{ tache[1] }}</li>
+                                    <li>Projet n°{{ projet[0] }}</li>
+                                    <li>{{ projet[1] }}</li>
                                 </ul>
                                 <br>
                             }
                         </td>
-                        <td>
-                            @for (equipe of utilisateur.listEquipes; track $index){
-                                <ul>
-                                    <li>Equipe n°{{ equipe[0] }}</li>
-                                    <li>{{ equipe[1] }}</li>
-                                </ul>
-                                <br>
-                            }
-                        </td>
-                        <td>
-                            @for (composition of utilisateur.listCompositions; track $index){
-                                <ul>
-                                    <li>Composition n°{{ composition[0] }}</li>
-                                    <li>Equipe {{ composition[1] }}</li>
-                                    <li>Utilisateur {{ composition[2] }}</li>
-                                </ul>
-                                <br>
-                            }
-                        </td>
-                        <td><button type="button" (click)="onUpdateUtilisateur($event)">Modifier</button></td>
-                        <td><button type="button" (click)="onDeleteUtilisateur($event)">Supprimer</button></td>
+                        <td><button type="button" (click)="onUpdateClient($event)">Modifier</button></td>
+                        <td><button type="button" (click)="onDeleteClient($event)">Supprimer</button></td>
                     </tr>
                 }
                 
