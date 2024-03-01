@@ -16,16 +16,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PutMapping;
 
-
-
-
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
 public class UtilisateurController {
 
 	@Autowired
 	UtilisateurService utilisateurService;
-	
+
 	@GetMapping("/utilisateurs")
 	public ResponseEntity<List<UtilisateurDTO>> getUtilisateurs() {
 		return utilisateurService.getUtilisateurs();
@@ -42,7 +39,8 @@ public class UtilisateurController {
 	}
 
 	@GetMapping("/utilisateursByTypeUtilisateur/{libelleTypeUtilisateur}")
-	public ResponseEntity<List<UtilisateurDTO>> getUtilisateursByTypeUtilisateur(@PathVariable String libelleTypeUtilisateur) {
+	public ResponseEntity<List<UtilisateurDTO>> getUtilisateursByTypeUtilisateur(
+			@PathVariable String libelleTypeUtilisateur) {
 		return utilisateurService.getUtilisateursByTypeUtilisateur(libelleTypeUtilisateur);
 	}
 
@@ -51,18 +49,19 @@ public class UtilisateurController {
 		return utilisateurService.getUtilisateursBySite(nomSite);
 	}
 
-	@PutMapping("/createUtilisateur")
+	@PostMapping("/createUtilisateur")
 	public ResponseEntity<UtilisateurDTO> createUtilisateur(@RequestBody UtilisateurDTO utilisateurDTO) {
 		return utilisateurService.createUtilisateur(utilisateurDTO);
 	}
 
-	@PostMapping("/updateUtilisateur/{id}")
-	public ResponseEntity<UtilisateurDTO> updateUtilisateur(@RequestBody UtilisateurDTO utilisateurDTO, @PathVariable int id) {
+	@PutMapping("/updateUtilisateur/{id}")
+	public ResponseEntity<UtilisateurDTO> updateUtilisateur(@RequestBody UtilisateurDTO utilisateurDTO,
+			@PathVariable int id) {
 		return utilisateurService.updateUtilisateur(utilisateurDTO, id);
 	}
-	
+
 	@DeleteMapping("/deleteUtilisateur/{id}")
-	public ResponseEntity<UtilisateurDTO> deleteUtilisateur(@PathVariable int id){
+	public ResponseEntity<UtilisateurDTO> deleteUtilisateur(@PathVariable int id) {
 		return utilisateurService.deleteUtilisateur(id);
 	}
 

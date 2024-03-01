@@ -28,11 +28,11 @@ export class ClientService {
   }
 
   public create(client: Client) {
-    return this.http.put<Client>(this.url + "/createClient", client);
+    return this.http.post<Client>(this.url + "/createClient", client);
   }
 
   public update(client: Client) {
-    return this.http.post<Client>(this.url + "/updateClient/" + client.idClient, client);
+    return this.http.put<Client>(this.url + "/updateClient/" + client.idClient, client);
   }
 
   public delete(id: string | undefined): Observable<Client> {

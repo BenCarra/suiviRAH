@@ -38,12 +38,12 @@ public class EquipeController {
 		return equipeService.getEquipesByLibelle(libelle);
 	}
 	
-	@PutMapping("/createEquipe")
+	@PostMapping("/createEquipe")
 	public ResponseEntity<EquipeDTO> createEquipe(@RequestBody EquipeDTO equipeDTO) {
 		return equipeService.createEquipe(equipeDTO);
 	}
 	
-	@PostMapping("/updateEquipe/{id}")
+	@PutMapping("/updateEquipe/{id}")
 	public ResponseEntity<EquipeDTO> updateEquipe(@RequestBody EquipeDTO equipeDTO, @PathVariable int id) {
 		return equipeService.updateEquipe(equipeDTO, id);
 	}

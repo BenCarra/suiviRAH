@@ -28,11 +28,11 @@ export class EquipeService {
   }
 
   public create(equipe: Equipe) {
-    return this.http.put<Equipe>(this.url + "/createEquipe", equipe);
+    return this.http.post<Equipe>(this.url + "/createEquipe", equipe);
   }
 
   public update(equipe: Equipe) {
-    return this.http.post<Equipe>(this.url + "/updateEquipe/" + equipe.idEquipe, equipe);
+    return this.http.put<Equipe>(this.url + "/updateEquipe/" + equipe.idEquipe, equipe);
   }
 
   public delete(id: string | undefined): Observable<Equipe> {
