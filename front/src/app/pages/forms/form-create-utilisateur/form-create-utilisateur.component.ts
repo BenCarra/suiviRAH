@@ -72,8 +72,16 @@ export class FormCreateUtilisateurComponent {
       this.utilisateurCree.dateNaissance = this.formCreate.get("dateNaissance")?.value;
       this.utilisateurCree.mail = this.formCreate.get("mail")?.value;
       this.utilisateurCree.actif = this.formCreate.get("actif")?.value;
-      this.utilisateurService.create(this.utilisateurCree).subscribe();
-      alert('Utilisateur créé!');
+      this.utilisateurService.create(this.utilisateurCree).subscribe(
+        {
+          next:(response) => {
+            alert('Utilisateur ' + response.prenomUtilisateur + ' ' + response.nomUtilisateur + ' créé!');
+          }, 
+          error:(error) => {
+            console.error('Erreur lors de la création de l\'utilisateur', error);
+          }   
+        }
+      );
       this.router.navigateByUrl("/admin/utilisateurs");
     }
 

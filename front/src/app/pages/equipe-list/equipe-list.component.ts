@@ -40,26 +40,19 @@ export class EquipeListComponent {
   }
 
 
-  onDeleteEquipe(e: MouseEvent) {
-    if (e.target instanceof HTMLElement) {
-      if (e.target.parentElement?.parentElement?.id) {
-        this.idEquipe = e.target.parentElement?.parentElement?.id;
-      }
-      //console.log(this.idEquipe);
-      if (confirm("Voulez-vous vraiment supprimer cette équipe ?")) {
-        this.equipeService.delete(this.idEquipe).subscribe();
-        alert("Equipe supprimée")
-        // Régler les problèmes de contraintes d'intégrité pour la base de données
-        window.location.reload();
-      }
-    }
-  }
-  onUpdateEquipe(e: MouseEvent) {
-    if (e.target instanceof HTMLElement) {
-      if (e.target.parentElement?.parentElement?.id) {
-        this.idEquipe = e.target.parentElement?.parentElement?.id;
-      }
-      this.router.navigateByUrl("/admin/equipes/update/" + this.idEquipe);
+  onDeleteEquipe(id: string) {
+    if (confirm("Voulez-vous vraiment supprimer cette équipe ?")) {
+      this.equipeService.delete(id).subscribe({
+        next: (response) => {
+          alert("Equipe " + response.libelle + " supprimée");
+          this.equipeService.findAll().subscribe(data => {
+            this.listEquipes = data;
+          })
+        },
+        error: (error) => {
+          console.log("Erreur lors de la suppression de l'équipe", error);
+        }
+      });
     }
   }
 

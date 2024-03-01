@@ -62,8 +62,10 @@
                         <br>
                         }
                     </td>
-                    <td><button type="button" (click)="onUpdateEquipe($event)">Modifier</button></td>
-                    <td><button type="button" (click)="onDeleteEquipe($event)">Supprimer</button></td>
+                    <td><button type="button" routerLink="/admin/equipes/update/"
+                            [queryParams]="{ id: equipe.idEquipe}">Modifier</button></td>
+                    <td><button type="button" (click)="onDeleteEquipe(equipe.idEquipe.toString())">Supprimer</button>
+                    </td>
                 </tr>
                 }
                 } @else if (routerURL =="/admin/accueil") {

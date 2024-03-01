@@ -52,8 +52,14 @@ export class FormCreateEquipeComponent {
       console.log("Un ou plusieurs champs sont requis");
     } else {
       this.equipeCreee.libelle = this.formCreate.get("libelle")?.value;
-      this.equipeService.create(this.equipeCreee).subscribe();
-      alert('Equipe créée!');
+      this.equipeService.create(this.equipeCreee).subscribe({
+        next: (response) => {
+          alert('Equipe ' + response.libelle + ' créée!');
+        },
+        error: (error) => {
+          console.error('Erreur lors de la création de l\'équipe', error);
+        }
+      });
       this.router.navigateByUrl("/admin/equipes");
     }
 

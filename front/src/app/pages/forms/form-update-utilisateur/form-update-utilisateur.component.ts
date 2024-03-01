@@ -52,11 +52,11 @@ export class FormUpdateUtilisateurComponent {
     })
 
 
-    this.activatedRoute.paramMap.subscribe(
-      id => {
-        let temp = id.get("id");
-        if (temp != null) {
-          this.idUtilisateur = temp.toString();
+    this.activatedRoute.queryParams.subscribe(
+      params => {
+        const id = params['id'];
+        if (id) {
+          this.idUtilisateur = id.toString();
         }
       }
     )
@@ -97,8 +97,14 @@ export class FormUpdateUtilisateurComponent {
       this.utilisateurById.dateNaissance = this.formUpdate.get("dateNaissance")?.value;
       this.utilisateurById.mail = this.formUpdate.get("mail")?.value;
       this.utilisateurById.actif = this.formUpdate.get("actif")?.value;
-      this.utilisateurService.update(this.utilisateurById).subscribe();
-      alert('Utilisateur modifié!');
+      this.utilisateurService.update(this.utilisateurById).subscribe({
+        next: (response) => {
+          alert('Utilisateur ' + response.prenomUtilisateur + ' ' + response.nomUtilisateur + ' modifié!');
+        },
+        error: (error) => {
+          console.error("Erreur lors de la modification de l'utilisateur", error);
+        }
+      });
       this.router.navigateByUrl("/admin/utilisateurs");
     }
 

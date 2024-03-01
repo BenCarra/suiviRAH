@@ -56,8 +56,10 @@
                         <br>
                         }
                     </td>
-                    <td><button type="button" (click)="onUpdateClient($event)">Modifier</button></td>
-                    <td><button type="button" (click)="onDeleteClient($event)">Supprimer</button></td>
+                    <td><button type="button" routerLink="/admin/clients/update/"
+                            [queryParams]="{ id: client.idClient}">Modifier</button></td>
+                    <td><button type="button" (click)="onDeleteClient(client.idClient.toString())">Supprimer</button>
+                    </td>
                 </tr>
                 }
                 } @else if (routerURL =="/admin/accueil") {

@@ -45,26 +45,19 @@ export class UtilisateurListComponent {
   }
 
 
-  onDeleteUtilisateur(e: MouseEvent) {
-    if (e.target instanceof HTMLElement) {
-      if (e.target.parentElement?.parentElement?.id) {
-        this.idUtilisateur = e.target.parentElement?.parentElement?.id;
-      }
-      //console.log(this.idUtilisateur);
-      if (confirm("Voulez-vous vraiment supprimer cet utilisateur ?")) {
-        this.utilisateurService.delete(this.idUtilisateur).subscribe();
-        alert("Utilisateur supprimé")
-        // Régler les problèmes de contraintes d'intégrité pour la base de données
-        window.location.reload();
-      }
-    }
-  }
-  onUpdateUtilisateur(e: MouseEvent) {
-    if (e.target instanceof HTMLElement) {
-      if (e.target.parentElement?.parentElement?.id) {
-        this.idUtilisateur = e.target.parentElement?.parentElement?.id;
-      }
-      this.router.navigateByUrl("/admin/utilisateurs/update/" + this.idUtilisateur);
+  onDeleteUtilisateur(id: string) {
+    if (confirm("Voulez-vous vraiment supprimer cet utilisateur ?")) {
+      this.utilisateurService.delete(id).subscribe({
+        next: (response) => {
+          alert("Utilisateur " + response.prenomUtilisateur + " " + response.nomUtilisateur + " supprimé");
+          this.utilisateurService.findAll().subscribe(data => {
+            this.listUtilisateurs = data;
+          })
+        },
+        error: (error) => {
+          console.log("Erreur lors de la suppression de l'utilisateur", error);
+        }
+      });
     }
   }
 

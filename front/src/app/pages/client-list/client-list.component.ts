@@ -42,26 +42,19 @@ export class ClientListComponent {
   }
 
 
-  onDeleteClient(e: MouseEvent) {
-    if (e.target instanceof HTMLElement) {
-      if (e.target.parentElement?.parentElement?.id) {
-        this.idClient = e.target.parentElement?.parentElement?.id;
-      }
-      //console.log(this.idClient);
-      if (confirm("Voulez-vous vraiment supprimer ce client ?")) {
-        this.clientService.delete(this.idClient).subscribe();
-        alert("Client supprimé")
-        // Régler les problèmes de contraintes d'intégrité pour la base de données
-        window.location.reload();
-      }
-    }
-  }
-  onUpdateClient(e: MouseEvent) {
-    if (e.target instanceof HTMLElement) {
-      if (e.target.parentElement?.parentElement?.id) {
-        this.idClient = e.target.parentElement?.parentElement?.id;
-      }
-      this.router.navigateByUrl("/admin/clients/update/" + this.idClient);
+  onDeleteClient(id: string) {
+    if (confirm("Voulez-vous vraiment supprimer ce client ?")) {
+      this.clientService.delete(id).subscribe({
+        next: (response) => {
+          alert("Client " + response.nomClient + " supprimé");
+          this.clientService.findAll().subscribe(data => {
+            this.listClients = data;
+          })
+        },
+        error: (error) => {
+          console.log("Erreur lors de la suppression du client", error);
+        }
+      });
     }
   }
 

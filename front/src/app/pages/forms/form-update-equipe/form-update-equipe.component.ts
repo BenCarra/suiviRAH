@@ -42,11 +42,11 @@ export class FormUpdateEquipeComponent {
     })
 
 
-    this.activatedRoute.paramMap.subscribe(
-      id => {
-        let temp = id.get("id");
-        if (temp != null) {
-          this.idEquipe = temp.toString();
+    this.activatedRoute.queryParams.subscribe(
+      params => {
+        const id = params['id'];
+        if (id) {
+          this.idEquipe = id.toString();
         }
       }
     )
@@ -70,8 +70,14 @@ export class FormUpdateEquipeComponent {
       console.log("Un ou plusieurs champs sont requis");
     } else {
       this.equipeById.libelle = this.formUpdate.get("libelle")?.value;
-      this.equipeService.update(this.equipeById).subscribe();
-      alert('Equipe modifiée!');
+      this.equipeService.update(this.equipeById).subscribe({
+        next: (response) => {
+          alert('Equipe ' + response.libelle + ' modifiée!');
+        },
+        error: (error) => {
+          console.error("Erreur lors de la modification de l'équipe", error);
+        }
+      });
       this.router.navigateByUrl("/admin/equipes");
     }
 

@@ -46,11 +46,11 @@ export class FormUpdateClientComponent {
     })
 
 
-    this.activatedRoute.paramMap.subscribe(
-      id => {
-        let temp = id.get("id");
-        if (temp != null) {
-          this.idClient = temp.toString();
+    this.activatedRoute.queryParams.subscribe(
+      params => {
+        const id = params['id'];
+        if (id) {
+          this.idClient = id.toString();
         }
       }
     )
@@ -85,8 +85,15 @@ export class FormUpdateClientComponent {
       this.clientById.adresseClient = this.formUpdate.get("adresse")?.value;
       this.clientById.codePostalClient = this.formUpdate.get("codePostal")?.value;
       this.clientById.villeClient = this.formUpdate.get("ville")?.value;
-      this.clientService.update(this.clientById).subscribe();
-      alert('Client modifié!');
+      this.clientService.update(this.clientById).subscribe({
+        next: (response) => {
+          alert('Client ' + response.nomClient + ' modifié!');
+        },
+        error: (error) => {
+          console.error('Erreur lors de la modification du client', error);
+        }
+      });
+
       this.router.navigateByUrl("/admin/clients");
     }
 

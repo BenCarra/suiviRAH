@@ -62,8 +62,14 @@ export class FormCreateClientComponent {
       this.clientCree.adresseClient = this.formCreate.get("adresse")?.value;
       this.clientCree.codePostalClient = this.formCreate.get("codePostal")?.value;
       this.clientCree.villeClient = this.formCreate.get("ville")?.value;
-      this.clientService.create(this.clientCree).subscribe();
-      alert('Client Créé!');
+      this.clientService.create(this.clientCree).subscribe({
+        next: (response) => {
+          alert('Client ' + response.nomClient + ' créé!');
+        },
+        error: (error) => {
+          console.error('Erreur lors de la création du client', error);
+        }
+      });
       this.router.navigateByUrl("/admin/clients");
     }
 
