@@ -1,28 +1,29 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ClientService } from '../../shared/service/client.service';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { Client } from '../../shared/model/client';
 
 
 @Component({
   selector: 'app-client-list',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, RouterLink],
   templateUrl: './client-list.component.html',
   styleUrl: './client-list.component.css'
 })
 export class ClientListComponent {
 
+  routerURL: string;
   idClient!: string;
   listClients!: Client[];
   listNomsClient: String[] = [];
-  listTypesClient: String[] = [];
-  listSitesClient: String[] = [];
   formFiltrage!: FormGroup<{ filtrageDemande: FormControl<string | null>; clientRecherche: FormControl<string | null>; boutonSoumission: FormControl<string | null>; boutonReset: FormControl<string | null>; }>;
 
 
-  constructor(private clientService: ClientService, private router: Router) { }
+  constructor(private clientService: ClientService, private router: Router) {
+    this.routerURL = router.url;
+  }
 
   ngOnInit() {
 
@@ -47,7 +48,7 @@ export class ClientListComponent {
         this.idClient = e.target.parentElement?.parentElement?.id;
       }
       //console.log(this.idClient);
-      if (confirm("Voulez-vous vraiment supprimer cet Client ?")) {
+      if (confirm("Voulez-vous vraiment supprimer ce client ?")) {
         this.clientService.delete(this.idClient).subscribe();
         alert("Client supprimé")
         // Régler les problèmes de contraintes d'intégrité pour la base de données

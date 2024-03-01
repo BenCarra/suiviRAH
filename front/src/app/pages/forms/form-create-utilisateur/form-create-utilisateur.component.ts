@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 
 import { ReactiveFormsModule, Validators, FormGroup, FormControl } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
@@ -73,7 +73,7 @@ export class FormCreateUtilisateurComponent {
       this.utilisateurCree.mail = this.formCreate.get("mail")?.value;
       this.utilisateurCree.actif = this.formCreate.get("actif")?.value;
       this.utilisateurService.create(this.utilisateurCree).subscribe();
-      alert('Utilisateur Créé!');
+      alert('Utilisateur créé!');
       this.router.navigateByUrl("/admin/utilisateurs");
     }
     

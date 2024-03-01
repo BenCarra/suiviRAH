@@ -2,12 +2,12 @@ import { Component } from '@angular/core';
 import { ProjetService } from '../../shared/service/projet.service';
 import { Projet } from '../../shared/model/projet';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-projet-list',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, RouterLink],
   templateUrl: './projet-list.component.html',
   styleUrl: './projet-list.component.scss'
 })

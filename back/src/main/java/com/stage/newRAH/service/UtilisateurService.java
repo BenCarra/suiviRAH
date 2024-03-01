@@ -72,6 +72,7 @@ public class UtilisateurService {
 				List<String> compositionObject = new ArrayList<>();
 				compositionObject.add(String.valueOf(composition.getIdComposition()));
 				compositionObject.add(composition.getEquipe().getLibelle());
+				compositionObject.add(composition.getUtilisateur().getPrenomUtilisateur());
 				compositionObject.add(composition.getUtilisateur().getNomUtilisateur());
 				listCompositions.add(compositionObject);
 			}

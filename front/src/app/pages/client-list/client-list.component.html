@@ -1,53 +1,80 @@
 <div id="liste">
-    <h3>LISTE DES CLIENTS</h3>
-    <form id="filtrage" [formGroup]="formFiltrage">
-        <select id="filtrage-demande" formControlName="filtrageDemande" (change)="updateFiltrage()">
-            <option disabled [selected]="formFiltrage.value.filtrageDemande == ''">-- Sélectionner un filtre --</option>
-            <option value="Par nom de client">Rechercher par nom d'utilisateur</option>
-        </select>
-        @if (formFiltrage.get("filtrageDemande")?.getRawValue() == "Par nom de client") {
-        <select id="noms-client" autocomplete formControlName="clientRecherche">
-            <option disabled [selected]="formFiltrage.value.filtrageDemande == 'Par nom de client'">-- Sélectionner un
-                nom d'utilisateur --</option>
-            @for (nomClient of listNomsClient; track $index) {
-            <option [value]="nomClient">{{ nomClient }}</option>
-            }
-        </select>
+    <h3>
+        @if (routerURL =="/admin/clients") {
+            LISTE DES CLIENTS
         }
-        <input type="submit" id="btn-soumission" formControlName="boutonSoumission" (click)="onSearch($event)">
-        <input type="reset" id="btn-reset" (click)="onReset($event)" formControlName="boutonReset">
-    </form>
+        @else if (routerURL == "/admin/accueil") {
+            <a routerLink="/admin/clients">LISTE DES CLIENTS</a>
+        }
+    </h3>
+    @if (routerURL == "/admin/clients") {
+        <form id="filtrage" [formGroup]="formFiltrage">
+            <select id="filtrage-demande" formControlName="filtrageDemande" (change)="updateFiltrage()">
+                <option disabled [selected]="formFiltrage.value.filtrageDemande == ''">-- Sélectionner un filtre --</option>
+                <option value="Par nom de client">Rechercher par nom de client</option>
+            </select>
+            @if (formFiltrage.get("filtrageDemande")?.getRawValue() == "Par nom de client") {
+            <select id="noms-client" autocomplete formControlName="clientRecherche">
+                <option disabled [selected]="formFiltrage.value.filtrageDemande == 'Par nom de client'">-- Sélectionner un
+                    nom de client --</option>
+                @for (nomClient of listNomsClient; track $index) {
+                <option [value]="nomClient">{{ nomClient }}</option>
+                }
+            </select>
+            }
+            <input type="submit" id="btn-soumission" formControlName="boutonSoumission" (click)="onSearch($event)">
+            <input type="reset" id="btn-reset" (click)="onReset($event)" formControlName="boutonReset">
+        </form>
+    }
 
+    <!-- TODO: Faire en sorte d'avoir les 10 derniers clients ajoutés --> 
     <div id="table">
         <table border="2">
             <tbody>
-                <tr>
-                    <th>Nom</th>
-                    <th>Adresse</th>
-                    <th>Code postal</th>
-                    <th>Ville</th>
-                    <th>Projets associés</th>
-                    <th>Modifier</th>
-                    <th>Supprimer</th>
-                </tr>
-                @for (client of listClients; track $index) {
-                <tr id="{{ client.idClient }}">
-                    <td>{{ client.nomClient }}</td>
-                    <td>{{ client.adresseClient }}</td>
-                    <td>{{ client.codePostalClient }}</td>
-                    <td>{{ client.villeClient }}</td>
-                    <td>
-                        @for (projet of client.listProjets; track $index){
-                        <ul>
-                            <li>Projet n°{{ projet[0] }}</li>
-                            <li>{{ projet[1] }}</li>
-                        </ul>
-                        <br>
-                        }
-                    </td>
-                    <td><button type="button" (click)="onUpdateClient($event)">Modifier</button></td>
-                    <td><button type="button" (click)="onDeleteClient($event)">Supprimer</button></td>
-                </tr>
+                @if (routerURL =="/admin/clients") {
+                    <tr>
+                        <th>Nom</th>
+                        <th>Adresse</th>
+                        <th>Code postal</th>
+                        <th>Ville</th>
+                        <th>Projets associés</th>
+                        <th>Modifier</th>
+                        <th>Supprimer</th>
+                    </tr>
+                    @for (client of listClients; track $index) {
+                    <tr id="{{ client.idClient }}">
+                        <td>{{ client.nomClient }}</td>
+                        <td>{{ client.adresseClient }}</td>
+                        <td>{{ client.codePostalClient }}</td>
+                        <td>{{ client.villeClient }}</td>
+                        <td>
+                            @for (projet of client.listProjets; track $index){
+                            <ul>
+                                <li>Projet n°{{ projet[0] }}</li>
+                                <li>{{ projet[1] }}</li>
+                            </ul>
+                            <br>
+                            }
+                        </td>
+                        <td><button type="button" (click)="onUpdateClient($event)">Modifier</button></td>
+                        <td><button type="button" (click)="onDeleteClient($event)">Supprimer</button></td>
+                    </tr>
+                    }
+                } @else if (routerURL =="/admin/accueil") {
+                    <tr>
+                        <th>Nom</th>
+                        <th>Adresse</th>
+                        <th>Code postal</th>
+                        <th>Ville</th>
+                    </tr>
+                    @for (client of listClients; track $index) {
+                    <tr id="{{ client.idClient }}">
+                        <td>{{ client.nomClient }}</td>
+                        <td>{{ client.adresseClient }}</td>
+                        <td>{{ client.codePostalClient }}</td>
+                        <td>{{ client.villeClient }}</td>
+                    </tr>
+                    }
                 }
 
             </tbody>

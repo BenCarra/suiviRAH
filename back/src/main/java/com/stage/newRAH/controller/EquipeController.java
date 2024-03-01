@@ -5,9 +5,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -31,12 +33,12 @@ public class EquipeController {
 		return equipeService.getEquipeById(id);
 	}
 	
-	@GetMapping("/equipeByLibelle/{libelle}")
-	public ResponseEntity<EquipeDTO> getEquipeByLibelle(@PathVariable String libelle){
-		return equipeService.getEquipeByLibelle(libelle);
+	@GetMapping("/equipesByLibelle/{libelle}")
+	public ResponseEntity<List<EquipeDTO>> getEquipesByLibelle(@PathVariable String libelle){
+		return equipeService.getEquipesByLibelle(libelle);
 	}
 	
-	@PostMapping("/createEquipe")
+	@PutMapping("/createEquipe")
 	public ResponseEntity<EquipeDTO> createEquipe(@RequestBody EquipeDTO equipeDTO) {
 		return equipeService.createEquipe(equipeDTO);
 	}
@@ -46,7 +48,7 @@ public class EquipeController {
 		return equipeService.updateEquipe(equipeDTO, id);
 	}
 	
-	@PostMapping("/deleteEquipe/{id}")
+	@DeleteMapping("/deleteEquipe/{id}")
 	public ResponseEntity<EquipeDTO> deleteEquipe(@PathVariable int id) {
 		return equipeService.deleteEquipe(id);
 	}
