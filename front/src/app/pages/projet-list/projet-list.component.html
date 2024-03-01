@@ -1,5 +1,12 @@
 <div id="liste">
-    <h3>LISTE DES PROJETS</h3>
+    <h3>
+    @if (routerURL == "/admin/projets") {
+        LISTE DES PROJETS
+    } 
+    @else if (routerURL == "/admin/accueil") {
+        <a routerLink="/admin/projets">LISTE DES PROJETS</a>
+    }
+    </h3>
     @if (routerURL == "/admin/projets") {
         <form id="filtrage" [formGroup]="formFiltrage">
             <label for="filtrage-demande"></label>
@@ -17,7 +24,7 @@
         </form>
     }
 
-    <!-- Modifier table : ajouter des colonnes éventuellement -->
+    <!-- TODO: Faire en sorte d'avoir les 10 derniers projets de l'utilisateur connecté --> 
     <div id="table">
         <table border="2">
             <tbody>

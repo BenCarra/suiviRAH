@@ -8,6 +8,9 @@ import { FormCreateUtilisateurComponent } from './pages/forms/form-create-utilis
 import { PageClientsAdminComponent } from './pages/page-clients-admin/page-clients-admin.component';
 import { FormCreateClientComponent } from './pages/forms/form-create-client/form-create-client.component';
 import { FormUpdateClientComponent } from './pages/forms/form-update-client/form-update-client.component';
+import { PageEquipesAdminComponent } from './pages/page-equipes-admin/page-equipes-admin.component';
+import { FormCreateEquipeComponent } from './pages/forms/form-create-equipe/form-create-equipe.component';
+import { FormUpdateEquipeComponent } from './pages/forms/form-update-equipe/form-update-equipe.component';
 
 export const routes: Routes = [{path: '', component:HomeComponent},
 {path:'admin/accueil', component:PageAccueilAdminComponent},
@@ -17,5 +20,8 @@ export const routes: Routes = [{path: '', component:HomeComponent},
 {path: 'admin/clients', component:PageClientsAdminComponent},
 {path: 'admin/clients/create', component:FormCreateClientComponent},
 {path: 'admin/clients/update/:id', component:FormUpdateClientComponent},
+{path: 'admin/equipes', component:PageEquipesAdminComponent},
+{path: 'admin/equipes/create', component:FormCreateEquipeComponent},
+{path: 'admin/equipes/update/:id', component:FormUpdateEquipeComponent},
 {path: "**", component:NotFoundComponent}];
 

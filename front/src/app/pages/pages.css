@@ -14,6 +14,19 @@ main {
     margin-bottom: 20px;
 }
 
+#liste h3 {
+    text-align: center;
+}
+
+#liste a {
+    text-decoration: none;
+    color: white;
+}
+
+#liste a:hover {
+    text-decoration: underline;
+}
+
 #filtrage {
     display: flex;
     justify-content: center;
@@ -27,7 +40,7 @@ main {
 
 #table{
     max-width: 100%;
-    overflow: scroll;
+    overflow-x: scroll;
 }
 
 table{

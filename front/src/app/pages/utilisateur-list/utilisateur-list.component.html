@@ -1,5 +1,12 @@
 <div id="liste">
-    <h3><a>LISTE DES UTILISATEURS</a></h3> <!-- TODO: lien vers liste utilisateurs depuis la page d'accueil-->
+    <h3>
+        @if (routerURL == "/admin/utilisateurs") {
+            LISTE DES UTILISATEURS
+        } 
+        @else if (routerURL == "/admin/accueil") {
+            <a routerLink="/admin/utilisateurs">LISTE DES UTILISATEURS</a>
+        }
+    </h3>
     @if (routerURL == "/admin/utilisateurs") {
         <form id="filtrage" [formGroup]="formFiltrage">
             <select id="filtrage-demande" formControlName="filtrageDemande" (change)="updateFiltrage()">
@@ -33,6 +40,7 @@
         </form>
     }
 
+    <!-- TODO: Faire en sorte d'avoir les 10 derniers utilisateurs ajoutés --> 
     <div id="table">
         <table border="2">
             <tbody>
@@ -85,7 +93,7 @@
                                     <ul>
                                         <li>Composition n°{{ composition[0] }}</li>
                                         <li>Equipe {{ composition[1] }}</li>
-                                        <li>Utilisateur {{ composition[2] }}</li>
+                                        <li>Utilisateur {{ composition[2] }} {{ composition[3] }}</li>
                                     </ul>
                                     <br>
                                 }
@@ -94,7 +102,7 @@
                             <td><button type="button" (click)="onDeleteUtilisateur($event)">Supprimer</button></td>
                         </tr>
                     }
-                } @else if (routerURL == '/admin/accueil') {
+                } @else if (routerURL == "/admin/accueil") {
                     <tr>
                         <th>Login</th>
                         <th>Prénom</th>
