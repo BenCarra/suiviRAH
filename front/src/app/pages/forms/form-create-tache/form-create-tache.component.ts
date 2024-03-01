@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
+
+import { CommonModule } from '@angular/common';
+
 import { TacheService } from '../../../shared/service/tache.service';
 import { TypeTache } from '../../../shared/model/type-tache';
 import { TypeTacheService } from '../../../shared/service/type-tache.service';
-import { CommonModule } from '@angular/common';
 import { ProjetService } from '../../../shared/service/projet.service';
 import { Projet } from '../../../shared/model/projet';
+
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatSelectModule} from '@angular/material/select';
 import {MatInputModule} from '@angular/material/input';
@@ -12,6 +15,8 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-form-create-tache',
@@ -34,9 +39,13 @@ export class FormCreateTacheComponent implements OnInit {
   typeTaches!: TypeTache[];
   projets!: Projet[];
 
+  // Simuler l'utilisateur connecté en hardcodant l'id d'utilisateur
+  idUtilisateurConnecté: number = 4;
+
   constructor(private typeTacheService:TypeTacheService,
     private projetService : ProjetService,
-    private tacheService : TacheService) {
+    private tacheService : TacheService,
+    private router: Router) {
 
     // Création d'un objet FormGroup
     this.formCreateTache=new FormGroup({
@@ -51,11 +60,11 @@ export class FormCreateTacheComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.typeTacheService.findAll().subscribe(data => {
+    this.typeTacheService.getTypeTaches().subscribe(data => {
       this.typeTaches = data;
     })
 
-    this.projetService.findAll().subscribe(data => {
+    this.projetService.getProjetsByUtilisateur(this.idUtilisateurConnecté).subscribe(data => {
       this.projets = data;
     })
 
@@ -68,13 +77,10 @@ export class FormCreateTacheComponent implements OnInit {
 
     if (this.formCreateTache.valid) {
 
-    // Simuler l'utilisateur connecté en hardcodant le nom d'utilisateur
-    const nomUtilisateurSimule = "OLA"; 
-
     // Construire l'objet tache en ajoutant le nom d'utilisateur simulé
     const tache = {
       ...this.formCreateTache.value,
-      listNomsUtilisateurs: [nomUtilisateurSimule] // Ajoute le nom d'utilisateur simulé dans le tableau
+      listIdUtilisateurs: [this.idUtilisateurConnecté] // Ajoute l'id d'utilisateur connecté dans le tableau
     };
 
     // Si la checkbox 'journee' est cochée, définir 'dureeTache' à 7
@@ -85,26 +91,17 @@ export class FormCreateTacheComponent implements OnInit {
     // Appeler mon service pour envoyer tache à mon backend/API
       this.tacheService.createTache(tache).subscribe({
         next:(response) => {
-          alert (response.message);
+          alert (response.message); // message de confirmation
+          // Après le message, j'affiche la page liste des tâches
+          this.router.navigate(['/listTaches']);
         }, 
         error:(error) => {
-          console.error('Erreur lors de la suppression de la tâche', error);
+          console.error('Erreur lors de la création de la tâche', error);
         }     
       });
     } else {
       console.log("Tous les champs doivent être renseignés")
     }
-
-    // const formData = this.formCreateTache.value;
-    // console.log(formData);
-
-    // if (this.formCreateTache.valid) {
-    //   const tache: Tache = this.formCreateTache.value;
-    //   this.tacheService.createTache(tache).subscribe({
-    //     next:(response) => console.log('Tâche créée avec succès', response),
-    //     error: (error) => console.error('Erreur', error)
-    //   });
-    // }
   }
 
   setupFormChanges() {

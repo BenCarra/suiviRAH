@@ -59,5 +59,13 @@ public class TacheController {
 	public ResponseEntity<?> updateTache(@PathVariable int id, @RequestBody TacheDTO tacheDTO) {
 		return tacheService.updateTache(id, tacheDTO);
 	} 
-	
+
+	@PostMapping("/duplicateTache/{id}")
+	public ResponseEntity<?> duplicateTache(@PathVariable int id) {
+    return tacheService.duplicateTache(id);
+	}
+
 }
+
+	
+

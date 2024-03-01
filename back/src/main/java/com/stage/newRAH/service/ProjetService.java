@@ -145,6 +145,8 @@ public class ProjetService {
 	public ResponseEntity<List<ProjetDTO>> getProjetsByUtilisateur(int id) {
 		List<ProjetDTO> projetsDTO = new ArrayList<>();
 		Optional<Utilisateur> utilisateurChoisi = utilisateurRepository.findById(id);
+
+		if (utilisateurChoisi.isPresent()) {
 		
 		List<Composition> compositions = utilisateurChoisi.get().getListCompositions();
 		
@@ -158,8 +160,12 @@ public class ProjetService {
 				projetsDTO.add(projetDTO);
 				}	
 			}			
-		}
-		return ResponseEntity.ok(projetsDTO);		
+		}	
+		return ResponseEntity.ok(projetsDTO);	
+	} else {
+		return ResponseEntity.notFound().build();
+	}
+		
 	}
 
 	public ResponseEntity<ProjetDTO> createProjet(ProjetDTO projetDTO) {

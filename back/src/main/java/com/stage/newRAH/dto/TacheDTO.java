@@ -15,7 +15,7 @@ public class TacheDTO {
 	    private String commentaires;
 	    private String libelleTypeTache;
 	    private String nomProjet;
-		private List<String> listNomsUtilisateurs;
+		private List<Integer> listIdUtilisateurs;
 	    
 		public TacheDTO() {
 		}

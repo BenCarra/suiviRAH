@@ -20,7 +20,7 @@
     <tbody>
       <tr *ngFor="let tache of taches">
         <td>{{ tache.idTache}}</td>
-        <td>{{ tache.listNomsUtilisateurs}}</td>
+        <td>{{ tache.listIdUtilisateurs}}</td>
         <td>{{ tache.nomTache}}</td>
         <td>{{ tache.libelleTypeTache}}</td>
         <td>{{ tache.dateTache | date: 'dd/MM/yyyy'  }}</td>
@@ -30,7 +30,7 @@
         <td>{{ tache.nomProjet }}</td>
         <td><button [routerLink]="['/formUpdateTache']" [queryParams]="{ id: tache.idTache }">Modifier</button></td>
         <td><button (click)="onDeleteTache(tache.idTache)">Supprimer</button></td>
-        <td><button>Dupliquer</button></td>
+        <td><button (click)="onDuplicateTache(tache.idTache)">Dupliquer</button></td>
       </tr>
     </tbody>
   </table>

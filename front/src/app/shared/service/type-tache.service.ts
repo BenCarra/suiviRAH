@@ -14,7 +14,7 @@ export class TypeTacheService {
     this.typeTachesURL = 'http://localhost:8080/typeTaches';
    }
 
-   public findAll(): Observable<TypeTache[]> {
+   public getTypeTaches(): Observable<TypeTache[]> {
     return this.http.get<TypeTache[]>(this.typeTachesURL);
    }
 }

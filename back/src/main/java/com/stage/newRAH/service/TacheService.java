@@ -1,6 +1,8 @@
 package com.stage.newRAH.service;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -38,7 +40,7 @@ public class TacheService {
 	public TacheDTO mapTacheToDTO(Tache tache) {
 		
 		TacheDTO tacheDTO = new TacheDTO();
-		List<String> listNomsUtilisateurs = new ArrayList<>();
+		List<Integer> listIdUtilisateurs = new ArrayList<>();
 		
 		tacheDTO.setIdTache(tache.getIdTache());
 		tacheDTO.setNomTache(tache.getNomTache());
@@ -54,11 +56,11 @@ public class TacheService {
 
 		if (tache.getListUtilisateurs() != null) {
 		for (Utilisateur utilisateur : tache.getListUtilisateurs()) {
-			listNomsUtilisateurs.add(utilisateur.getNomUtilisateur());
+			listIdUtilisateurs.add(utilisateur.getIdUtilisateur());
 			}
 		}
 
-		tacheDTO.setListNomsUtilisateurs(listNomsUtilisateurs);
+		tacheDTO.setListIdUtilisateurs(listIdUtilisateurs);
 		
 				
 		return tacheDTO;
@@ -134,7 +136,7 @@ public class TacheService {
 		 TypeTache typeTache = typeTacheRepository.findByLibelle(tacheDTO.getLibelleTypeTache());
 		 Projet projet = projetRepository.findByNomProjet(tacheDTO.getNomProjet());
 
-		 List<String> nomUtilisateurs = tacheDTO.getListNomsUtilisateurs();
+		 List<Integer> idUtilisateurs = tacheDTO.getListIdUtilisateurs();
 		 List<Utilisateur> utilisateurs = new ArrayList<>();
 		
 		nouvelleTache.setNomTache(tacheDTO.getNomTache());
@@ -144,10 +146,10 @@ public class TacheService {
 		nouvelleTache.setTypeTache(typeTache);
 		nouvelleTache.setProjet(projet);
 
-		for (String nom : nomUtilisateurs) {
+		for (Integer id : idUtilisateurs) {
 			// J'ajoute à chaque utilisateur la tache que je suis en train de créér
 			// En résumé, je remplis la table "utilisateur_tache"
-			Utilisateur utilisateur = utilisateurRepository.findByNomUtilisateur(nom);
+			Utilisateur utilisateur = utilisateurRepository.findById(id).get();
 			List<Tache> taches = utilisateur.getListTaches();
 			taches.add(nouvelleTache);
 			utilisateurs.add(utilisateur);
@@ -191,7 +193,6 @@ public class TacheService {
 		
 		Optional<Tache> tacheAModifierOptional = tacheRepository.findById(tacheDTO.getIdTache());
 
-
 		if (tacheAModifierOptional.isPresent()) {
 			Tache tacheAModifier = tacheAModifierOptional.get();
 		
@@ -216,4 +217,50 @@ public class TacheService {
 		}
 
 	}
+
+
+	public ResponseEntity<?> duplicateTache(int idTache) {
+		Optional<Tache> tacheADupliquerOptional = tacheRepository.findById(idTache);
+
+		if (tacheADupliquerOptional.isPresent()) {
+			Tache tacheADupliquer = tacheADupliquerOptional.get();
+
+			// Création de la tâche dupliquée
+			Tache tacheDupliquee = new Tache();
+
+			// Copie des propriétés de l'ancienne tâche vers la nouvelle
+			Date dateOriginale = tacheADupliquer.getDateTache();
+			Calendar calendar = Calendar.getInstance();
+        	calendar.setTime(dateOriginale);
+        	calendar.add(Calendar.DAY_OF_MONTH, 1); // Ajoute un jour à la date originale
+			Date nouvelleDateUtil = calendar.getTime(); // C'est un java.util.Date
+			// Conversion de java.util.Date en java.sql.Date
+			java.sql.Date nouvelleDateSql = new java.sql.Date(nouvelleDateUtil.getTime());
+
+			tacheDupliquee.setDateTache(nouvelleDateSql); // Définit la date de la nouvelle tâche
+			tacheDupliquee.setDureeTache(tacheADupliquer.getDureeTache());
+			tacheDupliquee.setProjet(tacheADupliquer.getProjet());
+			tacheDupliquee.setTypeTache(tacheADupliquer.getTypeTache());
+			tacheDupliquee.setCommentaires(tacheADupliquer.getCommentaires());
+			tacheDupliquee.setNomTache(tacheADupliquer.getNomTache());
+			tacheDupliquee.setListUtilisateurs(tacheADupliquer.getListUtilisateurs());
+			
+			// List<Utilisateur> nouveauxUtilisateurs = new ArrayList<>();
+			// for (Utilisateur utilisateur : tacheADupliquer.getListUtilisateurs()) {
+			// 	nouveauxUtilisateurs.add(utilisateur);
+			// }
+
+			// tacheDupliquee.setListUtilisateurs(nouveauxUtilisateurs);
+
+			tacheRepository.save(tacheDupliquee);	
+			
+			
+			String message = String.format("La tâche n° %s a bien été dupliquée", tacheADupliquer.getIdTache());
+        	return ResponseEntity.ok(Map.of("message", message));
+		
+		} else {
+			return ResponseEntity.notFound().build();
+		}
+	}			
 }
+

@@ -19,7 +19,7 @@ export class ListProjetsComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.projetService.findAll().subscribe(data => {
+    this.projetService.getProjets().subscribe(data => {
       this.projets = data;
     });
   }

@@ -6,5 +6,5 @@ export class Tache {
     commentaires!: string;
     libelleTypeTache!:string;
     nomProjet!: string;
-    listNomsUtilisateurs!: string[];
+    listIdUtilisateurs!: number[];
 }

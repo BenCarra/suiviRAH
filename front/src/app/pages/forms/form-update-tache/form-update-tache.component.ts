@@ -7,7 +7,10 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+
+import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
+
 import { TypeTacheService } from '../../../shared/service/type-tache.service';
 import { ProjetService } from '../../../shared/service/projet.service';
 import { TacheService } from '../../../shared/service/tache.service';
@@ -35,11 +38,15 @@ export class FormUpdateTacheComponent implements OnInit {
   formUpdateTache: FormGroup;
   typeTaches!: TypeTache[];
   projets!: Projet[];
+
+  // Simuler l'utilisateur connecté en hardcodant l'id d'utilisateur
+  idUtilisateurConnecté: number = 4;
   
   constructor(private typeTacheService:TypeTacheService,
     private projetService : ProjetService,
     private tacheService : TacheService,
-    private route:ActivatedRoute) {
+    private route:ActivatedRoute,
+    private router: Router) {
 
     // Création d'un objet FormGroup
     this.formUpdateTache=new FormGroup({
@@ -65,11 +72,11 @@ export class FormUpdateTacheComponent implements OnInit {
       }
     });
 
-      this.typeTacheService.findAll().subscribe(data => {
+      this.typeTacheService.getTypeTaches().subscribe(data => {
         this.typeTaches = data;
       })
   
-      this.projetService.findAll().subscribe(data => {
+      this.projetService.getProjetsByUtilisateur(this.idUtilisateurConnecté).subscribe(data => {
         this.projets = data;
       })
   
@@ -106,6 +113,8 @@ export class FormUpdateTacheComponent implements OnInit {
       this.tacheService.updateTache(this.idTacheSelectionnee, tacheAModifier).subscribe({       
         next:(response) => {
           alert (response.message);
+          // Après le message, j'affiche la page liste des tâches
+          this.router.navigate(['/listTaches']);
         }, 
         error:(error) => {
           console.error('Erreur lors de la modification de la tâche', error);

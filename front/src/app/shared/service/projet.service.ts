@@ -9,12 +9,18 @@ import { Observable } from 'rxjs';
 export class ProjetService {
 
   private projetsURL: string;
+  private projetsByUtilisateurURL: string;
 
   constructor(private http:HttpClient) {
     this.projetsURL = 'http://localhost:8080/projets'
+    this.projetsByUtilisateurURL = 'http://localhost:8080/projetsByUtilisateur'
    }
 
-   public findAll(): Observable<Projet[]> {
+   public getProjets(): Observable<Projet[]> {
     return this.http.get<Projet[]>(this.projetsURL);
+   }
+
+   public getProjetsByUtilisateur(id:number) : Observable<Projet[]> {
+    return this.http.get<Projet[]>(`${this.projetsByUtilisateurURL}/${id}`);
    }
 }
