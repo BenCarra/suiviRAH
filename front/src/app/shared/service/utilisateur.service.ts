@@ -36,11 +36,11 @@ export class UtilisateurService {
   }
 
   public create(utilisateur: Utilisateur) {
-    return this.http.put<Utilisateur>(this.url + "/createUtilisateur", utilisateur);
+    return this.http.post<Utilisateur>(this.url + "/createUtilisateur", utilisateur);
   }
 
   public update(utilisateur: Utilisateur) {
-    return this.http.post<Utilisateur>(this.url + "/updateUtilisateur/" + utilisateur.idUtilisateur, utilisateur);
+    return this.http.put<Utilisateur>(this.url + "/updateUtilisateur/" + utilisateur.idUtilisateur, utilisateur);
   }
 
   public delete(id: string | undefined): Observable<Utilisateur> {

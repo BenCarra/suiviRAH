@@ -40,12 +40,12 @@ public class ClientController {
 		
 	}
 	
-	@PutMapping("/createClient")
+	@PostMapping("/createClient")
 	public ResponseEntity<ClientDTO> createClient(@RequestBody ClientDTO clientDTO) {
 		return clientService.createClient(clientDTO);
 	}
 	
-	@PostMapping("/updateClient/{id}")
+	@PutMapping("/updateClient/{id}")
 	public ResponseEntity<ClientDTO> updateClient(@RequestBody ClientDTO clientDTO, @PathVariable int id) {
 		return clientService.updateClient(clientDTO, id);
 	}
