@@ -10,8 +10,8 @@ describe('FormUpdateClientComponent', () => {
     await TestBed.configureTestingModule({
       imports: [FormUpdateClientComponent]
     })
-    .compileComponents();
-    
+      .compileComponents();
+
     fixture = TestBed.createComponent(FormUpdateClientComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

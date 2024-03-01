@@ -21,7 +21,7 @@ export class EquipeListComponent {
 
   constructor(private equipeService: EquipeService, private router: Router) {
     this.routerURL = router.url;
-   }
+  }
 
   ngOnInit() {
 
@@ -79,7 +79,7 @@ export class EquipeListComponent {
             }
           });
         });
-      } 
+      }
     }
   }
 
@@ -93,7 +93,7 @@ export class EquipeListComponent {
         }
       )
     }
-    
+
   }
 
   onReset($event: MouseEvent) {

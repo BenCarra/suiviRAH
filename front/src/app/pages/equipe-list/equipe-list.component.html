@@ -1,89 +1,90 @@
 <div id="liste">
     <h3>
         @if (routerURL =="/admin/equipes") {
-            LISTE DES EQUIPES
+        LISTE DES EQUIPES
         }
         @else if (routerURL == "/admin/accueil") {
-            <a routerLink="/admin/equipes">LISTE DES EQUIPES</a>
+        <a routerLink="/admin/equipes">LISTE DES EQUIPES</a>
         }
     </h3>
     @if (routerURL == "/admin/equipes") {
-        <form id="filtrage" [formGroup]="formFiltrage">
-            <select id="filtrage-demande" formControlName="filtrageDemande" (change)="updateFiltrage()">
-                <option disabled [selected]="formFiltrage.value.filtrageDemande == ''">-- Sélectionner un filtre --</option>
-                <option value="Par libellé d'équipe">Rechercher par libellé d'équipe</option>
-            </select>
-            @if (formFiltrage.get("filtrageDemande")?.getRawValue() == "Par libellé d'équipe") {
-            <select id="noms-equipe" autocomplete formControlName="equipeRecherche">
-                <option disabled [selected]="formFiltrage.value.filtrageDemande == 'Par libellé d\'équipe'">-- Sélectionner un
-                    libellé d'équipe --</option>
-                @for (libelleEquipe of listLibellesEquipe; track $index) {
-                <option [value]="libelleEquipe">{{ libelleEquipe }}</option>
-                }
-            </select>
+    <form id="filtrage" [formGroup]="formFiltrage">
+        <select id="filtrage-demande" formControlName="filtrageDemande" (change)="updateFiltrage()">
+            <option disabled [selected]="formFiltrage.value.filtrageDemande == ''">-- Sélectionner un filtre --</option>
+            <option value="Par libellé d'équipe">Rechercher par libellé d'équipe</option>
+        </select>
+        @if (formFiltrage.get("filtrageDemande")?.getRawValue() == "Par libellé d'équipe") {
+        <select id="noms-equipe" autocomplete formControlName="equipeRecherche">
+            <option disabled [selected]="formFiltrage.value.filtrageDemande == 'Par libellé d\'équipe'">-- Sélectionner
+                un
+                libellé d'équipe --</option>
+            @for (libelleEquipe of listLibellesEquipe; track $index) {
+            <option [value]="libelleEquipe">{{ libelleEquipe }}</option>
             }
-            <input type="submit" id="btn-soumission" formControlName="boutonSoumission" (click)="onSearch($event)">
-            <input type="reset" id="btn-reset" (click)="onReset($event)" formControlName="boutonReset">
-        </form>
+        </select>
+        }
+        <input type="submit" id="btn-soumission" formControlName="boutonSoumission" (click)="onSearch($event)">
+        <input type="reset" id="btn-reset" (click)="onReset($event)" formControlName="boutonReset">
+    </form>
     }
 
-    <!-- TODO: Faire en sorte d'avoir les 10 dernières équipes ajoutées (du CP ou de l'admin) --> 
+    <!-- TODO: Faire en sorte d'avoir les 10 dernières équipes ajoutées (du CP ou de l'admin) -->
     <div id="table">
         <table border="2">
             <tbody>
                 @if (routerURL =="/admin/equipes") {
-                    <tr>
-                        <th>Libellé</th>
-                        <th>Utilisateurs membres</th>
-                        <th>Compositions intégrées</th>
-                        <th>Modifier</th>
-                        <th>Supprimer</th>
-                    </tr>
-                    @for (equipe of listEquipes; track $index) {
-                    <tr id="{{ equipe.idEquipe }}">
-                        <td>{{ equipe.libelle }}</td>
-                        <td>
-                            @for (utilisateur of equipe.listUtilisateurs; track $index){
-                            <ul>
-                                <li>Utilisateur n°{{ utilisateur[0] }}</li>
-                                <li>{{ utilisateur[1] }} {{ utilisateur[2]}}</li>
-                            </ul>
-                            <br>
-                            }
-                        </td>
-                        <td>
-                            @for (composition of equipe.listCompositions; track $index){
-                                <ul>
-                                    <li>Composition n°{{ composition[0] }}</li>
-                                    <li>Equipe {{ composition[1] }}</li>
-                                    <li>Utilisateur {{ composition[2] }} {{ composition[3] }}</li>
-                                </ul>
-                                <br>
-                                }
-                        </td>
-                        <td><button type="button" (click)="onUpdateEquipe($event)">Modifier</button></td>
-                        <td><button type="button" (click)="onDeleteEquipe($event)">Supprimer</button></td>
-                    </tr>
-                    }
+                <tr>
+                    <th>Libellé</th>
+                    <th>Utilisateurs membres</th>
+                    <th>Compositions intégrées</th>
+                    <th>Modifier</th>
+                    <th>Supprimer</th>
+                </tr>
+                @for (equipe of listEquipes; track $index) {
+                <tr id="{{ equipe.idEquipe }}">
+                    <td>{{ equipe.libelle }}</td>
+                    <td>
+                        @for (utilisateur of equipe.listUtilisateurs; track $index){
+                        <ul>
+                            <li>Utilisateur n°{{ utilisateur[0] }}</li>
+                            <li>{{ utilisateur[1] }} {{ utilisateur[2]}}</li>
+                        </ul>
+                        <br>
+                        }
+                    </td>
+                    <td>
+                        @for (composition of equipe.listCompositions; track $index){
+                        <ul>
+                            <li>Composition n°{{ composition[0] }}</li>
+                            <li>Equipe {{ composition[1] }}</li>
+                            <li>Utilisateur {{ composition[2] }} {{ composition[3] }}</li>
+                        </ul>
+                        <br>
+                        }
+                    </td>
+                    <td><button type="button" (click)="onUpdateEquipe($event)">Modifier</button></td>
+                    <td><button type="button" (click)="onDeleteEquipe($event)">Supprimer</button></td>
+                </tr>
+                }
                 } @else if (routerURL =="/admin/accueil") {
-                    <tr>
-                        <th>Libellé</th>
-                        <th>Utilisateurs membres</th>
-                    </tr>
-                    @for (equipe of listEquipes; track $index) {
-                    <tr id="{{ equipe.idEquipe }}">
-                        <td>{{ equipe.libelle }}</td>
-                        <td>
-                            @for (utilisateur of equipe.listUtilisateurs; track $index){
-                            <ul>
-                                <li>Utilisateur n°{{ utilisateur[0] }}</li>
-                                <li>{{ utilisateur[1] }}</li>
-                            </ul>
-                            <br>
-                            }
-                        </td>
-                    </tr>
-                    }
+                <tr>
+                    <th>Libellé</th>
+                    <th>Utilisateurs membres</th>
+                </tr>
+                @for (equipe of listEquipes; track $index) {
+                <tr id="{{ equipe.idEquipe }}">
+                    <td>{{ equipe.libelle }}</td>
+                    <td>
+                        @for (utilisateur of equipe.listUtilisateurs; track $index){
+                        <ul>
+                            <li>Utilisateur n°{{ utilisateur[0] }}</li>
+                            <li>{{ utilisateur[1] }}</li>
+                        </ul>
+                        <br>
+                        }
+                    </td>
+                </tr>
+                }
                 }
 
             </tbody>

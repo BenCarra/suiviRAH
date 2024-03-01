@@ -15,28 +15,28 @@ export class ProjetService {
     this.url = "http://localhost:8080";
   }
 
-  public findAll(): Observable<Projet[]>{
-    return this.http.get<Projet[]>(this.url+"/projets");
+  public findAll(): Observable<Projet[]> {
+    return this.http.get<Projet[]>(this.url + "/projets");
   }
 
   public findByNom(): Observable<Projet> {
 
-    let nom : string | null = '';
+    let nom: string | null = '';
 
     this.activatedRoute.paramMap.subscribe((p) => {
       nom = p.get("nom");
     })
 
-    return this.http.get<Projet>(this.url+"/projetByNom/"+nom);
+    return this.http.get<Projet>(this.url + "/projetByNom/" + nom);
 
   }
 
-  public save(projet: Projet){
+  public save(projet: Projet) {
     return this.http.post<Projet>(this.url, projet);
   }
 
   public deleteById(id: string | undefined): Observable<Projet> {
     // penser à recharger le tableau du DOM après suppression
-    return this.http.delete<Projet>(this.url+"/deleteProjet/"+id);
+    return this.http.delete<Projet>(this.url + "/deleteProjet/" + id);
   }
 }

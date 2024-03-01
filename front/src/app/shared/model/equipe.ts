@@ -1,6 +1,6 @@
 export class Equipe {
-    idEquipe!: number;	
-	libelle!: string;
+    idEquipe!: number;
+    libelle!: string;
     listUtilisateurs!: string[][]
     listCompositions!: string[][]
 }

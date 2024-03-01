@@ -1,5 +1,5 @@
 export class Site {
-    idSite!: number;
+	idSite!: number;
 	nomSite!: string;
 	adresseSite!: string;
 	codePostalSite!: string;

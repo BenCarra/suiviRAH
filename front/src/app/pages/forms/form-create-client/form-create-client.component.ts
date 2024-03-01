@@ -14,7 +14,7 @@ import { MatSelectModule } from '@angular/material/select';
 @Component({
   selector: 'app-form-create-client',
   standalone: true,
-  imports: [ MatInputModule,
+  imports: [MatInputModule,
     MatButtonModule,
     MatSelectModule,
     MatRadioModule,
@@ -26,7 +26,7 @@ import { MatSelectModule } from '@angular/material/select';
   styleUrl: './form-create-client.component.css'
 })
 export class FormCreateClientComponent {
-  
+
   formCreate!: FormGroup;
   clientCree: Client = new Client();
 
@@ -37,26 +37,26 @@ export class FormCreateClientComponent {
     this.formCreate = new FormGroup({
       nom: new FormControl('', Validators.required),
       adresse: new FormControl('', Validators.required),
-      codePostal:  new FormControl('', Validators.compose([Validators.required, Validators.pattern("^[0-9]{5}$")])),
+      codePostal: new FormControl('', Validators.compose([Validators.required, Validators.pattern("^[0-9]{5}$")])),
       ville: new FormControl('', Validators.required)
     })
 
   }
 
-  onClose(){
+  onClose() {
     this.router.navigateByUrl("/admin/clients");
   }
 
   onSubmit(): void {
 
     if (this.formCreate.controls['nom'].hasError('required') ||
-    this.formCreate.controls['adresse'].hasError('required') ||
-    this.formCreate.controls['codePostal'].hasError('required') ||
-    this.formCreate.controls['ville'].hasError('required')) {
+      this.formCreate.controls['adresse'].hasError('required') ||
+      this.formCreate.controls['codePostal'].hasError('required') ||
+      this.formCreate.controls['ville'].hasError('required')) {
       console.log("Un ou plusieurs champs sont requis");
-    } else if (this.formCreate.controls['codePostal'].hasError('pattern')){
+    } else if (this.formCreate.controls['codePostal'].hasError('pattern')) {
       console.log("Le code postal doit être composé de 5 chiffres")
-    } 
+    }
     else {
       this.clientCree.nomClient = this.formCreate.get("nom")?.value;
       this.clientCree.adresseClient = this.formCreate.get("adresse")?.value;
@@ -66,6 +66,6 @@ export class FormCreateClientComponent {
       alert('Client Créé!');
       this.router.navigateByUrl("/admin/clients");
     }
-    
+
   }
 }

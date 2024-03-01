@@ -3,17 +3,20 @@
 @media screen and (max-width: 720px) {
 
     .tools-box {
-       display: flex;
-       flex-direction: column;
+        display: flex;
+        flex-direction: column;
     }
 }
 
-#accueil-lists div{
+#accueil-lists div {
     display: flex;
     align-items: first baseline;
 }
 
-app-projet-list, app-utilisateur-list, app-client-list, app-equipe-list{
+app-projet-list,
+app-utilisateur-list,
+app-client-list,
+app-equipe-list {
     width: 100%;
     margin: 0 auto;
 }

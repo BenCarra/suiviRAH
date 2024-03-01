@@ -1,4 +1,4 @@
-@media screen and (max-width: 360px){
+@media screen and (max-width: 360px) {
   img {
     min-height: 48px;
     width: 100%;
@@ -26,7 +26,7 @@ header {
 
 img {
   margin: auto;
-  box-shadow: 1px 1px 1px 1px; 
+  box-shadow: 1px 1px 1px 1px;
 }
 
 #nav-container {
@@ -51,7 +51,7 @@ nav {
   text-decoration: none;
 }
 
-.link-container a span{
+.link-container a span {
   color: black;
 }
 

@@ -8,10 +8,10 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { MAT_DATE_LOCALE, provideNativeDateAdapter } from '@angular/material/core';
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideRouter(routes), 
-    provideHttpClient(withFetch()),
-    provideAnimations(),
-    provideAnimationsAsync(),
-    provideNativeDateAdapter(),
-    { provide: MAT_DATE_LOCALE, useValue: 'fr-FR' }]
+  providers: [provideRouter(routes),
+  provideHttpClient(withFetch()),
+  provideAnimations(),
+  provideAnimationsAsync(),
+  provideNativeDateAdapter(),
+  { provide: MAT_DATE_LOCALE, useValue: 'fr-FR' }]
 };

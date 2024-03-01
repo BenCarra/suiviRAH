@@ -81,7 +81,7 @@ export class ClientListComponent {
             }
           });
         });
-      } 
+      }
     }
   }
 
@@ -95,7 +95,7 @@ export class ClientListComponent {
         }
       )
     }
-    
+
   }
 
   onReset($event: MouseEvent) {

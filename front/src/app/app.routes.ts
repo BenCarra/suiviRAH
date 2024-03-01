@@ -12,16 +12,16 @@ import { PageEquipesAdminComponent } from './pages/page-equipes-admin/page-equip
 import { FormCreateEquipeComponent } from './pages/forms/form-create-equipe/form-create-equipe.component';
 import { FormUpdateEquipeComponent } from './pages/forms/form-update-equipe/form-update-equipe.component';
 
-export const routes: Routes = [{path: '', component:HomeComponent},
-{path:'admin/accueil', component:PageAccueilAdminComponent},
-{path:'admin/utilisateurs', component: PageUtilisateursAdminComponent},
-{path: 'admin/utilisateurs/create', component:FormCreateUtilisateurComponent},
-{path: 'admin/utilisateurs/update/:id', component:FormUpdateUtilisateurComponent},
-{path: 'admin/clients', component:PageClientsAdminComponent},
-{path: 'admin/clients/create', component:FormCreateClientComponent},
-{path: 'admin/clients/update/:id', component:FormUpdateClientComponent},
-{path: 'admin/equipes', component:PageEquipesAdminComponent},
-{path: 'admin/equipes/create', component:FormCreateEquipeComponent},
-{path: 'admin/equipes/update/:id', component:FormUpdateEquipeComponent},
-{path: "**", component:NotFoundComponent}];
+export const routes: Routes = [{ path: '', component: HomeComponent },
+{ path: 'admin/accueil', component: PageAccueilAdminComponent },
+{ path: 'admin/utilisateurs', component: PageUtilisateursAdminComponent },
+{ path: 'admin/utilisateurs/create', component: FormCreateUtilisateurComponent },
+{ path: 'admin/utilisateurs/update/:id', component: FormUpdateUtilisateurComponent },
+{ path: 'admin/clients', component: PageClientsAdminComponent },
+{ path: 'admin/clients/create', component: FormCreateClientComponent },
+{ path: 'admin/clients/update/:id', component: FormUpdateClientComponent },
+{ path: 'admin/equipes', component: PageEquipesAdminComponent },
+{ path: 'admin/equipes/create', component: FormCreateEquipeComponent },
+{ path: 'admin/equipes/update/:id', component: FormUpdateEquipeComponent },
+{ path: "**", component: NotFoundComponent }];
 

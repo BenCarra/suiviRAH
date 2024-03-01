@@ -44,7 +44,7 @@
             <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
             @if (formCreate.controls['dateNaissance'].hasError('required')) {
-              <mat-error>Date de naissance <strong>requise</strong></mat-error>
+            <mat-error>Date de naissance <strong>requise</strong></mat-error>
             }
           </mat-form-field>
         </div>
@@ -66,21 +66,21 @@
       <br>
       <div class="row">
         <div class="col">
-            <mat-label>Actif ? :</mat-label>
-            <br>
-            <mat-radio-group formControlName="actif">
-                <mat-radio-button value="true">Oui</mat-radio-button>
-                <mat-radio-button value="false">Non</mat-radio-button>
-            </mat-radio-group>
-            @if (formCreate.controls['actif'].hasError('required')) {
-            <mat-error>Actif <strong>requis</strong></mat-error>
-            }
+          <mat-label>Actif ? :</mat-label>
+          <br>
+          <mat-radio-group formControlName="actif">
+            <mat-radio-button value="true">Oui</mat-radio-button>
+            <mat-radio-button value="false">Non</mat-radio-button>
+          </mat-radio-group>
+          @if (formCreate.controls['actif'].hasError('required')) {
+          <mat-error>Actif <strong>requis</strong></mat-error>
+          }
         </div>
       </div>
       <br>
     </mat-card-content>
     <mat-card-actions>
-      <button mat-raised-button  type="submit" (click)="onSubmit()">Envoyer</button>
+      <button mat-raised-button type="submit" (click)="onSubmit()">Envoyer</button>
       <button mat-raised-button type="reset">Réinitialiser</button>
       <button mat-raised-button (click)="onClose()">Retour</button>
     </mat-card-actions>

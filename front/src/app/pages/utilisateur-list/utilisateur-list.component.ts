@@ -24,7 +24,7 @@ export class UtilisateurListComponent {
   formFiltrage!: FormGroup<{ filtrageDemande: FormControl<string | null>; utilisateurRecherche: FormControl<string | null>; boutonSoumission: FormControl<string | null>; boutonReset: FormControl<string | null>; }>;
 
 
-  constructor(private utilisateurService: UtilisateurService, private router: Router) { 
+  constructor(private utilisateurService: UtilisateurService, private router: Router) {
     this.routerURL = router.url;
   }
 
@@ -89,7 +89,7 @@ export class UtilisateurListComponent {
         this.utilisateurService.findAll().subscribe(data => {
           data.forEach((utilisateur) => {
             if (!this.listTypesUtilisateur.includes(utilisateur.libelleTypeUtilisateur)) {
-              this.listTypesUtilisateur.push(utilisateur.libelleTypeUtilisateur);            
+              this.listTypesUtilisateur.push(utilisateur.libelleTypeUtilisateur);
             }
           })
         });
@@ -98,7 +98,7 @@ export class UtilisateurListComponent {
         this.utilisateurService.findAll().subscribe(data => {
           (data.forEach((utilisateur) => {
             if (!this.listSitesUtilisateur.includes(utilisateur.nomSite)) {
-              this.listSitesUtilisateur.push(utilisateur.nomSite);       
+              this.listSitesUtilisateur.push(utilisateur.nomSite);
             }
           }
           ));
@@ -116,20 +116,20 @@ export class UtilisateurListComponent {
           this.listUtilisateurs = data;
         }
       )
-    } else if (this.formFiltrage.value.filtrageDemande == 'Par type d\'utilisateur'){
+    } else if (this.formFiltrage.value.filtrageDemande == 'Par type d\'utilisateur') {
       this.utilisateurService.findByTypeUtilisateur(recherche!).subscribe(
         data => {
           this.listUtilisateurs = data;
         }
       )
-    } else if (this.formFiltrage.value.filtrageDemande == 'Par nom de site'){
+    } else if (this.formFiltrage.value.filtrageDemande == 'Par nom de site') {
       this.utilisateurService.findBySite(recherche!).subscribe(
         data => {
           this.listUtilisateurs = data;
         }
       )
     }
-    
+
   }
 
   onReset($event: MouseEvent) {

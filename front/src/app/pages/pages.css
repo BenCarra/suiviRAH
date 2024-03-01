@@ -38,16 +38,17 @@ main {
     margin-bottom: 20px;
 }
 
-#table{
+#table {
     max-width: 100%;
     overflow-x: scroll;
 }
 
-table{
+table {
     box-shadow: 1px 1px 1px 1px;
 }
 
-td, th {
+td,
+th {
     border: 1px solid black;
     text-align: left;
     padding: 8px;
@@ -82,7 +83,7 @@ td ul {
 }
 
 .conteneur-btn {
-    background-color: white; 
+    background-color: white;
     justify-content: center;
     align-items: center;
     display: flex;

@@ -32,7 +32,7 @@
             @if (formUpdate.controls['codePostal'].hasError('required')) {
             <mat-error>Code postal <strong>requis</strong></mat-error>
             } @else if ( formUpdate.controls['codePostal'].hasError('pattern')) {
-                <mat-error>Le code postal <strong>doit être composé de 5 chiffres</strong></mat-error>
+            <mat-error>Le code postal <strong>doit être composé de 5 chiffres</strong></mat-error>
             }
           </mat-form-field>
         </div>
@@ -51,9 +51,8 @@
       </div>
     </mat-card-content>
     <mat-card-actions>
-      <button mat-raised-button  type="submit" (click)="onSubmit()">Envoyer</button>
+      <button mat-raised-button type="submit" (click)="onSubmit()">Envoyer</button>
       <button mat-raised-button (click)="onClose()">Retour</button>
     </mat-card-actions>
   </mat-card>
 </form>
-

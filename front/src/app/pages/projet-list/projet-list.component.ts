@@ -40,16 +40,16 @@ export class ProjetListComponent {
 
   onDeleteProjet(e: MouseEvent) {
     if (e.target instanceof HTMLElement) {
-      if(e.target.parentElement?.parentElement?.id){
+      if (e.target.parentElement?.parentElement?.id) {
         this.idProjet = e.target.parentElement?.parentElement?.id;
       }
       //console.log(this.idProjet);
-      if(confirm("Voulez-vous vraiment supprimer ce projet ?")){
+      if (confirm("Voulez-vous vraiment supprimer ce projet ?")) {
         // Régler les problèmes de contraintes d'intégrité pour la base de données
         this.projetService.deleteById(this.idProjet).subscribe();
         window.location.reload();
       }
-      
+
     }
   }
   onDuplicateProjet() {

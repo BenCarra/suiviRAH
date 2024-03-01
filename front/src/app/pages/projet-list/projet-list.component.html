@@ -1,101 +1,104 @@
 <div id="liste">
     <h3>
-    @if (routerURL == "/admin/projets") {
+        @if (routerURL == "/admin/projets") {
         LISTE DES PROJETS
-    } 
-    @else if (routerURL == "/admin/accueil") {
+        }
+        @else if (routerURL == "/admin/accueil") {
         <a routerLink="/admin/projets">LISTE DES PROJETS</a>
-    }
+        }
     </h3>
     @if (routerURL == "/admin/projets") {
-        <form id="filtrage" [formGroup]="formFiltrage">
-            <label for="filtrage-demande"></label>
-            <select name="filtrage-demande" id="filtrage-demande" formControlName="filtrageDemande" (change)="updateFiltrage()">
-                <option [value]="valeurParDefautList" [selected]="formFiltrage.value.filtrageDemande == ''">Sélectionner un filtre</option>
-                <option value="Par nom de projet">Rechercher par nom de projet</option>
-                <option value="Par type de projet">Rechercher par type de projet</option>
-                <option value="Par nom d'équipe">Rechercher par nom d'équipe</option>
-                <option value="Par nom d'utilisateur">Rechercher par nom d'utilisateur</option>
-            </select>
-            <label for="projet-recherche"></label>
-            <input type="text" name="projet-recherche" id="projet-recherche" formControlName="projetRecherche" (input)="onInputChange()">
-            <label for="btn-soumission"></label>
-            <input type="submit" name="btn-soumission" id="btn-soumission" formControlName="boutonSoumission">
-        </form>
+    <form id="filtrage" [formGroup]="formFiltrage">
+        <label for="filtrage-demande"></label>
+        <select name="filtrage-demande" id="filtrage-demande" formControlName="filtrageDemande"
+            (change)="updateFiltrage()">
+            <option [value]="valeurParDefautList" [selected]="formFiltrage.value.filtrageDemande == ''">Sélectionner un
+                filtre</option>
+            <option value="Par nom de projet">Rechercher par nom de projet</option>
+            <option value="Par type de projet">Rechercher par type de projet</option>
+            <option value="Par nom d'équipe">Rechercher par nom d'équipe</option>
+            <option value="Par nom d'utilisateur">Rechercher par nom d'utilisateur</option>
+        </select>
+        <label for="projet-recherche"></label>
+        <input type="text" name="projet-recherche" id="projet-recherche" formControlName="projetRecherche"
+            (input)="onInputChange()">
+        <label for="btn-soumission"></label>
+        <input type="submit" name="btn-soumission" id="btn-soumission" formControlName="boutonSoumission">
+    </form>
     }
 
-    <!-- TODO: Faire en sorte d'avoir les 10 derniers projets de l'utilisateur connecté --> 
+    <!-- TODO: Faire en sorte d'avoir les 10 derniers projets de l'utilisateur connecté -->
     <div id="table">
         <table border="2">
             <tbody>
                 @if (routerURL == "/admin/projets") {
-                    <tr>
-                        <th>Nom</th>
-                        <th>Jira</th>
-                        <th>Technologie</th>
-                        <th>Service</th>
-                        <th>Date demande</th>
-                        <th>Date livraison souhaitée</th>
-                        <th>Date livraison révisée</th>
-                        <th>Date affectation CDS</th>
-                        <th>Date prise en compte CDS</th>
-                        <th>Date estimation</th>
-                        <th>Devis estimation</th>
-                        <th>Dont Garantie</th>
-                        <th>Date Feu Vert</th>
-                        <th>Date livraison</th>
-                        <th>MCO</th>
-                        <th>Date Passage MCO</th>
-                        <th>Date sortie MCO</th>
-                        <th>Commentaires</th>
-                        <th>Client</th>
-                        <th>Modifier</th>
-                        <th>Dupliquer</th>
-                        <th>Supprimer</th>
-                    </tr>
-                    @for (projet of listProjets; track $index) {
-                        <tr id="{{ projet.idProjet }}">
-                            <td>{{ projet.nomProjet }}</td>
-                            <td>{{ projet.jira }}</td>
-                            <td>{{ projet.techno }}</td>
-                            <td>{{ projet.service }}</td>
-                            <td>{{ projet.dateDemande }}</td>
-                            <td>{{ projet.livraisonSouhaitee }}</td>
-                            <td>{{ projet.livraisonRevisee }}</td>
-                            <td>{{ projet.affectationCDS }}</td>
-                            <td>{{ projet.priseEnCompteCDS }}</td>
-                            <td>{{ projet.dateEstimation }}</td>
-                            <td>{{ projet.devisEstimation }}</td>
-                            <td>{{ projet.dontGarantie }}</td>
-                            <td>{{ projet.dateFeuVert }}</td>
-                            <td>{{ projet.dateLivraison }}</td>
-                            <td>{{ projet.MCO }}</td>
-                            <td>{{ projet.datePassageMCO }}</td>
-                            <td>{{ projet.dateSortieMCO }}</td>
-                            <td>{{ projet.commentaires }}</td>
-                            <td>{{ projet.idClient }}</td>
-                            <td><button type="button" (click)="onUpdateProjet()">Modifier</button></td>
-                            <td><button type="button" (click)="onDuplicateProjet()">Dupliquer</button></td>
-                            <td><button type="button" (click)="onDeleteProjet($event)">Supprimer</button></td>
-                        </tr>
-                    }
-                } @else if (routerURL ==  "/admin/accueil") {
-                    <tr>
-                        <th>Nom</th>
-                        <th>Jira</th>
-                        <th>Commentaires</th>
-                    </tr>
-                    @for (projet of listProjets; track $index) {
-                        <tr id="{{ projet.idProjet }}">
-                            <td>{{ projet.nomProjet }}</td>
-                            <td>{{ projet.jira }}</td>
-                            <td>{{ projet.commentaires }}</td>
-                        </tr>
-                    }
+                <tr>
+                    <th>Nom</th>
+                    <th>Jira</th>
+                    <th>Technologie</th>
+                    <th>Service</th>
+                    <th>Date demande</th>
+                    <th>Date livraison souhaitée</th>
+                    <th>Date livraison révisée</th>
+                    <th>Date affectation CDS</th>
+                    <th>Date prise en compte CDS</th>
+                    <th>Date estimation</th>
+                    <th>Devis estimation</th>
+                    <th>Dont Garantie</th>
+                    <th>Date Feu Vert</th>
+                    <th>Date livraison</th>
+                    <th>MCO</th>
+                    <th>Date Passage MCO</th>
+                    <th>Date sortie MCO</th>
+                    <th>Commentaires</th>
+                    <th>Client</th>
+                    <th>Modifier</th>
+                    <th>Dupliquer</th>
+                    <th>Supprimer</th>
+                </tr>
+                @for (projet of listProjets; track $index) {
+                <tr id="{{ projet.idProjet }}">
+                    <td>{{ projet.nomProjet }}</td>
+                    <td>{{ projet.jira }}</td>
+                    <td>{{ projet.techno }}</td>
+                    <td>{{ projet.service }}</td>
+                    <td>{{ projet.dateDemande }}</td>
+                    <td>{{ projet.livraisonSouhaitee }}</td>
+                    <td>{{ projet.livraisonRevisee }}</td>
+                    <td>{{ projet.affectationCDS }}</td>
+                    <td>{{ projet.priseEnCompteCDS }}</td>
+                    <td>{{ projet.dateEstimation }}</td>
+                    <td>{{ projet.devisEstimation }}</td>
+                    <td>{{ projet.dontGarantie }}</td>
+                    <td>{{ projet.dateFeuVert }}</td>
+                    <td>{{ projet.dateLivraison }}</td>
+                    <td>{{ projet.MCO }}</td>
+                    <td>{{ projet.datePassageMCO }}</td>
+                    <td>{{ projet.dateSortieMCO }}</td>
+                    <td>{{ projet.commentaires }}</td>
+                    <td>{{ projet.idClient }}</td>
+                    <td><button type="button" (click)="onUpdateProjet()">Modifier</button></td>
+                    <td><button type="button" (click)="onDuplicateProjet()">Dupliquer</button></td>
+                    <td><button type="button" (click)="onDeleteProjet($event)">Supprimer</button></td>
+                </tr>
+                }
+                } @else if (routerURL == "/admin/accueil") {
+                <tr>
+                    <th>Nom</th>
+                    <th>Jira</th>
+                    <th>Commentaires</th>
+                </tr>
+                @for (projet of listProjets; track $index) {
+                <tr id="{{ projet.idProjet }}">
+                    <td>{{ projet.nomProjet }}</td>
+                    <td>{{ projet.jira }}</td>
+                    <td>{{ projet.commentaires }}</td>
+                </tr>
+                }
                 }
             </tbody>
         </table>
     </div>
-    
+
 
 </div>

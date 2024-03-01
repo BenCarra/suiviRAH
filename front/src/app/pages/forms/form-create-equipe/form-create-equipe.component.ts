@@ -42,7 +42,7 @@ export class FormCreateEquipeComponent {
 
   }
 
-  onClose(){
+  onClose() {
     this.router.navigateByUrl("/admin/equipes");
   }
 
@@ -56,7 +56,7 @@ export class FormCreateEquipeComponent {
       alert('Equipe créée!');
       this.router.navigateByUrl("/admin/equipes");
     }
-    
+
   }
 
 }

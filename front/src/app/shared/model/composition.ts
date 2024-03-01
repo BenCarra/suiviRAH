@@ -1,5 +1,5 @@
 export class Composition {
-    idComposition!: number;
+	idComposition!: number;
 	idEquipe!: number;
-	idUtilisateur! : number;
+	idUtilisateur!: number;
 }

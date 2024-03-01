@@ -10,8 +10,8 @@ describe('FormCreateEquipeComponent', () => {
     await TestBed.configureTestingModule({
       imports: [FormCreateEquipeComponent]
     })
-    .compileComponents();
-    
+      .compileComponents();
+
     fixture = TestBed.createComponent(FormCreateEquipeComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

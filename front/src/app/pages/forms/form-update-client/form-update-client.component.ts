@@ -41,7 +41,7 @@ export class FormUpdateClientComponent {
     this.formUpdate = new FormGroup({
       nom: new FormControl('', Validators.required),
       adresse: new FormControl('', Validators.required),
-      codePostal:  new FormControl('', Validators.compose([Validators.required, Validators.pattern("^[0-9]{5}$")])),
+      codePostal: new FormControl('', Validators.compose([Validators.required, Validators.pattern("^[0-9]{5}$")])),
       ville: new FormControl('', Validators.required)
     })
 
@@ -63,7 +63,7 @@ export class FormUpdateClientComponent {
         this.formUpdate.get("adresse")?.setValue(this.clientById.adresseClient);
         this.formUpdate.get("codePostal")?.setValue(this.clientById.codePostalClient);
         this.formUpdate.get("ville")?.setValue(this.clientById.villeClient);
-        }
+      }
     );
   }
 
@@ -78,7 +78,7 @@ export class FormUpdateClientComponent {
       this.formUpdate.controls['codePostal'].hasError('required') ||
       this.formUpdate.controls['ville'].hasError('required')) {
       console.log("Un ou plusieurs champs sont requis");
-    } else if (this.formUpdate.controls['codePostal'].hasError('pattern')){
+    } else if (this.formUpdate.controls['codePostal'].hasError('pattern')) {
       console.log("Le code postal doit être composé de 5 chiffres")
     } else {
       this.clientById.nomClient = this.formUpdate.get("nom")?.value;
@@ -86,7 +86,7 @@ export class FormUpdateClientComponent {
       this.clientById.codePostalClient = this.formUpdate.get("codePostal")?.value;
       this.clientById.villeClient = this.formUpdate.get("ville")?.value;
       this.clientService.update(this.clientById).subscribe();
-      alert('Client Modifié!');
+      alert('Client modifié!');
       this.router.navigateByUrl("/admin/clients");
     }
 

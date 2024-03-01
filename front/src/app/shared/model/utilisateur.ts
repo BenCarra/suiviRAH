@@ -8,7 +8,7 @@ export class Utilisateur {
     actif!: boolean
     nomSite!: string;
     libelleTypeUtilisateur!: string;
-    listTaches!: string[][]; 
+    listTaches!: string[][];
     listEquipes!: string[][];
     listCompositions!: string[][]
 }

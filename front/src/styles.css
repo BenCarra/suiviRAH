@@ -10,7 +10,7 @@ body {
     margin: 0 auto;
     font-size: 10pt;
     font-family: 'Filson Soft Book', Calibri, sans-serif;
-    background: linear-gradient(180deg, #00884C , #312B6D) no-repeat;
+    background: linear-gradient(180deg, #00884C, #312B6D) no-repeat;
 }
 
 h1 {
@@ -18,14 +18,15 @@ h1 {
     font-kerning: 0;
 }
 
-h2, h3 {
-    font-size: 18pt; 
+h2,
+h3 {
+    font-size: 18pt;
 }
 
-h1, h2, h3 {
+h1,
+h2,
+h3 {
     color: #FFFFFF;
     line-height: 120%;
-    font-family: 'Filson Soft Medium',Calibri, sans-serif
+    font-family: 'Filson Soft Medium', Calibri, sans-serif
 }
-
-

@@ -45,23 +45,23 @@ export class FormCreateUtilisateurComponent {
       nom: new FormControl('', Validators.required),
       dateNaissance: new FormControl('', Validators.required),
       mail: new FormControl('', Validators.compose([Validators.required, Validators.email])),
-      actif: new FormControl('',Validators.required),
+      actif: new FormControl('', Validators.required),
     })
 
   }
 
-  onClose(){
+  onClose() {
     this.router.navigateByUrl("/admin/utilisateurs");
   }
 
   onSubmit(): void {
 
     if (this.formCreate.controls['login'].hasError('required') ||
-    this.formCreate.controls['prénom'].hasError('required') ||
-    this.formCreate.controls['nom'].hasError('required') ||
-    this.formCreate.controls['dateNaissance'].hasError('required') ||
-    this.formCreate.controls['mail'].hasError('required') ||
-    this.formCreate.controls['actif'].hasError('required')) {
+      this.formCreate.controls['prénom'].hasError('required') ||
+      this.formCreate.controls['nom'].hasError('required') ||
+      this.formCreate.controls['dateNaissance'].hasError('required') ||
+      this.formCreate.controls['mail'].hasError('required') ||
+      this.formCreate.controls['actif'].hasError('required')) {
       console.log("Un ou plusieurs champs sont requis");
     } else if (this.formCreate.controls['mail'].hasError('email')) {
       console.log("Mail mal formé");
@@ -76,6 +76,6 @@ export class FormCreateUtilisateurComponent {
       alert('Utilisateur créé!');
       this.router.navigateByUrl("/admin/utilisateurs");
     }
-    
+
   }
 }

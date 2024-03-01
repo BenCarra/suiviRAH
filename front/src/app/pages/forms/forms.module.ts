@@ -9,6 +9,6 @@ import { CommonModule } from '@angular/common';
     CommonModule
   ]
 })
-export class FormsModule { 
-  
+export class FormsModule {
+
 }

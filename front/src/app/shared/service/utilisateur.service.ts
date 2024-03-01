@@ -15,35 +15,35 @@ export class UtilisateurService {
     this.url = "http://localhost:8080";
   }
 
-  public findAll(): Observable<Utilisateur[]>{
-    return this.http.get<Utilisateur[]>(this.url+"/utilisateurs");
+  public findAll(): Observable<Utilisateur[]> {
+    return this.http.get<Utilisateur[]>(this.url + "/utilisateurs");
   }
 
   public findById(id: string | undefined): Observable<Utilisateur> {
-    return this.http.get<Utilisateur>(this.url+"/utilisateurById/"+id);
+    return this.http.get<Utilisateur>(this.url + "/utilisateurById/" + id);
   }
 
   public findByNom(nom: string): Observable<Utilisateur[]> {
-    return this.http.get<Utilisateur[]>(this.url+"/utilisateursByNom/"+nom);
+    return this.http.get<Utilisateur[]>(this.url + "/utilisateursByNom/" + nom);
   }
 
   public findByTypeUtilisateur(typeUtilisateurLibelle: string): Observable<Utilisateur[]> {
-    return this.http.get<Utilisateur[]>(this.url+"/utilisateursByTypeUtilisateur/"+typeUtilisateurLibelle);
+    return this.http.get<Utilisateur[]>(this.url + "/utilisateursByTypeUtilisateur/" + typeUtilisateurLibelle);
   }
 
   public findBySite(nomSite: string) {
-    return this.http.get<Utilisateur[]>(this.url+"/utilisateursBySite/"+nomSite);
+    return this.http.get<Utilisateur[]>(this.url + "/utilisateursBySite/" + nomSite);
   }
 
   public create(utilisateur: Utilisateur) {
-    return this.http.put<Utilisateur>(this.url+"/createUtilisateur", utilisateur);
+    return this.http.put<Utilisateur>(this.url + "/createUtilisateur", utilisateur);
   }
 
-  public update(utilisateur: Utilisateur){
-    return this.http.post<Utilisateur>(this.url+"/updateUtilisateur/"+utilisateur.idUtilisateur, utilisateur);
+  public update(utilisateur: Utilisateur) {
+    return this.http.post<Utilisateur>(this.url + "/updateUtilisateur/" + utilisateur.idUtilisateur, utilisateur);
   }
 
   public delete(id: string | undefined): Observable<Utilisateur> {
-    return this.http.delete<Utilisateur>(this.url+"/deleteUtilisateur/"+id);
+    return this.http.delete<Utilisateur>(this.url + "/deleteUtilisateur/" + id);
   }
 }

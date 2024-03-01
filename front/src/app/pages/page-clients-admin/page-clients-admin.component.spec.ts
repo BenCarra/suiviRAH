@@ -10,8 +10,8 @@ describe('PageClientsAdminComponent', () => {
     await TestBed.configureTestingModule({
       imports: [PageClientsAdminComponent]
     })
-    .compileComponents();
-    
+      .compileComponents();
+
     fixture = TestBed.createComponent(PageClientsAdminComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

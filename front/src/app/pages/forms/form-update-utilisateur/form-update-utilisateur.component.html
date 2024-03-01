@@ -44,7 +44,7 @@
             <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
             @if (formUpdate.controls['dateNaissance'].hasError('required')) {
-              <mat-error>Date de naissance <strong>requise</strong></mat-error>
+            <mat-error>Date de naissance <strong>requise</strong></mat-error>
             }
           </mat-form-field>
         </div>
@@ -66,17 +66,17 @@
       <br>
       <div class="row">
         <div class="col">
-            <mat-label>Actif ? :</mat-label>
-            <br>
-            <mat-radio-group formControlName="actif">
-              @if (utilisateurById != undefined) {
-                <mat-radio-button value="true" [checked]="utilisateurById.actif == true">Oui</mat-radio-button>
-                <mat-radio-button value="false" [checked]="utilisateurById.actif == false">Non</mat-radio-button>
-              }
-            </mat-radio-group>
-            @if (formUpdate.controls['actif'].hasError('required')) {
-            <mat-error>Actif <strong>requis</strong></mat-error>
+          <mat-label>Actif ? :</mat-label>
+          <br>
+          <mat-radio-group formControlName="actif">
+            @if (utilisateurById != undefined) {
+            <mat-radio-button value="true" [checked]="utilisateurById.actif == true">Oui</mat-radio-button>
+            <mat-radio-button value="false" [checked]="utilisateurById.actif == false">Non</mat-radio-button>
             }
+          </mat-radio-group>
+          @if (formUpdate.controls['actif'].hasError('required')) {
+          <mat-error>Actif <strong>requis</strong></mat-error>
+          }
         </div>
       </div>
       <br>

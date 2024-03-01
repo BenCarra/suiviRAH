@@ -1,123 +1,124 @@
 <div id="liste">
     <h3>
         @if (routerURL == "/admin/utilisateurs") {
-            LISTE DES UTILISATEURS
-        } 
+        LISTE DES UTILISATEURS
+        }
         @else if (routerURL == "/admin/accueil") {
-            <a routerLink="/admin/utilisateurs">LISTE DES UTILISATEURS</a>
+        <a routerLink="/admin/utilisateurs">LISTE DES UTILISATEURS</a>
         }
     </h3>
     @if (routerURL == "/admin/utilisateurs") {
-        <form id="filtrage" [formGroup]="formFiltrage">
-            <select id="filtrage-demande" formControlName="filtrageDemande" (change)="updateFiltrage()">
-                <option disabled [selected]="formFiltrage.value.filtrageDemande == ''">-- Sélectionner un filtre --</option>
-                <option value="Par nom d'utilisateur">Rechercher par nom d'utilisateur</option>
-                <option value="Par type d'utilisateur">Rechercher par type d'utilisateur</option>
-                <option value="Par nom de site">Rechercher par nom de site</option>
-            </select>
-            @if (formFiltrage.get("filtrageDemande")?.getRawValue() == "Par nom d'utilisateur") {
-                <select id="noms-utilisateur" autocomplete formControlName="utilisateurRecherche">
-                    <option disabled [selected]="formFiltrage.value.filtrageDemande == 'Par nom d\'utilisateur'">-- Sélectionner un nom d'utilisateur --</option>
-                    @for (nomUtilisateur of listNomsUtilisateur; track $index) {
-                        <option [value]="nomUtilisateur">{{ nomUtilisateur }}</option>
-                    }
-                </select>
-            } @else if (formFiltrage.get("filtrageDemande")?.getRawValue() == "Par type d'utilisateur") {
-                <select id="types-utilisateur" autocomplete formControlName="utilisateurRecherche">
-                    @for (typeUtilisateur of listTypesUtilisateur; track $index) {
-                        <option [value]="typeUtilisateur">{{ typeUtilisateur }}</option>
-                    }
-                </select>
-            } @else if (formFiltrage.get("filtrageDemande")?.getRawValue() == "Par nom de site") {
-                <select id="nom-sites-utilisateur" autocomplete formControlName="utilisateurRecherche">
-                    @for (siteUtilisateur of listSitesUtilisateur; track $index) {
-                        <option [value]="siteUtilisateur">{{ siteUtilisateur }}</option>
-                    }
-                </select>
+    <form id="filtrage" [formGroup]="formFiltrage">
+        <select id="filtrage-demande" formControlName="filtrageDemande" (change)="updateFiltrage()">
+            <option disabled [selected]="formFiltrage.value.filtrageDemande == ''">-- Sélectionner un filtre --</option>
+            <option value="Par nom d'utilisateur">Rechercher par nom d'utilisateur</option>
+            <option value="Par type d'utilisateur">Rechercher par type d'utilisateur</option>
+            <option value="Par nom de site">Rechercher par nom de site</option>
+        </select>
+        @if (formFiltrage.get("filtrageDemande")?.getRawValue() == "Par nom d'utilisateur") {
+        <select id="noms-utilisateur" autocomplete formControlName="utilisateurRecherche">
+            <option disabled [selected]="formFiltrage.value.filtrageDemande == 'Par nom d\'utilisateur'">-- Sélectionner
+                un nom d'utilisateur --</option>
+            @for (nomUtilisateur of listNomsUtilisateur; track $index) {
+            <option [value]="nomUtilisateur">{{ nomUtilisateur }}</option>
             }
-            <input type="submit" id="btn-soumission" formControlName="boutonSoumission" (click)="onSearch($event)">
-            <input type="reset" id="btn-reset" (click)="onReset($event)" formControlName="boutonReset">
-        </form>
+        </select>
+        } @else if (formFiltrage.get("filtrageDemande")?.getRawValue() == "Par type d'utilisateur") {
+        <select id="types-utilisateur" autocomplete formControlName="utilisateurRecherche">
+            @for (typeUtilisateur of listTypesUtilisateur; track $index) {
+            <option [value]="typeUtilisateur">{{ typeUtilisateur }}</option>
+            }
+        </select>
+        } @else if (formFiltrage.get("filtrageDemande")?.getRawValue() == "Par nom de site") {
+        <select id="nom-sites-utilisateur" autocomplete formControlName="utilisateurRecherche">
+            @for (siteUtilisateur of listSitesUtilisateur; track $index) {
+            <option [value]="siteUtilisateur">{{ siteUtilisateur }}</option>
+            }
+        </select>
+        }
+        <input type="submit" id="btn-soumission" formControlName="boutonSoumission" (click)="onSearch($event)">
+        <input type="reset" id="btn-reset" (click)="onReset($event)" formControlName="boutonReset">
+    </form>
     }
 
-    <!-- TODO: Faire en sorte d'avoir les 10 derniers utilisateurs ajoutés --> 
+    <!-- TODO: Faire en sorte d'avoir les 10 derniers utilisateurs ajoutés -->
     <div id="table">
         <table border="2">
             <tbody>
                 @if (routerURL == "/admin/utilisateurs") {
-                    <tr>
-                        <th>Login</th>
-                        <th>Prénom</th>
-                        <th>Nom</th>
-                        <th>Date de naissance</th>
-                        <th>Mail</th>
-                        <th>Actif</th>
-                        <th>Site</th>
-                        <th>Type utilisateur</th>
-                        <th>Tâches associées</th>
-                        <th>Equipes intégrées</th>
-                        <th>Compositions intégrées</th>
-                        <th>Modifier</th>
-                        <th>Supprimer</th>
-                    </tr>
-                    @for (utilisateur of listUtilisateurs; track $index) {
-                        <tr id="{{ utilisateur.idUtilisateur }}">
-                            <td>{{ utilisateur.login }}</td>
-                            <td>{{ utilisateur.prenomUtilisateur }}</td>
-                            <td>{{ utilisateur.nomUtilisateur }}</td>
-                            <td>{{ utilisateur.dateNaissance}}</td>
-                            <td>{{ utilisateur.mail }}</td>
-                            <td>{{ utilisateur.actif }}</td>
-                            <td>{{ utilisateur.nomSite }}</td>
-                            <td>{{ utilisateur.libelleTypeUtilisateur }}</td>
-                            <td>
-                                @for (tache of utilisateur.listTaches; track $index){
-                                    <ul>
-                                        <li>Tâche n°{{ tache[0] }}</li>
-                                        <li>{{ tache[1] }}</li>
-                                    </ul>
-                                    <br>
-                                }
-                            </td>
-                            <td>
-                                @for (equipe of utilisateur.listEquipes; track $index){
-                                    <ul>
-                                        <li>Equipe n°{{ equipe[0] }}</li>
-                                        <li>{{ equipe[1] }}</li>
-                                    </ul>
-                                    <br>
-                                }
-                            </td>
-                            <td>
-                                @for (composition of utilisateur.listCompositions; track $index){
-                                    <ul>
-                                        <li>Composition n°{{ composition[0] }}</li>
-                                        <li>Equipe {{ composition[1] }}</li>
-                                        <li>Utilisateur {{ composition[2] }} {{ composition[3] }}</li>
-                                    </ul>
-                                    <br>
-                                }
-                            </td>
-                            <td><button type="button" (click)="onUpdateUtilisateur($event)">Modifier</button></td>
-                            <td><button type="button" (click)="onDeleteUtilisateur($event)">Supprimer</button></td>
-                        </tr>
-                    }
-                } @else if (routerURL == "/admin/accueil") {
-                    <tr>
-                        <th>Login</th>
-                        <th>Prénom</th>
-                        <th>Nom</th>
-                        <th>Actif</th>
-                    </tr>
-                    @for (utilisateur of listUtilisateurs; track $index) {
-                        <tr id="{{ utilisateur.idUtilisateur }}">
-                            <td>{{ utilisateur.login }}</td>
-                            <td>{{ utilisateur.prenomUtilisateur }}</td>
-                            <td>{{ utilisateur.nomUtilisateur }}</td>
-                            <td>{{ utilisateur.actif }}</td>
-                    }
+                <tr>
+                    <th>Login</th>
+                    <th>Prénom</th>
+                    <th>Nom</th>
+                    <th>Date de naissance</th>
+                    <th>Mail</th>
+                    <th>Actif</th>
+                    <th>Site</th>
+                    <th>Type utilisateur</th>
+                    <th>Tâches associées</th>
+                    <th>Equipes intégrées</th>
+                    <th>Compositions intégrées</th>
+                    <th>Modifier</th>
+                    <th>Supprimer</th>
+                </tr>
+                @for (utilisateur of listUtilisateurs; track $index) {
+                <tr id="{{ utilisateur.idUtilisateur }}">
+                    <td>{{ utilisateur.login }}</td>
+                    <td>{{ utilisateur.prenomUtilisateur }}</td>
+                    <td>{{ utilisateur.nomUtilisateur }}</td>
+                    <td>{{ utilisateur.dateNaissance}}</td>
+                    <td>{{ utilisateur.mail }}</td>
+                    <td>{{ utilisateur.actif }}</td>
+                    <td>{{ utilisateur.nomSite }}</td>
+                    <td>{{ utilisateur.libelleTypeUtilisateur }}</td>
+                    <td>
+                        @for (tache of utilisateur.listTaches; track $index){
+                        <ul>
+                            <li>Tâche n°{{ tache[0] }}</li>
+                            <li>{{ tache[1] }}</li>
+                        </ul>
+                        <br>
+                        }
+                    </td>
+                    <td>
+                        @for (equipe of utilisateur.listEquipes; track $index){
+                        <ul>
+                            <li>Equipe n°{{ equipe[0] }}</li>
+                            <li>{{ equipe[1] }}</li>
+                        </ul>
+                        <br>
+                        }
+                    </td>
+                    <td>
+                        @for (composition of utilisateur.listCompositions; track $index){
+                        <ul>
+                            <li>Composition n°{{ composition[0] }}</li>
+                            <li>Equipe {{ composition[1] }}</li>
+                            <li>Utilisateur {{ composition[2] }} {{ composition[3] }}</li>
+                        </ul>
+                        <br>
+                        }
+                    </td>
+                    <td><button type="button" (click)="onUpdateUtilisateur($event)">Modifier</button></td>
+                    <td><button type="button" (click)="onDeleteUtilisateur($event)">Supprimer</button></td>
+                </tr>
                 }
-                
+                } @else if (routerURL == "/admin/accueil") {
+                <tr>
+                    <th>Login</th>
+                    <th>Prénom</th>
+                    <th>Nom</th>
+                    <th>Actif</th>
+                </tr>
+                @for (utilisateur of listUtilisateurs; track $index) {
+                <tr id="{{ utilisateur.idUtilisateur }}">
+                    <td>{{ utilisateur.login }}</td>
+                    <td>{{ utilisateur.prenomUtilisateur }}</td>
+                    <td>{{ utilisateur.nomUtilisateur }}</td>
+                    <td>{{ utilisateur.actif }}</td>
+                    }
+                    }
+
             </tbody>
         </table>
     </div>

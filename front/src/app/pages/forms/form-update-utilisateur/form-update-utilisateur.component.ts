@@ -71,7 +71,7 @@ export class FormUpdateUtilisateurComponent {
         this.formUpdate.get("dateNaissance")?.setValue(this.utilisateurById.dateNaissance);
         this.formUpdate.get("mail")?.setValue(this.utilisateurById.mail);
         this.formUpdate.get("actif")?.setValue(this.utilisateurById.actif);
-        }
+      }
     );
   }
 
@@ -98,7 +98,7 @@ export class FormUpdateUtilisateurComponent {
       this.utilisateurById.mail = this.formUpdate.get("mail")?.value;
       this.utilisateurById.actif = this.formUpdate.get("actif")?.value;
       this.utilisateurService.update(this.utilisateurById).subscribe();
-      alert('Utilisateur Modifié!');
+      alert('Utilisateur modifié!');
       this.router.navigateByUrl("/admin/utilisateurs");
     }
 
