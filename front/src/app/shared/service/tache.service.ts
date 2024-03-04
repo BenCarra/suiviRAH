@@ -12,12 +12,14 @@ export class TacheService {
   private createTacheURL: string;
   private tacheURL:string;
   private duplicateURL:string;
+  private getTachesByUtilisateurURL:string;
 
   constructor(private http:HttpClient) {
     this.getTachesURL = 'http://localhost:8080/taches'
     this.createTacheURL = 'http://localhost:8080/createTache'
     this.tacheURL = 'http://localhost:8080/tache'
     this.duplicateURL = 'http://localhost:8080/duplicateTache'
+    this.getTachesByUtilisateurURL = 'http://localhost:8080/tachesByUtilisateur'
    }
 
    public getTaches(): Observable<Tache[]> {
@@ -43,6 +45,10 @@ export class TacheService {
 
    public duplicateTache(id:number, tache:Tache): Observable<any> {
     return this.http.post<any>(`${this.duplicateURL}/${id}`,tache);
+  }
+
+   public getTachesByUtilisateur(id:number): Observable<Tache[]> {
+    return this.http.get<Tache[]>(`${this.getTachesByUtilisateurURL}/${id}`);
   }
 }
     // return this.getTacheById(id).pipe( // pipe transforme les données
