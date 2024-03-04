@@ -1,4 +1,14 @@
 <h1 >Liste des tâches</h1>
+
+<div class="filtre-container">
+  <mat-form-field>
+    <mat-label>Filtre par semaine</mat-label>
+    <mat-select [(value)]="selectedWeek" (selectionChange)="updateTachesForWeek()">
+      <mat-option *ngFor="let semaine of semaines" [value]="semaine">{{semaine}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+
 <div class="table-container">
   <table >
     <thead>
@@ -18,13 +28,12 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let tache of taches">
+      <tr *ngFor="let tache of filteredTaches">
         <td>{{ tache.idTache}}</td>
         <td>{{ tache.listIdUtilisateurs}}</td>
         <td>{{ tache.nomTache}}</td>
         <td>{{ tache.libelleTypeTache}}</td>
         <td>{{ tache.dateTache | date: 'dd/MM/yyyy'  }}</td>
-        <!-- <td>{{ tache.debutTache | date: 'dd.MM.yy - HH:mm'}}</td> -->
         <td>{{ tache.dureeTache }}</td>
         <td>{{ tache.commentaires }}</td>
         <td>{{ tache.nomProjet }}</td>

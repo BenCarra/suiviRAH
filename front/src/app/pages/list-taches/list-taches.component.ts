@@ -5,23 +5,38 @@ import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { Router } from '@angular/router';
 
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatSelectModule} from '@angular/material/select';
+import {MatInputModule} from '@angular/material/input';
+
 @Component({
   selector: 'app-list-taches',
   standalone: true,
   // Import de CommonModule pour utiliser la directive *ngFor dans le html
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, 
+    RouterLink,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatInputModule],
   templateUrl: './list-taches.component.html',
   styleUrl: './list-taches.component.css'
 })
 export class ListTachesComponent implements OnInit {
+  selectedWeek!: number;
+  filteredTaches!: Tache[];
+  semaines!: number[];
   taches!: Tache[];
 
   constructor(private tacheService:TacheService,
     private router: Router) {
   }
   ngOnInit(): void {
+    this.semaines = Array.from({length:52}, (_,i) => i+1);
     this.tacheService.getTaches().subscribe(data => {
       this.taches = data;
+      // initialisation de la liste complète des tâches 
+      // avant de sélectionner une semaine
+      this.filteredTaches = [...this.taches];
     })
   }
 
@@ -59,4 +74,37 @@ export class ListTachesComponent implements OnInit {
       }     
     });
   }
+
+  // Méthode qui liste les tâches d'une semaine donnée 
+  updateTachesForWeek(): void {
+    if (this.selectedWeek === null) {
+      this.filteredTaches = this.taches;
+    } else {
+      this.filteredTaches = this.taches.filter(tache => {
+        const date = new Date(tache.dateTache);
+        const weekNumber = this.getWeekNumber(date);
+        return weekNumber === this.selectedWeek;
+      });
+    }
+  }
+  
+  // Méthode qui calcule le numéro de semaine par rapport à une date donnée
+  getWeekNumber(d: Date): number {
+    const oneJan = new Date(d.getFullYear(), 0, 1);
+    const numberOfDays = Math.floor((d.getTime() - oneJan.getTime()) / (24 * 60 * 60 * 1000));
+    const result = Math.ceil((numberOfDays + oneJan.getDay()) / 7);   
+    return result;
+
+     // // Copie de la date pour éviter de modifier l'original
+    // d = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
+    // // Définir au dimanche le plus proche
+    // d.setUTCDate(d.getUTCDate() + 4 - (d.getUTCDay() || 7));
+    // // Date de début de l'année
+    // const yearStart = new Date(Date.UTC(d.getUTCFullYear(),0,1));
+    // // Calcul de la différence de jours et division par 7 pour obtenir le numéro de semaine
+    // const weekNo = Math.ceil(( (d.getTime() - yearStart.getTime()) / 86400000 + 1)/7);
+    // return weekNo;
+  }
+
+
 }
