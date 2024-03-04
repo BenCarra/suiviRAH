@@ -47,8 +47,8 @@ export class ListTachesComponent implements OnInit {
     });
   }
 
-  onDuplicateTache(id:number) {
-    this.tacheService.duplicateTache(id).subscribe({
+  onDuplicateTache(id:number, tache:Tache) {
+    this.tacheService.duplicateTache(id, tache).subscribe({
       next:(response) => {
         alert(response.message);
         // Après le message, j'actualise ma page (avec la tâche dupliquée)

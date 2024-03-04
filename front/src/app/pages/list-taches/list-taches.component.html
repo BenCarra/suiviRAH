@@ -30,7 +30,7 @@
         <td>{{ tache.nomProjet }}</td>
         <td><button [routerLink]="['/formUpdateTache']" [queryParams]="{ id: tache.idTache }">Modifier</button></td>
         <td><button (click)="onDeleteTache(tache.idTache)">Supprimer</button></td>
-        <td><button (click)="onDuplicateTache(tache.idTache)">Dupliquer</button></td>
+        <td><button (click)="onDuplicateTache(tache.idTache, tache)">Dupliquer</button></td>
       </tr>
     </tbody>
   </table>

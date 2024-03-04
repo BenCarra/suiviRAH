@@ -41,8 +41,8 @@ export class TacheService {
     return this.http.get<Tache>(`${this.tacheURL}/${id}`);
    }
 
-   public duplicateTache(id:number): Observable<any> {
-    return this.http.post<any>(`${this.duplicateURL}/${id}`,{});
+   public duplicateTache(id:number, tache:Tache): Observable<any> {
+    return this.http.post<any>(`${this.duplicateURL}/${id}`,tache);
   }
 }
     // return this.getTacheById(id).pipe( // pipe transforme les données

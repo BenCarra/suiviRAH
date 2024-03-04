@@ -160,9 +160,7 @@ public class TacheService {
 		// Enregistrement de la nouvelle tache dans la base de données
 		Tache tacheSauvegardee = tacheRepository.save(nouvelleTache);
 		
-		TacheDTO tacheSauvegardeeDTO = mapTacheToDTO(tacheSauvegardee);
-		
-		String message = String.format("La tâche n° %s a bien été crée.", tacheSauvegardeeDTO.getIdTache());
+		String message = String.format("La tâche n° %s a bien été crée.", tacheSauvegardee.getIdTache());
         return ResponseEntity.ok(Map.of("message", message));
 		// return ResponseEntity.ok(tacheSauvegardeeDTO);
 	}
@@ -218,49 +216,100 @@ public class TacheService {
 
 	}
 
-
-	public ResponseEntity<?> duplicateTache(int idTache) {
-		Optional<Tache> tacheADupliquerOptional = tacheRepository.findById(idTache);
-
+	public ResponseEntity<?> duplicateTache(int idTache, TacheDTO tacheDTO) {
+		Optional<Tache> tacheADupliquerOptional = tacheRepository.findById(tacheDTO.getIdTache());
+	
 		if (tacheADupliquerOptional.isPresent()) {
-			Tache tacheADupliquer = tacheADupliquerOptional.get();
+				
+			// Récupération du type de tâche et du projet 
+			TypeTache typeTache = typeTacheRepository.findByLibelle(tacheDTO.getLibelleTypeTache());
+			Projet projet = projetRepository.findByNomProjet(tacheDTO.getNomProjet());
 
-			// Création de la tâche dupliquée
-			Tache tacheDupliquee = new Tache();
-
-			// Copie des propriétés de l'ancienne tâche vers la nouvelle
-			Date dateOriginale = tacheADupliquer.getDateTache();
+			List<Integer> idUtilisateurs = tacheDTO.getListIdUtilisateurs();
+		 	List<Utilisateur> utilisateurs = new ArrayList<>();
+	
+			// Création d'une nouvelle tâche plutôt que de mettre à jour l'ancienne
+			Tache nouvelleTache = new Tache();
+			
+			// Copie des propriétés
+			nouvelleTache.setNomTache(tacheDTO.getNomTache());
+			nouvelleTache.setCommentaires(tacheDTO.getCommentaires());
+			nouvelleTache.setTypeTache(typeTache);
+			nouvelleTache.setProjet(projet);
+			nouvelleTache.setDureeTache(tacheDTO.getDureeTache());
+			
+			// Gestion de la date
+			Date dateOriginale = tacheDTO.getDateTache();
 			Calendar calendar = Calendar.getInstance();
-        	calendar.setTime(dateOriginale);
-        	calendar.add(Calendar.DAY_OF_MONTH, 1); // Ajoute un jour à la date originale
-			Date nouvelleDateUtil = calendar.getTime(); // C'est un java.util.Date
-			// Conversion de java.util.Date en java.sql.Date
+			calendar.setTime(dateOriginale);
+			calendar.add(Calendar.DAY_OF_MONTH, 1); // Ajoute un jour
+			Date nouvelleDateUtil = calendar.getTime();
 			java.sql.Date nouvelleDateSql = new java.sql.Date(nouvelleDateUtil.getTime());
+			nouvelleTache.setDateTache(nouvelleDateSql);
 
-			tacheDupliquee.setDateTache(nouvelleDateSql); // Définit la date de la nouvelle tâche
-			tacheDupliquee.setDureeTache(tacheADupliquer.getDureeTache());
-			tacheDupliquee.setProjet(tacheADupliquer.getProjet());
-			tacheDupliquee.setTypeTache(tacheADupliquer.getTypeTache());
-			tacheDupliquee.setCommentaires(tacheADupliquer.getCommentaires());
-			tacheDupliquee.setNomTache(tacheADupliquer.getNomTache());
-			tacheDupliquee.setListUtilisateurs(tacheADupliquer.getListUtilisateurs());
-			
-			// List<Utilisateur> nouveauxUtilisateurs = new ArrayList<>();
-			// for (Utilisateur utilisateur : tacheADupliquer.getListUtilisateurs()) {
-			// 	nouveauxUtilisateurs.add(utilisateur);
-			// }
-
-			// tacheDupliquee.setListUtilisateurs(nouveauxUtilisateurs);
-
-			tacheRepository.save(tacheDupliquee);	
-			
-			
-			String message = String.format("La tâche n° %s a bien été dupliquée", tacheADupliquer.getIdTache());
-        	return ResponseEntity.ok(Map.of("message", message));
-		
+			for (Integer id : idUtilisateurs) {
+				// J'ajoute à chaque utilisateur la tache que je suis en train de créér
+				// En résumé, je remplis la table "utilisateur_tache"
+				Utilisateur utilisateur = utilisateurRepository.findById(id).get();
+				List<Tache> taches = utilisateur.getListTaches();
+				taches.add(nouvelleTache);
+				utilisateurs.add(utilisateur);
+			}
+	
+			nouvelleTache.setListUtilisateurs(utilisateurs);
+	
+			// Sauvegarde de la nouvelle tâche
+			tacheRepository.save(nouvelleTache);
+	
+			String message = String.format("La tâche n° %s a bien été dupliquée", tacheDTO.getIdTache());
+			return ResponseEntity.ok(Map.of("message", message));
+	
 		} else {
 			return ResponseEntity.notFound().build();
 		}
-	}			
+	}
+			
+	// public ResponseEntity<?> duplicateTache(int idTache) {
+	// 	Optional<Tache> tacheADupliquerOptional = tacheRepository.findById(idTache);
+
+	// 	if (tacheADupliquerOptional.isPresent()) {
+	// 		Tache tacheADupliquer = tacheADupliquerOptional.get();
+
+	// 		// Création de la tâche dupliquée
+	// 		Tache tacheDupliquee = new Tache();
+
+	// 		// Copie des propriétés de l'ancienne tâche vers la nouvelle
+	// 		Date dateOriginale = tacheADupliquer.getDateTache();
+	// 		Calendar calendar = Calendar.getInstance();
+    //     	calendar.setTime(dateOriginale);
+    //     	calendar.add(Calendar.DAY_OF_MONTH, 1); // Ajoute un jour à la date originale
+	// 		Date nouvelleDateUtil = calendar.getTime(); // C'est un java.util.Date
+	// 		// Conversion de java.util.Date en java.sql.Date
+	// 		java.sql.Date nouvelleDateSql = new java.sql.Date(nouvelleDateUtil.getTime());
+
+	// 		tacheDupliquee.setDateTache(nouvelleDateSql); // Définit la date de la nouvelle tâche
+	// 		tacheDupliquee.setDureeTache(tacheADupliquer.getDureeTache());
+	// 		tacheDupliquee.setProjet(tacheADupliquer.getProjet());
+	// 		tacheDupliquee.setTypeTache(tacheADupliquer.getTypeTache());
+	// 		tacheDupliquee.setCommentaires(tacheADupliquer.getCommentaires());
+	// 		tacheDupliquee.setNomTache(tacheADupliquer.getNomTache());
+			
+	// 		List<Utilisateur> nouveauxUtilisateurs = new ArrayList<>();
+	// 		for (Utilisateur utilisateur : tacheADupliquer.getListUtilisateurs()) {
+	// 			nouveauxUtilisateurs.add(utilisateur);
+	// 			System.out.println("utilisateur n° "+utilisateur.getIdUtilisateur());
+	// 		}
+
+	// 		tacheDupliquee.setListUtilisateurs(nouveauxUtilisateurs);
+
+	// 		tacheRepository.save(tacheDupliquee);			
+			
+	// 		String message = String.format("La tâche n° %s a bien été dupliquée", tacheADupliquer.getIdTache());
+    //     	return ResponseEntity.ok(Map.of("message", message));
+		
+	// 	} else {
+	// 		return ResponseEntity.notFound().build();
+	// 	}
+	// }			
 }
 
