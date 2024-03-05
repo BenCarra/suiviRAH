@@ -24,7 +24,7 @@ import {MatInputModule} from '@angular/material/input';
 export class ListTachesComponent implements OnInit {
   selectedWeek!: number;
   filteredTaches!: Tache[];
-  semaines: number[] =[]; // tableau contenant les numéros de semaine
+  weeks: number[] =[]; // tableau contenant les numéros de semaine
   taches!: Tache[];
 
   // Simulation d'un utilisateur connecté 
@@ -34,8 +34,8 @@ export class ListTachesComponent implements OnInit {
     private router: Router) {
   }
   ngOnInit(): void {
-    this.initSemaines();
-    // this.semaines = Array.from({length:52}, (_,i) => i+1);
+    this.initWeeks();
+    // this.weeks = Array.from({length:52}, (_,i) => i+1);
     this.tacheService.getTachesByUtilisateur(this.idUtilisateurConnecté).subscribe(data => {
       this.taches = data;
       // initialisation de la liste complète des tâches 
@@ -111,20 +111,20 @@ export class ListTachesComponent implements OnInit {
   }
 
   // Méthode qui permet de filtrer par semaine en partant de la semaine dans laquelle on est
-  initSemaines() {
+  initWeeks() {
     const today = new Date();
     const currentWeek = this.getWeekNumber(today);
     this.selectedWeek = currentWeek;
 
     // De la semaine actuelle à 1
     for (let i = currentWeek; i >= 1; i--) {
-      this.semaines.push(i);
+      this.weeks.push(i);
     }
 
     // De 52 à la semaine juste après la semaine actuelle
     if (currentWeek < 52) {
       for (let i = 52; i > currentWeek; i--) {
-        this.semaines.push(i);
+        this.weeks.push(i);
       }
     }
   }

@@ -4,7 +4,7 @@
   <mat-form-field>
     <mat-label>Filtre par semaine</mat-label>
     <mat-select [(value)]="selectedWeek" (selectionChange)="updateTachesForWeek()">
-      <mat-option *ngFor="let semaine of semaines" [value]="semaine">{{semaine}}</mat-option>
+      <mat-option *ngFor="let week of weeks" [value]="week">{{week}}</mat-option>
     </mat-select>
   </mat-form-field>
 </div>
