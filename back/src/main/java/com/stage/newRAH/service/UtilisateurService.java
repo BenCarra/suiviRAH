@@ -12,12 +12,16 @@ import com.stage.newRAH.dto.UtilisateurDTO;
 import com.stage.newRAH.model.Site;
 import com.stage.newRAH.model.Utilisateur;
 import com.stage.newRAH.repository.SiteRepository;
+import com.stage.newRAH.repository.UtilisateurRepository;
 
 @Service
 public class UtilisateurService {
 	
 	@Autowired
 	SiteRepository siteRepository;
+
+	@Autowired
+	UtilisateurRepository utilisateurRepository;
 	
 	
 	public UtilisateurDTO mapUtilisateurToDTO(Utilisateur utilisateur) {
@@ -32,6 +36,17 @@ public class UtilisateurService {
 		utilisateurDTO.setActif(utilisateur.isActif());
 		
 		return utilisateurDTO;
+	}
+
+	public ResponseEntity<UtilisateurDTO> getUtilisateurById(int id) {
+		Optional<Utilisateur> utilisateurChoisi = utilisateurRepository.findById(id);
+
+		if (utilisateurChoisi.isPresent()) {
+			UtilisateurDTO utilisateurDTO = mapUtilisateurToDTO(utilisateurChoisi.get());
+			return ResponseEntity.ok(utilisateurDTO);
+		} else {
+            return ResponseEntity.notFound().build();
+        }
 	}
 	
 	public ResponseEntity<List<UtilisateurDTO>> getUtilisateursBySite(int id) {
