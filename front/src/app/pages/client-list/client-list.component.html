@@ -37,16 +37,17 @@
                     <th>Adresse</th>
                     <th>Code postal</th>
                     <th>Ville</th>
-                    <th>Projets associés</th>
+                    <th>Actif</th>
+                    <th>Projet associé</th>
                     <th>Modifier</th>
-                    <th>Supprimer</th>
                 </tr>
                 @for (client of listClients; track $index) {
-                <tr id="{{ client.idClient }}">
+                <tr [className]="client.actif" id="{{ client.idClient }}">
                     <td>{{ client.nomClient }}</td>
                     <td>{{ client.adresseClient }}</td>
                     <td>{{ client.codePostalClient }}</td>
                     <td>{{ client.villeClient }}</td>
+                    <td>{{ client.actif }}</td>
                     <td>
                         @for (projet of client.listProjets; track $index){
                         <ul>
@@ -58,8 +59,6 @@
                     </td>
                     <td><button type="button" routerLink="/admin/clients/update/"
                             [queryParams]="{ id: client.idClient}">Modifier</button></td>
-                    <td><button type="button" (click)="onDeleteClient(client.idClient.toString())">Supprimer</button>
-                    </td>
                 </tr>
                 }
                 } @else if (routerURL =="/admin/accueil") {
@@ -70,7 +69,7 @@
                     <th>Ville</th>
                 </tr>
                 @for (client of listClients; track $index) {
-                <tr id="{{ client.idClient }}">
+                <tr [className]="client.actif" id="{{ client.idClient }}">
                     <td>{{ client.nomClient }}</td>
                     <td>{{ client.adresseClient }}</td>
                     <td>{{ client.codePostalClient }}</td>

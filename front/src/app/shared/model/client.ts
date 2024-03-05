@@ -4,5 +4,6 @@ export class Client {
 	adresseClient!: string;
 	codePostalClient!: string;
 	villeClient!: string;
+	actif!: boolean;
 	listProjets!: string[][];
 }

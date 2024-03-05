@@ -11,6 +11,7 @@ import { FormUpdateClientComponent } from './pages/forms/form-update-client/form
 import { PageEquipesAdminComponent } from './pages/page-equipes-admin/page-equipes-admin.component';
 import { FormCreateEquipeComponent } from './pages/forms/form-create-equipe/form-create-equipe.component';
 import { FormUpdateEquipeComponent } from './pages/forms/form-update-equipe/form-update-equipe.component';
+import { ProjetListComponent } from './pages/projet-list/projet-list.component';
 
 export const routes: Routes = [{ path: '', component: HomeComponent },
 { path: 'admin/accueil', component: PageAccueilAdminComponent },
@@ -23,5 +24,6 @@ export const routes: Routes = [{ path: '', component: HomeComponent },
 { path: 'admin/equipes', component: PageEquipesAdminComponent },
 { path: 'admin/equipes/create', component: FormCreateEquipeComponent },
 { path: 'admin/equipes/update', component: FormUpdateEquipeComponent },
+{ path: 'admin/projets', component: ProjetListComponent },
 { path: "**", component: NotFoundComponent }];
 

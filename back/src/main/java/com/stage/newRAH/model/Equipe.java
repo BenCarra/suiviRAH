@@ -28,7 +28,7 @@ public class Equipe {
 	
 	private String libelle;
 	
-	@ManyToMany(cascade = {CascadeType.ALL})
+	@ManyToMany
 	@JoinTable(
 			name = "Composition",
 			joinColumns = @JoinColumn(name="id_equipe"),
@@ -37,7 +37,7 @@ public class Equipe {
 	List<Utilisateur> listUtilisateurs = new ArrayList<>();
 	
 	// J'ai rajouté ce lien entre Equipe et Composition
-	@OneToMany(mappedBy="equipe")
+	@OneToMany(mappedBy="equipe", cascade = CascadeType.ALL)
 	private List<Composition> listCompositions;
 	
 	public Equipe() {

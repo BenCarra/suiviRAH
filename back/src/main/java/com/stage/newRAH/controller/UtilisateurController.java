@@ -60,9 +60,4 @@ public class UtilisateurController {
 		return utilisateurService.updateUtilisateur(utilisateurDTO, id);
 	}
 
-	@DeleteMapping("/deleteUtilisateur/{id}")
-	public ResponseEntity<UtilisateurDTO> deleteUtilisateur(@PathVariable int id) {
-		return utilisateurService.deleteUtilisateur(id);
-	}
-
 }

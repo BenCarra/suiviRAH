@@ -55,12 +55,12 @@ export class FormCreateEquipeComponent {
       this.equipeService.create(this.equipeCreee).subscribe({
         next: (response) => {
           alert('Equipe ' + response.libelle + ' créée!');
+          this.router.navigateByUrl("/admin/equipes");
         },
         error: (error) => {
           console.error('Erreur lors de la création de l\'équipe', error);
         }
       });
-      this.router.navigateByUrl("/admin/equipes");
     }
 
   }

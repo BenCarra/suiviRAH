@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -95,7 +96,7 @@ public class Projet {
 	@JoinColumn(name="id_etat")
 	private Etat etat;	
 	
-	@ManyToMany
+	@ManyToMany()
 	@JoinTable(name="ProjetComposition",
 			joinColumns = @JoinColumn(name="id_projet"),
 			inverseJoinColumns = @JoinColumn(name="id_composition"))

@@ -33,6 +33,9 @@ public class Client {
 	
 	@Column(name="ville_Client")
 	private String villeClient;
+
+	@Column(name ="actif")
+	private boolean actif;
 	
 	@OneToMany(mappedBy="client")
 	private List<Projet> listProjets = new ArrayList<>();
@@ -40,11 +43,12 @@ public class Client {
 	public Client() {
 	}
 
-	public Client(int idClient, String nomClient, String adresseClient, String codePostalClient, String villeClient) {
+	public Client(int idClient, String nomClient, String adresseClient, String codePostalClient, String villeClient, boolean actif) {
 		this.idClient = idClient;
 		this.nomClient = nomClient;
 		this.adresseClient = adresseClient;
 		this.codePostalClient = codePostalClient;
 		this.villeClient = villeClient;
+		this.actif = actif;
 	}
 }

@@ -43,7 +43,4 @@ export class UtilisateurService {
     return this.http.put<Utilisateur>(this.url + "/updateUtilisateur/" + utilisateur.idUtilisateur, utilisateur);
   }
 
-  public delete(id: string | undefined): Observable<Utilisateur> {
-    return this.http.delete<Utilisateur>(this.url + "/deleteUtilisateur/" + id);
-  }
 }

@@ -42,7 +42,8 @@ export class FormUpdateClientComponent {
       nom: new FormControl('', Validators.required),
       adresse: new FormControl('', Validators.required),
       codePostal: new FormControl('', Validators.compose([Validators.required, Validators.pattern("^[0-9]{5}$")])),
-      ville: new FormControl('', Validators.required)
+      ville: new FormControl('', Validators.required),
+      actif: new FormControl('', Validators.required)
     })
 
 
@@ -63,6 +64,7 @@ export class FormUpdateClientComponent {
         this.formUpdate.get("adresse")?.setValue(this.clientById.adresseClient);
         this.formUpdate.get("codePostal")?.setValue(this.clientById.codePostalClient);
         this.formUpdate.get("ville")?.setValue(this.clientById.villeClient);
+        this.formUpdate.get("actif")?.setValue(this.clientById.actif);
       }
     );
   }
@@ -76,7 +78,8 @@ export class FormUpdateClientComponent {
     if (this.formUpdate.controls['nom'].hasError('required') ||
       this.formUpdate.controls['adresse'].hasError('required') ||
       this.formUpdate.controls['codePostal'].hasError('required') ||
-      this.formUpdate.controls['ville'].hasError('required')) {
+      this.formUpdate.controls['ville'].hasError('required') || 
+      this.formUpdate.controls['actif'].hasError('required')) {
       console.log("Un ou plusieurs champs sont requis");
     } else if (this.formUpdate.controls['codePostal'].hasError('pattern')) {
       console.log("Le code postal doit être composé de 5 chiffres")
@@ -85,6 +88,7 @@ export class FormUpdateClientComponent {
       this.clientById.adresseClient = this.formUpdate.get("adresse")?.value;
       this.clientById.codePostalClient = this.formUpdate.get("codePostal")?.value;
       this.clientById.villeClient = this.formUpdate.get("ville")?.value;
+      this.clientById.actif = this.formUpdate.get('actif')?.value
       this.clientService.update(this.clientById).subscribe({
         next: (response) => {
           alert('Client ' + response.nomClient + ' modifié!');

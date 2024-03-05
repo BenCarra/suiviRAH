@@ -41,23 +41,6 @@ export class ClientListComponent {
     this.formFiltrage.get('boutonReset')?.disable();
   }
 
-
-  onDeleteClient(id: string) {
-    if (confirm("Voulez-vous vraiment supprimer ce client ?")) {
-      this.clientService.delete(id).subscribe({
-        next: (response) => {
-          alert("Client " + response.nomClient + " supprimé");
-          this.clientService.findAll().subscribe(data => {
-            this.listClients = data;
-          })
-        },
-        error: (error) => {
-          console.log("Erreur lors de la suppression du client", error);
-        }
-      });
-    }
-  }
-
   updateFiltrage() {
     if (this.formFiltrage.value.filtrageDemande != "") {
 

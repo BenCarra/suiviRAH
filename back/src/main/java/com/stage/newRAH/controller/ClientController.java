@@ -50,9 +50,4 @@ public class ClientController {
 		return clientService.updateClient(clientDTO, id);
 	}
 	
-	@DeleteMapping("/deleteClient/{id}")
-	public ResponseEntity<ClientDTO> deleteClient(@PathVariable int id) {
-		return clientService.deleteClient(id);
-	}
-	
 }

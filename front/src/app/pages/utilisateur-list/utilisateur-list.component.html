@@ -59,14 +59,13 @@
                     <th>Equipes intégrées</th>
                     <th>Compositions intégrées</th>
                     <th>Modifier</th>
-                    <th>Supprimer</th>
                 </tr>
                 @for (utilisateur of listUtilisateurs; track $index) {
-                <tr id="{{ utilisateur.idUtilisateur }}">
+                <tr [className]="utilisateur.actif" id="{{ utilisateur.idUtilisateur }}">
                     <td>{{ utilisateur.login }}</td>
                     <td>{{ utilisateur.prenomUtilisateur }}</td>
                     <td>{{ utilisateur.nomUtilisateur }}</td>
-                    <td>{{ utilisateur.dateNaissance}}</td>
+                    <td>{{ utilisateur.dateNaissance | date:'dd-MM' }}</td> <!-- Ajouter la possibilité d'afficher un message lorsque c'est l'anniversaire d'un utilisateur -->
                     <td>{{ utilisateur.mail }}</td>
                     <td>{{ utilisateur.actif }}</td>
                     <td>{{ utilisateur.nomSite }}</td>
@@ -85,11 +84,13 @@
                         <ul>
                             <li>Equipe n°{{ equipe[0] }}</li>
                             <li>{{ equipe[1] }}</li>
+                            <li>{{ equipe[2] }}</li>
                         </ul>
                         <br>
                         }
                     </td>
                     <td>
+                        @if (utilisateur.actif != false) {
                         @for (composition of utilisateur.listCompositions; track $index){
                         <ul>
                             <li>Composition n°{{ composition[0] }}</li>
@@ -98,11 +99,10 @@
                         </ul>
                         <br>
                         }
+                        }
                     </td>
                     <td><button type="button" routerLink="/admin/utilisateurs/update/"
                             [queryParams]="{ id: utilisateur.idUtilisateur}">Modifier</button></td>
-                    <td><button type="button"
-                            (click)="onDeleteUtilisateur(utilisateur.idUtilisateur.toString())">Supprimer</button></td>
                 </tr>
                 }
                 } @else if (routerURL == "/admin/accueil") {
@@ -113,7 +113,7 @@
                     <th>Actif</th>
                 </tr>
                 @for (utilisateur of listUtilisateurs; track $index) {
-                <tr id="{{ utilisateur.idUtilisateur }}">
+                <tr [className]="utilisateur.actif" id="{{ utilisateur.idUtilisateur }}">
                     <td>{{ utilisateur.login }}</td>
                     <td>{{ utilisateur.prenomUtilisateur }}</td>
                     <td>{{ utilisateur.nomUtilisateur }}</td>

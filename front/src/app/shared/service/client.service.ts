@@ -35,7 +35,4 @@ export class ClientService {
     return this.http.put<Client>(this.url + "/updateClient/" + client.idClient, client);
   }
 
-  public delete(id: string | undefined): Observable<Client> {
-    return this.http.delete<Client>(this.url + "/deleteClient/" + id);
-  }
 }

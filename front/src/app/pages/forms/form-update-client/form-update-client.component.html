@@ -49,6 +49,18 @@
           </mat-form-field>
         </div>
       </div>
+      <div class="row">
+        <div class="col">
+          <mat-label>Actif? :</mat-label>
+          <mat-radio-group formControlName="actif">
+            <mat-radio-button value="true" [checked]="clientById.actif == true">Oui</mat-radio-button>
+            <mat-radio-button value="false" [checked]="clientById.actif == false">Non</mat-radio-button>
+          </mat-radio-group>
+          @if (formUpdate.controls['actif'].hasError('required')) {
+          <mat-error>Actif <strong>requis</strong></mat-error>
+          }
+        </div>
+      </div>
     </mat-card-content>
     <mat-card-actions>
       <button mat-raised-button type="submit" (click)="onSubmit()">Envoyer</button>

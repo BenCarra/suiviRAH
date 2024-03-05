@@ -74,15 +74,16 @@ export class FormCreateUtilisateurComponent {
       this.utilisateurCree.actif = this.formCreate.get("actif")?.value;
       this.utilisateurService.create(this.utilisateurCree).subscribe(
         {
-          next:(response) => {
+          next: (response) => {
             alert('Utilisateur ' + response.prenomUtilisateur + ' ' + response.nomUtilisateur + ' créé!');
-          }, 
-          error:(error) => {
+            this.router.navigateByUrl("/admin/utilisateurs");
+          },
+          error: (error) => {
             console.error('Erreur lors de la création de l\'utilisateur', error);
-          }   
+          }
         }
       );
-      this.router.navigateByUrl("/admin/utilisateurs");
+
     }
 
   }

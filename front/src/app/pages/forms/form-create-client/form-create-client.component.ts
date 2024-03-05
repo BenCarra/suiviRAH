@@ -38,7 +38,8 @@ export class FormCreateClientComponent {
       nom: new FormControl('', Validators.required),
       adresse: new FormControl('', Validators.required),
       codePostal: new FormControl('', Validators.compose([Validators.required, Validators.pattern("^[0-9]{5}$")])),
-      ville: new FormControl('', Validators.required)
+      ville: new FormControl('', Validators.required),
+      actif: new FormControl('', Validators.required)
     })
 
   }
@@ -52,25 +53,27 @@ export class FormCreateClientComponent {
     if (this.formCreate.controls['nom'].hasError('required') ||
       this.formCreate.controls['adresse'].hasError('required') ||
       this.formCreate.controls['codePostal'].hasError('required') ||
-      this.formCreate.controls['ville'].hasError('required')) {
+      this.formCreate.controls['ville'].hasError('required') ||
+      this.formCreate.controls['actif'].hasError('required')) {
       console.log("Un ou plusieurs champs sont requis");
     } else if (this.formCreate.controls['codePostal'].hasError('pattern')) {
-      console.log("Le code postal doit être composé de 5 chiffres")
+      console.log("Le code postal doit être composé de 5 chiffres");
     }
     else {
       this.clientCree.nomClient = this.formCreate.get("nom")?.value;
       this.clientCree.adresseClient = this.formCreate.get("adresse")?.value;
       this.clientCree.codePostalClient = this.formCreate.get("codePostal")?.value;
       this.clientCree.villeClient = this.formCreate.get("ville")?.value;
+      this.clientCree.actif = this.formCreate.get('actif')?.value;
       this.clientService.create(this.clientCree).subscribe({
         next: (response) => {
           alert('Client ' + response.nomClient + ' créé!');
+          this.router.navigateByUrl("/admin/clients");
         },
         error: (error) => {
           console.error('Erreur lors de la création du client', error);
         }
       });
-      this.router.navigateByUrl("/admin/clients");
     }
 
   }

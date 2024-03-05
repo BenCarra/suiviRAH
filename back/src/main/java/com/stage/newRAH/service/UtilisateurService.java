@@ -13,20 +13,28 @@ import com.stage.newRAH.model.Composition;
 import com.stage.newRAH.model.Equipe;
 import com.stage.newRAH.model.Tache;
 import com.stage.newRAH.model.Utilisateur;
-import com.stage.newRAH.repository.SiteRepository;
+import com.stage.newRAH.repository.CompositionRepository;
+import com.stage.newRAH.repository.EquipeRepository;
+import com.stage.newRAH.repository.TacheRepository;
 import com.stage.newRAH.repository.UtilisateurRepository;
 
 @Service
 public class UtilisateurService {
-	
+
 	@Autowired
 	UtilisateurRepository utilisateurRepository;
 
 	@Autowired
-	SiteRepository siteRepository;
-	
+	CompositionRepository compositionRepository;
+
+	@Autowired
+	TacheRepository tacheRepository;
+
+	@Autowired
+	EquipeRepository equipeRepository;
+
 	public UtilisateurDTO mapUtilisateurToDTO(Utilisateur utilisateur) {
-		
+
 		UtilisateurDTO utilisateurDTO = new UtilisateurDTO();
 
 		List<List<String>> listCompositions = new ArrayList<>();
@@ -43,10 +51,10 @@ public class UtilisateurService {
 		utilisateurDTO.setMail(utilisateur.getMail());
 		utilisateurDTO.setActif(utilisateur.isActif());
 
-		if (utilisateur.getSite() != null){
+		if (utilisateur.getSite() != null) {
 			utilisateurDTO.setNomSite(utilisateur.getSite().getNomSite());
 		}
-		if (utilisateur.getTypeUtilisateur() != null){
+		if (utilisateur.getTypeUtilisateur() != null) {
 			utilisateurDTO.setLibelleTypeUtilisateur(utilisateur.getTypeUtilisateur().getLibelle());
 		}
 		if (utilisateur.getListTaches() != null) {
@@ -83,13 +91,13 @@ public class UtilisateurService {
 	}
 
 	public ResponseEntity<List<UtilisateurDTO>> getUtilisateurs() {
-        
+
 		Iterable<Utilisateur> utilisateurs = utilisateurRepository.findAll();
 
 		if (utilisateurs.iterator().hasNext()) {
 			List<UtilisateurDTO> utilisateursDTO = new ArrayList<>();
 
-			for (Utilisateur utilisateur: utilisateurs) {
+			for (Utilisateur utilisateur : utilisateurs) {
 				UtilisateurDTO utilisateurDTO = this.mapUtilisateurToDTO(utilisateur);
 				utilisateursDTO.add(utilisateurDTO);
 			}
@@ -99,27 +107,27 @@ public class UtilisateurService {
 			return ResponseEntity.notFound().build();
 		}
 
-    }
+	}
 
 	public ResponseEntity<UtilisateurDTO> getUtilisateurById(int id) {
-        
+
 		Optional<Utilisateur> utilisateurChoisi = utilisateurRepository.findById(id);
 
 		if (utilisateurChoisi.isPresent()) {
-				UtilisateurDTO utilisateurChoisiDTO = this.mapUtilisateurToDTO(utilisateurChoisi.get());
-				return ResponseEntity.ok(utilisateurChoisiDTO);
+			UtilisateurDTO utilisateurChoisiDTO = this.mapUtilisateurToDTO(utilisateurChoisi.get());
+			return ResponseEntity.ok(utilisateurChoisiDTO);
 		} else {
 			return ResponseEntity.notFound().build();
 		}
 
-    }
+	}
 
 	public ResponseEntity<List<UtilisateurDTO>> getUtilisateursBySite(String nomSite) {
 		Iterable<Utilisateur> utilisateursChoisis = utilisateurRepository.findBySite(nomSite);
-		
+
 		if (utilisateursChoisis.iterator().hasNext()) {
 			List<UtilisateurDTO> utilisateursChoisisDTO = new ArrayList<>();
-			
+
 			for (Utilisateur utilisateurChoisi : utilisateursChoisis) {
 				UtilisateurDTO utilisateurChoisiDTO = this.mapUtilisateurToDTO(utilisateurChoisi);
 				utilisateursChoisisDTO.add(utilisateurChoisiDTO);
@@ -131,27 +139,11 @@ public class UtilisateurService {
 	}
 
 	public ResponseEntity<List<UtilisateurDTO>> getUtilisateursByNom(String nom) {
-        Iterable<Utilisateur> utilisateursChoisis = utilisateurRepository.findByNom(nom);
-		
-		if (utilisateursChoisis.iterator().hasNext()) {
-			List<UtilisateurDTO> utilisateursChoisisDTO = new ArrayList<>();
-			
-			for (Utilisateur utilisateurChoisi : utilisateursChoisis) {
-				UtilisateurDTO utilisateurChoisiDTO = this.mapUtilisateurToDTO(utilisateurChoisi);
-				utilisateursChoisisDTO.add(utilisateurChoisiDTO);
-			}
-			return ResponseEntity.ok(utilisateursChoisisDTO);
-		} else {
-			return ResponseEntity.notFound().build();
-		}
-    }
+		Iterable<Utilisateur> utilisateursChoisis = utilisateurRepository.findByNom(nom);
 
-    public ResponseEntity<List<UtilisateurDTO>> getUtilisateursByTypeUtilisateur(String libelleTypeUtilisateur) {
-        Iterable<Utilisateur> utilisateursChoisis = utilisateurRepository.findByTypeUtilisateur(libelleTypeUtilisateur);
-		
 		if (utilisateursChoisis.iterator().hasNext()) {
 			List<UtilisateurDTO> utilisateursChoisisDTO = new ArrayList<>();
-			
+
 			for (Utilisateur utilisateurChoisi : utilisateursChoisis) {
 				UtilisateurDTO utilisateurChoisiDTO = this.mapUtilisateurToDTO(utilisateurChoisi);
 				utilisateursChoisisDTO.add(utilisateurChoisiDTO);
@@ -160,10 +152,26 @@ public class UtilisateurService {
 		} else {
 			return ResponseEntity.notFound().build();
 		}
-    }
+	}
+
+	public ResponseEntity<List<UtilisateurDTO>> getUtilisateursByTypeUtilisateur(String libelleTypeUtilisateur) {
+		Iterable<Utilisateur> utilisateursChoisis = utilisateurRepository.findByTypeUtilisateur(libelleTypeUtilisateur);
+
+		if (utilisateursChoisis.iterator().hasNext()) {
+			List<UtilisateurDTO> utilisateursChoisisDTO = new ArrayList<>();
+
+			for (Utilisateur utilisateurChoisi : utilisateursChoisis) {
+				UtilisateurDTO utilisateurChoisiDTO = this.mapUtilisateurToDTO(utilisateurChoisi);
+				utilisateursChoisisDTO.add(utilisateurChoisiDTO);
+			}
+			return ResponseEntity.ok(utilisateursChoisisDTO);
+		} else {
+			return ResponseEntity.notFound().build();
+		}
+	}
 
 	public ResponseEntity<UtilisateurDTO> createUtilisateur(UtilisateurDTO utilisateurDTO) {
-        Utilisateur utilisateurACreer = new Utilisateur();
+		Utilisateur utilisateurACreer = new Utilisateur();
 
 		utilisateurACreer.setNomUtilisateur(utilisateurDTO.getNomUtilisateur());
 		utilisateurACreer.setPrenomUtilisateur(utilisateurDTO.getPrenomUtilisateur());
@@ -174,14 +182,14 @@ public class UtilisateurService {
 
 		utilisateurRepository.save(utilisateurACreer);
 
-		UtilisateurDTO utilisateurACreerDTO  = this.mapUtilisateurToDTO(utilisateurACreer);
+		UtilisateurDTO utilisateurACreerDTO = this.mapUtilisateurToDTO(utilisateurACreer);
 
 		return ResponseEntity.ok(utilisateurACreerDTO);
-    }
+	}
 
 	public ResponseEntity<UtilisateurDTO> updateUtilisateur(UtilisateurDTO utilisateurDTO, int id) {
-        Utilisateur utilisateurAModifier = utilisateurRepository.findById(id).get();
-		
+		Utilisateur utilisateurAModifier = utilisateurRepository.findById(id).get();
+
 		utilisateurAModifier.setNomUtilisateur(utilisateurDTO.getNomUtilisateur());
 		utilisateurAModifier.setPrenomUtilisateur(utilisateurDTO.getPrenomUtilisateur());
 		utilisateurAModifier.setDateNaissance(utilisateurDTO.getDateNaissance());
@@ -191,38 +199,9 @@ public class UtilisateurService {
 
 		utilisateurRepository.save(utilisateurAModifier);
 
-		UtilisateurDTO utilisateurAModifierDTO  = this.mapUtilisateurToDTO(utilisateurAModifier);
+		UtilisateurDTO utilisateurAModifierDTO = this.mapUtilisateurToDTO(utilisateurAModifier);
 
 		return ResponseEntity.ok(utilisateurAModifierDTO);
-    }
+	}
 
-    public ResponseEntity<UtilisateurDTO> deleteUtilisateur(int id) {
-        Utilisateur utilisateurASupprimer = utilisateurRepository.findById(id).get();
-
-
-		//TODO : A revoir pour respecter les contraintes de clé étrangères
-
-		/*utilisateurASupprimer.setListTaches(new ArrayList<>());
-		utilisateurASupprimer.setListCompositions(new ArrayList<>());
-		utilisateurASupprimer.setListEquipes(new ArrayList<>());
-		utilisateurRepository.save(utilisateurASupprimer);*/
-
-		/*for (Tache tache : utilisateurASupprimer.getListTaches()) {
-			utilisateurASupprimer.getListTaches().remove(tache);
-			utilisateurRepository.save(utilisateurASupprimer);
-		}
-		for (Equipe equipe : utilisateurASupprimer.getListEquipes()) {
-			utilisateurASupprimer.getListEquipes().remove(equipe);
-			utilisateurRepository.save(utilisateurASupprimer);
-		}
-		for (Composition composition : utilisateurASupprimer.getListCompositions()) {
-			utilisateurASupprimer.getListCompositions().remove(composition);
-		}*/
-
-		UtilisateurDTO utilisateurASupprimerDTO = this.mapUtilisateurToDTO(utilisateurASupprimer);
-
-		utilisateurRepository.delete(utilisateurASupprimer);
-
-		return ResponseEntity.ok(utilisateurASupprimerDTO);
-    }
 }

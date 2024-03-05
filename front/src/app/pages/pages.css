@@ -55,11 +55,16 @@ th {
 }
 
 th {
-    background-color: #E8E7E7;
+    background-color: #312B6D;
+    color: white;
 }
 
-td {
+tr {
     background-color: white;
+}
+
+tr.false {
+    background-color: #E8E7E7;
 }
 
 td ul {

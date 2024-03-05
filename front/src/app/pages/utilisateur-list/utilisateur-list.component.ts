@@ -44,23 +44,6 @@ export class UtilisateurListComponent {
     this.formFiltrage.get('boutonReset')?.disable();
   }
 
-
-  onDeleteUtilisateur(id: string) {
-    if (confirm("Voulez-vous vraiment supprimer cet utilisateur ?")) {
-      this.utilisateurService.delete(id).subscribe({
-        next: (response) => {
-          alert("Utilisateur " + response.prenomUtilisateur + " " + response.nomUtilisateur + " supprimé");
-          this.utilisateurService.findAll().subscribe(data => {
-            this.listUtilisateurs = data;
-          })
-        },
-        error: (error) => {
-          console.log("Erreur lors de la suppression de l'utilisateur", error);
-        }
-      });
-    }
-  }
-
   updateFiltrage() {
     if (this.formFiltrage.value.filtrageDemande != "") {
 
