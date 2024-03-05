@@ -1,0 +1,98 @@
+.week-days div {
+  text-align: center;
+  /* Ajustez le padding si nécessaire */
+  font-size: 0.85em; /* Rendre la police plus petite pour les noms des jours */
+  font-weight: bold; /* Facultatif : rend le texte des jours de la semaine en gras */
+  height: 50px; /* Assure une hauteur uniforme pour toutes les cases */
+}
+
+.days div {
+  text-align: center;
+  padding: 24px; /* Ajustez le padding si nécessaire */
+  font-size: 0.85em; /* Ajustez la taille de la police si nécessaire */
+  height: 50px; /* Assure une hauteur uniforme pour toutes les cases */
+
+}
+
+/* Pour les cases vides, vous pouvez décider d'avoir un style différent ou de les laisser invisibles */
+.days div:empty {
+  background-color: transparent; /* Cela rend le fond des cases vides transparent */
+}
+
+.calendar {
+  margin-top: 25px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.week-days, .days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 5px; /* Ajustez l'espacement entre les cases */
+}
+
+/* Si les grilles ne s'alignent pas correctement, assurez-vous qu'aucun style extérieur ne les affecte */
+* {
+  box-sizing: border-box; /* Cela aide à éviter les problèmes d'alignement dus au padding et au border */
+}
+
+
+
+ 
+ /* h1 {
+  text-align: center; 
+  font-size:30px; 
+  color: #312B6D;
+  margin-top: 25px;
+  margin-bottom: 25px;
+} */
+
+/*
+td, th {
+  border: 1px solid black;
+  text-align: left;
+  padding: 8px;
+}
+
+.calendar-container {
+  padding-left: 30px;
+  padding-bottom: 10px; 
+  overflow-x: auto;
+  /* overflow est sur auto pour afficher une barre si le tableau déborde 
+} */
+
+/* effet d'élevation */
+/* .calendar-container table {
+  box-shadow: 5px 6px 8px 0 rgba(0,0,0,0.3);
+  margin: auto;
+} */
+
+/* table {
+   border-collapse: collapse; 
+  /* Enlève les doubles bordures 
+} */
+
+/* th {
+  background-color: #00884C;
+  white-space: nowrap; 
+  
+}
+
+td {
+  background-color:#E8E7E7 ;
+  /* white-space: nowrap; */
+  /* Si long commentaire : retour à la ligne 
+} */ 
+
+ .calendar-container {
+    display: flex;
+    justify-content: center;
+    
+    align-items: center; 
+    height: 600px;
+  }
+
+  mat-calendar {
+    width: 500px; 
+  } 

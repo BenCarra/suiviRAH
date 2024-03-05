@@ -1,1 +1,59 @@
-<p>calendrier works!</p>
+<div class="calendar">
+    <button (click)="goToPreviousMonth()">Précédent</button>
+    <span>{{ currentMonth | date: 'MMMM yyyy' }}</span>
+    <button (click)="goToNextMonth()">Suivant</button>
+    
+    <div class="week-days">
+      <div *ngFor="let day of weekDays">{{ day }}</div>
+    </div>
+    
+    <div class="days">
+      <ng-container *ngFor="let day of daysInMonth">
+        <div *ngIf="day; else empty">
+          {{ day | date: 'dd' }}
+        </div>
+        <ng-template #empty><div></div></ng-template>
+      </ng-container>
+    </div>
+  </div>
+  
+
+<!-- <h1 >Mois de {{currentMonth | date: 'MMMM yyyy'}} - {{utilisateur.prenomUtilisateur }} {{utilisateur.nomUtilisateur }} </h1>
+
+<div class="calendar-container" >
+    <mat-calendar></mat-calendar>
+</div> -->
+
+<!--  <div class="calendar-container">
+    <table>
+        <thead>
+            <tr>
+                <th>Semaine</th>
+                <th>Lundi</th>
+                <th>Mardi</th>
+                <th>Mercredi</th>
+                <th>Jeudi</th>
+                <th>Vendredi</th>
+                <th>Samedi</th>
+                <th>Dimanche</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let week of getWeeks()">
+                <td>{{ getWeekNumber(week[0]) }}</td>
+                <ng-container *ngFor="let day of week">
+                    <td *ngIf="day">{{ day.getDate() }}</td>
+                    <td *ngIf="!day">&nbsp;</td> 
+                </ng-container>     
+            </tr>
+        </tbody>
+    </table>
+</div> -->
+  
+
+<!-- <div class="calendar-container">
+    <mwl-calendar-month-view [viewDate]="currentDate">
+    </mwl-calendar-month-view>
+</div> -->
+
+

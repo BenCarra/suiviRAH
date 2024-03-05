@@ -5,16 +5,22 @@ import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
 import { provideHttpClient } from '@angular/common/http';
 import { provideAnimations } from '@angular/platform-browser/animations'; // pour les selects
-import {provideNativeDateAdapter} from '@angular/material/core'; // pour les formulaires de date
+import { provideNativeDateAdapter } from '@angular/material/core'; // pour les formulaires de date
 
 // Imports nécessaires pour afficher la date en français dans la liste des tâches
 import { registerLocaleData } from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
 registerLocaleData(localeFr);
 
-
+// import { DateAdapter } from 'angular-calendar';
+// import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideRouter(routes), provideHttpClient(), provideAnimations(), provideNativeDateAdapter(),
-    { provide: LOCALE_ID, useValue: 'fr' } ]
+  providers: [provideRouter(routes), 
+    provideHttpClient(), 
+    provideAnimations(), 
+    provideNativeDateAdapter(),
+    { provide: LOCALE_ID, useValue: 'fr' },
+    //{provide: DateAdapter, useFactory: adapterFactory}
+   ]
 };
