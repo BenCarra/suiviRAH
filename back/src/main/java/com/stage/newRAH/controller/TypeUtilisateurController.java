@@ -32,8 +32,8 @@ public class TypeUtilisateurController {
 	}
 	
 	@GetMapping("/typeUtilisateurByLibelle/{libelle}")
-	public ResponseEntity<TypeUtilisateurDTO> getTypeUtilisateurByLibelle(@PathVariable String libelle) {
-		return typeUtilisateurService.getTypeUtilisateurByLibelle(libelle);
+	public ResponseEntity<List<TypeUtilisateurDTO>> getTypesUtilisateurByLibelle(@PathVariable String libelle) {
+		return typeUtilisateurService.getTypesUtilisateurByLibelle(libelle);
 	}
 	
 	@PostMapping("/createTypeUtilisateur")

@@ -57,12 +57,17 @@ public class TypeUtilisateurService {
 		}
 	}
 
-	public ResponseEntity<TypeUtilisateurDTO> getTypeUtilisateurByLibelle(String libelle) {
-		Optional<TypeUtilisateur> typeUtilisateurChoisi = typeUtilisateurRepository.findByLibelle(libelle);
+	public ResponseEntity<List<TypeUtilisateurDTO>> getTypesUtilisateurByLibelle(String libelle) {
+		Iterable<TypeUtilisateur> typesUtilisateurChoisis = typeUtilisateurRepository.findByLibelle(libelle);
 
-		if (typeUtilisateurChoisi.isPresent()) {
-			TypeUtilisateurDTO typeUtilisateurDTO = this.mapTypeUtilisateurToDTO(typeUtilisateurChoisi.get());
-			return ResponseEntity.ok(typeUtilisateurDTO);
+		if (typesUtilisateurChoisis.iterator().hasNext()) {
+			List<TypeUtilisateurDTO> typesUtilisateurChoisisDTO= new ArrayList<>();
+			for (TypeUtilisateur typeUtilisateurChoisi : typesUtilisateurChoisis) {
+				TypeUtilisateurDTO typeUtilisateurChoisiDTO = this.mapTypeUtilisateurToDTO(typeUtilisateurChoisi);
+				typesUtilisateurChoisisDTO.add(typeUtilisateurChoisiDTO);
+			}
+			return ResponseEntity.ok(typesUtilisateurChoisisDTO);
+			
 		} else {
 			return ResponseEntity.notFound().build();
 		}
@@ -80,26 +85,37 @@ public class TypeUtilisateurService {
 	}
 
 	public ResponseEntity<TypeUtilisateurDTO> updateTypeUtilisateur(TypeUtilisateurDTO typeUtilisateurDTO, int id) {
-		TypeUtilisateur typeUtilisateurAModifier = typeUtilisateurRepository.findById(id).get();
+		Optional<TypeUtilisateur> typeUtilisateurAModifierOptional = typeUtilisateurRepository.findById(id);
 
-		typeUtilisateurAModifier.setLibelle(typeUtilisateurDTO.getLibelle());
-
-		typeUtilisateurRepository.save(typeUtilisateurAModifier);
-
-		TypeUtilisateurDTO typeUtilisateurAModifierDTO = this.mapTypeUtilisateurToDTO(typeUtilisateurAModifier);
-
-		return ResponseEntity.ok(typeUtilisateurAModifierDTO);
+		if (typeUtilisateurAModifierOptional.isPresent()) {
+			TypeUtilisateur typeUtilisateurAModifier = typeUtilisateurAModifierOptional.get();
+			typeUtilisateurAModifier.setLibelle(typeUtilisateurDTO.getLibelle());
+			typeUtilisateurRepository.save(typeUtilisateurAModifier);
+			TypeUtilisateurDTO typeUtilisateurAModifierDTO = this.mapTypeUtilisateurToDTO(typeUtilisateurAModifier);
+			return ResponseEntity.ok(typeUtilisateurAModifierDTO);
+		} else {
+			return ResponseEntity.notFound().build();
+		}
 
 	}
 
 	public ResponseEntity<TypeUtilisateurDTO> deleteTypeUtilisateur(int id) {
-		TypeUtilisateur typeUtilisateurAEffacer = typeUtilisateurRepository.findById(id).get();
+		Optional<TypeUtilisateur> typeUtilisateurAEffacerOptional = typeUtilisateurRepository.findById(id);
 
-		TypeUtilisateurDTO typeUtilisateurAEffacerDTO = this.mapTypeUtilisateurToDTO(typeUtilisateurAEffacer);
+		if (typeUtilisateurAEffacerOptional.isPresent()){
 
-		typeUtilisateurRepository.deleteById(id);
+			TypeUtilisateur typeUtilisateurAEffacer = typeUtilisateurAEffacerOptional.get();
 
-		return ResponseEntity.ok(typeUtilisateurAEffacerDTO);
+			TypeUtilisateurDTO typeUtilisateurAEffacerDTO = this.mapTypeUtilisateurToDTO(typeUtilisateurAEffacer);
+
+			typeUtilisateurRepository.deleteById(id);
+
+			return ResponseEntity.ok(typeUtilisateurAEffacerDTO);
+		} else {
+			return ResponseEntity.notFound().build();
+		}
+
+		
 	}
 
 }

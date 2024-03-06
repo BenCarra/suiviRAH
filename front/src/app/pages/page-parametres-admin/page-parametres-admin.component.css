@@ -1,1 +1,33 @@
 @import url(../pages.css);
+
+@media screen and (max-width: 720px) {
+
+    .tools-box {
+        display: flex;
+        flex-direction: column;
+    }
+
+}
+
+@media screen and (max-width: 800px) {
+
+    #accueil-lists div{
+        flex-direction: column;
+    }
+    
+}
+
+#parametres-lists div {
+    display: flex;
+    align-items: first baseline;
+}
+
+app-type-utilisateur-list,
+app-type-projet-list,
+app-type-defaut-list,
+app-type-tache-list,
+app-etat-projet-list,
+app-site-list {
+    width: 100%;
+    margin: auto;
+}

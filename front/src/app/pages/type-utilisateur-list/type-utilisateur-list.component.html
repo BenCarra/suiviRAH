@@ -1,0 +1,38 @@
+<div id="liste">
+    <form id="filtrage" [formGroup]="formFiltrage">
+        <select id="filtrage-demande" formControlName="filtrageDemande" (change)="updateFiltrage()">
+            <option disabled [selected]="formFiltrage.value.filtrageDemande == ''">-- Sélectionner un filtre --</option>
+            <option value="Par libellé de type utilisateur">Rechercher par libellé de type utilisateur</option>
+        </select>
+        @if (formFiltrage.get("filtrageDemande")?.getRawValue() == "Par libellé de type utilisateur") {
+        <select id="libelles-type-utilisateur" autocomplete formControlName="typeUtilisateurRecherche">
+            <option disabled [selected]="formFiltrage.value.filtrageDemande == 'Par libellé de type utilisateur'">--
+                Sélectionner
+                un type d'utilisateur --</option>
+            @for (libelleTypeUtilisateur of listLibellesTypesUtilisateur; track $index) {
+            <option [value]="libelleTypeUtilisateur">{{ libelleTypeUtilisateur }}</option>
+            }
+        </select>
+        }
+        <input type="submit" id="btn-soumission" formControlName="boutonSoumission" (click)="onSearch($event)">
+        <input type="reset" id="btn-reset" (click)="onReset($event)" formControlName="boutonReset">
+    </form>
+
+    <div id="table">
+        <table border="2">
+            <tbody>
+                <tr>
+                    <th>Login</th>
+                    <th>Prénom</th>
+                </tr>
+                @for (typeUtilisateur of listTypesUtilisateur; track $index) {
+                <tr id="{{ typeUtilisateur.idTypeUtilisateur }}">
+                    <td>{{ typeUtilisateur.libelle }}</td>
+                    <td><button type="button" routerLink="/admin/parametres/updateTypeUtilisateur/"
+                            [queryParams]="{ id: typeUtilisateur.idTypeUtilisateur }">Modifier</button></td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

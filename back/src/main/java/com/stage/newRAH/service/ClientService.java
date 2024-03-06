@@ -116,19 +116,28 @@ public class ClientService {
 	}
 
 	public ResponseEntity<ClientDTO> updateClient(ClientDTO clientDTO, int id) {
-		Client clientAModifier = clientRepository.findById(id).get();
+		Optional<Client> clientAModifierOptional = clientRepository.findById(id);
 
-		clientAModifier.setAdresseClient(clientDTO.getAdresseClient());
-		clientAModifier.setCodePostalClient(clientDTO.getCodePostalClient());
-		clientAModifier.setNomClient(clientDTO.getNomClient());
-		clientAModifier.setVilleClient(clientDTO.getVilleClient());
-		clientAModifier.setActif(clientDTO.isActif());
+		if (clientAModifierOptional.isPresent()) {
 
-		clientRepository.save(clientAModifier);
+			Client clientAModifier = clientAModifierOptional.get();
 
-		ClientDTO clientAModifierDTO = this.mapClientToDTO(clientAModifier);
+			clientAModifier.setAdresseClient(clientDTO.getAdresseClient());
+			clientAModifier.setCodePostalClient(clientDTO.getCodePostalClient());
+			clientAModifier.setNomClient(clientDTO.getNomClient());
+			clientAModifier.setVilleClient(clientDTO.getVilleClient());
+			clientAModifier.setActif(clientDTO.isActif());
 
-		return ResponseEntity.ok(clientAModifierDTO);
+			clientRepository.save(clientAModifier);
+
+			ClientDTO clientAModifierDTO = this.mapClientToDTO(clientAModifier);
+
+			return ResponseEntity.ok(clientAModifierDTO);
+		} else {
+			return ResponseEntity.notFound().build();
+		}
+
+		
 	}
 
 }

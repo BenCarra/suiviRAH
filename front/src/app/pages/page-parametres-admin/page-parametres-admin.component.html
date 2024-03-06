@@ -1,1 +1,88 @@
-<p>page-parametres-admin works!</p>
+<app-header></app-header>
+
+<main>
+
+    <div id="parametres-lists">
+        <div>
+            <app-type-utilisateur-list></app-type-utilisateur-list>
+            <app-type-projet-list></app-type-projet-list>
+            <app-type-defaut-list></app-type-defaut-list>
+        </div>
+        <div>
+            <app-type-tache-list></app-type-tache-list>
+            <app-etat-projet-list></app-etat-projet-list>
+            <app-site-list></app-site-list>
+        </div>
+        
+    </div>
+    
+
+    <div id="tools-box-container">
+        <div class="tools-box">
+            <div class="conteneur-btn">
+                <div class="btn">
+                    <a routerLink="/admin/parametres/createTypeUtilisateur"><img src="../../assets/img/plus-btn.png" alt="plus-btn" /></a>
+                </div>
+                <div class="libelle-btn">
+                    <p>
+                        <span>CREER UN TYPE D'UTILISATEUR</span>
+                    </p>
+                </div>
+            </div>
+            <div class="conteneur-btn">
+                <div class="btn">
+                    <a routerLink="/admin/parametres/createTypeProjet"><img src="../../assets/img/plus-btn.png" alt="plus-btn" /></a>
+                </div>
+                <div class="libelle-btn">
+                    <p>
+                        <span>CREER UN TYPE DE PROJET</span>
+                    </p>
+                </div>
+            </div>
+            <div class="conteneur-btn">
+                <div class="btn">
+                    <a routerLink="/admin/parametres/createTypeDefaut"><img src="../../assets/img/plus-btn.png" alt="plus-btn" /></a>
+                </div>
+                <div class="libelle-btn">
+                    <p>
+                        <span>CREER UN TYPE DE DEFAUT</span>
+                    </p>
+                </div>
+            </div>
+            <div class="conteneur-btn">
+                <div class="btn">
+                    <a routerLink="/admin/parametres/createTypeTache"><img src="../../assets/img/plus-btn.png" alt="plus-btn" /></a>
+                </div>
+                <div class="libelle-btn">
+                    <p>
+                        <span>CREER UN TYPE DE TACHE</span>
+                    </p>
+                </div>
+            </div>
+            <div class="conteneur-btn">
+                <div class="btn">
+                    <a routerLink="/admin/parametres/createEtatProjet"><img src="../../assets/img/plus-btn.png" alt="plus-btn" /></a>
+                </div>
+                <div class="libelle-btn">
+                    <p>
+                        <span>CREER UN ETAT DE PROJET</span>
+                    </p>
+                </div>
+            </div>
+            <div class="conteneur-btn">
+                <div class="btn">
+                    <a routerLink="/admin/parametres/createSite"><img src="../../assets/img/plus-btn.png" alt="plus-btn" /></a>
+                </div>
+                <div class="libelle-btn">
+                    <p>
+                        <span>CREER UN SITE</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+        
+
+</main>
+
+<app-footer></app-footer>

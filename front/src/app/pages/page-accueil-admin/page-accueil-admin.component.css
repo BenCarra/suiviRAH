@@ -6,6 +6,15 @@
         display: flex;
         flex-direction: column;
     }
+
+}
+
+@media screen and (max-width: 800px) {
+
+    #accueil-lists div{
+        flex-direction: column;
+    }
+    
 }
 
 #accueil-lists div {

@@ -35,5 +35,7 @@ export const routes: Routes = [{ path: '', component: HomeComponent },
 { path: 'admin/taches/create', component:  FormCreateTacheComponent},
 { path: 'admin/taches/update', component: FormUpdateTacheComponent },*/
 { path: 'admin/parametres', component: PageParametresAdminComponent},
+//{path : 'admin/parametres/createTypeUtilisateur', component: FormCreateTypeUtilisateur},
+//{path : 'admin/parametres/updateTypeUtilisateur', component: FormUpdateTypeUtilisateur},
 { path: "**", component: NotFoundComponent }];
 

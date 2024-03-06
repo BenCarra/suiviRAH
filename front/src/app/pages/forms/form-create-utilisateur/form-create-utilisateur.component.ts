@@ -12,7 +12,7 @@ import { Utilisateur } from '../../../shared/model/utilisateur';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { Site } from '../../../shared/model/site';
-import { TypeUtilisateur } from '../../../shared/service/type-utilisateur';
+import { TypeUtilisateur } from '../../../shared/model/type-utilisateur';
 import { SiteService } from '../../../shared/service/site.service';
 import { TypeUtilisateurService } from '../../../shared/service/type-utilisateur.service';
 
