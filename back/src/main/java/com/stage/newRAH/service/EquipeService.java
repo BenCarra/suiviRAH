@@ -11,14 +11,27 @@ import org.springframework.stereotype.Service;
 import com.stage.newRAH.dto.EquipeDTO;
 import com.stage.newRAH.model.Composition;
 import com.stage.newRAH.model.Equipe;
+import com.stage.newRAH.model.Projet;
 import com.stage.newRAH.model.Utilisateur;
+import com.stage.newRAH.repository.CompositionRepository;
 import com.stage.newRAH.repository.EquipeRepository;
+import com.stage.newRAH.repository.ProjetRepository;
+import com.stage.newRAH.repository.UtilisateurRepository;
 
 @Service
 public class EquipeService {
 	
 	@Autowired
 	EquipeRepository equipeRepository;
+
+	@Autowired
+	UtilisateurRepository utilisateurRepository;
+
+	@Autowired
+	CompositionRepository compositionRepository;
+
+	@Autowired
+	ProjetRepository projetRepository;
 	
 	public EquipeDTO mapEquipeToDTO(Equipe equipe) {
 		EquipeDTO equipeDTO = new EquipeDTO();
@@ -108,6 +121,29 @@ public class EquipeService {
 
 		equipeACreer.setLibelle(equipeDTO.getLibelle());
 
+		/* On remplit la liste des utilisateurs de l'équipe à créer côté équipe
+		et pour chacun de ses membres, on affecte cette équipe afin d'afficher côté utilisateur la liste des équipes auxquelles un membre appartient */
+		List<List<String>> utilisateursString = equipeDTO.getListUtilisateurs();
+		List<Utilisateur> utilisateurs = new ArrayList<>();
+
+		// TODO : Voir si on peut recréer une équipe sans créer une nouvelle composition 
+		/*for (List<String> utilisateurString : utilisateursString) {
+			Utilisateur utilisateur = utilisateurRepository.findById(Integer.valueOf(utilisateurString.get(0))).get();
+			List<Composition> compositionsU = utilisateur.getListCompositions();
+
+			for (Composition compositionU : compositionsU) {
+				if (compositionU.getEquipe().getLibelle() == equipeDTO.getLibelle()){
+					
+				};
+			}
+
+			List<Equipe> equipes = utilisateur.getListEquipes();
+			equipes.add(equipeACreer);
+			utilisateurs.add(utilisateur);
+		}*/
+
+		equipeACreer.setListUtilisateurs(utilisateurs);
+
 		equipeRepository.save(equipeACreer);
 
 		EquipeDTO equipeACreerDTO = this.mapEquipeToDTO(equipeACreer);
@@ -116,25 +152,74 @@ public class EquipeService {
 	}
 
 	public ResponseEntity<EquipeDTO> updateEquipe(EquipeDTO equipeDTO, int id) {
-		Equipe equipeAModifier = equipeRepository.findById(id).get();
+		Optional<Equipe> equipeAModifierOptional = equipeRepository.findById(id);
 
-		equipeAModifier.setLibelle(equipeDTO.getLibelle());
+		if (equipeAModifierOptional.isPresent()){
+			Equipe equipeAModifier = equipeAModifierOptional.get();
 
-		equipeRepository.save(equipeAModifier);
+			List<List<String>> utilisateursString = equipeDTO.getListUtilisateurs();
+			List<Utilisateur> utilisateurs = new ArrayList<>();
 
-		EquipeDTO equipeAModifierDTO = this.mapEquipeToDTO(equipeAModifier);
+			for (List<String> utilisateurString : utilisateursString) {
+				Utilisateur utilisateur = utilisateurRepository.findById(Integer.valueOf(utilisateurString.get(0))).get();
+				List<Equipe> equipes = utilisateur.getListEquipes();
 
-		return ResponseEntity.ok(equipeAModifierDTO);
+				if (equipes.contains(equipeAModifier)) {
+					equipes.remove(equipeAModifier);
+					equipeAModifier.setLibelle(equipeDTO.getLibelle());
+					equipes.add(equipeAModifier);
+				}
+				utilisateurs.add(utilisateur);
+			}
+
+			equipeAModifier.setListUtilisateurs(utilisateurs);
+
+			equipeRepository.save(equipeAModifier);
+
+			EquipeDTO equipeAModifierDTO = this.mapEquipeToDTO(equipeAModifier);
+
+			return ResponseEntity.ok(equipeAModifierDTO);
+		} else {
+			return ResponseEntity.notFound().build();
+		}
+
+		
 	}
 
 	public ResponseEntity<EquipeDTO> deleteEquipe(int id) {
-		Equipe equipeASupprimer = equipeRepository.findById(id).get();
+		Optional<Equipe> equipeASupprimerOptional = equipeRepository.findById(id);
 
-		EquipeDTO equipeASupprimerDTO = this.mapEquipeToDTO(equipeASupprimer);
+		if (equipeASupprimerOptional.isPresent()) {
 
-		equipeRepository.delete(equipeASupprimer);
+			Equipe equipeASupprimer = equipeASupprimerOptional.get();
 
-		return ResponseEntity.ok(equipeASupprimerDTO);
+			/* On supprime le lien entre composition et projet */
+			List<Composition> compositions = equipeASupprimer.getListCompositions();
+			Iterable<Projet> projets = projetRepository.findAll();
+
+			for (Composition composition : compositions) {
+
+				for (Projet projet : projets) {
+					if (projet.getListCompositions().contains(composition)) {
+						projet.getListCompositions().remove(composition);
+						projetRepository.save(projet);
+					}
+				}
+
+				List<Projet> projetsComposition = composition.getListProjets();
+				projetsComposition.removeAll(projetsComposition);
+			}
+
+			EquipeDTO equipeASupprimerDTO = this.mapEquipeToDTO(equipeASupprimer);
+
+			equipeRepository.delete(equipeASupprimer);
+
+			return ResponseEntity.ok(equipeASupprimerDTO);
+		} else {
+			return ResponseEntity.notFound().build();
+		}
+
+		
 	}
 
 }

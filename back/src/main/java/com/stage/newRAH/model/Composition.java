@@ -3,7 +3,6 @@ package com.stage.newRAH.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -33,7 +32,7 @@ public class Composition {
 	@JoinColumn(name="id_utilisateur")
 	private Utilisateur utilisateur;
 	
-	@ManyToMany(mappedBy="listCompositions", cascade = CascadeType.ALL)
+	@ManyToMany(mappedBy="listCompositions")
 	private List<Projet> listProjets = new ArrayList<>();
 	
 	

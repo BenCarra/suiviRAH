@@ -19,80 +19,83 @@ import com.stage.newRAH.repository.UtilisateurRepository;
 
 @Service
 public class TacheService {
-
+	
 	@Autowired
 	TacheRepository tacheRepository;
-
+	
 	@Autowired
 	TypeTacheRepository typeTacheRepository;
-
+	
 	@Autowired
 	ProjetRepository projetRepository;
+	
 
 	@Autowired
 	UtilisateurRepository utilisateurRepository;
-
+	
 	public TacheDTO mapTacheToDTO(Tache tache) {
-
+		
 		TacheDTO tacheDTO = new TacheDTO();
-
+		List<Integer> listIdUtilisateurs = new ArrayList<>();
+		
 		tacheDTO.setIdTache(tache.getIdTache());
 		tacheDTO.setNomTache(tache.getNomTache());
-		tacheDTO.setDebutTache(tache.getDebutTache());
-		tacheDTO.setFinTache(tache.getFinTache());
+		tacheDTO.setDateTache(tache.getDateTache());
+		tacheDTO.setDureeTache(tache.getDureeTache());
 		tacheDTO.setCommentaires(tache.getCommentaires());
-		tacheDTO.setIdTypeTache(tache.getTypeTache().getIdTypeTache());
-		tacheDTO.setIdProjet(tache.getProjet().getIdProjet());
+		if (tache.getTypeTache() != null) { 
+			tacheDTO.setLibelleTypeTache(tache.getTypeTache().getLibelle());
+		}
+		if (tache.getProjet() != null) { 
+			tacheDTO.setNomProjet(tache.getProjet().getNomProjet());
+		}
 
+		if (tache.getListUtilisateurs() != null) {
+		for (Utilisateur utilisateur : tache.getListUtilisateurs()) {
+			listIdUtilisateurs.add(utilisateur.getIdUtilisateur());
+			}
+		}
+
+		tacheDTO.setListIdUtilisateurs(listIdUtilisateurs);
+		
+				
 		return tacheDTO;
 	}
-	
+
 	public ResponseEntity<List<TacheDTO>> getTaches() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public ResponseEntity<TacheDTO> getTacheById(int id) {
-
-		Optional<Tache> tacheChoisie = tacheRepository.findById(id);
-
-		if (tacheChoisie.isPresent()) {
-
-			TacheDTO tacheDTO = mapTacheToDTO(tacheChoisie.get());
-			return ResponseEntity.ok(tacheDTO);
-		} else {
-			return ResponseEntity.notFound().build();
-		}
-	}
-
-	public ResponseEntity<List<TacheDTO>> getTachesByUtilisateur(int idUtilisateur) {
-
-		Optional<Utilisateur> utilisateurChoisi = utilisateurRepository.findById(idUtilisateur);
-
-		if (utilisateurChoisi.isPresent()) {
-			List<Tache> taches = utilisateurChoisi.get().getListTaches();
-			List<TacheDTO> tachesDTO = new ArrayList<>();
-
+		Iterable<Tache> taches = tacheRepository.findAll();
+		List<TacheDTO> tachesDTO = new ArrayList<>();
+			
 			for (Tache tache : taches) {
 				TacheDTO tacheDTO = this.mapTacheToDTO(tache);
 				tachesDTO.add(tacheDTO);
-
 			}
 			return ResponseEntity.ok(tachesDTO);
 
-		} else {
-			return ResponseEntity.notFound().build();
-		}
 	}
+	
+	public ResponseEntity<TacheDTO> getTacheById(int id) {
+		
+        Optional<Tache> tacheChoisie = tacheRepository.findById(id);
+        
+        if (tacheChoisie.isPresent()) {
 
-	public ResponseEntity<List<TacheDTO>> getTachesByProjet(int idProjet) {
-		Optional<Projet> projetChoisi = projetRepository.findById(idProjet);
-
+            TacheDTO tacheDTO = mapTacheToDTO(tacheChoisie.get());
+            return ResponseEntity.ok(tacheDTO);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+	
+	public ResponseEntity<List<TacheDTO>> getTachesByProjet(int id) {
+		
+		Optional<Projet> projetChoisi = projetRepository.findById(id);
+		
 		if (projetChoisi.isPresent()) {
-
+			
 			List<Tache> taches = projetChoisi.get().getListTaches();
 			List<TacheDTO> tachesDTO = new ArrayList<>();
-
+			
 			for (Tache tache : taches) {
 				TacheDTO tacheDTO = this.mapTacheToDTO(tache);
 				tachesDTO.add(tacheDTO);
@@ -100,34 +103,27 @@ public class TacheService {
 			return ResponseEntity.ok(tachesDTO);
 		} else {
 			return ResponseEntity.notFound().build();
+		}	
+	}
+	
+	public ResponseEntity<List<TacheDTO>> getTachesByUtilisateur(int id) {
+			
+			Optional<Utilisateur> utilisateurChoisi = utilisateurRepository.findById(id);
+			
+			if (utilisateurChoisi.isPresent()) {
+				
+				List<Tache> taches = utilisateurChoisi.get().getListTaches();
+				List<TacheDTO> tachesDTO = new ArrayList<>();
+				
+				for (Tache tache : taches) {
+					TacheDTO tacheDTO = this.mapTacheToDTO(tache);
+					tachesDTO.add(tacheDTO);
+				}
+				return ResponseEntity.ok(tachesDTO);
+			} else {
+				return ResponseEntity.notFound().build();
+			}	
 		}
-	}
 	
-	public ResponseEntity<List<TacheDTO>> getTachesByTypeTache(int idTypeTache) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public ResponseEntity<List<TacheDTO>> getTachesByEquipe(int idEquipe) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public ResponseEntity<TacheDTO> createTache(TacheDTO tacheDTO) {
-		return null;
-	}
-
-	public ResponseEntity<TacheDTO> updateTache(TacheDTO tacheDTO, int id) {
-		return null;
-	}
-	
-	public ResponseEntity<TacheDTO> duplicateTache(TacheDTO tacheDTO, int id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public ResponseEntity<TacheDTO> deleteTache(int id) {;
-		return null;
-	}
-
 }
+

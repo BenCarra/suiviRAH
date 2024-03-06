@@ -31,9 +31,11 @@ export class EquipeListComponent {
       boutonSoumission: new FormControl('OK', Validators.required),
       boutonReset: new FormControl('Reset')
     });
-    this.equipeService.findAll().subscribe(data => {
-      this.listEquipes = data;
-    })
+    
+    this.equipeService.findAll().subscribe(
+      data => {
+        this.listEquipes = data;
+      })
     this.formFiltrage.get('equipeRecherche')?.disable();
     this.formFiltrage.get('boutonSoumission')?.disable();
     this.formFiltrage.get('boutonReset')?.disable();
@@ -45,9 +47,14 @@ export class EquipeListComponent {
       this.equipeService.delete(id).subscribe({
         next: (response) => {
           alert("Equipe " + response.libelle + " supprimée");
-          this.equipeService.findAll().subscribe(data => {
-            this.listEquipes = data;
-          })
+          if (this.listEquipes.length == 1) {
+            this.listEquipes = [];
+          } else {
+            this.equipeService.findAll().subscribe(data => {
+              console.log(data);
+              this.listEquipes = data;
+            })
+          }
         },
         error: (error) => {
           console.log("Erreur lors de la suppression de l'équipe", error);

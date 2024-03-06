@@ -12,7 +12,7 @@ import com.stage.newRAH.model.TypeTache;
 @Repository
 public interface TypeTacheRepository extends CrudRepository<TypeTache, Integer> {
 
-	@Query("SELECT t FROM TypeTache t WHERE libelle=:libelle")
-	Optional<TypeTache> findByLibelle(@Param(value="libelle")String libelle);
+    @Query("SELECT t FROM TypeTache t where libelle=:libelle")
+    Optional<TypeTache> findByLibelle(@Param(value = "libelle") String libelle);
 
 }

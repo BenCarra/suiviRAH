@@ -11,6 +11,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
+import { Utilisateur } from '../../../shared/model/utilisateur';
+import { UtilisateurService } from '../../../shared/service/utilisateur.service';
 
 @Component({
   selector: 'app-form-update-equipe',
@@ -32,13 +34,15 @@ export class FormUpdateEquipeComponent {
   formUpdate!: FormGroup;
   idEquipe!: string;
   equipeById!: Equipe;
+  utilisateurs!: Utilisateur[];
 
-  constructor(private equipeService: EquipeService, private activatedRoute: ActivatedRoute, private router: Router) { }
+  constructor(private equipeService: EquipeService, private utilisateurService: UtilisateurService, private activatedRoute: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
 
     this.formUpdate = new FormGroup({
       libelle: new FormControl('', Validators.required),
+      utilisateurs: new FormControl('', Validators.required)
     })
 
 
@@ -51,13 +55,19 @@ export class FormUpdateEquipeComponent {
       }
     )
 
-
     this.equipeService.findById(this.idEquipe).subscribe(
       data => {
         this.equipeById = data;
         this.formUpdate.get("libelle")?.setValue(this.equipeById.libelle);
+        this.formUpdate.get("utilisateurs")?.setValue(this.equipeById.listUtilisateurs);
       }
     );
+
+    this.utilisateurService.findAll().subscribe(
+      data => {
+        this.utilisateurs = data;
+      }
+    )
   }
 
   onClose() {
@@ -66,19 +76,22 @@ export class FormUpdateEquipeComponent {
 
   onSubmit(): void {
 
-    if (this.formUpdate.controls['libelle'].hasError('required')) {
+    if (this.formUpdate.controls['libelle'].hasError('required') ||
+    this.formUpdate.controls['utilisateurs'].hasError('required')) {
       console.log("Un ou plusieurs champs sont requis");
     } else {
       this.equipeById.libelle = this.formUpdate.get("libelle")?.value;
+      this.equipeById.listUtilisateurs = this.formUpdate.get("utilisateurs")?.value;
       this.equipeService.update(this.equipeById).subscribe({
         next: (response) => {
           alert('Equipe ' + response.libelle + ' modifiée!');
+          this.router.navigateByUrl("/admin/equipes");
         },
         error: (error) => {
           console.error("Erreur lors de la modification de l'équipe", error);
         }
       });
-      this.router.navigateByUrl("/admin/equipes");
+      
     }
 
   }

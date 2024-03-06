@@ -1,4 +1,4 @@
-import { TypeUtilisateur } from './type-utilisateur';
+import { TypeUtilisateur } from '../service/type-utilisateur';
 
 describe('TypeUtilisateur', () => {
   it('should create an instance', () => {
