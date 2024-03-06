@@ -92,22 +92,17 @@ export class ListTachesComponent implements OnInit {
     }
   }
   
-  // Méthode qui calcule le numéro de semaine par rapport à une date donnée
+  // Méthode qui calcule le numéro de semaine par rapport à une date donnée  
   getWeekNumber(d: Date): number {
-    const oneJan = new Date(d.getFullYear(), 0, 1);
-    const numberOfDays = Math.floor((d.getTime() - oneJan.getTime()) / (24 * 60 * 60 * 1000));
-    const result = Math.ceil((numberOfDays + oneJan.getDay()) / 7);   
-    return result;
-
-     // // Copie de la date pour éviter de modifier l'original
-    // d = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
-    // // Définir au dimanche le plus proche
-    // d.setUTCDate(d.getUTCDate() + 4 - (d.getUTCDay() || 7));
-    // // Date de début de l'année
-    // const yearStart = new Date(Date.UTC(d.getUTCFullYear(),0,1));
-    // // Calcul de la différence de jours et division par 7 pour obtenir le numéro de semaine
-    // const weekNo = Math.ceil(( (d.getTime() - yearStart.getTime()) / 86400000 + 1)/7);
-    // return weekNo;
+    // Copie de la date pour éviter de modifier l'original
+    d = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
+    // Définir au dimanche le plus proche
+    d.setUTCDate(d.getUTCDate() + 4 - (d.getUTCDay() || 7));
+    // Date de début de l'année
+    const yearStart = new Date(Date.UTC(d.getUTCFullYear(),0,1));
+    // Calcul de la différence de jours et division par 7 pour obtenir le numéro de semaine
+    const weekNo = Math.ceil(( (d.getTime() - yearStart.getTime()) / 86400000 + 1)/7);
+    return weekNo;
   }
 
   // Méthode qui permet de filtrer par semaine en partant de la semaine dans laquelle on est
