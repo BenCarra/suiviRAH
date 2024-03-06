@@ -1,98 +1,98 @@
-.week-days div {
-  text-align: center;
-  /* Ajustez le padding si nécessaire */
-  font-size: 0.85em; /* Rendre la police plus petite pour les noms des jours */
-  font-weight: bold; /* Facultatif : rend le texte des jours de la semaine en gras */
-  height: 50px; /* Assure une hauteur uniforme pour toutes les cases */
-}
-
-.days div {
-  text-align: center;
-  padding: 24px; /* Ajustez le padding si nécessaire */
-  font-size: 0.85em; /* Ajustez la taille de la police si nécessaire */
-  height: 50px; /* Assure une hauteur uniforme pour toutes les cases */
-
-}
-
-/* Pour les cases vides, vous pouvez décider d'avoir un style différent ou de les laisser invisibles */
-.days div:empty {
-  background-color: transparent; /* Cela rend le fond des cases vides transparent */
-}
-
-.calendar {
+h1 {
+  text-align: center; 
+  font-size:30px; 
+  color: #312B6D;
   margin-top: 25px;
+  margin-bottom: 25px;
+}
+
+.calendar-table {
+  width: 60%;
+  border-collapse: collapse;
+  box-shadow: 5px 6px 8px 0 rgba(0,0,0,0.3);
+  margin: auto;
+}
+
+.calendar-container {
   display: flex;
   flex-direction: column;
   align-items: center;
+  
 }
 
-.week-days, .days {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 5px; /* Ajustez l'espacement entre les cases */
+.week-days {
+  font-size: 0.95em;
+  color: #333;
+}
+
+.calendar-table thead th {
+  background-color: #312B6D;
+  text-align: center;
+  font-weight: bold;
+  padding: 15px;
+  border: 1px solid #ddd;
+  color: white;
+}
+
+.calendar-table tbody td {
+  text-align: center;
+  padding: 10px;
+  border: 1px solid #ddd;
+  height: 50px;
+}
+
+.calendar-table tbody td:empty {
+  border: none;
+  background-color:#ffffff;
+}
+
+.calendar-table tbody td:not(:empty) {
+  cursor: pointer;
+}
+
+.calendar-table tbody td:not(:empty):hover {
+  background-color: #f0f0f0;
+}
+
+
+.navigation {
+  text-align: center;
+}
+
+.arrow-button {
+ 
+  border: 1px solid #ccc;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+  margin-inline: 200px;
+  margin-bottom: 20px;
+}
+
+.arrow-button:hover {
+  color: #312B6D;
+}
+
+.calendar-table thead th:first-child {
+  background-color: #5248c0;
+  color: white;
+}
+
+.calendar-table tbody td:first-child {
+  background-color:#b5aeff;
+}
+
+.weekend-day {
+  background-color: #9a9999; /* Gris */
+}
+
+.calendar-table .empty-cell {
+  background-color: #ffffff;
 }
 
 /* Si les grilles ne s'alignent pas correctement, assurez-vous qu'aucun style extérieur ne les affecte */
 * {
   box-sizing: border-box; /* Cela aide à éviter les problèmes d'alignement dus au padding et au border */
 }
-
-
-
  
- /* h1 {
-  text-align: center; 
-  font-size:30px; 
-  color: #312B6D;
-  margin-top: 25px;
-  margin-bottom: 25px;
-} */
-
-/*
-td, th {
-  border: 1px solid black;
-  text-align: left;
-  padding: 8px;
-}
-
-.calendar-container {
-  padding-left: 30px;
-  padding-bottom: 10px; 
-  overflow-x: auto;
-  /* overflow est sur auto pour afficher une barre si le tableau déborde 
-} */
-
-/* effet d'élevation */
-/* .calendar-container table {
-  box-shadow: 5px 6px 8px 0 rgba(0,0,0,0.3);
-  margin: auto;
-} */
-
-/* table {
-   border-collapse: collapse; 
-  /* Enlève les doubles bordures 
-} */
-
-/* th {
-  background-color: #00884C;
-  white-space: nowrap; 
-  
-}
-
-td {
-  background-color:#E8E7E7 ;
-  /* white-space: nowrap; */
-  /* Si long commentaire : retour à la ligne 
-} */ 
-
- .calendar-container {
-    display: flex;
-    justify-content: center;
-    
-    align-items: center; 
-    height: 600px;
-  }
-
-  mat-calendar {
-    width: 500px; 
-  } 

@@ -1,7 +1,40 @@
-<div class="calendar">
-    <button (click)="goToPreviousMonth()">Précédent</button>
-    <span>{{ currentMonth | date: 'MMMM yyyy' }}</span>
-    <button (click)="goToNextMonth()">Suivant</button>
+<h1 > {{currentMonth | date: 'MMMM yyyy' | titlecase}} - {{utilisateur.prenomUtilisateur }} {{utilisateur.nomUtilisateur }} </h1>
+<div class="navigation">
+  <button class="arrow-button" (click)="goToPreviousMonth()"><</button>
+  <button class="arrow-button" (click)="goToNextMonth()">></button>
+</div>
+
+<div class="calendar-container">
+  <table class="calendar-table">
+    <thead>
+      <tr>
+        <th>Semaine</th>
+        <th *ngFor="let day of weekDays">{{ day }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let week of weeks">
+        <td>{{ week.weekNumber }}</td>
+        <!-- je récupère l'index (let i=index) de mon day 
+        si l'index est 5 ou 6  et si day est vrai (pas null) alors j'applique la classe CSS weekend-day -->
+        <td *ngFor="let day of week.days; let i = index" [ngClass]="{'weekend-day': (i === 5 || i === 6) && day, 'empty-cell': !day}">{{ day | date: 'd' }}</td>
+        <!-- j'ai dû créer des cellules vides après le dernier jour du mois pour pouvoir leur appliquer un style css 
+        [].constructor(7 - week.days.length) génère un nombre de cellules supplémentaires vides
+        pour s'assurer que chaque ligne a 7 cellules -->
+        <td *ngFor="let empty of [].constructor(7 - week.days.length)" class="empty-cell"></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+  
+
+  
+<!-- <div class="calendar">
+  <div class="navigation">
+    <button class="arrow-button" (click)="goToPreviousMonth()"><</button>
+    <button class="arrow-button" (click)="goToNextMonth()">></button>
+  </div>
     
     <div class="week-days">
       <div *ngFor="let day of weekDays">{{ day }}</div>
@@ -10,50 +43,15 @@
     <div class="days">
       <ng-container *ngFor="let day of daysInMonth">
         <div *ngIf="day; else empty">
-          {{ day | date: 'dd' }}
+          {{ day | date: 'd' }}
         </div>
         <ng-template #empty><div></div></ng-template>
       </ng-container>
     </div>
-  </div>
+  </div> -->
+
+     <!-- → ← -->
   
 
-<!-- <h1 >Mois de {{currentMonth | date: 'MMMM yyyy'}} - {{utilisateur.prenomUtilisateur }} {{utilisateur.nomUtilisateur }} </h1>
-
-<div class="calendar-container" >
-    <mat-calendar></mat-calendar>
-</div> -->
-
-<!--  <div class="calendar-container">
-    <table>
-        <thead>
-            <tr>
-                <th>Semaine</th>
-                <th>Lundi</th>
-                <th>Mardi</th>
-                <th>Mercredi</th>
-                <th>Jeudi</th>
-                <th>Vendredi</th>
-                <th>Samedi</th>
-                <th>Dimanche</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let week of getWeeks()">
-                <td>{{ getWeekNumber(week[0]) }}</td>
-                <ng-container *ngFor="let day of week">
-                    <td *ngIf="day">{{ day.getDate() }}</td>
-                    <td *ngIf="!day">&nbsp;</td> 
-                </ng-container>     
-            </tr>
-        </tbody>
-    </table>
-</div> -->
-  
-
-<!-- <div class="calendar-container">
-    <mwl-calendar-month-view [viewDate]="currentDate">
-    </mwl-calendar-month-view>
-</div> -->
 
 
