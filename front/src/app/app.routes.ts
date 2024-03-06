@@ -11,6 +11,7 @@ import { FormUpdateClientComponent } from './pages/forms/form-update-client/form
 import { PageEquipesAdminComponent } from './pages/page-equipes-admin/page-equipes-admin.component';
 import { FormCreateEquipeComponent } from './pages/forms/form-create-equipe/form-create-equipe.component';
 import { FormUpdateEquipeComponent } from './pages/forms/form-update-equipe/form-update-equipe.component';
+import { PageParametresAdminComponent } from './pages/page-parametres-admin/page-parametres-admin.component';
 /*import { ListProjetsComponent } from './pages/list-projets/list-projets.component';
 import { ListTachesComponent } from './pages/list-taches/list-taches.component';
 import { FormCreateTacheComponent } from './pages/forms/form-create-tache/form-create-tache.component';
@@ -33,5 +34,6 @@ export const routes: Routes = [{ path: '', component: HomeComponent },
 { path: 'admin/taches', component: ListTachesComponent },
 { path: 'admin/taches/create', component:  FormCreateTacheComponent},
 { path: 'admin/taches/update', component: FormUpdateTacheComponent },*/
+{ path: 'admin/parametres', component: PageParametresAdminComponent},
 { path: "**", component: NotFoundComponent }];
 

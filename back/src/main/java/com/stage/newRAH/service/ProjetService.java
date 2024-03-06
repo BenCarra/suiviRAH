@@ -2,21 +2,13 @@ package com.stage.newRAH.service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.stage.newRAH.dto.ProjetDTO;
-import com.stage.newRAH.model.Client;
-import com.stage.newRAH.model.Composition;
-import com.stage.newRAH.model.Equipe;
-import com.stage.newRAH.model.Etat;
 import com.stage.newRAH.model.Projet;
-import com.stage.newRAH.model.TypeDefaut;
-import com.stage.newRAH.model.TypeProjet;
-import com.stage.newRAH.model.Utilisateur;
 import com.stage.newRAH.repository.ClientRepository;
 import com.stage.newRAH.repository.CompositionRepository;
 import com.stage.newRAH.repository.EquipeRepository;
