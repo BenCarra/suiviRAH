@@ -1,7 +1,6 @@
 package com.stage.newRAH.dto;
 
 import java.sql.Date;
-import java.util.Objects;
 
 import lombok.Data;
 
@@ -27,21 +26,15 @@ public class ProjetDTO {
 	private Date datePassageMCO;
 	private Date dateSortieMCO;
 	private String commentaires;
-	private int idClient;
-	private int idEtat;
-	private int idTypeDefaut;
-	private int idTypeProjet;
+	private String nomClient;
+	private String libelleEtat;
+	private String libelleTypeDefaut;
+	private String libelleTypeProjet;
 	
 	public ProjetDTO() {
 	}
 
-	
-	public ProjetDTO(int idProjet, String nomProjet, String jira, String techno, String service, Date dateDemande,
-			Date livraisonSouhaitee, Date livraisonRevisee, Date affectationCDS, Date priseEnCompteCDS,
-			Date dateEstimation, double devisEstimation, double dontGarantie, Date dateFeuVert, Date dateLivraison,
-			boolean mCO, Date datePassageMCO, Date dateSortieMCO, String commentaires, int idClient, int idEtat,
-			int idTypeDefaut, int idTypeProjet) {
-
+	public ProjetDTO(int idProjet, String nomProjet, String jira, String techno, String service, Date dateDemande, Date livraisonSouhaitee, Date livraisonRevisee, Date affectationCDS, Date priseEnCompteCDS, Date dateEstimation, double devisEstimation, double dontGarantie, Date dateFeuVert, Date dateLivraison, boolean MCO, Date datePassageMCO, Date dateSortieMCO, String commentaires, String nomClient, String libelleEtat, String libelleTypeDefaut, String libelleTypeProjet) {
 		this.idProjet = idProjet;
 		this.nomProjet = nomProjet;
 		this.jira = jira;
@@ -57,32 +50,13 @@ public class ProjetDTO {
 		this.dontGarantie = dontGarantie;
 		this.dateFeuVert = dateFeuVert;
 		this.dateLivraison = dateLivraison;
-		MCO = mCO;
+		this.MCO = MCO;
 		this.datePassageMCO = datePassageMCO;
 		this.dateSortieMCO = dateSortieMCO;
 		this.commentaires = commentaires;
-		this.idClient = idClient;
-		this.idEtat = idEtat;
-		this.idTypeDefaut = idTypeDefaut;
-		this.idTypeProjet = idTypeProjet;
+		this.nomClient = nomClient;
+		this.libelleEtat = libelleEtat;
+		this.libelleTypeDefaut = libelleTypeDefaut;
+		this.libelleTypeProjet = libelleTypeProjet;
 	}
-
-	// J'ai dû redéfinir equals et hashCode pour éviter les doublons dans la méthode getProjetsByEquipe()
-	@Override
-	public int hashCode() {
-		return Objects.hash(idProjet);
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		ProjetDTO other = (ProjetDTO) obj;
-		return idProjet == other.idProjet;
-	}
-
 }

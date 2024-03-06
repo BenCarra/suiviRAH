@@ -92,13 +92,14 @@ export class FormUpdateClientComponent {
       this.clientService.update(this.clientById).subscribe({
         next: (response) => {
           alert('Client ' + response.nomClient + ' modifié!');
+          this.router.navigateByUrl("/admin/clients");
         },
         error: (error) => {
           console.error('Erreur lors de la modification du client', error);
         }
       });
 
-      this.router.navigateByUrl("/admin/clients");
+      
     }
 
   }

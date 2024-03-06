@@ -11,11 +11,15 @@ import org.springframework.stereotype.Service;
 import com.stage.newRAH.dto.UtilisateurDTO;
 import com.stage.newRAH.model.Composition;
 import com.stage.newRAH.model.Equipe;
+import com.stage.newRAH.model.Site;
 import com.stage.newRAH.model.Tache;
+import com.stage.newRAH.model.TypeUtilisateur;
 import com.stage.newRAH.model.Utilisateur;
 import com.stage.newRAH.repository.CompositionRepository;
 import com.stage.newRAH.repository.EquipeRepository;
+import com.stage.newRAH.repository.SiteRepository;
 import com.stage.newRAH.repository.TacheRepository;
+import com.stage.newRAH.repository.TypeUtilisateurRepository;
 import com.stage.newRAH.repository.UtilisateurRepository;
 
 @Service
@@ -23,6 +27,12 @@ public class UtilisateurService {
 
 	@Autowired
 	UtilisateurRepository utilisateurRepository;
+
+	@Autowired
+	SiteRepository siteRepository;
+
+	@Autowired
+	TypeUtilisateurRepository typeUtilisateurRepository;
 
 	@Autowired
 	CompositionRepository compositionRepository;
@@ -173,12 +183,32 @@ public class UtilisateurService {
 	public ResponseEntity<UtilisateurDTO> createUtilisateur(UtilisateurDTO utilisateurDTO) {
 		Utilisateur utilisateurACreer = new Utilisateur();
 
+		Site site = siteRepository.findByNom(utilisateurDTO.getNomSite()).get();
+		TypeUtilisateur typeUtilisateur = typeUtilisateurRepository.findByLibelle(utilisateurDTO.getLibelleTypeUtilisateur()).get();
+
 		utilisateurACreer.setNomUtilisateur(utilisateurDTO.getNomUtilisateur());
 		utilisateurACreer.setPrenomUtilisateur(utilisateurDTO.getPrenomUtilisateur());
 		utilisateurACreer.setDateNaissance(utilisateurDTO.getDateNaissance());
 		utilisateurACreer.setLogin(utilisateurDTO.getLogin());
 		utilisateurACreer.setMail(utilisateurDTO.getMail());
 		utilisateurACreer.setActif(utilisateurDTO.isActif());
+		utilisateurACreer.setSite(site);
+		utilisateurACreer.setTypeUtilisateur(typeUtilisateur);
+
+		/*List<List<String>> tachesString = utilisateurDTO.getListTaches();
+		List<Tache> taches = new ArrayList<>();
+
+
+		for (List<String> tacheString : tachesString) {
+			Tache tache = tacheRepository.findById(Integer.valueOf(tacheString.get(0))).get();
+			List<Utilisateur> utilisateurs = tache.getListUtilisateurs();
+			utilisateurs.add(utilisateurACreer);
+			taches.add(tache);
+		}
+
+		utilisateurACreer.setListTaches(taches);*/
+
+
 
 		utilisateurRepository.save(utilisateurACreer);
 
@@ -188,20 +218,33 @@ public class UtilisateurService {
 	}
 
 	public ResponseEntity<UtilisateurDTO> updateUtilisateur(UtilisateurDTO utilisateurDTO, int id) {
-		Utilisateur utilisateurAModifier = utilisateurRepository.findById(id).get();
+		Optional<Utilisateur> utilisateurOptional = utilisateurRepository.findById(id);
 
-		utilisateurAModifier.setNomUtilisateur(utilisateurDTO.getNomUtilisateur());
-		utilisateurAModifier.setPrenomUtilisateur(utilisateurDTO.getPrenomUtilisateur());
-		utilisateurAModifier.setDateNaissance(utilisateurDTO.getDateNaissance());
-		utilisateurAModifier.setLogin(utilisateurDTO.getLogin());
-		utilisateurAModifier.setMail(utilisateurDTO.getMail());
-		utilisateurAModifier.setActif(utilisateurDTO.isActif());
+		if (utilisateurOptional.isPresent()) {
+			Utilisateur utilisateurAModifier = utilisateurOptional.get();
 
-		utilisateurRepository.save(utilisateurAModifier);
+			Site site = siteRepository.findByNom(utilisateurDTO.getNomSite()).get();
+			TypeUtilisateur typeUtilisateur = typeUtilisateurRepository.findByLibelle(utilisateurDTO.getLibelleTypeUtilisateur()).get();
 
-		UtilisateurDTO utilisateurAModifierDTO = this.mapUtilisateurToDTO(utilisateurAModifier);
+			utilisateurAModifier.setNomUtilisateur(utilisateurDTO.getNomUtilisateur());
+			utilisateurAModifier.setPrenomUtilisateur(utilisateurDTO.getPrenomUtilisateur());
+			utilisateurAModifier.setDateNaissance(utilisateurDTO.getDateNaissance());
+			utilisateurAModifier.setLogin(utilisateurDTO.getLogin());
+			utilisateurAModifier.setMail(utilisateurDTO.getMail());
+			utilisateurAModifier.setActif(utilisateurDTO.isActif());
+			utilisateurAModifier.setSite(site);
+			utilisateurAModifier.setTypeUtilisateur(typeUtilisateur);
 
-		return ResponseEntity.ok(utilisateurAModifierDTO);
+			utilisateurRepository.save(utilisateurAModifier);
+
+			UtilisateurDTO utilisateurAModifierDTO = this.mapUtilisateurToDTO(utilisateurAModifier);
+
+			return ResponseEntity.ok(utilisateurAModifierDTO);
+		} else {
+			return ResponseEntity.notFound().build();
+		}
+
+		
 	}
 
 }

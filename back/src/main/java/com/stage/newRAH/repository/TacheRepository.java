@@ -8,5 +8,4 @@ import com.stage.newRAH.model.Tache;
 @Repository
 public interface TacheRepository extends CrudRepository<Tache, Integer> {
 
-	
 }

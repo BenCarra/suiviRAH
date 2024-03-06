@@ -66,6 +66,38 @@
       <br>
       <div class="row">
         <div class="col">
+          <mat-form-field appearance="outline">
+            <mat-label>Site :</mat-label>
+            <mat-select formControlName="site">
+              @for (site of sites; track $index) {
+                <mat-option [value]="site.nomSite">{{ site.nomSite }}</mat-option>
+              }
+            </mat-select>
+            @if (formUpdate.controls['site'].hasError('required')) {
+            <mat-error>Site <strong>requis</strong></mat-error>
+            }
+          </mat-form-field>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col">
+          <mat-form-field appearance="outline">
+            <mat-label>Type utilisateur :</mat-label>
+            <mat-select formControlName="typeUtilisateur">
+              @for (typeUtilisateur of typesUtilisateur; track $index) {
+                <mat-option [value]="typeUtilisateur.libelle" >{{ typeUtilisateur.libelle }}</mat-option>
+              }
+            </mat-select>
+            @if (formUpdate.controls['typeUtilisateur'].hasError('required')) {
+            <mat-error>Type utilisateur <strong>requis</strong></mat-error>
+            }
+          </mat-form-field>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col">
           <mat-label>Actif ? :</mat-label>
           <br>
           <mat-radio-group formControlName="actif">

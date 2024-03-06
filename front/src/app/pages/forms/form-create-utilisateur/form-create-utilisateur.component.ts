@@ -11,6 +11,10 @@ import { UtilisateurService } from '../../../shared/service/utilisateur.service'
 import { Utilisateur } from '../../../shared/model/utilisateur';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { Site } from '../../../shared/model/site';
+import { TypeUtilisateur } from '../../../shared/service/type-utilisateur';
+import { SiteService } from '../../../shared/service/site.service';
+import { TypeUtilisateurService } from '../../../shared/service/type-utilisateur.service';
 
 
 
@@ -34,8 +38,10 @@ export class FormCreateUtilisateurComponent {
 
   formCreate!: FormGroup;
   utilisateurCree: Utilisateur = new Utilisateur();
+  sites!: Site[];
+  typesUtilisateur!: TypeUtilisateur[];
 
-  constructor(private utilisateurService: UtilisateurService, private activatedRoute: ActivatedRoute, private router: Router) { }
+  constructor(private utilisateurService: UtilisateurService, private siteService: SiteService, private typeUtilisateurService: TypeUtilisateurService, private activatedRoute: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
 
@@ -46,7 +52,21 @@ export class FormCreateUtilisateurComponent {
       dateNaissance: new FormControl('', Validators.required),
       mail: new FormControl('', Validators.compose([Validators.required, Validators.email])),
       actif: new FormControl('', Validators.required),
+      site: new FormControl('', Validators.required),
+      typeUtilisateur: new FormControl('', Validators.required)
     })
+
+    this.siteService.findAll().subscribe(
+      data => {
+        this.sites = data;
+      }
+    )
+
+    this.typeUtilisateurService.findAll().subscribe(
+      data => {
+        this.typesUtilisateur = data;
+      }
+    )
 
   }
 
@@ -61,7 +81,9 @@ export class FormCreateUtilisateurComponent {
       this.formCreate.controls['nom'].hasError('required') ||
       this.formCreate.controls['dateNaissance'].hasError('required') ||
       this.formCreate.controls['mail'].hasError('required') ||
-      this.formCreate.controls['actif'].hasError('required')) {
+      this.formCreate.controls['actif'].hasError('required') ||
+      this.formCreate.controls['site'].hasError('required') ||
+      this.formCreate.controls['typeUtilisateur'].hasError('required')) {
       console.log("Un ou plusieurs champs sont requis");
     } else if (this.formCreate.controls['mail'].hasError('email')) {
       console.log("Mail mal formé");
@@ -72,6 +94,8 @@ export class FormCreateUtilisateurComponent {
       this.utilisateurCree.dateNaissance = this.formCreate.get("dateNaissance")?.value;
       this.utilisateurCree.mail = this.formCreate.get("mail")?.value;
       this.utilisateurCree.actif = this.formCreate.get("actif")?.value;
+      this.utilisateurCree.nomSite = this.formCreate.get("site")?.value;
+      this.utilisateurCree.libelleTypeUtilisateur = this.formCreate.get("typeUtilisateur")?.value;
       this.utilisateurService.create(this.utilisateurCree).subscribe(
         {
           next: (response) => {
