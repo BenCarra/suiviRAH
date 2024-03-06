@@ -127,6 +127,7 @@ public class EquipeService {
 		List<Utilisateur> utilisateurs = new ArrayList<>();
 
 		// TODO : Voir si on peut recréer une équipe sans créer une nouvelle composition 
+
 		for (List<String> utilisateurString : utilisateursString) {
 			Utilisateur utilisateur = utilisateurRepository.findById(Integer.valueOf(utilisateurString.get(0))).get();
 			List<Equipe> equipes = utilisateur.getListEquipes();
