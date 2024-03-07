@@ -57,16 +57,13 @@ public class TypeUtilisateurService {
 		}
 	}
 
-	public ResponseEntity<List<TypeUtilisateurDTO>> getTypesUtilisateurByLibelle(String libelle) {
-		Iterable<TypeUtilisateur> typesUtilisateurChoisis = typeUtilisateurRepository.findByLibelle(libelle);
+	public ResponseEntity<TypeUtilisateurDTO> getTypeUtilisateurByLibelle(String libelle) {
+		Optional<TypeUtilisateur> typeUtilisateurChoisiOptional = typeUtilisateurRepository.findByLibelle(libelle);
 
-		if (typesUtilisateurChoisis.iterator().hasNext()) {
-			List<TypeUtilisateurDTO> typesUtilisateurChoisisDTO= new ArrayList<>();
-			for (TypeUtilisateur typeUtilisateurChoisi : typesUtilisateurChoisis) {
-				TypeUtilisateurDTO typeUtilisateurChoisiDTO = this.mapTypeUtilisateurToDTO(typeUtilisateurChoisi);
-				typesUtilisateurChoisisDTO.add(typeUtilisateurChoisiDTO);
-			}
-			return ResponseEntity.ok(typesUtilisateurChoisisDTO);
+		if (typeUtilisateurChoisiOptional.isPresent()) {
+			TypeUtilisateur typeUtilisateurChoisi = typeUtilisateurChoisiOptional.get();
+			TypeUtilisateurDTO typeUtilisateurChoisiDTO = this.mapTypeUtilisateurToDTO(typeUtilisateurChoisi);
+			return ResponseEntity.ok(typeUtilisateurChoisiDTO);
 			
 		} else {
 			return ResponseEntity.notFound().build();

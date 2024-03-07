@@ -66,7 +66,8 @@ export class TypeUtilisateurListComponent {
     if (this.formFiltrage.value.filtrageDemande == 'Par libellé de type utilisateur') {
       this.typeUtilisateurService.findByLibelle(recherche!).subscribe(
         data => {
-          this.listTypesUtilisateur = data;
+          this.listTypesUtilisateur = [];
+          this.listTypesUtilisateur.push(data);
         }
       )
     }

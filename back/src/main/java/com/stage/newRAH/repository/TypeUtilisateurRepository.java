@@ -13,6 +13,6 @@ import com.stage.newRAH.model.TypeUtilisateur;
 public interface TypeUtilisateurRepository extends CrudRepository<TypeUtilisateur, Integer> {
 
 	@Query("SELECT t FROM TypeUtilisateur t WHERE libelle=:libelle")
-	Iterable<TypeUtilisateur> findByLibelle(@Param(value="libelle")String libelle);
+	Optional<TypeUtilisateur> findByLibelle(@Param(value="libelle")String libelle);
 
 }

@@ -19,8 +19,8 @@ export class TypeUtilisateurService {
     return this.http.get<TypeUtilisateur[]>(this.url + "/typesUtilisateur");
   }
 
-  public findByLibelle(libelle: string): Observable<TypeUtilisateur[]> {
-    return this.http.get<TypeUtilisateur[]>(this.url + "/typesUtilisateurByLibelle/" + libelle);
+  public findByLibelle(libelle: string): Observable<TypeUtilisateur> {
+    return this.http.get<TypeUtilisateur>(this.url + "/typeUtilisateurByLibelle/" + libelle);
   }
   
 }
