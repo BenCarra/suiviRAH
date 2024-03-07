@@ -12,6 +12,8 @@ import { PageEquipesAdminComponent } from './pages/page-equipes-admin/page-equip
 import { FormCreateEquipeComponent } from './pages/forms/form-create-equipe/form-create-equipe.component';
 import { FormUpdateEquipeComponent } from './pages/forms/form-update-equipe/form-update-equipe.component';
 import { PageParametresAdminComponent } from './pages/page-parametres-admin/page-parametres-admin.component';
+import { FormUpdateTypeUtilisateurComponent } from './pages/forms/form-update-type-utilisateur/form-update-type-utilisateur.component';
+import { FormCreateTypeUtilisateurComponent } from './pages/forms/form-create-type-utilisateur/form-create-type-utilisateur.component';
 /*import { ListProjetsComponent } from './pages/list-projets/list-projets.component';
 import { ListTachesComponent } from './pages/list-taches/list-taches.component';
 import { FormCreateTacheComponent } from './pages/forms/form-create-tache/form-create-tache.component';
@@ -35,7 +37,7 @@ export const routes: Routes = [{ path: '', component: HomeComponent },
 { path: 'admin/taches/create', component:  FormCreateTacheComponent},
 { path: 'admin/taches/update', component: FormUpdateTacheComponent },*/
 { path: 'admin/parametres', component: PageParametresAdminComponent},
-//{path : 'admin/parametres/createTypeUtilisateur', component: FormCreateTypeUtilisateur},
-//{path : 'admin/parametres/updateTypeUtilisateur', component: FormUpdateTypeUtilisateur},
+{ path : 'admin/parametres/createTypeUtilisateur', component: FormCreateTypeUtilisateurComponent},
+{ path : 'admin/parametres/updateTypeUtilisateur', component: FormUpdateTypeUtilisateurComponent},
 { path: "**", component: NotFoundComponent }];
 

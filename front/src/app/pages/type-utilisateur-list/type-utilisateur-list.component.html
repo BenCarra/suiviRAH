@@ -1,4 +1,5 @@
 <div id="liste">
+    <h3>LISTE DES TYPES UTILISATEURS</h3>
     <form id="filtrage" [formGroup]="formFiltrage">
         <select id="filtrage-demande" formControlName="filtrageDemande" (change)="updateFiltrage()">
             <option disabled [selected]="formFiltrage.value.filtrageDemande == ''">-- Sélectionner un filtre --</option>
@@ -23,11 +24,21 @@
             <tbody>
                 <tr>
                     <th>Libellé</th>
+                    <th>Utilisateurs ayant le rôle</th>
                     <th>Modifier</th>
                 </tr>
                 @for (typeUtilisateur of listTypesUtilisateur; track $index) {
                 <tr id="{{ typeUtilisateur.idTypeUtilisateur }}">
                     <td>{{ typeUtilisateur.libelle }}</td>
+                    <td>
+                        @for (utilisateur of typeUtilisateur.listUtilisateurs; track $index){
+                        <ul>
+                            <li>Utilisateur n°{{ utilisateur[0] }}</li>
+                            <li>{{ utilisateur[1] }} {{ utilisateur[2]}}</li>
+                        </ul>
+                        <br>
+                        }
+                    </td>
                     <td><button type="button" routerLink="/admin/parametres/updateTypeUtilisateur/"
                             [queryParams]="{ id: typeUtilisateur.idTypeUtilisateur }">Modifier</button></td>
                 </tr>

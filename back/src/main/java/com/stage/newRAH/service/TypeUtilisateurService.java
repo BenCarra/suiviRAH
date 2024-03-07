@@ -4,28 +4,49 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.aspectj.apache.bcel.generic.Type;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.stage.newRAH.dto.EquipeDTO;
 import com.stage.newRAH.dto.TypeUtilisateurDTO;
+import com.stage.newRAH.model.Equipe;
+import com.stage.newRAH.model.Tache;
 import com.stage.newRAH.model.TypeUtilisateur;
+import com.stage.newRAH.model.Utilisateur;
 import com.stage.newRAH.repository.TypeUtilisateurRepository;
+import com.stage.newRAH.repository.UtilisateurRepository;
 
 @Service
 public class TypeUtilisateurService {
 
 	@Autowired
 	TypeUtilisateurRepository typeUtilisateurRepository;
-
+	
 	@Autowired
-	FonctionnaliteService fonctionnaliteService;
+	UtilisateurRepository utilisateurRepository;
 
 	public TypeUtilisateurDTO mapTypeUtilisateurToDTO(TypeUtilisateur typeUtilisateur) {
+
 		TypeUtilisateurDTO typeUtilisateurDTO = new TypeUtilisateurDTO();
+
+		List<List<String>> listUtilisateurs = new ArrayList<>();
 
 		typeUtilisateurDTO.setIdTypeUtilisateur(typeUtilisateur.getIdTypeUtilisateur());
 		typeUtilisateurDTO.setLibelle(typeUtilisateur.getLibelle());
+
+		if (typeUtilisateur.getListUtilisateurs() != null) {
+			for (Utilisateur utilisateur : typeUtilisateur.getListUtilisateurs()) {
+				List<String> utilisateurObject = new ArrayList<>();
+				utilisateurObject.add(String.valueOf(utilisateur.getIdUtilisateur()));
+				utilisateurObject.add(utilisateur.getPrenomUtilisateur());
+				utilisateurObject.add(utilisateur.getNomUtilisateur());
+				listUtilisateurs.add(utilisateurObject);
+			}
+			typeUtilisateurDTO.setListUtilisateurs(listUtilisateurs);
+		};
 
 		return typeUtilisateurDTO;
 	}
@@ -71,14 +92,26 @@ public class TypeUtilisateurService {
 	}
 
 	public ResponseEntity<TypeUtilisateurDTO> createTypeUtilisateur(TypeUtilisateurDTO typeUtilisateurDTO) {
-		TypeUtilisateur nouveauTypeUtilisateur = new TypeUtilisateur();
+		TypeUtilisateur typeUtilisateurACreer = new TypeUtilisateur();
 
-		nouveauTypeUtilisateur.setLibelle(typeUtilisateurDTO.getLibelle());
+		typeUtilisateurACreer.setLibelle(typeUtilisateurDTO.getLibelle());
 
-		typeUtilisateurRepository.save(nouveauTypeUtilisateur);
+		/*List<List<String>> utilisateursString = typeUtilisateurDTO.getListUtilisateurs();
+		List<Utilisateur> utilisateurs = new ArrayList<>();
 
-		TypeUtilisateurDTO nouveauTypeUtilisateurDTO = this.mapTypeUtilisateurToDTO(nouveauTypeUtilisateur);
-		return ResponseEntity.ok(nouveauTypeUtilisateurDTO);
+		for (List<String> utilisateurString : utilisateursString) {
+			Utilisateur utilisateur = utilisateurRepository.findById(Integer.valueOf(utilisateurString.get(0))).get();
+			utilisateur.setTypeUtilisateur(typeUtilisateurACreer);
+			utilisateurs.add(utilisateur);
+		}
+
+		typeUtilisateurACreer.setListUtilisateurs(utilisateurs);*/
+
+		typeUtilisateurRepository.save(typeUtilisateurACreer);
+
+		TypeUtilisateurDTO typeUtilisateurACreerDTO = this.mapTypeUtilisateurToDTO(typeUtilisateurACreer);
+
+		return ResponseEntity.ok(typeUtilisateurACreerDTO);
 	}
 
 	public ResponseEntity<TypeUtilisateurDTO> updateTypeUtilisateur(TypeUtilisateurDTO typeUtilisateurDTO, int id) {
@@ -86,33 +119,18 @@ public class TypeUtilisateurService {
 
 		if (typeUtilisateurAModifierOptional.isPresent()) {
 			TypeUtilisateur typeUtilisateurAModifier = typeUtilisateurAModifierOptional.get();
+
 			typeUtilisateurAModifier.setLibelle(typeUtilisateurDTO.getLibelle());
+
 			typeUtilisateurRepository.save(typeUtilisateurAModifier);
+
 			TypeUtilisateurDTO typeUtilisateurAModifierDTO = this.mapTypeUtilisateurToDTO(typeUtilisateurAModifier);
+
 			return ResponseEntity.ok(typeUtilisateurAModifierDTO);
 		} else {
 			return ResponseEntity.notFound().build();
 		}
 
-	}
-
-	public ResponseEntity<TypeUtilisateurDTO> deleteTypeUtilisateur(int id) {
-		Optional<TypeUtilisateur> typeUtilisateurAEffacerOptional = typeUtilisateurRepository.findById(id);
-
-		if (typeUtilisateurAEffacerOptional.isPresent()){
-
-			TypeUtilisateur typeUtilisateurAEffacer = typeUtilisateurAEffacerOptional.get();
-
-			TypeUtilisateurDTO typeUtilisateurAEffacerDTO = this.mapTypeUtilisateurToDTO(typeUtilisateurAEffacer);
-
-			typeUtilisateurRepository.deleteById(id);
-
-			return ResponseEntity.ok(typeUtilisateurAEffacerDTO);
-		} else {
-			return ResponseEntity.notFound().build();
-		}
-
-		
 	}
 
 }

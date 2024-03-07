@@ -46,7 +46,12 @@ export class FormCreateEquipeComponent {
 
     this.utilisateurService.findAll().subscribe(
       data => {
-        this.utilisateurs = data;
+        this.utilisateurs = [];
+        data.forEach( utilisateur => {
+          if (utilisateur.actif) {
+            this.utilisateurs.push(utilisateur);
+          }
+        })
       }
     )
 

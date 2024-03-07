@@ -1,39 +1,43 @@
 <h1>Mise à jour d'une équipe</h1>
 
 <form [formGroup]="formUpdate">
-    <mat-card class="card">
-        <mat-card-content>
-            <div class="row">
-                <div class="col">
-                    <mat-form-field appearance="outline">
-                        <mat-label>Nom :</mat-label>
-                        <input matInput formControlName="libelle">
-                        @if (formUpdate.controls['libelle'].hasError('required')) {
-                        <mat-error>Nom <strong>requis</strong></mat-error>
-                        }
-                    </mat-form-field>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                  <mat-form-field appearance="outline">
-                    <mat-label>Utilisateurs à ajouter :</mat-label>
-                    <br>
-                    <mat-select formControlName="utilisateurs" multiple>
-                      @for (utilisateur of utilisateurs; track $index) {
-                        <mat-option [value]=[utilisateur.idUtilisateur.toString(),utilisateur.prenomUtilisateur,utilisateur.nomUtilisateur]>{{ utilisateur.login }} ({{ utilisateur.prenomUtilisateur }} {{ utilisateur.nomUtilisateur }})</mat-option>
-                      }      
-                    </mat-select>
-                    @if (formUpdate.controls['utilisateurs'].hasError('required')) {
-                    <mat-error>Utilisateurs à ajouter <strong>requis</strong></mat-error>
-                    }
-                  </mat-form-field>
-                </div>
-              </div>
-        </mat-card-content>
-        <mat-card-actions>
-            <button mat-raised-button type="submit" (click)="onSubmit()">Envoyer</button>
-            <button mat-raised-button (click)="onClose()">Retour</button>
-        </mat-card-actions>
-    </mat-card>
+  <mat-card class="card">
+    <mat-card-content>
+      <div class="row">
+        <div class="col">
+          <mat-form-field appearance="outline">
+            <mat-label>Libelle :</mat-label>
+            <input matInput formControlName="libelle">
+            @if (formUpdate.controls['libelle'].hasError('required')) {
+            <mat-error>Nom <strong>requis</strong></mat-error>
+            }
+          </mat-form-field>
+        </div>
+      </div>
+      <!-- Faire en sorte d'avoir des items cochés correspondants aux utilisateurs déjà présents dans l'équipe-->
+      <div class="row">
+        <div class="col">
+          <mat-form-field appearance="outline">
+            <mat-label>Utilisateurs à ajouter :</mat-label>
+            <br>
+            <mat-select formControlName="utilisateurs" multiple>
+              @for (utilisateur of utilisateurs; track $index) {
+              <mat-option
+                [value]=[utilisateur.idUtilisateur.toString(),utilisateur.prenomUtilisateur,utilisateur.nomUtilisateur]>
+                {{ utilisateur.login }} ({{ utilisateur.prenomUtilisateur }} {{ utilisateur.nomUtilisateur }})
+              </mat-option>
+              }
+            </mat-select>
+            @if (formUpdate.controls['utilisateurs'].hasError('required')) {
+            <mat-error>Utilisateurs à ajouter <strong>requis</strong></mat-error>
+            }
+          </mat-form-field>
+        </div>
+      </div>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button type="submit" (click)="onSubmit()">Envoyer</button>
+      <button mat-raised-button (click)="onClose()">Retour</button>
+    </mat-card-actions>
+  </mat-card>
 </form>
