@@ -40,7 +40,7 @@ export class UtilisateurService {
   }
 
   public update(utilisateur: Utilisateur) {
-    return this.http.put<Utilisateur>(this.url + "/updateUtilisateur/" + utilisateur.idUtilisateur, utilisateur);
+    return this.http.put<Utilisateur>(this.url + "/updateUtilisateur/" + utilisateur.idUtilisateur.toString(), utilisateur);
   }
 
 }

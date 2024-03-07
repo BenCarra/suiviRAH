@@ -19,8 +19,20 @@ export class TypeUtilisateurService {
     return this.http.get<TypeUtilisateur[]>(this.url + "/typesUtilisateur");
   }
 
+  public findById(id: string) {
+    return this.http.get<TypeUtilisateur>(this.url + "/typeUtilisateurById/" + id);
+  }
+
   public findByLibelle(libelle: string): Observable<TypeUtilisateur> {
     return this.http.get<TypeUtilisateur>(this.url + "/typeUtilisateurByLibelle/" + libelle);
+  }
+
+  public create(typeUtilisateur: TypeUtilisateur){
+    return this.http.post<TypeUtilisateur>(this.url + "/createTypeUtilisateur", typeUtilisateur);
+  }
+
+  public update(typeUtilisateur: TypeUtilisateur) {
+    return this.http.put<TypeUtilisateur>(this.url + "/updateTypeUtilisateur/" + typeUtilisateur.idTypeUtilisateur.toString(), typeUtilisateur);
   }
   
 }

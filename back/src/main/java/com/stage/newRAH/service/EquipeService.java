@@ -144,6 +144,7 @@ public class EquipeService {
 		return ResponseEntity.ok(equipeACreerDTO);
 	}
 
+	// TODO : Régler le problème du lien entre projet et composition (éventuellement modifier le lien côté projet)
 	public ResponseEntity<EquipeDTO> updateEquipe(EquipeDTO equipeDTO, int id) {
 		Optional<Equipe> equipeAModifierOptional = equipeRepository.findById(id);
 
@@ -168,6 +169,29 @@ public class EquipeService {
 			equipeAModifier.setListUtilisateurs(utilisateurs);
 
 			equipeRepository.save(equipeAModifier);
+
+			/* On modifie le lien entre composition et projet 
+			List<Composition> compositions = equipeAModifier.getListCompositions();
+			Iterable<Projet> projets = projetRepository.findAll();
+
+			for (Composition composition : compositions) {
+;
+				Projet ancienProjet = null;
+				Projet nouveauProjet = null;
+
+				for (Projet projet : projets) {
+					if (projet.getListCompositions().contains(composition)) {
+						ancienProjet = projet;
+						composition.setEquipe(equipeAModifier);
+						projetRepository.save(projet);
+						nouveauProjet = projet;
+					}
+				}
+
+				List<Projet> projetsComposition = composition.getListProjets();
+				projetsComposition.removeAll(projetsComposition);
+				
+			}*/
 
 			EquipeDTO equipeAModifierDTO = this.mapEquipeToDTO(equipeAModifier);
 

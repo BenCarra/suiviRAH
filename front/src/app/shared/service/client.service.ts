@@ -32,7 +32,7 @@ export class ClientService {
   }
 
   public update(client: Client) {
-    return this.http.put<Client>(this.url + "/updateClient/" + client.idClient, client);
+    return this.http.put<Client>(this.url + "/updateClient/" + client.idClient.toString(), client);
   }
 
 }

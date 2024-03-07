@@ -7,13 +7,14 @@ import { TypeDefautListComponent } from "../type-defaut-list/type-defaut-list.co
 import { TypeTacheListComponent } from "../type-tache-list/type-tache-list.component";
 import { EtatProjetListComponent } from "../etat-projet-list/etat-projet-list.component";
 import { SiteListComponent } from "../site-list/site-list.component";
+import { RouterLink } from '@angular/router';
 
 @Component({
     selector: 'app-page-parametres-admin',
     standalone: true,
     templateUrl: './page-parametres-admin.component.html',
     styleUrl: './page-parametres-admin.component.css',
-    imports: [HeaderComponent, FooterComponent, TypeUtilisateurListComponent, TypeProjetListComponent, TypeDefautListComponent, TypeTacheListComponent, EtatProjetListComponent, SiteListComponent]
+    imports: [RouterLink, HeaderComponent, FooterComponent, TypeUtilisateurListComponent, TypeProjetListComponent, TypeDefautListComponent, TypeTacheListComponent, EtatProjetListComponent, SiteListComponent]
 })
 export class PageParametresAdminComponent {
 
