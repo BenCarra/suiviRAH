@@ -1,4 +1,4 @@
-<h1 > {{currentMonth | date: 'MMMM yyyy' | titlecase}} - {{utilisateur.prenomUtilisateur }} {{utilisateur.nomUtilisateur }} </h1>
+<h1 > {{currentDate | date: 'MMMM yyyy' | titlecase}} - {{utilisateur.prenomUtilisateur }} {{utilisateur.nomUtilisateur }} </h1>
 <div class="navigation">
   <button class="arrow-button" (click)="goToPreviousMonth()"><</button>
   <button class="arrow-button" (click)="goToNextMonth()">></button>
@@ -13,11 +13,18 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let week of weeks">
-        <td>{{ week.weekNumber }}</td>
+      <tr *ngFor="let week of weeks" >
+        <td [ngClass]="{'current-week': week.weekNumber === getWeekNumber(today)}" class="weekNumber">{{ week.weekNumber }}</td>
         <!-- je récupère l'index (let i=index) de mon day 
         si l'index est 5 ou 6  et si day est vrai (pas null) alors j'applique la classe CSS weekend-day -->
-        <td *ngFor="let day of week.days; let i = index" [ngClass]="{'weekend-day': (i === 5 || i === 6) && day, 'empty-cell': !day}">{{ day | date: 'd' }}</td>
+        <!-- j'ai mis day && pour d'abord dire que day est true (donc n'est pas null) -->
+        <td *ngFor="let day of week.days; let i = index" [ngClass]="{
+          'weekend-days': day && (i === 5 || i === 6), 
+          'empty-cell': !day,
+          'current-date': day?.getDate()===today.getDate() && day?.getMonth()===today.getMonth() && day?.getFullYear()===today.getFullYear(),
+          'holidays-days': day && isHolidays(day) 
+          }">
+          {{ day | date: 'd' }}</td>
         <!-- j'ai dû créer des cellules vides après le dernier jour du mois pour pouvoir leur appliquer un style css 
         [].constructor(7 - week.days.length) génère un nombre de cellules supplémentaires vides
         pour s'assurer que chaque ligne a 7 cellules -->
@@ -26,32 +33,6 @@
     </tbody>
   </table>
 </div>
-
-  
-
-  
-<!-- <div class="calendar">
-  <div class="navigation">
-    <button class="arrow-button" (click)="goToPreviousMonth()"><</button>
-    <button class="arrow-button" (click)="goToNextMonth()">></button>
-  </div>
-    
-    <div class="week-days">
-      <div *ngFor="let day of weekDays">{{ day }}</div>
-    </div>
-    
-    <div class="days">
-      <ng-container *ngFor="let day of daysInMonth">
-        <div *ngIf="day; else empty">
-          {{ day | date: 'd' }}
-        </div>
-        <ng-template #empty><div></div></ng-template>
-      </ng-container>
-    </div>
-  </div> -->
-
-     <!-- → ← -->
-  
 
 
 

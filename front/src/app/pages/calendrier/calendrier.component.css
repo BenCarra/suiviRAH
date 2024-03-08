@@ -6,23 +6,20 @@ h1 {
   margin-bottom: 25px;
 }
 
-.calendar-table {
-  width: 60%;
-  border-collapse: collapse;
-  box-shadow: 5px 6px 8px 0 rgba(0,0,0,0.3);
-  margin: auto;
-}
-
 .calendar-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  
 }
 
-.week-days {
-  font-size: 0.95em;
-  color: #333;
+.calendar-table {
+  width: 55%;
+  background-color: #dbdbdb;
+  border-collapse: collapse;
+  box-shadow: 5px 6px 8px 0 rgba(0,0,0,0.3);
+
+  /* pour avoir les colonnes de la même taille : */
+  table-layout: fixed;
 }
 
 .calendar-table thead th {
@@ -30,37 +27,68 @@ h1 {
   text-align: center;
   font-weight: bold;
   padding: 15px;
-  border: 1px solid #ddd;
+  border: 1px solid #000000;
   color: white;
 }
 
 .calendar-table tbody td {
   text-align: center;
-  padding: 10px;
-  border: 1px solid #ddd;
+  padding: 3px;
+  border: 1px solid #000000;
   height: 50px;
 }
 
-.calendar-table tbody td:empty {
-  border: none;
-  background-color:#ffffff;
+.calendar-container .calendar-table .current-week, .current-date {
+  background-color: #f2f5c8 ;
 }
 
-.calendar-table tbody td:not(:empty) {
+.calendar-container .calendar-table .empty-cell, tbody td:empty  {
+  border: none ;
+  background-color: #E8E7E7;
+
+  cursor: default;
+}
+
+.calendar-table  {
   cursor: pointer;
 }
 
-.calendar-table tbody td:not(:empty):hover {
+.calendar-table tbody td:hover {
   background-color: #f0f0f0;
 }
 
+.calendar-table tbody .weekNumber:hover {
+  background-color: #f0f0f0;
+}
 
 .navigation {
   text-align: center;
 }
 
-.arrow-button {
- 
+.calendar-table thead th:first-child {
+  background-color: #5248c0;
+  color: white;
+}
+
+.calendar-table tbody td:first-child {
+  background-color:#d7d4f5;
+}
+
+.weekend-days {
+  background-color: #a9a9a9; 
+  cursor: default;
+}
+
+.calendar-container .calendar-table .weekend-days:hover{
+  background-color: #a9a9a9;
+}
+
+.holidays-days {
+  background-color: #bfbdbd !important;
+  color: white;
+}
+
+.arrow-button { 
   border: 1px solid #ccc;
   padding: 5px 10px;
   cursor: pointer;
@@ -74,25 +102,3 @@ h1 {
   color: #312B6D;
 }
 
-.calendar-table thead th:first-child {
-  background-color: #5248c0;
-  color: white;
-}
-
-.calendar-table tbody td:first-child {
-  background-color:#b5aeff;
-}
-
-.weekend-day {
-  background-color: #9a9999; /* Gris */
-}
-
-.calendar-table .empty-cell {
-  background-color: #ffffff;
-}
-
-/* Si les grilles ne s'alignent pas correctement, assurez-vous qu'aucun style extérieur ne les affecte */
-* {
-  box-sizing: border-box; /* Cela aide à éviter les problèmes d'alignement dus au padding et au border */
-}
- 
