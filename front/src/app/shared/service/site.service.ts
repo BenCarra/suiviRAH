@@ -28,10 +28,11 @@ export class SiteService {
   }
 
   public create(utilisateur: Site) {
-    return this.http.put<Site>(this.url + "/createSite", utilisateur);
+    return this.http.post<Site>(this.url + "/createSite", utilisateur);
   }
 
   public update(utilisateur: Site) {
-    return this.http.post<Site>(this.url + "/updateSite/" + utilisateur.idSite.toString(), utilisateur);
+    return this.http.put<Site>(this.url + "/updateSite/" + utilisateur.idSite.toString(), utilisateur);
   }
+  
 }

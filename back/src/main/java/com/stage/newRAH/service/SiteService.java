@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.stage.newRAH.dto.SiteDTO;
 import com.stage.newRAH.model.Site;
+import com.stage.newRAH.model.Utilisateur;
 import com.stage.newRAH.repository.SiteRepository;
 
 @Service
@@ -25,11 +26,26 @@ public class SiteService {
 
 		SiteDTO siteDTO = new SiteDTO();
 
+		List<List<String>> utilisateurs = new ArrayList<>();
+
 		siteDTO.setIdSite(site.getIdSite());
 		siteDTO.setNomSite(site.getNomSite());
 		siteDTO.setAdresseSite(site.getAdresseSite());
 		siteDTO.setCodePostalSite(site.getCodePostalSite());
 		siteDTO.setVilleSite(site.getVilleSite());
+
+		if (site.getListUtilisateurs() != null) {
+
+			for (Utilisateur utilisateur : site.getListUtilisateurs()) {
+				List<String> utilisateurObject = new ArrayList<>();
+				utilisateurObject.add(String.valueOf(utilisateur.getIdUtilisateur()));
+				utilisateurObject.add(utilisateur.getPrenomUtilisateur());
+				utilisateurObject.add(utilisateur.getNomUtilisateur());
+				utilisateurs.add(utilisateurObject);
+			}
+
+			siteDTO.setListUtilisateurs(utilisateurs);
+		}
 
 		return siteDTO;
 	}
@@ -81,6 +97,8 @@ public class SiteService {
 		nouveauSite.setCodePostalSite(siteDTO.getCodePostalSite());
 		nouveauSite.setNomSite(siteDTO.getNomSite());
 		nouveauSite.setVilleSite(siteDTO.getVilleSite());
+
+		
 		
 		siteRepository.save(nouveauSite);
 		
@@ -90,28 +108,27 @@ public class SiteService {
 	}
 
 	public ResponseEntity<SiteDTO> updateSite(SiteDTO siteDTO, int id) {
-		Site siteAModifier = siteRepository.findById(id).get();
-		
-		siteAModifier.setAdresseSite(siteDTO.getAdresseSite());
-		siteAModifier.setCodePostalSite(siteDTO.getCodePostalSite());
-		siteAModifier.setNomSite(siteDTO.getNomSite());
-		siteAModifier.setVilleSite(siteDTO.getVilleSite());
-		
-		siteRepository.save(siteAModifier);
-		
-		SiteDTO siteAModifierDTO = this.mapSiteToDTO(siteAModifier);
+		Optional<Site> siteAModifierOptional = siteRepository.findById(id);
+
+		if (siteAModifierOptional.isPresent()) {
+
+			Site siteAModifier = siteAModifierOptional.get();
+
+			siteAModifier.setAdresseSite(siteDTO.getAdresseSite());
+			siteAModifier.setCodePostalSite(siteDTO.getCodePostalSite());
+			siteAModifier.setNomSite(siteDTO.getNomSite());
+			siteAModifier.setVilleSite(siteDTO.getVilleSite());
+			
+			siteRepository.save(siteAModifier);
+			
+			SiteDTO siteAModifierDTO = this.mapSiteToDTO(siteAModifier);
 		
 		return ResponseEntity.ok(siteAModifierDTO);
-	}
-
-	public ResponseEntity<SiteDTO> deleteSite(int id) {
-		Site siteASupprimer = siteRepository.findById(id).get();
+		} else {
+			return ResponseEntity.notFound().build();
+		}
 		
-		SiteDTO siteASupprimerDTO = this.mapSiteToDTO(siteASupprimer);
 		
-		siteRepository.deleteById(id);
-		
-		return ResponseEntity.ok(siteASupprimerDTO);
 	}
 
 }

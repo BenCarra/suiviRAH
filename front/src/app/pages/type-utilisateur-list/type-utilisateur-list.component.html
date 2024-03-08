@@ -1,7 +1,7 @@
-<div id="liste">
+<div class="liste">
     <h3>LISTE DES TYPES UTILISATEURS</h3>
-    <form id="filtrage" [formGroup]="formFiltrage">
-        <select id="filtrage-demande" formControlName="filtrageDemande" (change)="updateFiltrage()">
+    <form class="filtrage" [formGroup]="formFiltrage">
+        <select class="filtrage-demande" formControlName="filtrageDemande" (change)="updateFiltrage()">
             <option disabled [selected]="formFiltrage.value.filtrageDemande == ''">-- Sélectionner un filtre --</option>
             <option value="Par libellé de type utilisateur">Rechercher par libellé de type utilisateur</option>
         </select>
@@ -19,7 +19,7 @@
         <input type="reset" id="btn-reset" (click)="onReset($event)" formControlName="boutonReset">
     </form>
 
-    <div id="table">
+    <div class="table">
         <table border="2">
             <tbody>
                 <tr>

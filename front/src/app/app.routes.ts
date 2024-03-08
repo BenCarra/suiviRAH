@@ -14,6 +14,16 @@ import { FormUpdateEquipeComponent } from './pages/forms/form-update-equipe/form
 import { PageParametresAdminComponent } from './pages/page-parametres-admin/page-parametres-admin.component';
 import { FormUpdateTypeUtilisateurComponent } from './pages/forms/form-update-type-utilisateur/form-update-type-utilisateur.component';
 import { FormCreateTypeUtilisateurComponent } from './pages/forms/form-create-type-utilisateur/form-create-type-utilisateur.component';
+import { FormCreateTypeProjetComponent } from './pages/forms/form-create-type-projet/form-create-type-projet.component';
+import { FormUpdateTypeProjetComponent } from './pages/forms/form-update-type-projet/form-update-type-projet.component';
+import { FormCreateTypeDefautComponent } from './pages/forms/form-create-type-defaut/form-create-type-defaut.component';
+import { FormUpdateTypeDefautComponent } from './pages/forms/form-update-type-defaut/form-update-type-defaut.component';
+import { FormCreateTypeTacheComponent } from './pages/forms/form-create-type-tache/form-create-type-tache.component';
+import { FormUpdateTypeTacheComponent } from './pages/forms/form-update-type-tache/form-update-type-tache.component';
+import { FormCreateEtatProjetComponent } from './pages/forms/form-create-etat-projet/form-create-etat-projet.component';
+import { FormUpdateEtatProjetComponent } from './pages/forms/form-update-etat-projet/form-update-etat-projet.component';
+import { FormCreateSiteComponent } from './pages/forms/form-create-site/form-create-site.component';
+import { FormUpdateSiteComponent } from './pages/forms/form-update-site/form-update-site.component';
 /*import { ListProjetsComponent } from './pages/list-projets/list-projets.component';
 import { ListTachesComponent } from './pages/list-taches/list-taches.component';
 import { FormCreateTacheComponent } from './pages/forms/form-create-tache/form-create-tache.component';
@@ -39,5 +49,15 @@ export const routes: Routes = [{ path: '', component: HomeComponent },
 { path: 'admin/parametres', component: PageParametresAdminComponent},
 { path : 'admin/parametres/createTypeUtilisateur', component: FormCreateTypeUtilisateurComponent},
 { path : 'admin/parametres/updateTypeUtilisateur', component: FormUpdateTypeUtilisateurComponent},
+{ path : 'admin/parametres/createTypeProjet', component: FormCreateTypeProjetComponent},
+{ path : 'admin/parametres/updateTypeProjet', component: FormUpdateTypeProjetComponent},
+{ path : 'admin/parametres/createTypeDefaut', component: FormCreateTypeDefautComponent},
+{ path : 'admin/parametres/updateTypeDefaut', component: FormUpdateTypeDefautComponent},
+{ path : 'admin/parametres/createTypeTache', component: FormCreateTypeTacheComponent},
+{ path : 'admin/parametres/updateTypeTache', component: FormUpdateTypeTacheComponent},
+{ path : 'admin/parametres/createEtatProjet', component: FormCreateEtatProjetComponent},
+{ path : 'admin/parametres/updateEtatProjet', component: FormUpdateEtatProjetComponent},
+{ path : 'admin/parametres/createSite', component: FormCreateSiteComponent},
+{ path : 'admin/parametres/updateSite', component: FormUpdateSiteComponent},
 { path: "**", component: NotFoundComponent }];
 

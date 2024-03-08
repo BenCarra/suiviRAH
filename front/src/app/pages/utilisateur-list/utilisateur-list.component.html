@@ -1,4 +1,4 @@
-<div id="liste">
+<div class="liste">
     <h3>
         @if (routerURL == "/admin/utilisateurs") {
         LISTE DES UTILISATEURS
@@ -8,8 +8,8 @@
         }
     </h3>
     @if (routerURL == "/admin/utilisateurs") {
-    <form id="filtrage" [formGroup]="formFiltrage">
-        <select id="filtrage-demande" formControlName="filtrageDemande" (change)="updateFiltrage()">
+    <form class="filtrage" [formGroup]="formFiltrage">
+        <select class="filtrage-demande" formControlName="filtrageDemande" (change)="updateFiltrage()">
             <option disabled [selected]="formFiltrage.value.filtrageDemande == ''">-- Sélectionner un filtre --</option>
             <option value="Par nom d'utilisateur">Rechercher par nom d'utilisateur</option>
             <option value="Par type d'utilisateur">Rechercher par type d'utilisateur</option>
@@ -42,7 +42,7 @@
     }
 
     <!-- TODO: Faire en sorte d'avoir les 10 derniers utilisateurs ajoutés sur la page d'accueil -->
-    <div id="table">
+    <div class="table">
         <table border="2">
             <tbody>
                 @if (routerURL == "/admin/utilisateurs") {

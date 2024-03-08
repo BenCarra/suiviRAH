@@ -37,18 +37,14 @@ public class SiteController {
 		return siteService.getSiteByNom(nom);
 	}
 	
-	@PutMapping("/createSite")
+	@PostMapping("/createSite")
 	public ResponseEntity<SiteDTO> createSite(@RequestBody SiteDTO siteDTO){
 		return siteService.createSite(siteDTO);
 	}
 	
-	@PostMapping("/updateSite/{id}")
+	@PutMapping("/updateSite/{id}")
 	public ResponseEntity<SiteDTO> updateSite(@RequestBody SiteDTO siteDTO, @PathVariable int id){
 		return siteService.updateSite(siteDTO, id);
 	}
 	
-	@PostMapping("/deleteSite/{id}")
-	public ResponseEntity<SiteDTO> deleteSite(@PathVariable int id){
-		return siteService.deleteSite(id);
-	}
 }

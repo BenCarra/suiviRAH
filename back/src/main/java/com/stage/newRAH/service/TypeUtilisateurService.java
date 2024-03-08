@@ -4,16 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import org.aspectj.apache.bcel.generic.Type;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.stage.newRAH.dto.EquipeDTO;
 import com.stage.newRAH.dto.TypeUtilisateurDTO;
-import com.stage.newRAH.model.Equipe;
-import com.stage.newRAH.model.Tache;
 import com.stage.newRAH.model.TypeUtilisateur;
 import com.stage.newRAH.model.Utilisateur;
 import com.stage.newRAH.repository.TypeUtilisateurRepository;
@@ -95,17 +90,6 @@ public class TypeUtilisateurService {
 		TypeUtilisateur typeUtilisateurACreer = new TypeUtilisateur();
 
 		typeUtilisateurACreer.setLibelle(typeUtilisateurDTO.getLibelle());
-
-		/*List<List<String>> utilisateursString = typeUtilisateurDTO.getListUtilisateurs();
-		List<Utilisateur> utilisateurs = new ArrayList<>();
-
-		for (List<String> utilisateurString : utilisateursString) {
-			Utilisateur utilisateur = utilisateurRepository.findById(Integer.valueOf(utilisateurString.get(0))).get();
-			utilisateur.setTypeUtilisateur(typeUtilisateurACreer);
-			utilisateurs.add(utilisateur);
-		}
-
-		typeUtilisateurACreer.setListUtilisateurs(utilisateurs);*/
 
 		typeUtilisateurRepository.save(typeUtilisateurACreer);
 

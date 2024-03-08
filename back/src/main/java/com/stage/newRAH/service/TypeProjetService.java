@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.stage.newRAH.dto.TypeProjetDTO;
+import com.stage.newRAH.model.Projet;
 import com.stage.newRAH.model.TypeProjet;
 import com.stage.newRAH.repository.TypeProjetRepository;
 
@@ -20,10 +21,22 @@ public class TypeProjetService {
 
 	public TypeProjetDTO mapTypeProjetToDTO(TypeProjet typeProjet) {
 
+		List<List<String>> projets = new ArrayList<>();
+
 		TypeProjetDTO typeProjetDTO = new TypeProjetDTO();
 
 		typeProjetDTO.setIdTypeProjet(typeProjet.getIdTypeProjet());
 		typeProjetDTO.setLibelle(typeProjet.getLibelle());
+
+		if (typeProjet.getListProjets() != null) {
+			for (Projet projet : typeProjet.getListProjets()) {
+				List<String> projetObject = new ArrayList<>();
+				projetObject.add(String.valueOf(typeProjet.getIdTypeProjet()));
+				projetObject.add(typeProjet.getLibelle());
+				projets.add(projetObject);
+			}
+			typeProjetDTO.setListProjets(projets);
+		}
 
 		return typeProjetDTO;
 
@@ -103,16 +116,6 @@ public class TypeProjetService {
 		typeProjetRepository.save(typeProjetAModifier);
 		
 		TypeProjetDTO typeProjetAModifiertDTO = this.mapTypeProjetToDTO(typeProjetAModifier);
-		
-		return ResponseEntity.ok(typeProjetAModifiertDTO);
-	}
-
-	public ResponseEntity<TypeProjetDTO> TypeProjet(int id) {
-		TypeProjet typeProjetASupprimer = typeProjetRepository.findById(id).get();
-		
-		TypeProjetDTO typeProjetAModifiertDTO = this.mapTypeProjetToDTO(typeProjetASupprimer);
-		
-		typeProjetRepository.deleteById(id);
 		
 		return ResponseEntity.ok(typeProjetAModifiertDTO);
 	}

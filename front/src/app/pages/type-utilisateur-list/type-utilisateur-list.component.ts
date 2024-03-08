@@ -13,15 +13,13 @@ import { FormControl, FormGroup, Validators, ReactiveFormsModule } from '@angula
 })
 export class TypeUtilisateurListComponent {
 
-  routerURL: string;
-  idUtilisateur!: string;
   listTypesUtilisateur!: TypeUtilisateur[];
   listLibellesTypesUtilisateur: String[] = [];
   formFiltrage!: FormGroup<{ filtrageDemande: FormControl<string | null>; typeUtilisateurRecherche: FormControl<string | null>; boutonSoumission: FormControl<string | null>; boutonReset: FormControl<string | null>; }>;
 
 
-  constructor(private typeUtilisateurService: TypeUtilisateurService, private router: Router) {
-    this.routerURL = router.url;
+  constructor(private typeUtilisateurService: TypeUtilisateurService) {
+
   }
 
   ngOnInit() {
