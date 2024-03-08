@@ -74,7 +74,7 @@ export class TypeUtilisateurListComponent {
 
   onReset($event: MouseEvent) {
     this.formFiltrage.get('filtrageDemande')?.setValue("");
-    this.formFiltrage.get('utilisateurRecherche')?.disable();
+    this.formFiltrage.get('typeUtilisateurRecherche')?.disable();
     this.formFiltrage.get('boutonSoumission')?.disable();
     this.formFiltrage.get('boutonReset')?.disable();
     this.typeUtilisateurService.findAll().subscribe(data => {
