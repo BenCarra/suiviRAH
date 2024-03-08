@@ -31,8 +31,8 @@ public class TypeProjetService {
 		if (typeProjet.getListProjets() != null) {
 			for (Projet projet : typeProjet.getListProjets()) {
 				List<String> projetObject = new ArrayList<>();
-				projetObject.add(String.valueOf(typeProjet.getIdTypeProjet()));
-				projetObject.add(typeProjet.getLibelle());
+				projetObject.add(String.valueOf(projet.getIdProjet()));
+				projetObject.add(projet.getNomProjet());
 				projets.add(projetObject);
 			}
 			typeProjetDTO.setListProjets(projets);

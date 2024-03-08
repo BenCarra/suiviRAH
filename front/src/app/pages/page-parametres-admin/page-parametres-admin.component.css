@@ -17,6 +17,11 @@
 
 }
 
+/*#parametres-lists {
+    height: 400px;
+    overflow-y: scroll;
+}*/
+
 #parametres-lists div {
     display: flex;
     align-items: first baseline;
@@ -29,5 +34,5 @@ app-type-tache-list,
 app-etat-projet-list,
 app-site-list {
     width: 100%;
-    margin: auto;
+    margin: 0 auto;
 }

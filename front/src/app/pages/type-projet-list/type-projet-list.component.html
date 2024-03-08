@@ -1,1 +1,49 @@
-<p>type-projet-list works!</p>
+<div class="liste">
+    <h3>LISTE DES TYPES PROJETS</h3>
+    <form class="filtrage" [formGroup]="formFiltrage">
+        <select class="filtrage-demande" formControlName="filtrageDemande" (change)="updateFiltrage()">
+            <option disabled [selected]="formFiltrage.value.filtrageDemande == ''">-- Sélectionner un filtre --</option>
+            <option value="Par libellé de type projet">Rechercher par libellé de type projet</option>
+        </select>
+        @if (formFiltrage.get("filtrageDemande")?.getRawValue() == "Par libellé de type projet") {
+        <select id="libelles-type-projet" autocomplete formControlName="typeProjetRecherche">
+            <option disabled [selected]="formFiltrage.value.filtrageDemande == 'Par libellé de type projet'">--
+                Sélectionner
+                un type de projet --</option>
+            @for (libelleTypeProjet of listLibellesTypesProjet; track $index) {
+            <option [value]="libelleTypeProjet">{{ libelleTypeProjet }}</option>
+            }
+        </select>
+        }
+        <input type="submit" id="btn-soumission" formControlName="boutonSoumission" (click)="onSearch($event)">
+        <input type="reset" id="btn-reset" (click)="onReset($event)" formControlName="boutonReset">
+    </form>
+
+    <div class="table">
+        <table border="2">
+            <tbody>
+                <tr>
+                    <th>Libellé</th>
+                    <th>Projets de ce type</th>
+                    <th>Modifier</th>
+                </tr>
+                @for (typeProjet of listTypesProjet; track $index) {
+                <tr id="{{ typeProjet.idTypeProjet }}">
+                    <td>{{ typeProjet.libelle }}</td>
+                    <td>
+                        @for (projet of typeProjet.listProjets; track $index){
+                        <ul>
+                            <li>Projet n°{{ projet[0] }}</li>
+                            <li>{{ projet[1] }}</li>
+                        </ul>
+                        <br>
+                        }
+                    </td>
+                    <td><button type="button" routerLink="/admin/parametres/updateTypeProjet/"
+                            [queryParams]="{ id: typeProjet.idTypeProjet}">Modifier</button></td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

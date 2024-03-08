@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
 import { TypeProjet } from '../../shared/model/type-projet';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { TypeProjetService } from '../../shared/service/type-projet.service';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-type-projet-list',
   standalone: true,
-  imports: [],
+  imports: [ReactiveFormsModule, RouterLink],
   templateUrl: './type-projet-list.component.html',
   styleUrl: './type-projet-list.component.css'
 })
@@ -73,7 +74,7 @@ export class TypeProjetListComponent {
 
   onReset($event: MouseEvent) {
     this.formFiltrage.get('filtrageDemande')?.setValue("");
-    this.formFiltrage.get('utilisateurRecherche')?.disable();
+    this.formFiltrage.get('typeProjetRecherche')?.disable();
     this.formFiltrage.get('boutonSoumission')?.disable();
     this.formFiltrage.get('boutonReset')?.disable();
     this.typeProjetService.findAll().subscribe(data => {
