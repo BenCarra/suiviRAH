@@ -6,6 +6,10 @@ main {
     width: 75%;
 }
 
+main h1 {
+    text-align: center;
+}
+
 .liste {
     display: flex;
     flex-direction: column;

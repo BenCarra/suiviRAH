@@ -1,5 +1,5 @@
 <div class="liste">
-    <h3>LISTE DES TYPES PROJETS</h3>
+    <h3>LISTE DES TYPES DE PROJETS</h3>
     <form class="filtrage" [formGroup]="formFiltrage">
         <select class="filtrage-demande" formControlName="filtrageDemande" (change)="updateFiltrage()">
             <option disabled [selected]="formFiltrage.value.filtrageDemande == ''">-- Sélectionner un filtre --</option>
@@ -24,7 +24,7 @@
             <tbody>
                 <tr>
                     <th>Libellé</th>
-                    <th>Projets de ce type</th>
+                    <th>Projets associés</th>
                     <th>Modifier</th>
                 </tr>
                 @for (typeProjet of listTypesProjet; track $index) {

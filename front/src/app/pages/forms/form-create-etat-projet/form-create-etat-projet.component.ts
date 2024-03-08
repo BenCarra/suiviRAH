@@ -9,7 +9,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { EtatProjet } from '../../../shared/model/etat-projet';
 import { EtatProjetService } from '../../../shared/service/etat-projet.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-form-create-etat-projet',
@@ -30,7 +30,7 @@ export class FormCreateEtatProjetComponent {
   formCreate!: FormGroup;
   etatProjetCree: EtatProjet = new EtatProjet();
 
-  constructor(private etatProjetService: EtatProjetService, private activatedRoute: ActivatedRoute, private router: Router) { }
+  constructor(private etatProjetService: EtatProjetService, private router: Router) { }
 
   ngOnInit() {
 

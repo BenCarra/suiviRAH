@@ -52,7 +52,7 @@ export class FormUpdateTypeProjetComponent {
       }
     )
 
-    // Préremplissage des champs par les données de l'utilisateur fournies par la méthode findById() 
+    // Préremplissage des champs par les données du type projet fournies par la méthode findById() 
     this.typeProjetService.findById(this.idTypeProjet).subscribe(
       data => {
         this.typeProjetById = data;

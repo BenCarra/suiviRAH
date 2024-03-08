@@ -1,5 +1,5 @@
 <div class="liste">
-    <h3>LISTE DES TYPES DEFAUTS</h3>
+    <h3>LISTE DES TYPES DE DEFAUTS</h3>
     <form class="filtrage" [formGroup]="formFiltrage">
         <select class="filtrage-demande" formControlName="filtrageDemande" (change)="updateFiltrage()">
             <option disabled [selected]="formFiltrage.value.filtrageDemande == ''">-- Sélectionner un filtre --</option>
@@ -24,7 +24,7 @@
             <tbody>
                 <tr>
                     <th>Libellé</th>
-                    <th>Projets ayant ce type défaut</th>
+                    <th>Projets associés</th>
                     <th>Modifier</th>
                 </tr>
                 @for (typeDefaut of listTypesDefaut; track $index) {

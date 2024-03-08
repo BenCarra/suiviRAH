@@ -37,7 +37,7 @@ export class FormUpdateEtatProjetComponent {
 
   ngOnInit() {
 
-    // Création du formulaire de mise à jour de type projet
+    // Création du formulaire de mise à jour de l'état de projet
     this.formUpdate = new FormGroup({
       libelle: new FormControl('', Validators.required),
     })
@@ -52,7 +52,7 @@ export class FormUpdateEtatProjetComponent {
       }
     )
 
-    // Préremplissage des champs par les données de l'utilisateur fournies par la méthode findById() 
+    // Préremplissage des champs par les données de l'état de projet fournies par la méthode findById() 
     this.etatProjetService.findById(this.idEtatProjet).subscribe(
       data => {
         this.etatProjetById = data;

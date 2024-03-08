@@ -10,8 +10,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { Site } from '../../../shared/model/site';
 import { SiteService } from '../../../shared/service/site.service';
 import { UtilisateurService } from '../../../shared/service/utilisateur.service';
-import { ActivatedRoute, Router } from '@angular/router';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-form-create-site',
   standalone: true,
@@ -31,7 +30,7 @@ export class FormCreateSiteComponent {
   formCreate!: FormGroup;
   siteCree: Site = new Site();
 
-  constructor(private siteService: SiteService, private utilisateurService: UtilisateurService, private activatedRoute: ActivatedRoute, private router: Router) { }
+  constructor(private siteService: SiteService, private utilisateurService: UtilisateurService, private router: Router) { }
 
   ngOnInit() {
 

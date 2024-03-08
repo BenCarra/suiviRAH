@@ -37,7 +37,7 @@ export class FormUpdateTypeDefautComponent {
 
   ngOnInit() {
 
-    // Création du formulaire de mise à jour de type projet
+    // Création du formulaire de mise à jour de type défaut
     this.formUpdate = new FormGroup({
       libelle: new FormControl('', Validators.required),
     })
@@ -52,7 +52,7 @@ export class FormUpdateTypeDefautComponent {
       }
     )
 
-    // Préremplissage des champs par les données de l'utilisateur fournies par la méthode findById() 
+    // Préremplissage des champs par les données du type défaut fournies par la méthode findById() 
     this.typeDefautService.findById(this.idTypeDefaut).subscribe(
       data => {
         this.typeDefautById = data;
