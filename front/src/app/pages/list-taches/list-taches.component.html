@@ -3,7 +3,7 @@
 <div class="filtre-container">
   <mat-form-field>
     <mat-label>Filtre par semaine</mat-label>
-    <mat-select [(value)]="selectedWeek" (selectionChange)="updateTachesForWeek()">
+    <mat-select [(value)]="selectedWeek" (selectionChange)="updateTachesForWeek2(selectedWeek)">
       <mat-option *ngFor="let week of weeks" [value]="week">{{week}}</mat-option>
     </mat-select>
   </mat-form-field>
@@ -38,7 +38,7 @@
         <td>{{ tache.commentaires }}</td>
         <td>{{ tache.nomProjet }}</td>
         <td><button [routerLink]="['/formUpdateTache']" [queryParams]="{ id: tache.idTache }">Modifier</button></td>
-        <td><button (click)="onDeleteTache(tache.idTache)">Supprimer</button></td>
+        <td><button (click)="getDetailsAndDeleteTache(tache.idTache)">Supprimer</button></td>
         <td><button (click)="onDuplicateTache(tache.idTache, tache)">Dupliquer</button></td>
       </tr>
     </tbody>

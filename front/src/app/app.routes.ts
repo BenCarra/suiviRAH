@@ -10,7 +10,7 @@ export const routes: Routes = [
     {path:'', component: ConnexionComponent},
     {path:'calendrier', component: CalendrierComponent},
     {path:'listProjets', component: ListProjetsComponent},
-    {path:'listTaches', component: ListTachesComponent},
+    {path:'listTaches/:weekNumber', component: ListTachesComponent},
     {path:'formCreateTache', component: FormCreateTacheComponent},
     {path:'formUpdateTache', component: FormUpdateTacheComponent}
 ];

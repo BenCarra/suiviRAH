@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 import { UtilisateurService } from '../../shared/service/utilisateur.service';
 import { Utilisateur } from '../../shared/model/utilisateur';
@@ -7,7 +8,7 @@ import { Utilisateur } from '../../shared/model/utilisateur';
 @Component({
   selector: 'app-calendrier',
   standalone: true,
-  imports: [ CommonModule],
+  imports: [ CommonModule, RouterLink],
   templateUrl: './calendrier.component.html',
   styleUrl: './calendrier.component.css'
 })
@@ -39,7 +40,7 @@ export class CalendrierComponent implements OnInit {
     this.utilisateurService.getUtilisateurById(this.idUtilisateurConnecté).subscribe(data => {
            this.utilisateur = data});
 
-    console.log("Current Week Number: ", this.getWeekNumber(this.today));
+   
   }
 
   // Calcule le  nombre de jours dans un mois et cale le 1er jour du mois

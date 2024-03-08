@@ -14,7 +14,9 @@
     </thead>
     <tbody>
       <tr *ngFor="let week of weeks" >
-        <td [ngClass]="{'current-week': week.weekNumber === getWeekNumber(today)}" class="weekNumber">{{ week.weekNumber }}</td>
+        <td [ngClass]="{'current-week': week.weekNumber === getWeekNumber(today)}" 
+        class="weekNumber" 
+        [routerLink]="['/listTaches', week.weekNumber]">{{ week.weekNumber }}</td>
         <!-- je récupère l'index (let i=index) de mon day 
         si l'index est 5 ou 6  et si day est vrai (pas null) alors j'applique la classe CSS weekend-day -->
         <!-- j'ai mis day && pour d'abord dire que day est true (donc n'est pas null) -->

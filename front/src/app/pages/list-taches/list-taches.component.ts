@@ -2,12 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { TacheService } from '../../shared/service/tache.service';
 import { Tache } from '../../shared/model/tache';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
-import { Router } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatSelectModule} from '@angular/material/select';
 import {MatInputModule} from '@angular/material/input';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-list-taches',
@@ -22,43 +22,82 @@ import {MatInputModule} from '@angular/material/input';
   styleUrl: './list-taches.component.css'
 })
 export class ListTachesComponent implements OnInit {
+
+  weekNumber: number = 1;
+  id: number = 1 ;
   selectedWeek!: number;
   filteredTaches!: Tache[];
   weeks: number[] =[]; // tableau contenant les numéros de semaine
   taches!: Tache[];
+  tache!: Tache;
+  
 
   // Simulation d'un utilisateur connecté 
   idUtilisateurConnecté: number = 4;
 
-  constructor(private tacheService:TacheService,
-    private router: Router) {
+  constructor(private tacheService:TacheService, private route: ActivatedRoute ) {
   }
   ngOnInit(): void {
+
     this.initWeeks();
-    // this.weeks = Array.from({length:52}, (_,i) => i+1);
+
+    this.route.params.subscribe(params => {
+      this.weekNumber = +params['weekNumber'];
+      this.loadListTachesByWeek2(this.weekNumber);
+    })
+    
+
+    // this.tacheService.getTachesByUtilisateur(this.idUtilisateurConnecté).subscribe(data => {
+    //   this.taches = data;
+
+    //   this.updateTachesForWeek();
+
+    //   // initialisation de la liste complète des tâches 
+    //   // avant de sélectionner une semaine
+    //   // this.filteredTaches = [...this.taches];
+    // })
+  }
+
+  // // Chargement de la liste complète des tâches
+  // loadListTaches() {
+  //   this.tacheService.getTaches().subscribe(data => {
+  //     this.taches = data;
+  //   })
+  // }
+
+   // Chargement de la liste des tâches par utilisateur et semaine
+  // loadListTachesByWeek() {
+  //   this.tacheService.getTachesByUtilisateur(this.idUtilisateurConnecté).subscribe(data => {
+  //     this.taches = data;
+  //     this.updateTachesForWeek();
+  //   })
+  // }
+
+  loadListTachesByWeek2(weekNumber: number) {
     this.tacheService.getTachesByUtilisateur(this.idUtilisateurConnecté).subscribe(data => {
       this.taches = data;
-      // initialisation de la liste complète des tâches 
-      // avant de sélectionner une semaine
-      this.filteredTaches = [...this.taches];
+      this.updateTachesForWeek2(weekNumber);
     })
   }
 
-  // Chargement de la liste des tâches
-  loadListTaches() {
-    this.tacheService.getTaches().subscribe(data => {
-      this.taches = data;
-    })
-  }
+ // Méthode hypothétique pour obtenir les détails de la tâche et ensuite la supprimer
+  getDetailsAndDeleteTache(id: number) {
+    this.tacheService.getTacheById(id).subscribe(tache => {
+      const date = new Date(tache.dateTache);
+      const weekNumber = this.getWeekNumber(date);
+      this.onDeleteTache(id, weekNumber); 
+    });
+}
 
-  onDeleteTache(id:number) {
+
+   onDeleteTache(id:number, weekNumber: number) {  
     this.tacheService.deleteTache(id).subscribe({
       next:(response) => {
         alert (response.message);
         // Après le message, j'actualise ma page (sans la tâche supprimée)
-        this.loadListTaches();
-        // Le code ci-dessous n'actualise pas la page 
-        //this.router.navigate(['/listTaches']);
+        this.loadListTachesByWeek2(weekNumber);
+        
+  
       }, 
       error:(error) => {
         console.error('Erreur lors de la suppression de la tâche', error);
@@ -71,7 +110,10 @@ export class ListTachesComponent implements OnInit {
       next:(response) => {
         alert(response.message);
         // Après le message, j'actualise ma page (avec la tâche dupliquée)
-        this.loadListTaches();
+        
+        const date = new Date(tache.dateTache);
+        const number = this.getWeekNumber(date);
+        this.loadListTachesByWeek2(number);
       }, 
       error:(error) => {
         console.error('Erreur lors de la duplication de la tâche', error);
@@ -80,16 +122,29 @@ export class ListTachesComponent implements OnInit {
   }
 
   // Méthode qui liste les tâches d'une semaine donnée 
-  updateTachesForWeek(): void {
+  // updateTachesForWeek(): void {
+  //   if (this.selectedWeek === null) {
+  //     this.filteredTaches = this.taches;
+  //   } else {
+  //     this.filteredTaches = this.taches.filter(tache => {
+  //       const date = new Date(tache.dateTache);
+  //       const weekNumber = this.getWeekNumber(date);
+  //       return weekNumber === this.selectedWeek;
+  //     });
+  //   }
+  // }
+
+  updateTachesForWeek2(weekNumber: number): void {  
     if (this.selectedWeek === null) {
-      this.filteredTaches = this.taches;
-    } else {
+          this.filteredTaches = this.taches;
+        } else {
       this.filteredTaches = this.taches.filter(tache => {
         const date = new Date(tache.dateTache);
-        const weekNumber = this.getWeekNumber(date);
-        return weekNumber === this.selectedWeek;
+        const number = this.getWeekNumber(date);
+        return number === weekNumber;
       });
     }
+
   }
   
   // Méthode qui calcule le numéro de semaine par rapport à une date donnée  
