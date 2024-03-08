@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -41,14 +42,9 @@ public class EtatController {
 		return etatService.createEtat(etatDTO);
 	}
 	
-	@PostMapping("/updateEtat/{id}")
+	@PutMapping("/updateEtat/{id}")
 	public ResponseEntity<EtatDTO> updateEtat(@RequestBody EtatDTO etatDTO, @PathVariable int id){
 		return etatService.updateEtat(etatDTO, id);
-	}
-	
-	@PostMapping("/deleteEtat/{id}")
-	public ResponseEntity<EtatDTO> deleteEtat(@PathVariable int id){
-		return etatService.deleteEtat(id);
 	}
 	
 }

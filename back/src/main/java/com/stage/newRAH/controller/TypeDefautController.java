@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -43,14 +44,9 @@ public class TypeDefautController {
 		return typeDefautService.createTypeDefaut(typeDefautDTO);
 	}
 	
-	@PostMapping("/updateTypeDefaut/{id}")
+	@PutMapping("/updateTypeDefaut/{id}")
 	public ResponseEntity<TypeDefautDTO> updateTypeDefaut(@RequestBody TypeDefautDTO typeDefautDTO, @PathVariable int id) {
 		return typeDefautService.updateTypeDefaut(typeDefautDTO, id);
-	}
-	
-	@PostMapping("/deleteTypeDefaut/{id}")
-	public ResponseEntity<TypeDefautDTO> deleteTypeDefaut(@PathVariable int id) {
-		return typeDefautService.deleteTypeDefaut(id);
 	}
 	
 }

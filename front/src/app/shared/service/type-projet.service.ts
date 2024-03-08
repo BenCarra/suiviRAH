@@ -27,11 +27,11 @@ export class TypeProjetService {
     return this.http.get<TypeProjet>(this.url + "/typeProjetByLibelle/" + libelle);
   }
 
-  public create(typeUtilisateur: TypeProjet){
-    return this.http.post<TypeProjet>(this.url + "/createTypeProjet", typeUtilisateur);
+  public create(typeProjet: TypeProjet){
+    return this.http.post<TypeProjet>(this.url + "/createTypeProjet", typeProjet);
   }
 
-  public update(typeUtilisateur: TypeProjet) {
-    return this.http.put<TypeProjet>(this.url + "/updateTypeProjet/" + typeUtilisateur.idTypeProjet.toString(), typeUtilisateur);
+  public update(typeProjet: TypeProjet) {
+    return this.http.put<TypeProjet>(this.url + "/updateTypeProjet/" + typeProjet.idTypeProjet.toString(), typeProjet);
   }
 }

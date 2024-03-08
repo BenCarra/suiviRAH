@@ -89,7 +89,7 @@ export class FormUpdateEquipeComponent {
       this.equipeById.listUtilisateurs = this.formUpdate.get("utilisateurs")?.value;
       this.equipeService.update(this.equipeById).subscribe({
         next: (response) => {
-          alert('Equipe ' + response.libelle + ' modifiée!');
+          alert('Equipe modifiée!');
           this.router.navigateByUrl("/admin/equipes");
         },
         error: (error) => {

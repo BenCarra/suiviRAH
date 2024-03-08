@@ -127,7 +127,7 @@ export class FormUpdateUtilisateurComponent {
       this.utilisateurById.libelleTypeUtilisateur = this.formUpdate.get("typeUtilisateur")?.value;
       this.utilisateurService.update(this.utilisateurById).subscribe({
         next: (response) => {
-          alert('Utilisateur ' + response.prenomUtilisateur + ' ' + response.nomUtilisateur + ' modifié!');
+          alert('Utilisateur modifié!');
           this.router.navigateByUrl("/admin/utilisateurs");
         },
         error: (error) => {

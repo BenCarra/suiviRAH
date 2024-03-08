@@ -91,7 +91,7 @@ export class FormUpdateClientComponent {
       this.clientById.actif = this.formUpdate.get('actif')?.value
       this.clientService.update(this.clientById).subscribe({
         next: (response) => {
-          alert('Client ' + response.nomClient + ' modifié!');
+          alert('Client modifié!');
           this.router.navigateByUrl("/admin/clients");
         },
         error: (error) => {

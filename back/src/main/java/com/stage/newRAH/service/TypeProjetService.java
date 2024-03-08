@@ -109,15 +109,24 @@ public class TypeProjetService {
 	}
 
 	public ResponseEntity<TypeProjetDTO> updateTypeProjet(TypeProjetDTO typeProjetDTO, int id) {
-		TypeProjet typeProjetAModifier = typeProjetRepository.findById(id).get();
 		
-		typeProjetAModifier.setLibelle(typeProjetDTO.getLibelle());
+		Optional<TypeProjet> typeProjetAModifierOptional = typeProjetRepository.findById(id);
+
+		if (typeProjetAModifierOptional.isPresent()) {
+			TypeProjet typeProjetAModifier = typeProjetAModifierOptional.get();
+
+			typeProjetAModifier.setLibelle(typeProjetDTO.getLibelle());
 		
-		typeProjetRepository.save(typeProjetAModifier);
+			typeProjetRepository.save(typeProjetAModifier);
+			
+			TypeProjetDTO typeProjetAModifiertDTO = this.mapTypeProjetToDTO(typeProjetAModifier);
+			
+			return ResponseEntity.ok(typeProjetAModifiertDTO);
+		} else {
+			return ResponseEntity.notFound().build();
+		}
 		
-		TypeProjetDTO typeProjetAModifiertDTO = this.mapTypeProjetToDTO(typeProjetAModifier);
 		
-		return ResponseEntity.ok(typeProjetAModifiertDTO);
 	}
 
 }

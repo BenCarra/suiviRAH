@@ -6,15 +6,11 @@
         display: flex;
         flex-direction: column;
     }
-    
-}
-
-@media screen and (max-width: 800px) {
 
     #parametres-lists div {
         flex-direction: column;
     }
-
+    
 }
 
 /*#parametres-lists {

@@ -1,1 +1,49 @@
-<p>etat-projet-list works!</p>
+<div class="liste">
+    <h3>LISTE DES ETATS DE PROJET</h3>
+    <form class="filtrage" [formGroup]="formFiltrage">
+        <select class="filtrage-demande" formControlName="filtrageDemande" (change)="updateFiltrage()">
+            <option disabled [selected]="formFiltrage.value.filtrageDemande == ''">-- Sélectionner un filtre --</option>
+            <option value="Par libellé d'état de projet">Rechercher par libellé d'état de projet</option>
+        </select>
+        @if (formFiltrage.get("filtrageDemande")?.getRawValue() == "Par libellé d'état de projet") {
+        <select id="libelles-etat-projet" autocomplete formControlName="etatProjetRecherche">
+            <option disabled [selected]="formFiltrage.value.filtrageDemande == 'Par libellé d\'état de projet'">--
+                Sélectionner
+                un état de projet --</option>
+            @for (libelleEtatProjet of listLibellesEtatsProjet; track $index) {
+            <option [value]="libelleEtatProjet">{{ libelleEtatProjet }}</option>
+            }
+        </select>
+        }
+        <input type="submit" id="btn-soumission" formControlName="boutonSoumission" (click)="onSearch($event)">
+        <input type="reset" id="btn-reset" (click)="onReset($event)" formControlName="boutonReset">
+    </form>
+
+    <div class="table">
+        <table border="2">
+            <tbody>
+                <tr>
+                    <th>Libellé</th>
+                    <th>Projets ayant cet état</th>
+                    <th>Modifier</th>
+                </tr>
+                @for (etatProjet of listEtatsProjet; track $index) {
+                <tr id="{{ etatProjet.idEtat }}">
+                    <td>{{ etatProjet.libelle }}</td>
+                    <td>
+                        @for (projet of etatProjet.listProjets; track $index){
+                        <ul>
+                            <li>Projet n°{{ projet[0] }}</li>
+                            <li>{{ projet[1] }}</li>
+                        </ul>
+                        <br>
+                        }
+                    </td>
+                    <td><button type="button" routerLink="/admin/parametres/updateEtatProjet/"
+                            [queryParams]="{ id: etatProjet.idEtat}">Modifier</button></td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

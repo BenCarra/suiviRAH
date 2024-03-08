@@ -1,1 +1,23 @@
-<p>form-create-etat-projet works!</p>
+<h1>Création d'un état de projet</h1>
+
+<form [formGroup]="formCreate">
+    <mat-card class="card">
+        <mat-card-content>
+            <div class="row">
+                <div class="col">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Libellé :</mat-label>
+                        <input matInput formControlName="libelle">
+                        @if (formCreate.controls['libelle'].hasError('required')) {
+                        <mat-error>Libellé <strong>requis</strong></mat-error>
+                        }
+                    </mat-form-field>
+                </div>
+            </div>
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-raised-button type="submit" (click)="onSubmit()">Envoyer</button>
+            <button mat-raised-button (click)="onClose()">Retour</button>
+        </mat-card-actions>
+    </mat-card>
+</form>

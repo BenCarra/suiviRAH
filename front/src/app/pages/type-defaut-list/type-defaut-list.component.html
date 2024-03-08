@@ -1,1 +1,49 @@
-<p>type-defaut-list works!</p>
+<div class="liste">
+    <h3>LISTE DES TYPES DEFAUTS</h3>
+    <form class="filtrage" [formGroup]="formFiltrage">
+        <select class="filtrage-demande" formControlName="filtrageDemande" (change)="updateFiltrage()">
+            <option disabled [selected]="formFiltrage.value.filtrageDemande == ''">-- Sélectionner un filtre --</option>
+            <option value="Par libellé de type défaut">Rechercher par libellé de type défaut</option>
+        </select>
+        @if (formFiltrage.get("filtrageDemande")?.getRawValue() == "Par libellé de type défaut") {
+        <select id="libelles-type-defaut" autocomplete formControlName="typeDefautRecherche">
+            <option disabled [selected]="formFiltrage.value.filtrageDemande == 'Par libellé de type défaut'">--
+                Sélectionner
+                un type de défaut --</option>
+            @for (libelleTypeDefaut of listLibellesTypesDefaut; track $index) {
+            <option [value]="libelleTypeDefaut">{{ libelleTypeDefaut }}</option>
+            }
+        </select>
+        }
+        <input type="submit" id="btn-soumission" formControlName="boutonSoumission" (click)="onSearch($event)">
+        <input type="reset" id="btn-reset" (click)="onReset($event)" formControlName="boutonReset">
+    </form>
+
+    <div class="table">
+        <table border="2">
+            <tbody>
+                <tr>
+                    <th>Libellé</th>
+                    <th>Projets ayant ce type défaut</th>
+                    <th>Modifier</th>
+                </tr>
+                @for (typeDefaut of listTypesDefaut; track $index) {
+                <tr id="{{ typeDefaut.idTypeDefaut }}">
+                    <td>{{ typeDefaut.libelle }}</td>
+                    <td>
+                        @for (projet of typeDefaut.listProjets; track $index){
+                        <ul>
+                            <li>Projet n°{{ projet[0] }}</li>
+                            <li>{{ projet[1] }}</li>
+                        </ul>
+                        <br>
+                        }
+                    </td>
+                    <td><button type="button" routerLink="/admin/parametres/updateTypeDefaut/"
+                            [queryParams]="{ id: typeDefaut.idTypeDefaut}">Modifier</button></td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

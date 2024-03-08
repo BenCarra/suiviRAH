@@ -30,7 +30,6 @@ export class FormUpdateTypeProjetComponent {
   formUpdate!: FormGroup;
   typeProjetById!: TypeProjet;
   idTypeProjet!: string;
-  typesUtilisateurs!: TypeProjet[];
 
   constructor(private typeProjetService: TypeProjetService, private activatedRoute: ActivatedRoute, private router: Router) {
 
@@ -73,7 +72,7 @@ export class FormUpdateTypeProjetComponent {
       this.typeProjetById.libelle = this.formUpdate.get("libelle")?.value;
       this.typeProjetService.update(this.typeProjetById).subscribe({
         next: (response) => {
-          alert('Type projet ' + response.libelle + ' modifié!');
+          alert('Type projet modifié!');
           this.router.navigateByUrl("/admin/parametres");
         },
         error: (error) => {

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.stage.newRAH.dto.EtatDTO;
 import com.stage.newRAH.model.Etat;
+import com.stage.newRAH.model.Projet;
 import com.stage.newRAH.repository.EtatRepository;
 
 @Service
@@ -19,11 +20,22 @@ public class EtatService {
 	EtatRepository etatRepository;
 	
 	public EtatDTO mapEtatToDTO(Etat etat) {
+
+		List<List<String>> projets = new ArrayList<>();
 		
 		EtatDTO etatDTO = new EtatDTO();
 		
 		etatDTO.setIdEtat(etat.getIdEtat());
 		etatDTO.setLibelle(etat.getLibelle());
+
+		if (etat.getListProjets() != null) {
+			for (Projet projet : etat.getListProjets()) {
+				List<String> projetObject = new ArrayList<>();
+				projetObject.add(String.valueOf(projet.getIdProjet()));
+				projetObject.add(projet.getNomProjet());
+				projets.add(projetObject);
+			}
+		}
 		
 		return etatDTO;
 		
@@ -80,15 +92,22 @@ public class EtatService {
 	}
 
 	public ResponseEntity<EtatDTO> updateEtat(EtatDTO etatDTO, int id) {
-		Etat etatAModifier = etatRepository.findById(id).get();
+		Optional<Etat> etatAModifierOptional = etatRepository.findById(id);
 		
-		etatAModifier.setLibelle(etatDTO.getLibelle());
+		if (etatAModifierOptional.isPresent()) {
+			Etat etatAModifier = etatAModifierOptional.get();
+			etatAModifier.setLibelle(etatDTO.getLibelle());
 		
-		etatRepository.save(etatAModifier);
+			etatRepository.save(etatAModifier);
+			
+			EtatDTO etatAModifierDTO = this.mapEtatToDTO(etatAModifier);
+			
+			return ResponseEntity.ok(etatAModifierDTO);
+		} else {
+			return ResponseEntity.notFound().build();
+		}
+
 		
-		EtatDTO etatAModifierDTO = this.mapEtatToDTO(etatAModifier);
-		
-		return ResponseEntity.ok(etatAModifierDTO);
 	}
 
 	public ResponseEntity<EtatDTO> deleteEtat(int id) {

@@ -83,7 +83,7 @@ export class FormUpdateSiteComponent {
       this.siteById.villeSite = this.formUpdate.get("ville")?.value;
       this.siteService.update(this.siteById).subscribe({
         next: (response) => {
-          alert('Site ' + response.nomSite + ' modifié!');
+          alert('Site modifié!');
           this.router.navigateByUrl("/admin/parametres");
         },
         error: (error) => {

@@ -74,7 +74,7 @@ export class FormUpdateTypeUtilisateurComponent {
       this.typeUtilisateurById.libelle = this.formUpdate.get("libelle")?.value;
       this.typeUtilisateurService.update(this.typeUtilisateurById).subscribe({
         next: (response) => {
-          alert('Type utilisateur ' + response.libelle + ' modifié!');
+          alert('Type utilisateur modifié!');
           this.router.navigateByUrl("/admin/parametres");
         },
         error: (error) => {

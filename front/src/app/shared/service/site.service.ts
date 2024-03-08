@@ -27,12 +27,12 @@ export class SiteService {
     return this.http.get<Site>(this.url + "/siteByNom/" + nom);
   }
 
-  public create(utilisateur: Site) {
-    return this.http.post<Site>(this.url + "/createSite", utilisateur);
+  public create(site: Site) {
+    return this.http.post<Site>(this.url + "/createSite", site);
   }
 
-  public update(utilisateur: Site) {
-    return this.http.put<Site>(this.url + "/updateSite/" + utilisateur.idSite.toString(), utilisateur);
+  public update(site: Site) {
+    return this.http.put<Site>(this.url + "/updateSite/" + site.idSite.toString(), site);
   }
   
 }
