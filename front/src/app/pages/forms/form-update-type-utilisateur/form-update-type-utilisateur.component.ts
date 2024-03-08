@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -6,7 +6,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
-import { MatSelect, MatSelectModule } from '@angular/material/select';
+import { MatSelectModule } from '@angular/material/select';
 import { TypeUtilisateurService } from '../../../shared/service/type-utilisateur.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TypeUtilisateur } from '../../../shared/model/type-utilisateur';
@@ -27,9 +27,6 @@ import { TypeUtilisateur } from '../../../shared/model/type-utilisateur';
   styleUrl: './form-update-type-utilisateur.component.css'
 })
 export class FormUpdateTypeUtilisateurComponent {
-
-  @ViewChild('selectUtilisateurs')
-  selectUtilisateurs!: MatSelect;
 
   formUpdate!: FormGroup;
   typeUtilisateurById!: TypeUtilisateur;
