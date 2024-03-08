@@ -47,8 +47,4 @@ public class SiteController {
 		return siteService.updateSite(siteDTO, id);
 	}
 	
-	@PostMapping("/deleteSite/{id}")
-	public ResponseEntity<SiteDTO> deleteSite(@PathVariable int id){
-		return siteService.deleteSite(id);
-	}
 }

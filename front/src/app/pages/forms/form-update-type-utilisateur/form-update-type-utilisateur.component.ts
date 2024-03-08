@@ -6,12 +6,10 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
-import { MatOption, MatSelect, MatSelectModule } from '@angular/material/select';
+import { MatSelect, MatSelectModule } from '@angular/material/select';
 import { TypeUtilisateurService } from '../../../shared/service/type-utilisateur.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TypeUtilisateur } from '../../../shared/model/type-utilisateur';
-import { Utilisateur } from '../../../shared/model/utilisateur';
-import { UtilisateurService } from '../../../shared/service/utilisateur.service';
 
 @Component({
   selector: 'app-form-update-type-utilisateur',
@@ -38,7 +36,7 @@ export class FormUpdateTypeUtilisateurComponent {
   idTypeUtilisateur!: string;
   typesUtilisateurs!: TypeUtilisateur[];
 
-  constructor(private typeUtilisateurService: TypeUtilisateurService, private utilisateurService: UtilisateurService, private activatedRoute: ActivatedRoute, private router: Router) {
+  constructor(private typeUtilisateurService: TypeUtilisateurService, private activatedRoute: ActivatedRoute, private router: Router) {
 
   }
 
@@ -47,7 +45,6 @@ export class FormUpdateTypeUtilisateurComponent {
     // Création du formulaire de mise à jour de type utilisateur
     this.formUpdate = new FormGroup({
       libelle: new FormControl('', Validators.required),
-      utilisateurs: new FormControl('', Validators.required)
     })
 
     // Récupération du paramètre "id" de la route active

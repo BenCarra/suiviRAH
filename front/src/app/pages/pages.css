@@ -6,7 +6,7 @@ main {
     width: 75%;
 }
 
-#liste {
+.liste {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -14,20 +14,20 @@ main {
     margin-bottom: 20px;
 }
 
-#liste h3 {
+.liste h3 {
     text-align: center;
 }
 
-#liste a {
+.liste a {
     text-decoration: none;
     color: white;
 }
 
-#liste a:hover {
+.liste a:hover {
     text-decoration: underline;
 }
 
-#filtrage {
+.filtrage {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -38,7 +38,7 @@ main {
     margin-bottom: 20px;
 }
 
-#table {
+.table {
     max-width: 100%;
     overflow-x: scroll;
 }
@@ -74,7 +74,7 @@ td ul {
     text-decoration-line: underline;
 }
 
-#tools-box-container {
+.tools-box-container {
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -105,7 +105,7 @@ td ul {
 }
 
 .conteneur-btn .btn img:hover {
-    transform: scale(1.5);
+    transform: scale(1.25);
 }
 
 .libelle-btn {

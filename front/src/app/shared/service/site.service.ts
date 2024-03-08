@@ -34,4 +34,5 @@ export class SiteService {
   public update(utilisateur: Site) {
     return this.http.post<Site>(this.url + "/updateSite/" + utilisateur.idSite.toString(), utilisateur);
   }
+  
 }

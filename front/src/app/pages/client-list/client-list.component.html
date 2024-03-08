@@ -1,4 +1,4 @@
-<div id="liste">
+<div class="liste">
     <h3>
         @if (routerURL =="/admin/clients") {
         LISTE DES CLIENTS
@@ -8,8 +8,8 @@
         }
     </h3>
     @if (routerURL == "/admin/clients") {
-    <form id="filtrage" [formGroup]="formFiltrage">
-        <select id="filtrage-demande" formControlName="filtrageDemande" (change)="updateFiltrage()">
+    <form id="class" [formGroup]="formFiltrage">
+        <select id="class" formControlName="filtrageDemande" (change)="updateFiltrage()">
             <option disabled [selected]="formFiltrage.value.filtrageDemande == ''">-- Sélectionner un filtre --</option>
             <option value="Par nom de client">Rechercher par nom de client</option>
         </select>
@@ -28,7 +28,7 @@
     }
 
     <!-- TODO: Faire en sorte d'avoir les 10 derniers clients ajoutés sur la page d'accueil-->
-    <div id="table">
+    <div class="table">
         <table border="2">
             <tbody>
                 @if (routerURL =="/admin/clients") {

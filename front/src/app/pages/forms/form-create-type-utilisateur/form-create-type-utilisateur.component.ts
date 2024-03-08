@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Utilisateur } from '../../../shared/model/utilisateur';
-import { UtilisateurService } from '../../../shared/service/utilisateur.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TypeUtilisateurService } from '../../../shared/service/type-utilisateur.service';
 import { TypeUtilisateur } from '../../../shared/model/type-utilisateur';
@@ -32,13 +30,12 @@ export class FormCreateTypeUtilisateurComponent {
   formCreate!: FormGroup;
   typeUtilisateurCree: TypeUtilisateur = new TypeUtilisateur();
 
-  constructor(private typeUtilisateurService: TypeUtilisateurService, private utilisateurService: UtilisateurService, private activatedRoute: ActivatedRoute, private router: Router) { }
+  constructor(private typeUtilisateurService: TypeUtilisateurService, private activatedRoute: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
 
     this.formCreate = new FormGroup({
       libelle: new FormControl('', Validators.required),
-      utilisateurs: new FormControl('', Validators.required)
     })
 
   }

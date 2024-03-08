@@ -1,4 +1,4 @@
-<div id="liste">
+<div class="liste">
     <h3>
         @if (routerURL =="/admin/equipes") {
         LISTE DES EQUIPES
@@ -8,8 +8,8 @@
         }
     </h3>
     @if (routerURL == "/admin/equipes") {
-    <form id="filtrage" [formGroup]="formFiltrage">
-        <select id="filtrage-demande" formControlName="filtrageDemande" (change)="updateFiltrage()">
+    <form class="filtrage" [formGroup]="formFiltrage">
+        <select class="filtrage-demande" formControlName="filtrageDemande" (change)="updateFiltrage()">
             <option disabled [selected]="formFiltrage.value.filtrageDemande == ''">-- Sélectionner un filtre --</option>
             <option value="Par libellé d'équipe">Rechercher par libellé d'équipe</option>
         </select>
@@ -29,7 +29,7 @@
     }
 
     <!-- TODO: Faire en sorte d'avoir les 10 dernières équipes ajoutées (du CP ou de l'admin) sur la page d'accueil -->
-    <div id="table">
+    <div class="table">
         <table border="2">
             <tbody>
                 @if (routerURL =="/admin/equipes") {

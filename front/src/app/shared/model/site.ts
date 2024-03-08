@@ -4,4 +4,5 @@ export class Site {
 	adresseSite!: string;
 	codePostalSite!: string;
 	villeSite!: string;
+	listUtilisateurs!: string[][];
 }
