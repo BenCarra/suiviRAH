@@ -4,7 +4,7 @@
     <a routerLink="/" class="navbar-item">Accueil</a>
     <a routerLink="/calendrier" class="navbar-item">Calendrier</a>
     <a routerLink="/listProjets" class="navbar-item">Liste des projets</a>
-    <a routerLink="/listTaches" class="navbar-item">Liste des tâches</a>
+    <a [routerLink]="['/listTaches', weekNumber]" class="navbar-item">Liste des tâches</a>
     <a routerLink="/deconnexion" class="navbar-item">Déconnexion</a>
   </div>
 </nav>
