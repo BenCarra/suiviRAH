@@ -54,7 +54,7 @@ export class FormCreateTacheComponent implements OnInit {
       'nomProjet': new FormControl('', Validators.required),
       'dateTache': new FormControl('', Validators.required),
       'journee': new FormControl(false),
-      'dureeTache': new FormControl('', Validators.required),
+      'dureeTache': new FormControl('', [Validators.required, Validators.max(9)]),
       'commentaires': new FormControl('', Validators.required)
     });
   }
