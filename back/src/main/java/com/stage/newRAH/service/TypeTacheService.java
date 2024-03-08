@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.stage.newRAH.dto.TypeTacheDTO;
+import com.stage.newRAH.model.Tache;
 import com.stage.newRAH.model.TypeTache;
 import com.stage.newRAH.repository.TypeTacheRepository;
 
@@ -19,10 +20,21 @@ public class TypeTacheService {
 	TypeTacheRepository typeTacheRepository;
 	
 	public TypeTacheDTO mapTypeTacheToDTO(TypeTache typeTache) {
+		List<List<String>> taches = new ArrayList<>();
+
 		TypeTacheDTO typeTacheDTO = new TypeTacheDTO();
 		
 		typeTacheDTO.setIdTypeTache(typeTache.getIdTypeTache());
 		typeTacheDTO.setLibelle(typeTache.getLibelle());
+
+		if (typeTache.getListTaches() != null) {
+			for (Tache tache : typeTache.getListTaches()) {
+				List<String> tacheObject = new ArrayList<>();
+				tacheObject.add(String.valueOf(tache.getIdTache()));
+				tacheObject.add(tache.getNomTache());
+				taches.add(tacheObject);
+			}
+		}
 		
 		return typeTacheDTO;
 	}
@@ -54,8 +66,8 @@ public class TypeTacheService {
 		}
 	}
 
-	public ResponseEntity<TypeTacheDTO> getTypeTacheByCategorie(String categorie) {
-		Optional<TypeTache> typeTacheChoisie = typeTacheRepository.findByLibelle(categorie);
+	public ResponseEntity<TypeTacheDTO> getTypeTacheByLibelle(String libelle) {
+		Optional<TypeTache> typeTacheChoisie = typeTacheRepository.findByLibelle(libelle);
 		
 		if (typeTacheChoisie.isPresent()) {
 			TypeTacheDTO typeTacheChoisieDTO = this.mapTypeTacheToDTO(typeTacheChoisie.get());
@@ -78,25 +90,21 @@ public class TypeTacheService {
 	}
 
 	public ResponseEntity<TypeTacheDTO> updateTypeTache(TypeTacheDTO typeTacheDTO, int id) {
-		TypeTache typeTacheAModifier = typeTacheRepository.findById(id).get();
+		Optional<TypeTache> typeTacheAModifierOptional = typeTacheRepository.findById(id);
 		
-		typeTacheAModifier.setLibelle(typeTacheDTO.getLibelle());
+		if (typeTacheAModifierOptional.isPresent()) {
+			TypeTache typeTacheAModifier = typeTacheAModifierOptional.get();
+			typeTacheAModifier.setLibelle(typeTacheDTO.getLibelle());
 		
-		typeTacheRepository.save(typeTacheAModifier);
-		
-		TypeTacheDTO typeTacheAModifierDTO = this.mapTypeTacheToDTO(typeTacheAModifier);
-		
-		return ResponseEntity.ok(typeTacheAModifierDTO);
-	}
+			typeTacheRepository.save(typeTacheAModifier);
+			
+			TypeTacheDTO typeTacheAModifierDTO = this.mapTypeTacheToDTO(typeTacheAModifier);
+			
+			return ResponseEntity.ok(typeTacheAModifierDTO);
+		} else {
+			return ResponseEntity.notFound().build();
+		}
 
-	public ResponseEntity<TypeTacheDTO> deleteTypeTache(int id) {
-		TypeTache typeTacheASupprimer = typeTacheRepository.findById(id).get();
 		
-		TypeTacheDTO typeTacheASupprimerDTO = this.mapTypeTacheToDTO(typeTacheASupprimer);
-		
-		typeTacheRepository.deleteById(id);
-		
-		return ResponseEntity.ok(typeTacheASupprimerDTO);
 	}
-
 }

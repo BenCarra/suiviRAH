@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -31,9 +32,9 @@ public class TypeTacheController {
 		return typeTacheService.getTypeTacheById(id);
 	}
 	
-	@GetMapping("/typeTacheByCategorie/{categorie}")
-	public ResponseEntity<TypeTacheDTO> getTypeTacheByCategorie(@PathVariable String categorie){
-		return typeTacheService.getTypeTacheByCategorie(categorie);
+	@GetMapping("/typeTacheByLibelle/{libelle}")
+	public ResponseEntity<TypeTacheDTO> getTypeTacheByLibelle(@PathVariable String libelle){
+		return typeTacheService.getTypeTacheByLibelle(libelle);
 	}
 	
 	@PostMapping("/createTypeTache")
@@ -41,17 +42,9 @@ public class TypeTacheController {
 		return typeTacheService.createTypeTache(typeTacheDTO);
 	}
 	
-	@PostMapping("/updateTypeTache/{id}")
+	@PutMapping("/updateTypeTache/{id}")
 	public ResponseEntity<TypeTacheDTO> updateTypeTache(@RequestBody TypeTacheDTO typeTacheDTO, @PathVariable int id){
 		return typeTacheService.updateTypeTache(typeTacheDTO, id);
 	}
-	
-	
-	@PostMapping("/deleteTypeTache/{id}")
-	public ResponseEntity<TypeTacheDTO> deleteTypeTache(@PathVariable int id){
-		return typeTacheService.deleteTypeTache(id);
-	}
-	
-	
-	
+
 }

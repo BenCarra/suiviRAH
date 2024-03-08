@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { TypeProjet } from '../../../shared/model/type-projet';
 import { TypeProjetService } from '../../../shared/service/type-projet.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -30,7 +30,7 @@ export class FormCreateTypeProjetComponent {
   formCreate!: FormGroup;
   typeProjetCree: TypeProjet = new TypeProjet();
 
-  constructor(private typeProjetService: TypeProjetService, private activatedRoute: ActivatedRoute, private router: Router) { }
+  constructor(private typeProjetService: TypeProjetService, private router: Router) { }
 
   ngOnInit() {
 

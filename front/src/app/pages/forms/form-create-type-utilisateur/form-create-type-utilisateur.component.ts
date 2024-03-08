@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { TypeUtilisateurService } from '../../../shared/service/type-utilisateur.service';
 import { TypeUtilisateur } from '../../../shared/model/type-utilisateur';
 import { MatButtonModule } from '@angular/material/button';
@@ -30,7 +30,7 @@ export class FormCreateTypeUtilisateurComponent {
   formCreate!: FormGroup;
   typeUtilisateurCree: TypeUtilisateur = new TypeUtilisateur();
 
-  constructor(private typeUtilisateurService: TypeUtilisateurService, private activatedRoute: ActivatedRoute, private router: Router) { }
+  constructor(private typeUtilisateurService: TypeUtilisateurService, private router: Router) { }
 
   ngOnInit() {
 

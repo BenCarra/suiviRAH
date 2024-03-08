@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Client } from '../../../shared/model/client';
 import { ClientService } from '../../../shared/service/client.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -30,7 +30,7 @@ export class FormCreateClientComponent {
   formCreate!: FormGroup;
   clientCree: Client = new Client();
 
-  constructor(private clientService: ClientService, private activatedRoute: ActivatedRoute, private router: Router) { }
+  constructor(private clientService: ClientService, private router: Router) { }
 
   ngOnInit() {
 

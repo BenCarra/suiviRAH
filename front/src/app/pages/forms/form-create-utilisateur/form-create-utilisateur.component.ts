@@ -9,7 +9,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDialogModule } from '@angular/material/dialog';
 import { UtilisateurService } from '../../../shared/service/utilisateur.service';
 import { Utilisateur } from '../../../shared/model/utilisateur';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { Site } from '../../../shared/model/site';
 import { TypeUtilisateur } from '../../../shared/model/type-utilisateur';
@@ -41,7 +41,7 @@ export class FormCreateUtilisateurComponent {
   sites!: Site[];
   typesUtilisateur!: TypeUtilisateur[];
 
-  constructor(private utilisateurService: UtilisateurService, private siteService: SiteService, private typeUtilisateurService: TypeUtilisateurService, private activatedRoute: ActivatedRoute, private router: Router) { }
+  constructor(private utilisateurService: UtilisateurService, private siteService: SiteService, private typeUtilisateurService: TypeUtilisateurService, private router: Router) { }
 
   ngOnInit() {
 

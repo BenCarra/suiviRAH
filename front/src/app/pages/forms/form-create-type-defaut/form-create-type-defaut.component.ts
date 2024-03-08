@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { TypeDefaut } from '../../../shared/model/type-defaut';
 import { TypeDefautService } from '../../../shared/service/type-defaut.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -30,7 +30,7 @@ export class FormCreateTypeDefautComponent {
   formCreate!: FormGroup;
   typeDefautCree: TypeDefaut = new TypeDefaut();
 
-  constructor(private typeDefautService: TypeDefautService, private activatedRoute: ActivatedRoute, private router: Router) { }
+  constructor(private typeDefautService: TypeDefautService, private router: Router) { }
 
   ngOnInit() {
 

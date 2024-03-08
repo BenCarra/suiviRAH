@@ -9,7 +9,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { Equipe } from '../../../shared/model/equipe';
 import { EquipeService } from '../../../shared/service/equipe.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { Utilisateur } from '../../../shared/model/utilisateur';
 import { UtilisateurService } from '../../../shared/service/utilisateur.service';
 
@@ -35,7 +35,7 @@ export class FormCreateEquipeComponent {
   equipeCreee: Equipe = new Equipe();
   utilisateurs!: Utilisateur[];
 
-  constructor(private equipeService: EquipeService, private utilisateurService: UtilisateurService, private activatedRoute: ActivatedRoute, private router: Router) { }
+  constructor(private equipeService: EquipeService, private utilisateurService: UtilisateurService, private router: Router) { }
 
   ngOnInit() {
 

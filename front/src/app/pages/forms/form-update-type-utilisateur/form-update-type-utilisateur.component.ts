@@ -54,7 +54,7 @@ export class FormUpdateTypeUtilisateurComponent {
       }
     )
 
-    // Préremplissage des champs par les données de l'utilisateur fournies par la méthode findById() 
+    // Préremplissage des champs par les données du type utilisateur fournies par la méthode findById() 
     this.typeUtilisateurService.findById(this.idTypeUtilisateur).subscribe(
       data => {
         this.typeUtilisateurById = data;

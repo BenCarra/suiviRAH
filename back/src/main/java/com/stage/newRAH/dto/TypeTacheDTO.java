@@ -1,5 +1,7 @@
 package com.stage.newRAH.dto;
 
+import java.util.List;
+
 import lombok.Data;
 
 @Data
@@ -7,15 +9,17 @@ public class TypeTacheDTO {
 	
 	private int idTypeTache;
 	private String libelle;
+	private List<List<String>> listTaches;
 	
 	public TypeTacheDTO() {
 
 	}
 
-	public TypeTacheDTO(int idTypeTache, String libelle) {
+	public TypeTacheDTO(int idTypeTache, String libelle, List<List<String>> listTaches) {
 
 		this.idTypeTache = idTypeTache;
 		this.libelle = libelle;
+		this.listTaches = listTaches;
 	}
 
 }
