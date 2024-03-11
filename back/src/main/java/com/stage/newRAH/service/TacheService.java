@@ -242,7 +242,15 @@ public class TacheService {
 			Date dateOriginale = tacheDTO.getDateTache();
 			Calendar calendar = Calendar.getInstance();
 			calendar.setTime(dateOriginale);
-			calendar.add(Calendar.DAY_OF_MONTH, 1); // Ajoute un jour
+
+			// Si c'est un vendredi, je duplique à lundi (donc 3 jours plus tard)
+			// sinon je duplique le lendemain
+				if (calendar.get(Calendar.DAY_OF_WEEK) == Calendar.FRIDAY) {
+					calendar.add(Calendar.DAY_OF_MONTH, 3); 
+				} else {
+					calendar.add(Calendar.DAY_OF_MONTH, 1); 
+				}
+
 			Date nouvelleDateUtil = calendar.getTime();
 			java.sql.Date nouvelleDateSql = new java.sql.Date(nouvelleDateUtil.getTime());
 			nouvelleTache.setDateTache(nouvelleDateSql);
