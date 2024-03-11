@@ -2,12 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { TacheService } from '../../shared/service/tache.service';
 import { Tache } from '../../shared/model/tache';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterLink, Router } from '@angular/router';
 
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatSelectModule} from '@angular/material/select';
 import {MatInputModule} from '@angular/material/input';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-list-taches',
@@ -23,128 +22,105 @@ import { Observable } from 'rxjs';
 })
 export class ListTachesComponent implements OnInit {
 
-  weekNumber: number = 1;
-  id: number = 1 ;
+  today: Date;
+  weekNumber!: number;
+  id!: number ;
   selectedWeek!: number;
   filteredTaches!: Tache[];
   weeks: number[] =[]; // tableau contenant les numéros de semaine
   taches!: Tache[];
   tache!: Tache;
   
-
   // Simulation d'un utilisateur connecté 
   idUtilisateurConnecté: number = 4;
 
-  constructor(private tacheService:TacheService, private route: ActivatedRoute ) {
+  constructor(private tacheService:TacheService, private route: ActivatedRoute, private router: Router) {
+    this.today = new Date();
   }
+
   ngOnInit(): void {
+    // Lorsque j'accède à la page Liste des tâches, j'affiche le n° de 
+    // semaine de la date du jour
+    this.initWeeks(this.getWeekNumber(this.today));
 
-    this.initWeeks();
-
+    // Récupération du paramètre qui suit /listTaches (cf app.routes.ts)
     this.route.params.subscribe(params => {
       this.weekNumber = +params['weekNumber'];
-      this.loadListTachesByWeek2(this.weekNumber);
+      this.loadTachesByWeek(this.weekNumber);
     })
-    
-
-    // this.tacheService.getTachesByUtilisateur(this.idUtilisateurConnecté).subscribe(data => {
-    //   this.taches = data;
-
-    //   this.updateTachesForWeek();
-
-    //   // initialisation de la liste complète des tâches 
-    //   // avant de sélectionner une semaine
-    //   // this.filteredTaches = [...this.taches];
-    // })
   }
 
-  // // Chargement de la liste complète des tâches
-  // loadListTaches() {
-  //   this.tacheService.getTaches().subscribe(data => {
-  //     this.taches = data;
-  //   })
-  // }
-
-   // Chargement de la liste des tâches par utilisateur et semaine
-  // loadListTachesByWeek() {
-  //   this.tacheService.getTachesByUtilisateur(this.idUtilisateurConnecté).subscribe(data => {
-  //     this.taches = data;
-  //     this.updateTachesForWeek();
-  //   })
-  // }
-
-  loadListTachesByWeek2(weekNumber: number) {
+  // Chargement de la liste des tâches par utilisateur et semaine
+  loadTachesByWeek(weekNumber: number) {
+    // Je récupère la liste des tâches de l'utilisateur connecté
     this.tacheService.getTachesByUtilisateur(this.idUtilisateurConnecté).subscribe(data => {
       this.taches = data;
-      this.updateTachesForWeek2(weekNumber);
+
+      if (this.selectedWeek !== null) {
+        // filter() est une méthode qui crée un nouveau tableau
+        // avec tous les éléments qui passent le test implémenté par 
+        // la fonction fournie : vérifier si la tâche courante 
+        // appartient à la semaine donnée par weekNumber
+        this.filteredTaches = this.taches.filter(tache => {
+          // j'extrais la date pour obtenir le numéro de semaine de la tache
+          const date = new Date(tache.dateTache);
+          const numberWeek = this.getWeekNumber(date);
+          // si les deux n° correspondent alors la tâche appartient
+          // à la semaine donnée et est incluse dans le tableau filteredTaches
+            return numberWeek === weekNumber;
+          });
+            
+      } else {
+        this.filteredTaches = this.taches;      
+      }
     })
+    // Une fois que j'ai chargé la liste des tâches, je mets le n° de semaine
+    // dans le filtre
+    this.initWeeks(weekNumber);
   }
 
- // Méthode hypothétique pour obtenir les détails de la tâche et ensuite la supprimer
-  getDetailsAndDeleteTache(id: number) {
+  // Méthode pour obtenir le n° de semaine de la tâche à supprimer puis la supprimer
+  onDeleteTache(id: number) {
+    // Je cherche la tâche associée à mon id
     this.tacheService.getTacheById(id).subscribe(tache => {
       const date = new Date(tache.dateTache);
       const weekNumber = this.getWeekNumber(date);
-      this.onDeleteTache(id, weekNumber); 
+      // Une fois le numéro de semaine récupéré, je supprime ma tâche
+      // et j'affiche la liste des tâches de la semaine qui correspond à 
+      // la tâche supprimée
+      this.tacheService.deleteTache(id).subscribe({
+        next:(response) => {
+          alert (response.message);
+          // Après le message, je charge ma liste (sans la tâche supprimée)
+          this.loadTachesByWeek(weekNumber); 
+          // this.router.navigate(['/listTaches', weekNumber]);
+          // this.router ne fonctionne pas car si j'ai le même n° de semaine
+          // la page ne se recharge pas
+        }, 
+        error:(error) => {
+          console.error('Erreur lors de la suppression de la tâche', error);
+        }     
+      });
     });
 }
-
-
-   onDeleteTache(id:number, weekNumber: number) {  
-    this.tacheService.deleteTache(id).subscribe({
-      next:(response) => {
-        alert (response.message);
-        // Après le message, j'actualise ma page (sans la tâche supprimée)
-        this.loadListTachesByWeek2(weekNumber);
-        
-  
-      }, 
-      error:(error) => {
-        console.error('Erreur lors de la suppression de la tâche', error);
-      }     
-    });
-  }
 
   onDuplicateTache(id:number, tache:Tache) {
     this.tacheService.duplicateTache(id, tache).subscribe({
       next:(response) => {
         alert(response.message);
-        // Après le message, j'actualise ma page (avec la tâche dupliquée)
-        
         const date = new Date(tache.dateTache);
-        const number = this.getWeekNumber(date);
-        this.loadListTachesByWeek2(number);
+        if (date.getDay() === 6 || date.getDay() === 5 || date.getDay() === 0 ) {
+          const numberWeek = this.getWeekNumber(date)+1; 
+          this.loadTachesByWeek(numberWeek); 
+        } else {
+            const numberWeek = this.getWeekNumber(date);
+            this.loadTachesByWeek(numberWeek);
+        }        
       }, 
       error:(error) => {
         console.error('Erreur lors de la duplication de la tâche', error);
       }     
     });
-  }
-
-  // Méthode qui liste les tâches d'une semaine donnée 
-  // updateTachesForWeek(): void {
-  //   if (this.selectedWeek === null) {
-  //     this.filteredTaches = this.taches;
-  //   } else {
-  //     this.filteredTaches = this.taches.filter(tache => {
-  //       const date = new Date(tache.dateTache);
-  //       const weekNumber = this.getWeekNumber(date);
-  //       return weekNumber === this.selectedWeek;
-  //     });
-  //   }
-  // }
-
-  updateTachesForWeek2(weekNumber: number): void {  
-    if (this.selectedWeek === null) {
-          this.filteredTaches = this.taches;
-        } else {
-      this.filteredTaches = this.taches.filter(tache => {
-        const date = new Date(tache.dateTache);
-        const number = this.getWeekNumber(date);
-        return number === weekNumber;
-      });
-    }
-
   }
   
   // Méthode qui calcule le numéro de semaine par rapport à une date donnée  
@@ -160,23 +136,17 @@ export class ListTachesComponent implements OnInit {
     return weekNo;
   }
 
-  // Méthode qui permet de filtrer par semaine en partant de la semaine dans laquelle on est
-  initWeeks() {
-    const today = new Date();
-    const currentWeek = this.getWeekNumber(today);
-    this.selectedWeek = currentWeek;
-
+  // Méthode qui permet de filtrer par semaine 
+  // en partant de la semaine actuelle
+  initWeeks(weekNumber: number) {    
+    this.selectedWeek = weekNumber;
     // De la semaine actuelle à 1
-    for (let i = currentWeek; i >= 1; i--) {
+    for (let i = weekNumber; i >= 1; i--) {
       this.weeks.push(i);
     }
-
     // De 52 à la semaine juste après la semaine actuelle
-    if (currentWeek < 52) {
-      for (let i = 52; i > currentWeek; i--) {
-        this.weeks.push(i);
-      }
+    for (let i = 52; i > weekNumber; i--) {
+      this.weeks.push(i);
     }
   }
-
 }

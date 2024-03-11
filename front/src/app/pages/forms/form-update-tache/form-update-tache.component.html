@@ -25,7 +25,7 @@
 
     <mat-form-field class="form-field">
         <mat-label>Date</mat-label>
-            <input formControlName="dateTache" matInput [matDatepicker]="picker">
+            <input formControlName="dateTache" matInput [matDatepicker]="picker" [matDatepickerFilter]="myFilter">
             <mat-hint>JJ/MM/AAAA</mat-hint>
         <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>

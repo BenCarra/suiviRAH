@@ -12,15 +12,10 @@ import { registerLocaleData } from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
 registerLocaleData(localeFr);
 
-// import { DateAdapter } from 'angular-calendar';
-// import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
-
 export const appConfig: ApplicationConfig = {
   providers: [provideRouter(routes), 
     provideHttpClient(), 
     provideAnimations(), 
     provideNativeDateAdapter(),
-    { provide: LOCALE_ID, useValue: 'fr' },
-    //{provide: DateAdapter, useFactory: adapterFactory}
-   ]
+    { provide: LOCALE_ID, useValue: 'fr' }]
 };

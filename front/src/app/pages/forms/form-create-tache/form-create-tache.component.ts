@@ -59,6 +59,15 @@ export class FormCreateTacheComponent implements OnInit {
     });
   }
 
+  // Filtre pour ne pas pouvoir créer de tâche le samedi et le dimanche
+  myFilter = (d: Date | null): boolean => {
+    // j'extrais le jour de la date fournie
+    const day = (d || new Date()).getDay();
+    // Si le jour fourni n'est ni un dimanche, ni un samedi
+    // je renvoie true (donc sélectionnable)
+    return day !== 0 && day !== 6;
+  };
+
   ngOnInit(): void {
     this.typeTacheService.getTypeTaches().subscribe(data => {
       this.typeTaches = data;
@@ -92,8 +101,11 @@ export class FormCreateTacheComponent implements OnInit {
       this.tacheService.createTache(tache).subscribe({
         next:(response) => {
           alert (response.message); // message de confirmation
-          // Après le message, j'affiche la page liste des tâches
-          this.router.navigate(['/listTaches']);
+          // Après le message, j'affiche la page liste des tâches de la semaine
+          // qui correspond à la date de la tâche créée
+          const date = new Date(tache.dateTache);
+          const numberWeek = this.getWeekNumber(date);
+          this.router.navigate(['/listTaches', numberWeek]);
         }, 
         error:(error) => {
           console.error('Erreur lors de la création de la tâche', error);
@@ -114,5 +126,18 @@ export class FormCreateTacheComponent implements OnInit {
         this.formCreateTache.get('dureeTache')?.enable();
       }
     })
+  }
+
+  // Méthode qui calcule le numéro de semaine par rapport à une date donnée  
+  getWeekNumber(d: Date): number {
+    // Copie de la date pour éviter de modifier l'original
+    d = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
+    // Définir au dimanche le plus proche
+    d.setUTCDate(d.getUTCDate() + 4 - (d.getUTCDay() || 7));
+    // Date de début de l'année
+    const yearStart = new Date(Date.UTC(d.getUTCFullYear(),0,1));
+    // Calcul de la différence de jours et division par 7 pour obtenir le numéro de semaine
+    const weekNo = Math.ceil(( (d.getTime() - yearStart.getTime()) / 86400000 + 1)/7);
+    return weekNo;
   }
 }
