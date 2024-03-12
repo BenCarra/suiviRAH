@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { SecurityService } from '../../shared/service/security.service';
 
 @Component({
@@ -16,7 +16,7 @@ export class ConnexionComponent {
   formConnexion!: FormGroup
   model!: any;
 
-  constructor(private securityService: SecurityService, private route: ActivatedRoute,
+  constructor(private securityService: SecurityService,
     private router: Router,
     private http: HttpClient) {
 

@@ -7,7 +7,7 @@
         <div class="col">
           <mat-form-field appearance="outline">
             <mat-label>Libellé :</mat-label>
-            <input matInput formControlName="libelle">
+            <input title="libelle" matInput formControlName="libelle">
             @if (formUpdate.controls['libelle'].hasError('required')) {
             <mat-error>Libellé <strong>requis</strong></mat-error>
             }
@@ -17,7 +17,7 @@
     </mat-card-content>
     <mat-card-actions>
       <button mat-raised-button type="submit" (click)="onSubmit()">Envoyer</button>
-      <button mat-raised-button (click)="onClose()">Retour</button>
+      <button mat-raised-button type="button" (click)="onClose()">Retour</button>
     </mat-card-actions>
   </mat-card>
 </form>

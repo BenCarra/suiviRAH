@@ -1,12 +1,12 @@
 <div class="liste">
     <h3>LISTE DES SITES</h3>
     <form class="filtrage" [formGroup]="formFiltrage">
-        <select id="filtrage-demande" formControlName="filtrageDemande" (change)="updateFiltrage()">
+        <select title="filtrage-demande" id="filtrage-demande" formControlName="filtrageDemande" (change)="updateFiltrage()">
             <option disabled [selected]="formFiltrage.value.filtrageDemande == ''">-- Sélectionner un filtre --</option>
             <option value="Par nom de site">Rechercher par nom de site</option>
         </select>
         @if (formFiltrage.get("filtrageDemande")?.getRawValue() == "Par nom de site") {
-        <select id="noms-site" autocomplete formControlName="siteRecherche">
+        <select title="noms-site" id="noms-site" autocomplete formControlName="siteRecherche">
             <option disabled [selected]="formFiltrage.value.filtrageDemande == 'Par nom de site'">--
                 Sélectionner
                 un site --</option>
@@ -31,7 +31,7 @@
                     <th>Modifier</th>
                 </tr>
                 @for (site of listSites; track $index) {
-                <tr id="{{ site.idSite }}">
+                <tr title="{{ site.idSite }}">
                     <td>{{ site.nomSite }}</td>
                     <td>{{ site.adresseSite }}</td>
                     <td>{{ site.codePostalSite }}</td>

@@ -2,10 +2,7 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatDialogModule } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
-import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { Equipe } from '../../../shared/model/equipe';
 import { EquipeService } from '../../../shared/service/equipe.service';
@@ -20,10 +17,7 @@ import { UtilisateurService } from '../../../shared/service/utilisateur.service'
     MatInputModule,
     MatButtonModule,
     MatSelectModule,
-    MatRadioModule,
     MatCardModule,
-    MatDialogModule,
-    MatDatepickerModule,
     ReactiveFormsModule
   ],
   templateUrl: './form-create-equipe.component.html',
@@ -38,12 +32,13 @@ export class FormCreateEquipeComponent {
   constructor(private equipeService: EquipeService, private utilisateurService: UtilisateurService, private router: Router) { }
 
   ngOnInit() {
-
+    // Création du formulaire réactif
     this.formCreate = new FormGroup({
       libelle: new FormControl('', Validators.required),
       utilisateurs: new FormControl('', Validators.required)
     })
 
+    // Récupération des utilisateurs pour l'affectation d'un ou plusieurs utilisateurs à une équipe
     this.utilisateurService.findAll().subscribe(
       data => {
         this.utilisateurs = [];
@@ -57,10 +52,12 @@ export class FormCreateEquipeComponent {
 
   }
 
+  // Méthode exécutée quand on appuie sur le bouton Retour
   onClose() {
     this.router.navigateByUrl("/admin/equipes");
   }
 
+  // Méthode exécutée quand on appuie sur le bouton Envoyer
   onSubmit(): void {
 
     if (this.formCreate.controls['libelle'].hasError('required') ||

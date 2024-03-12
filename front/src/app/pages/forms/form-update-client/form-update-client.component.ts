@@ -3,27 +3,20 @@ import { Component } from '@angular/core';
 import { ReactiveFormsModule, Validators, FormGroup, FormControl } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-import { MatSelectModule } from '@angular/material/select';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatCardModule } from '@angular/material/card';
-import { MatDialogModule } from '@angular/material/dialog';
-import { MatDatepickerModule } from "@angular/material/datepicker";
 import { Client } from '../../../shared/model/client';
 import { ClientService } from '../../../shared/service/client.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-form-update-client',
   standalone: true,
-  imports: [DatePipe,
+  imports: [
     MatInputModule,
     MatButtonModule,
-    MatSelectModule,
     MatRadioModule,
     MatCardModule,
-    MatDialogModule,
-    MatDatepickerModule,
     ReactiveFormsModule],
   templateUrl: './form-update-client.component.html',
   styleUrl: './form-update-client.component.css'
@@ -37,7 +30,7 @@ export class FormUpdateClientComponent {
   constructor(private clientService: ClientService, private activatedRoute: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
-
+    // Création du formulaire réactif
     this.formUpdate = new FormGroup({
       nom: new FormControl('', Validators.required),
       adresse: new FormControl('', Validators.required),
@@ -46,7 +39,7 @@ export class FormUpdateClientComponent {
       actif: new FormControl('', Validators.required)
     })
 
-
+    // Récupération de l'identifiant du client à modifier
     this.activatedRoute.queryParams.subscribe(
       params => {
         const id = params['id'];
@@ -56,7 +49,7 @@ export class FormUpdateClientComponent {
       }
     )
 
-
+    // Récupération des informations du client à modifier à partir de son identifiant
     this.clientService.findById(this.idClient).subscribe(
       data => {
         this.clientById = data;
@@ -69,10 +62,12 @@ export class FormUpdateClientComponent {
     );
   }
 
+  // Méthode exécutée quand on appuie sur le bouton Retour
   onClose() {
     this.router.navigateByUrl("/admin/clients");
   }
 
+  // Méthode exécutée quand on appuie sur le bouton Envoyer
   onSubmit(): void {
 
     if (this.formUpdate.controls['nom'].hasError('required') ||

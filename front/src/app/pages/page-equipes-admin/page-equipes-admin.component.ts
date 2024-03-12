@@ -9,7 +9,7 @@ import { RouterLink } from '@angular/router';
     standalone: true,
     templateUrl: './page-equipes-admin.component.html',
     styleUrl: './page-equipes-admin.component.css',
-    imports: [RouterLink, HeaderComponent, EquipeListComponent, FooterComponent, EquipeListComponent]
+    imports: [RouterLink, HeaderComponent, FooterComponent, EquipeListComponent]
 })
 export class PageEquipesAdminComponent {
 

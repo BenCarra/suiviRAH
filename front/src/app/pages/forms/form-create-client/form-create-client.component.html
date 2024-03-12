@@ -7,7 +7,7 @@
         <div class="col">
           <mat-form-field appearance="outline">
             <mat-label>Nom :</mat-label>
-            <input matInput formControlName="nom">
+            <input title="nom" matInput formControlName="nom">
             @if (formCreate.controls['nom'].hasError('required')) {
             <mat-error>Nom <strong>requis</strong></mat-error>
             }
@@ -19,7 +19,7 @@
         <div class="col">
           <mat-form-field appearance="outline">
             <mat-label>Adresse : </mat-label>
-            <input matInput formControlName="adresse">
+            <input title="adresse" matInput formControlName="adresse">
             @if (formCreate.controls['adresse'].hasError('required')) {
             <mat-error>Adresse <strong>requise</strong></mat-error>
             }
@@ -28,7 +28,7 @@
         <div class="col">
           <mat-form-field appearance="outline">
             <mat-label>Code Postal :</mat-label>
-            <input matInput formControlName="codePostal">
+            <input title="codePostal" matInput formControlName="codePostal">
             @if (formCreate.controls['codePostal'].hasError('required')) {
             <mat-error>Code postal <strong>requis</strong></mat-error>
             } @else if ( formCreate.controls['codePostal'].hasError('pattern')) {
@@ -42,7 +42,7 @@
         <div class="col">
           <mat-form-field appearance="outline">
             <mat-label>Ville :</mat-label>
-            <input matInput formControlName="ville">
+            <input title="ville" matInput formControlName="ville">
             @if (formCreate.controls['ville'].hasError('required')) {
             <mat-error>Ville <strong>requise</strong></mat-error>
             }
@@ -65,7 +65,7 @@
     <mat-card-actions>
       <button mat-raised-button type="submit" (click)="onSubmit()">Envoyer</button>
       <button mat-raised-button type="reset">Réinitialiser</button>
-      <button mat-raised-button (click)="onClose()">Retour</button>
+      <button mat-raised-button type="button" (click)="onClose()">Retour</button>
     </mat-card-actions>
   </mat-card>
 </form>

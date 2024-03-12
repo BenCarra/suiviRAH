@@ -6,7 +6,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatCardModule } from '@angular/material/card';
-import { MatDialogModule } from '@angular/material/dialog';
 import { UtilisateurService } from '../../../shared/service/utilisateur.service';
 import { Utilisateur } from '../../../shared/model/utilisateur';
 import { Router } from '@angular/router';
@@ -29,7 +28,6 @@ import { TypeUtilisateurService } from '../../../shared/service/type-utilisateur
     MatSelectModule,
     MatRadioModule,
     MatCardModule,
-    MatDialogModule,
     MatDatepickerModule,
     ReactiveFormsModule
   ],
@@ -45,6 +43,7 @@ export class FormCreateUtilisateurComponent {
 
   ngOnInit() {
 
+    // Création du formulaire réactif
     this.formCreate = new FormGroup({
       login: new FormControl('', Validators.required),
       prénom: new FormControl('', Validators.required),
@@ -56,12 +55,14 @@ export class FormCreateUtilisateurComponent {
       typeUtilisateur: new FormControl('', Validators.required)
     })
 
+    // Récupération des sites à choisir
     this.siteService.findAll().subscribe(
       data => {
         this.sites = data;
       }
     )
 
+    // Récupération des types utilisateur à choisir
     this.typeUtilisateurService.findAll().subscribe(
       data => {
         this.typesUtilisateur = data;
@@ -70,10 +71,12 @@ export class FormCreateUtilisateurComponent {
 
   }
 
+  // Méthode exécutée quand on appuie sur le bouton Retour
   onClose() {
     this.router.navigateByUrl("/admin/utilisateurs");
   }
 
+  // Méthode exécutée quand on appuie sur le bouton Envoyer
   onSubmit(): void {
 
     if (this.formCreate.controls['login'].hasError('required') ||

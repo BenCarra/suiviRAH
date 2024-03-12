@@ -3,7 +3,6 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { Utilisateur } from '../../shared/model/utilisateur';
 import { UtilisateurService } from '../../shared/service/utilisateur.service';
 import { Router, RouterLink } from '@angular/router';
-import { FormUpdateUtilisateurComponent } from '../forms/form-update-utilisateur/form-update-utilisateur.component';
 import { DatePipe } from '@angular/common';
 
 @Component({
@@ -11,7 +10,7 @@ import { DatePipe } from '@angular/common';
   standalone: true,
   templateUrl: './utilisateur-list.component.html',
   styleUrl: './utilisateur-list.component.scss',
-  imports: [DatePipe, RouterLink, ReactiveFormsModule, FormUpdateUtilisateurComponent]
+  imports: [DatePipe, RouterLink, ReactiveFormsModule]
 })
 export class UtilisateurListComponent {
 
@@ -21,35 +20,45 @@ export class UtilisateurListComponent {
   listNomsUtilisateur: String[] = [];
   listTypesUtilisateur: String[] = [];
   listSitesUtilisateur: String[] = [];
-  formFiltrage!: FormGroup<{ filtrageDemande: FormControl<string | null>; utilisateurRecherche: FormControl<string | null>; boutonSoumission: FormControl<string | null>; boutonReset: FormControl<string | null>; }>;
+  formFiltrage!: FormGroup;
 
 
   constructor(private utilisateurService: UtilisateurService, private router: Router) {
-    this.routerURL = router.url;
+    this.routerURL = router.url; // pour déterminer le rendu HTML selon la route
   }
 
   ngOnInit() {
 
+    // Création du formulaire réactif pour le filtrage
     this.formFiltrage = new FormGroup({
       filtrageDemande: new FormControl('', Validators.required),
       utilisateurRecherche: new FormControl('', Validators.required),
       boutonSoumission: new FormControl('OK', Validators.required),
       boutonReset: new FormControl('Reset')
     });
+
+    // Récupération de tous les utilisateurs à afficher
     this.utilisateurService.findAll().subscribe(data => {
       this.listUtilisateurs = data;
     })
+
+    // Aucun filtre n'étant sélectionné par défaut, on désactive les boutons et la liste de récupération des éléments trouvés
     this.formFiltrage.get('utilisateurRecherche')?.disable();
     this.formFiltrage.get('boutonSoumission')?.disable();
     this.formFiltrage.get('boutonReset')?.disable();
   }
 
+  // Méthode pour le filtrage des utilisateurs
   updateFiltrage() {
+    // Quand le filtre est sélectionné
     if (this.formFiltrage.value.filtrageDemande != "") {
 
+      // On réactive les boutons et la liste de récupération des éléments trouvés
       this.formFiltrage.get('utilisateurRecherche')?.enable();
       this.formFiltrage.get('boutonSoumission')?.enable();
       this.formFiltrage.get('boutonReset')?.enable();
+
+      // Pour un filtre choisi, on remplit la liste des caractéristiques utilisateur correspondantes
 
       if (this.formFiltrage.value.filtrageDemande == 'Par nom d\'utilisateur') {
         this.listNomsUtilisateur = [];
@@ -83,8 +92,11 @@ export class UtilisateurListComponent {
     }
   }
 
+  // Méthode exécutée après appui sur le bouton OK du filtre
   onSearch(e: MouseEvent) {
     let recherche = this.formFiltrage.get('utilisateurRecherche')?.value;
+
+    // Selon le filtre choisi, on récupère les résultats
 
     if (this.formFiltrage.value.filtrageDemande == 'Par nom d\'utilisateur') {
       this.utilisateurService.findByNom(recherche!).subscribe(
@@ -108,6 +120,7 @@ export class UtilisateurListComponent {
 
   }
 
+  // Méthode exécutée après appui sur le bouton Reset du filtre
   onReset($event: MouseEvent) {
     this.formFiltrage.get('filtrageDemande')?.setValue("");
     this.formFiltrage.get('utilisateurRecherche')?.disable();

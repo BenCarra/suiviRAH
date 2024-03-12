@@ -18,7 +18,7 @@ export class ClientListComponent {
   idClient!: string;
   listClients!: Client[];
   listNomsClient: String[] = [];
-  formFiltrage!: FormGroup<{ filtrageDemande: FormControl<string | null>; clientRecherche: FormControl<string | null>; boutonSoumission: FormControl<string | null>; boutonReset: FormControl<string | null>; }>;
+  formFiltrage!: FormGroup;
 
 
   constructor(private clientService: ClientService, private router: Router) {
@@ -27,26 +27,36 @@ export class ClientListComponent {
 
   ngOnInit() {
 
+    // Création du formulaire réactif pour le filtrage
     this.formFiltrage = new FormGroup({
       filtrageDemande: new FormControl('', Validators.required),
       clientRecherche: new FormControl('', Validators.required),
       boutonSoumission: new FormControl('OK', Validators.required),
       boutonReset: new FormControl('Reset')
     });
+
+    // Récupération de tous les clients à afficher
     this.clientService.findAll().subscribe(data => {
       this.listClients = data;
     })
+
+    // Aucun filtre n'étant sélectionné par défaut, on désactive les boutons et la liste de récupération des éléments trouvés
     this.formFiltrage.get('clientRecherche')?.disable();
     this.formFiltrage.get('boutonSoumission')?.disable();
     this.formFiltrage.get('boutonReset')?.disable();
   }
 
+  // Méthode pour le filtrage des états de projet
   updateFiltrage() {
+    // Quand le filtre est sélectionné
     if (this.formFiltrage.value.filtrageDemande != "") {
 
+      // On réactive les boutons et la liste de récupération des éléments trouvés
       this.formFiltrage.get('clientRecherche')?.enable();
       this.formFiltrage.get('boutonSoumission')?.enable();
       this.formFiltrage.get('boutonReset')?.enable();
+
+      // Pour un filtre choisi, on remplit la liste des caractéristiques état projet correspondantes
 
       if (this.formFiltrage.value.filtrageDemande == 'Par nom de client') {
         this.listNomsClient = [];
@@ -61,6 +71,7 @@ export class ClientListComponent {
     }
   }
 
+  // Méthode exécutée après appui sur le bouton OK du filtre
   onSearch(e: MouseEvent) {
     let recherche = this.formFiltrage.get('clientRecherche')?.value;
 
@@ -74,6 +85,7 @@ export class ClientListComponent {
 
   }
 
+  // Méthode exécutée après appui sur le bouton Reset du filtre
   onReset($event: MouseEvent) {
     this.formFiltrage.get('filtrageDemande')?.setValue("");
     this.formFiltrage.get('clientRecherche')?.disable();

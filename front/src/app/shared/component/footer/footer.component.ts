@@ -9,4 +9,6 @@ import { Component } from '@angular/core';
 })
 export class FooterComponent {
 
+  // Mettre méthode pour récupérer les informations de l'utilisateur connecté
+
 }

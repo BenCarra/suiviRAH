@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class SecurityService {
+
   authenticated: boolean = false;
   url!: string
 
@@ -13,6 +14,7 @@ export class SecurityService {
     this.url = 'http://localhost:8080';
   }
 
+  // Méthode d'authentification
   public authenticate(credentials:any, callback: any) {
 
     const headers = new HttpHeaders(credentials ? {
@@ -37,6 +39,7 @@ export class SecurityService {
     return this.http.post<boolean>(this.url, model);
   }*/
 
+  // Méthode de déconnexion
   public logout(){
     this.http.post(this.url + '/logout', {}).subscribe(() => {
       this.authenticated = false;

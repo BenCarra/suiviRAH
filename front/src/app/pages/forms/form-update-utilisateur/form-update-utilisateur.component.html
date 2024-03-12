@@ -7,7 +7,7 @@
         <div class="col">
           <mat-form-field appearance="outline">
             <mat-label>Login :</mat-label>
-            <input matInput formControlName="login">
+            <input title="login" matInput formControlName="login">
             @if (formUpdate.controls['login'].hasError('required')) {
             <mat-error>Login <strong>requis</strong></mat-error>
             }
@@ -19,7 +19,7 @@
         <div class="col">
           <mat-form-field appearance="outline">
             <mat-label>Prénom : </mat-label>
-            <input matInput formControlName="prénom">
+            <input title="prénom" matInput formControlName="prénom">
             @if (formUpdate.controls['prénom'].hasError('required')) {
             <mat-error>Prénom <strong>requis</strong></mat-error>
             }
@@ -28,7 +28,7 @@
         <div class="col">
           <mat-form-field appearance="outline">
             <mat-label>Nom :</mat-label>
-            <input matInput formControlName="nom">
+            <input title="nom" matInput formControlName="nom">
             @if (formUpdate.controls['nom'].hasError('required')) {
             <mat-error>Nom <strong>requis</strong></mat-error>
             }
@@ -40,7 +40,7 @@
         <div class="col">
           <mat-form-field appearance="outline">
             <mat-label>Date de naissance :</mat-label>
-            <input matInput [matDatepicker]="picker" formControlName="dateNaissance">
+            <input title="dateNaissance" matInput [matDatepicker]="picker" formControlName="dateNaissance">
             <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
             @if (formUpdate.controls['dateNaissance'].hasError('required')) {
@@ -54,7 +54,7 @@
         <div class="col">
           <mat-form-field appearance="outline">
             <mat-label>Mail :</mat-label>
-            <input matInput formControlName="mail">
+            <input title="mail" matInput formControlName="mail">
             @if (formUpdate.controls['mail'].hasError('required')) {
             <mat-error>Mail <strong>requis</strong></mat-error>
             } @else if (formUpdate.controls['mail'].hasError('email')) {
@@ -114,8 +114,8 @@
       <br>
     </mat-card-content>
     <mat-card-actions>
-      <button mat-raised-button (click)="onSubmit()">Envoyer</button>
-      <button mat-raised-button (click)="onClose()">Retour</button>
+      <button mat-raised-button type="submit" (click)="onSubmit()">Envoyer</button>
+      <button mat-raised-button type="button" (click)="onClose()">Retour</button>
     </mat-card-actions>
   </mat-card>
 </form>
