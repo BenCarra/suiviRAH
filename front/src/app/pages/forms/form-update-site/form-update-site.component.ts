@@ -5,22 +5,14 @@ import { SiteService } from '../../../shared/service/site.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatDialogModule } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
-import { MatRadioModule } from '@angular/material/radio';
-import { MatSelectModule } from '@angular/material/select';
 
 @Component({
   selector: 'app-form-update-site',
   standalone: true,
   imports: [MatInputModule,
     MatButtonModule,
-    MatSelectModule,
-    MatRadioModule,
     MatCardModule,
-    MatDialogModule,
-    MatDatepickerModule,
     ReactiveFormsModule],
   templateUrl: './form-update-site.component.html',
   styleUrl: './form-update-site.component.css'
@@ -34,7 +26,7 @@ export class FormUpdateSiteComponent {
   constructor(private siteService: SiteService, private activatedRoute: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
-
+    // Création du formulaire réactif
     this.formUpdate = new FormGroup({
       nom: new FormControl('', Validators.required),
       adresse: new FormControl('', Validators.required),
@@ -42,7 +34,7 @@ export class FormUpdateSiteComponent {
       ville: new FormControl('', Validators.required)
     })
 
-
+    // Récupération de l'identifiant du site à modifier
     this.activatedRoute.queryParams.subscribe(
       params => {
         const id = params['id'];
@@ -52,6 +44,7 @@ export class FormUpdateSiteComponent {
       }
     )
 
+    // Récupération des informations de site à modifier à partir de son identifiant
     this.siteService.findById(this.idSite).subscribe(
       data => {
         this.siteById = data;
@@ -63,10 +56,12 @@ export class FormUpdateSiteComponent {
     );
   }
 
+  // Méthode exécutée quand on appuie sur le bouton Retour
   onClose() {
     this.router.navigateByUrl("/admin/parametres");
   }
 
+  // Méthode exécutée quand on appuie sur le bouton Envoyer
   onSubmit(): void {
 
     if (this.formUpdate.controls['nom'].hasError('required') ||

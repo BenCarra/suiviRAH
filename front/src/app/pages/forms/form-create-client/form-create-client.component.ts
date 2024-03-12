@@ -5,22 +5,16 @@ import { ClientService } from '../../../shared/service/client.service';
 import { Router } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatDialogModule } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
-import { MatSelectModule } from '@angular/material/select';
 
 @Component({
   selector: 'app-form-create-client',
   standalone: true,
   imports: [MatInputModule,
     MatButtonModule,
-    MatSelectModule,
     MatRadioModule,
     MatCardModule,
-    MatDialogModule,
-    MatDatepickerModule,
     ReactiveFormsModule],
   templateUrl: './form-create-client.component.html',
   styleUrl: './form-create-client.component.css'
@@ -33,7 +27,7 @@ export class FormCreateClientComponent {
   constructor(private clientService: ClientService, private router: Router) { }
 
   ngOnInit() {
-
+    // Création du formulaire réactif
     this.formCreate = new FormGroup({
       nom: new FormControl('', Validators.required),
       adresse: new FormControl('', Validators.required),
@@ -44,10 +38,12 @@ export class FormCreateClientComponent {
 
   }
 
+  // Méthode exécutée quand on appuie sur le bouton Retour
   onClose() {
     this.router.navigateByUrl("/admin/clients");
   }
 
+  // Méthode exécutée quand on appuie sur le bouton Envoyer
   onSubmit(): void {
 
     if (this.formCreate.controls['nom'].hasError('required') ||

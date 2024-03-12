@@ -1,12 +1,12 @@
 <div class="liste">
     <h3>LISTE DES TYPES UTILISATEURS</h3>
     <form class="filtrage" [formGroup]="formFiltrage">
-        <select class="filtrage-demande" formControlName="filtrageDemande" (change)="updateFiltrage()">
+        <select title="filtrage-demande" class="filtrage-demande" formControlName="filtrageDemande" (change)="updateFiltrage()">
             <option disabled [selected]="formFiltrage.value.filtrageDemande == ''">-- Sélectionner un filtre --</option>
             <option value="Par libellé de type utilisateur">Rechercher par libellé de type utilisateur</option>
         </select>
         @if (formFiltrage.get("filtrageDemande")?.getRawValue() == "Par libellé de type utilisateur") {
-        <select id="libelles-type-utilisateur" autocomplete formControlName="typeUtilisateurRecherche">
+        <select title="filtrage-demande" id="libelles-type-utilisateur" autocomplete formControlName="typeUtilisateurRecherche">
             <option disabled [selected]="formFiltrage.value.filtrageDemande == 'Par libellé de type utilisateur'">--
                 Sélectionner
                 un type d'utilisateur --</option>
@@ -28,7 +28,7 @@
                     <th>Modifier</th>
                 </tr>
                 @for (typeUtilisateur of listTypesUtilisateur; track $index) {
-                <tr id="{{ typeUtilisateur.idTypeUtilisateur }}">
+                <tr title="{{ typeUtilisateur.idTypeUtilisateur }}">
                     <td>{{ typeUtilisateur.libelle }}</td>
                     <td>
                         @for (utilisateur of typeUtilisateur.listUtilisateurs; track $index){

@@ -9,14 +9,14 @@
     </h3>
     @if (routerURL == "/admin/utilisateurs") {
     <form class="filtrage" [formGroup]="formFiltrage">
-        <select class="filtrage-demande" formControlName="filtrageDemande" (change)="updateFiltrage()">
+        <select title="filtrage-demande" class="filtrage-demande" formControlName="filtrageDemande" (change)="updateFiltrage()">
             <option disabled [selected]="formFiltrage.value.filtrageDemande == ''">-- Sélectionner un filtre --</option>
             <option value="Par nom d'utilisateur">Rechercher par nom d'utilisateur</option>
             <option value="Par type d'utilisateur">Rechercher par type d'utilisateur</option>
             <option value="Par nom de site">Rechercher par nom de site</option>
         </select>
         @if (formFiltrage.get("filtrageDemande")?.getRawValue() == "Par nom d'utilisateur") {
-        <select id="noms-utilisateur" autocomplete formControlName="utilisateurRecherche">
+        <select title="noms-utilisateur" id="noms-utilisateur" autocomplete formControlName="utilisateurRecherche">
             <option disabled [selected]="formFiltrage.value.filtrageDemande == 'Par nom d\'utilisateur'">-- Sélectionner
                 un nom d'utilisateur --</option>
             @for (nomUtilisateur of listNomsUtilisateur; track $index) {
@@ -24,13 +24,13 @@
             }
         </select>
         } @else if (formFiltrage.get("filtrageDemande")?.getRawValue() == "Par type d'utilisateur") {
-        <select id="types-utilisateur" autocomplete formControlName="utilisateurRecherche">
+        <select title="types-utilisateur" id="types-utilisateur" autocomplete formControlName="utilisateurRecherche">
             @for (typeUtilisateur of listTypesUtilisateur; track $index) {
             <option [value]="typeUtilisateur">{{ typeUtilisateur }}</option>
             }
         </select>
         } @else if (formFiltrage.get("filtrageDemande")?.getRawValue() == "Par nom de site") {
-        <select id="nom-sites-utilisateur" autocomplete formControlName="utilisateurRecherche">
+        <select title="nom-sites-utilisateur" id="nom-sites-utilisateur" autocomplete formControlName="utilisateurRecherche">
             @for (siteUtilisateur of listSitesUtilisateur; track $index) {
             <option [value]="siteUtilisateur">{{ siteUtilisateur }}</option>
             }
@@ -61,7 +61,7 @@
                     <th>Modifier</th>
                 </tr>
                 @for (utilisateur of listUtilisateurs; track $index) {
-                <tr [className]="utilisateur.actif" id="{{ utilisateur.idUtilisateur }}">
+                <tr [className]="utilisateur.actif" title="{{ utilisateur.idUtilisateur }}">
                     <td>{{ utilisateur.login }}</td>
                     <td>{{ utilisateur.prenomUtilisateur }}</td>
                     <td>{{ utilisateur.nomUtilisateur }}</td>
@@ -113,7 +113,7 @@
                     <th>Actif</th>
                 </tr>
                 @for (utilisateur of listUtilisateurs; track $index) {
-                <tr [className]="utilisateur.actif" id="{{ utilisateur.idUtilisateur }}">
+                <tr [className]="utilisateur.actif" title="{{ utilisateur.idUtilisateur }}">
                     <td>{{ utilisateur.login }}</td>
                     <td>{{ utilisateur.prenomUtilisateur }}</td>
                     <td>{{ utilisateur.nomUtilisateur }}</td>

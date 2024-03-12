@@ -6,12 +6,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatCardModule } from '@angular/material/card';
-import { MatDialogModule } from '@angular/material/dialog';
 import { MatDatepickerModule } from "@angular/material/datepicker";
 import { UtilisateurService } from '../../../shared/service/utilisateur.service';
 import { Utilisateur } from '../../../shared/model/utilisateur';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DatePipe } from '@angular/common';
 import { Site } from '../../../shared/model/site';
 import { TypeUtilisateur } from '../../../shared/model/type-utilisateur';
 import { SiteService } from '../../../shared/service/site.service';
@@ -25,13 +23,11 @@ import { TypeUtilisateurService } from '../../../shared/service/type-utilisateur
   styleUrl: './form-update-utilisateur.component.scss',
   standalone: true,
   imports: [
-    DatePipe,
     MatInputModule,
     MatButtonModule,
     MatSelectModule,
     MatRadioModule,
     MatCardModule,
-    MatDialogModule,
     MatDatepickerModule,
     ReactiveFormsModule
   ],
@@ -47,9 +43,7 @@ export class FormUpdateUtilisateurComponent {
   constructor(private utilisateurService: UtilisateurService, private siteService: SiteService,private typeUtilisateurService: TypeUtilisateurService, private activatedRoute: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
-
-
-
+    // Création du formulaire réactif
     this.formUpdate = new FormGroup({
       login: new FormControl('', Validators.required),
       prénom: new FormControl('', Validators.required),
@@ -61,7 +55,7 @@ export class FormUpdateUtilisateurComponent {
       typeUtilisateur: new FormControl('', Validators.required)
     })
 
-
+    // Récupération de l'identifiant de l'utilisateur à modifier
     this.activatedRoute.queryParams.subscribe(
       params => {
         const id = params['id'];
@@ -71,19 +65,21 @@ export class FormUpdateUtilisateurComponent {
       }
     )
 
+    // Récupération des sites pour l'affectation d'un utilisateur à un site
     this.siteService.findAll().subscribe(
       data => {
         this.sites = data;
       }
     )
 
+    // Récupération des types utilisateurs pour l'affectation d'un utilisateur à un type utilisateur
     this.typeUtilisateurService.findAll().subscribe(
       data => {
         this.typesUtilisateur = data;
       }
     )
 
-
+    // Récupération des informations de l'équipe à modifier à partir de son identifiant
     this.utilisateurService.findById(this.idUtilisateur).subscribe(
       data => {
         this.utilisateurById = data;
@@ -99,10 +95,12 @@ export class FormUpdateUtilisateurComponent {
     );
   }
 
+  // Méthode exécutée quand on appuie sur le bouton Retour
   onClose() {
     this.router.navigateByUrl("/admin/utilisateurs");
   }
 
+  // Méthode exécutée quand on appuie sur le bouton Envoyer
   onSubmit(): void {
 
     if (this.formUpdate.controls['login'].hasError('required') ||

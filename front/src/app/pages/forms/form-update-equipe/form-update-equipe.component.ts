@@ -3,13 +3,9 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { Equipe } from '../../../shared/model/equipe';
 import { EquipeService } from '../../../shared/service/equipe.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DatePipe } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatDialogModule } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
-import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { Utilisateur } from '../../../shared/model/utilisateur';
 import { UtilisateurService } from '../../../shared/service/utilisateur.service';
@@ -17,14 +13,11 @@ import { UtilisateurService } from '../../../shared/service/utilisateur.service'
 @Component({
   selector: 'app-form-update-equipe',
   standalone: true,
-  imports: [DatePipe,
+  imports: [
     MatInputModule,
     MatButtonModule,
     MatSelectModule,
-    MatRadioModule,
     MatCardModule,
-    MatDialogModule,
-    MatDatepickerModule,
     ReactiveFormsModule],
   templateUrl: './form-update-equipe.component.html',
   styleUrl: './form-update-equipe.component.css'
@@ -39,13 +32,13 @@ export class FormUpdateEquipeComponent {
   constructor(private equipeService: EquipeService, private utilisateurService: UtilisateurService, private activatedRoute: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
-
+    // Création du formulaire réactif
     this.formUpdate = new FormGroup({
       libelle: new FormControl('', Validators.required),
       utilisateurs: new FormControl('', Validators.required)
     })
 
-
+    // Récupération de l'identifiant de l'équipe à modifier
     this.activatedRoute.queryParams.subscribe(
       params => {
         const id = params['id'];
@@ -55,6 +48,7 @@ export class FormUpdateEquipeComponent {
       }
     )
 
+    // Récupération des informations de l'équipe à modifier à partir de son identifiant
     this.equipeService.findById(this.idEquipe).subscribe(
       data => {
         this.equipeById = data;
@@ -63,6 +57,7 @@ export class FormUpdateEquipeComponent {
       }
     );
 
+    // Récupération des utilisateurs pour l'affectation d'un ou plusieurs utilisateurs à une équipe
     this.utilisateurService.findAll().subscribe(
       data => {
         this.utilisateurs = [];
@@ -75,10 +70,12 @@ export class FormUpdateEquipeComponent {
     )
   }
 
+  // Méthode exécutée quand on appuie sur le bouton Retour
   onClose() {
     this.router.navigateByUrl("/admin/equipes");
   }
 
+  // Méthode exécutée quand on appuie sur le bouton Envoyer
   onSubmit(): void {
 
     if (this.formUpdate.controls['libelle'].hasError('required') ||

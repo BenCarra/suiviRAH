@@ -1,12 +1,12 @@
 <div class="liste">
     <h3>LISTE DES ETATS DE PROJET</h3>
     <form class="filtrage" [formGroup]="formFiltrage">
-        <select class="filtrage-demande" formControlName="filtrageDemande" (change)="updateFiltrage()">
+        <select title="filtrage-demande" class="filtrage-demande" formControlName="filtrageDemande" (change)="updateFiltrage()">
             <option disabled [selected]="formFiltrage.value.filtrageDemande == ''">-- Sélectionner un filtre --</option>
             <option value="Par libellé d'état de projet">Rechercher par libellé d'état de projet</option>
         </select>
         @if (formFiltrage.get("filtrageDemande")?.getRawValue() == "Par libellé d'état de projet") {
-        <select id="libelles-etat-projet" autocomplete formControlName="etatProjetRecherche">
+        <select title="libelles-etat-projet" id="libelles-etat-projet" autocomplete formControlName="etatProjetRecherche">
             <option disabled [selected]="formFiltrage.value.filtrageDemande == 'Par libellé d\'état de projet'">--
                 Sélectionner
                 un état de projet --</option>
@@ -28,7 +28,7 @@
                     <th>Modifier</th>
                 </tr>
                 @for (etatProjet of listEtatsProjet; track $index) {
-                <tr id="{{ etatProjet.idEtat }}">
+                <tr title="{{ etatProjet.idEtat }}">
                     <td>{{ etatProjet.libelle }}</td>
                     <td>
                         @for (projet of etatProjet.listProjets; track $index){

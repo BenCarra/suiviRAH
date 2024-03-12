@@ -1,11 +1,13 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { UserSecurity } from '../model/user-security';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SecurityService {
+
   authenticated: boolean = false;
   url!: string
 
@@ -13,7 +15,8 @@ export class SecurityService {
     this.url = 'http://localhost:8080';
   }
 
-  public authenticate(credentials:any, callback: any) {
+  // Méthode d'authentification
+  /*public authenticate(credentials:any, callback: any) {
 
     const headers = new HttpHeaders(credentials ? {
         authorization : 'Basic ' + btoa(credentials.username + ':' + credentials.password)
@@ -31,16 +34,17 @@ export class SecurityService {
         return callback && callback();
     });
 
-}
-
-  /*public login(model: any): Observable<boolean>{
-    return this.http.post<boolean>(this.url, model);
   }*/
 
+  /*public login(model: UserSecurity): Observable<boolean>{
+    return this.http.post<boolean>(this.url + "/login", model);
+  }
+
+  // Méthode de déconnexion
   public logout(){
     this.http.post(this.url + '/logout', {}).subscribe(() => {
       this.authenticated = false;
     });
-  }
+  }*/
 
 }

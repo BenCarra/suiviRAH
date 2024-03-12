@@ -1,12 +1,12 @@
 <div class="liste">
     <h3>LISTE DES TYPES DE DEFAUTS</h3>
     <form class="filtrage" [formGroup]="formFiltrage">
-        <select class="filtrage-demande" formControlName="filtrageDemande" (change)="updateFiltrage()">
+        <select title="filtrage-demande" class="filtrage-demande" formControlName="filtrageDemande" (change)="updateFiltrage()">
             <option disabled [selected]="formFiltrage.value.filtrageDemande == ''">-- Sélectionner un filtre --</option>
             <option value="Par libellé de type défaut">Rechercher par libellé de type défaut</option>
         </select>
         @if (formFiltrage.get("filtrageDemande")?.getRawValue() == "Par libellé de type défaut") {
-        <select id="libelles-type-defaut" autocomplete formControlName="typeDefautRecherche">
+        <select title="libelles-type-defaut" id="libelles-type-defaut" autocomplete formControlName="typeDefautRecherche">
             <option disabled [selected]="formFiltrage.value.filtrageDemande == 'Par libellé de type défaut'">--
                 Sélectionner
                 un type de défaut --</option>
@@ -28,7 +28,7 @@
                     <th>Modifier</th>
                 </tr>
                 @for (typeDefaut of listTypesDefaut; track $index) {
-                <tr id="{{ typeDefaut.idTypeDefaut }}">
+                <tr title="{{ typeDefaut.idTypeDefaut }}">
                     <td>{{ typeDefaut.libelle }}</td>
                     <td>
                         @for (projet of typeDefaut.listProjets; track $index){

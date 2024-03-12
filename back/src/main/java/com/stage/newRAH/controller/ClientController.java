@@ -36,7 +36,6 @@ public class ClientController {
 	@GetMapping("/clientsByNom/{nom}")
 	public ResponseEntity<List<ClientDTO>> getClientsByNom(@PathVariable String nom) {
 		return clientService.getClientsByNom(nom);
-		
 	}
 	
 	@PostMapping("/createClient")

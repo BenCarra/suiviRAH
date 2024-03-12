@@ -23,26 +23,36 @@ export class SiteListComponent {
 
   ngOnInit(){
 
+    // Création du formulaire réactif pour le filtrage
     this.formFiltrage = new FormGroup({
       filtrageDemande: new FormControl('', Validators.required),
       siteRecherche: new FormControl('', Validators.required),
       boutonSoumission: new FormControl('OK', Validators.required),
       boutonReset: new FormControl('Reset')
     });
+
+    // Récupération de tous les sites à afficher
     this.siteService.findAll().subscribe(data => {
       this.listSites = data;
     })
+
+    // Aucun filtre n'étant sélectionné par défaut, on désactive les boutons et la liste de récupération des éléments trouvés
     this.formFiltrage.get('siteRecherche')?.disable();
     this.formFiltrage.get('boutonSoumission')?.disable();
     this.formFiltrage.get('boutonReset')?.disable();
   }
 
+  // Méthode pour le filtrage des sites
   updateFiltrage() {
+    // Quand le filtre est sélectionné
     if (this.formFiltrage.value.filtrageDemande != "") {
 
+      // On réactive les boutons et la liste de récupération des éléments trouvés
       this.formFiltrage.get('siteRecherche')?.enable();
       this.formFiltrage.get('boutonSoumission')?.enable();
       this.formFiltrage.get('boutonReset')?.enable();
+
+      // Pour un filtre choisi, on remplit la liste des caractéristiques site correspondantes
 
       if (this.formFiltrage.value.filtrageDemande == 'Par nom de site') {
         this.listNomsSite = [];
@@ -57,6 +67,7 @@ export class SiteListComponent {
     }
   }
 
+  // Méthode exécutée après appui sur le bouton OK du filtre
   onSearch(e: MouseEvent) {
     let recherche = this.formFiltrage.get('siteRecherche')?.value;
 
@@ -71,6 +82,7 @@ export class SiteListComponent {
 
   }
 
+  // Méthode exécutée après appui sur le bouton Reset du filtre
   onReset($event: MouseEvent) {
     this.formFiltrage.get('filtrageDemande')?.setValue("");
     this.formFiltrage.get('siteRecherche')?.disable();

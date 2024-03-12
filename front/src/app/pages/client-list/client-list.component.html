@@ -8,13 +8,13 @@
         }
     </h3>
     @if (routerURL == "/admin/clients") {
-    <form id="class" [formGroup]="formFiltrage">
-        <select id="class" formControlName="filtrageDemande" (change)="updateFiltrage()">
+    <form class="filtrage" [formGroup]="formFiltrage">
+        <select title="filtrage-demande" class="filtrage-demande" formControlName="filtrageDemande" (change)="updateFiltrage()">
             <option disabled [selected]="formFiltrage.value.filtrageDemande == ''">-- Sélectionner un filtre --</option>
             <option value="Par nom de client">Rechercher par nom de client</option>
         </select>
         @if (formFiltrage.get("filtrageDemande")?.getRawValue() == "Par nom de client") {
-        <select id="noms-client" autocomplete formControlName="clientRecherche">
+        <select title="noms-client" id="noms-client" autocomplete formControlName="clientRecherche">
             <option disabled [selected]="formFiltrage.value.filtrageDemande == 'Par nom de client'">-- Sélectionner un
                 nom de client --</option>
             @for (nomClient of listNomsClient; track $index) {
@@ -42,7 +42,7 @@
                     <th>Modifier</th>
                 </tr>
                 @for (client of listClients; track $index) {
-                <tr [className]="client.actif" id="{{ client.idClient }}">
+                <tr [className]="client.actif" title="{{ client.idClient }}">
                     <td>{{ client.nomClient }}</td>
                     <td>{{ client.adresseClient }}</td>
                     <td>{{ client.codePostalClient }}</td>
@@ -69,7 +69,7 @@
                     <th>Ville</th>
                 </tr>
                 @for (client of listClients; track $index) {
-                <tr [className]="client.actif" id="{{ client.idClient }}">
+                <tr [className]="client.actif" title="{{ client.idClient }}">
                     <td>{{ client.nomClient }}</td>
                     <td>{{ client.adresseClient }}</td>
                     <td>{{ client.codePostalClient }}</td>

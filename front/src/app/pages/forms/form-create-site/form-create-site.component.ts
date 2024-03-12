@@ -2,11 +2,7 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatDialogModule } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
-import { MatRadioModule } from '@angular/material/radio';
-import { MatSelectModule } from '@angular/material/select';
 import { Site } from '../../../shared/model/site';
 import { SiteService } from '../../../shared/service/site.service';
 import { UtilisateurService } from '../../../shared/service/utilisateur.service';
@@ -16,11 +12,7 @@ import { Router } from '@angular/router';
   standalone: true,
   imports: [MatInputModule,
     MatButtonModule,
-    MatSelectModule,
-    MatRadioModule,
     MatCardModule,
-    MatDialogModule,
-    MatDatepickerModule,
     ReactiveFormsModule],
   templateUrl: './form-create-site.component.html',
   styleUrl: './form-create-site.component.css'
@@ -30,10 +22,11 @@ export class FormCreateSiteComponent {
   formCreate!: FormGroup;
   siteCree: Site = new Site();
 
-  constructor(private siteService: SiteService, private utilisateurService: UtilisateurService, private router: Router) { }
+  constructor(private siteService: SiteService, private router: Router) { }
 
   ngOnInit() {
 
+    // Création du formulaire réactif
     this.formCreate = new FormGroup({
       nom: new FormControl('', Validators.required),
       adresse: new FormControl('', Validators.required),
@@ -43,10 +36,12 @@ export class FormCreateSiteComponent {
 
   }
 
+  // Méthode exécutée quand on appuie sur le bouton Retour
   onClose() {
     this.router.navigateByUrl("/admin/parametres");
   }
 
+  // Méthode exécutée quand on appuie sur le bouton Envoyer
   onSubmit(): void {
 
     if (this.formCreate.controls['nom'].hasError('required') ||

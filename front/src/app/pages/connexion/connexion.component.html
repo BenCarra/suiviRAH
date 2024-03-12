@@ -10,17 +10,17 @@
     <form [formGroup]="formConnexion">
       <div class="form-field">
         <label>Login </label>
-        <input formControlName="login" />
+        <input title="login" formControlName="login" />
         @if (formConnexion.controls["login"].hasError("required")) {
-          <p>Login requis</p>
+          Login requis
         }
       </div>
       <br>
       <div class="form-field">
         <label>Password </label>
-        <input formControlName="motDePasse" />
+        <input title="motDePasse" formControlName="motDePasse" />
         @if (formConnexion.controls["motDePasse"].hasError("required")) {
-          <p>Mot de passe requis</p>
+          Mot de passe requis
         }
       </div>
       <br>

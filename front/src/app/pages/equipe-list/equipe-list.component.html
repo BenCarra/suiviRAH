@@ -9,12 +9,12 @@
     </h3>
     @if (routerURL == "/admin/equipes") {
     <form class="filtrage" [formGroup]="formFiltrage">
-        <select class="filtrage-demande" formControlName="filtrageDemande" (change)="updateFiltrage()">
+        <select title="filtrage-demande" class="filtrage-demande" formControlName="filtrageDemande" (change)="updateFiltrage()">
             <option disabled [selected]="formFiltrage.value.filtrageDemande == ''">-- Sélectionner un filtre --</option>
             <option value="Par libellé d'équipe">Rechercher par libellé d'équipe</option>
         </select>
         @if (formFiltrage.get("filtrageDemande")?.getRawValue() == "Par libellé d'équipe") {
-        <select id="noms-equipe" autocomplete formControlName="equipeRecherche">
+        <select title="noms-equipe" id="noms-equipe" autocomplete formControlName="equipeRecherche">
             <option disabled [selected]="formFiltrage.value.filtrageDemande == 'Par libellé d\'équipe'">-- Sélectionner
                 un
                 libellé d'équipe --</option>
@@ -41,7 +41,7 @@
                     <th>Supprimer</th>
                 </tr>
                 @for (equipe of listEquipes; track $index) {
-                <tr id="{{ equipe.idEquipe }}">
+                <tr title="{{ equipe.idEquipe }}">
                     <td>{{ equipe.libelle }}</td>
                     <td>
                         @for (utilisateur of equipe.listUtilisateurs; track $index){
@@ -74,7 +74,7 @@
                     <th>Utilisateurs membres</th>
                 </tr>
                 @for (equipe of listEquipes; track $index) {
-                <tr id="{{ equipe.idEquipe }}">
+                <tr title="{{ equipe.idEquipe }}">
                     <td>{{ equipe.libelle }}</td>
                     <td>
                         @for (utilisateur of equipe.listUtilisateurs; track $index){

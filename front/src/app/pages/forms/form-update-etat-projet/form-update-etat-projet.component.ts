@@ -2,11 +2,7 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatDialogModule } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
-import { MatRadioModule } from '@angular/material/radio';
-import { MatSelectModule } from '@angular/material/select';
 import { EtatProjet } from '../../../shared/model/etat-projet';
 import { EtatProjetService } from '../../../shared/service/etat-projet.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -16,11 +12,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   standalone: true,
   imports: [MatInputModule,
     MatButtonModule,
-    MatSelectModule,
-    MatRadioModule,
     MatCardModule,
-    MatDialogModule,
-    MatDatepickerModule,
     ReactiveFormsModule],
   templateUrl: './form-update-etat-projet.component.html',
   styleUrl: './form-update-etat-projet.component.css'
@@ -37,12 +29,12 @@ export class FormUpdateEtatProjetComponent {
 
   ngOnInit() {
 
-    // Création du formulaire de mise à jour de l'état de projet
+    // Création du formulaire réactif
     this.formUpdate = new FormGroup({
       libelle: new FormControl('', Validators.required),
     })
 
-    // Récupération du paramètre "id" de la route active
+    // Récupération de l'identifiant de l'état de projet à modifier
     this.activatedRoute.queryParams.subscribe(
       params => {
         const id = params['id'];
@@ -52,7 +44,7 @@ export class FormUpdateEtatProjetComponent {
       }
     )
 
-    // Préremplissage des champs par les données de l'état de projet fournies par la méthode findById() 
+    // Récupération des informations de l'état de projet à modifier à partir de son identifiant
     this.etatProjetService.findById(this.idEtatProjet).subscribe(
       data => {
         this.etatProjetById = data;
@@ -61,10 +53,12 @@ export class FormUpdateEtatProjetComponent {
     )
   }
 
+  // Méthode exécutée quand on appuie sur le bouton Retour
   onClose() {
     this.router.navigateByUrl("/admin/parametres");
   }
 
+  // Méthode exécutée quand on appuie sur le bouton Envoyer
   onSubmit() {
     if (this.formUpdate.controls['libelle'].hasError('required')) {
       console.log("Un ou plusieurs champs sont requis");

@@ -16,10 +16,12 @@ export class ProjetService {
     this.projetsByUtilisateurURL = 'http://localhost:8080/projetsByUtilisateur'
    }
 
+   // Récupère de l'API l'ensemble des projets
    public getProjets(): Observable<Projet[]> {
     return this.http.get<Projet[]>(this.projetsURL);
    }
 
+   // Récupère de l'API les projets par utilisateur
    public getProjetsByUtilisateur(id:number) : Observable<Projet[]> {
     return this.http.get<Projet[]>(`${this.projetsByUtilisateurURL}/${id}`);
    }
