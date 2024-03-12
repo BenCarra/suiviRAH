@@ -1,0 +1,55 @@
+<div id="connexion-container">
+
+  <img src="../../../assets/img/talaron-logo.png" alt="talaron-logo">
+
+  <div id="connexion">
+    <h1>SE CONNECTER </h1>
+    <p class="text-under-connexion">Veuillez renseigner vos identifiants</p>
+
+
+    <form [formGroup]="formConnexion">
+      <div class="form-field">
+        <label>Login </label>
+        <input formControlName="login" />
+        @if (formConnexion.controls["login"].hasError("required")) {
+          <p>Login requis</p>
+        }
+      </div>
+      <br>
+      <div class="form-field">
+        <label>Password </label>
+        <input formControlName="motDePasse" />
+        @if (formConnexion.controls["motDePasse"].hasError("required")) {
+          <p>Mot de passe requis</p>
+        }
+      </div>
+      <br>
+      <input type="submit" (click)="login()" formControlName="btnConnexion">
+    </form>
+
+  </div>
+</div>
+
+
+<!-- <section class="text-gray-400 bg-gray-900 body-font connexion">
+    <div class="container px-5 py-24 mx-auto">
+      <div class="flex flex-col text-center w-full mb-12">
+        <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-white">SE CONNECTER</h1>
+        <p class="lg:w-2/3 mx-auto leading-relaxed text-base">Veuillez renseigner votre login et mot de passe</p>
+      </div>
+      <div class="flex lg:w-2/3 w-full sm:flex-row flex-col mx-auto px-8 sm:px-0 items-end sm:space-x-4 sm:space-y-0 space-y-4">
+        <div class="relative sm:mb-0 flex-grow w-full">
+          <label for="login" class="leading-7 text-sm text-gray-400">Login</label>
+          <input type="text" id="login" name="login" class="w-full bg-gray-800 bg-opacity-40 rounded border border-gray-700 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-900 focus:bg-transparent text-base outline-none text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+        </div>
+        <div class="relative sm:mb-0 flex-grow w-full">
+          <label for="mdp" class="leading-7 text-sm text-gray-400">Mot de passe</label>
+          <input type="mdp" id="mdp" name="mdp" class="w-full bg-gray-800 bg-opacity-40 rounded border border-gray-700 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-900 focus:bg-transparent text-base outline-none text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+        
+        
+        </div>
+        
+        <button class="text-white bg-green-500 border-0 py-2 px-8 focus:outline-none hover:bg-green-600 rounded text-lg">CONNEXION</button>
+      </div>
+    </div>
+  </section> -->

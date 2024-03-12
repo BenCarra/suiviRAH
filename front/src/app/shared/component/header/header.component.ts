@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import { SecurityService } from '../../service/security.service';
 
 @Component({
   selector: 'app-header',
@@ -9,5 +11,18 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
   styleUrl: './header.component.scss'
 })
 export class HeaderComponent {
+
+  constructor(private securityService: SecurityService, private http: HttpClient, private router: Router) {
+    // this.securityService.authenticate(undefined, undefined);
+  }
+  
+  logout() {
+    this.securityService.logout();
+    this.router.navigateByUrl("/login");
+  }
+
+  authenticated() {
+    return this.securityService.authenticated;
+  }
 
 }

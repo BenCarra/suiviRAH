@@ -24,12 +24,15 @@ import { FormCreateEtatProjetComponent } from './pages/forms/form-create-etat-pr
 import { FormUpdateEtatProjetComponent } from './pages/forms/form-update-etat-projet/form-update-etat-projet.component';
 import { FormCreateSiteComponent } from './pages/forms/form-create-site/form-create-site.component';
 import { FormUpdateSiteComponent } from './pages/forms/form-update-site/form-update-site.component';
-/*import { ListProjetsComponent } from './pages/list-projets/list-projets.component';
+/*import { ConnexionComponent } from './pages/connexion/connexion.component';
+import { ListProjetsComponent } from './pages/list-projets/list-projets.component';
 import { ListTachesComponent } from './pages/list-taches/list-taches.component';
 import { FormCreateTacheComponent } from './pages/forms/form-create-tache/form-create-tache.component';
 import { FormUpdateTacheComponent } from './pages/forms/form-update-tache/form-update-tache.component';*/
 
-export const routes: Routes = [{ path: '', component: HomeComponent },
+export const routes: Routes = [
+{ path: '', pathMatch:'full', redirectTo:'login'},
+//{ path: 'login', component: ConnexionComponent},
 { path: 'admin/accueil', component: PageAccueilAdminComponent },
 { path: 'admin/utilisateurs', component: PageUtilisateursAdminComponent },
 { path: 'admin/utilisateurs/create', component: FormCreateUtilisateurComponent },

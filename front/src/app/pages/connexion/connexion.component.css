@@ -1,0 +1,57 @@
+img {
+    margin: 0 auto;
+    box-shadow: 1px 1px 1px 1px;
+}
+
+
+#connexion-container {
+    display: flex;
+    height: 950px;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#connexion {
+    display: flex;
+    flex-direction: column;
+}
+
+h1 {
+    text-align: center;
+    font-size: 25px;
+    margin-top: 25px;
+}
+
+.text-under-connexion {
+    text-align: center;
+    font-size: 15px;
+    margin-bottom: 25px;
+    color: white;
+}
+
+form {
+    position: relative;
+    width: 255.47px;
+    margin: 0 auto;
+    color: white;
+}
+
+.form-field {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.form-field label {}
+
+button {
+    background-color: #00884C;
+    padding: 5px 10px;
+    cursor: pointer;
+    color: white;
+    border: none;
+}
+
+input {
+    margin-right: 15px;
+}
