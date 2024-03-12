@@ -128,6 +128,86 @@ public class TacheService {
 				return ResponseEntity.notFound().build();
 			}	
 		}
+
+
+		@SuppressWarnings("deprecation")
+		public ResponseEntity<List<TacheDTO>> getTachesByUtilisateurByMonth(int id, int mois, int annee) {
+			
+			Optional<Utilisateur> utilisateurChoisi = utilisateurRepository.findById(id);
+			
+			if (utilisateurChoisi.isPresent()) {
+				
+				List<Tache> taches = utilisateurChoisi.get().getListTaches();
+				List<Tache> tachesByMonth = new ArrayList<>();
+
+				for (Tache tache: taches) {
+					if (tache.getDateTache().getMonth() == mois -1 && tache.getDateTache().getYear() == annee -1900) {
+						tachesByMonth.add(tache);
+					}
+				}
+
+				List<TacheDTO> tachesByMonthDTO = new ArrayList<>();
+				
+				for (Tache tache : tachesByMonth) {
+					TacheDTO tacheDTO = this.mapTacheToDTO(tache);
+					tachesByMonthDTO.add(tacheDTO);
+					System.out.println("coucou");
+				}
+				return ResponseEntity.ok(tachesByMonthDTO);
+				
+			} else {
+				return ResponseEntity.notFound().build();
+			}	
+		}
+
+		// public ResponseEntity<List<TacheDTO>> getTachesByUtilisateurByDay(int id, Date dateTache) {
+			
+		// 	Optional<Utilisateur> utilisateurChoisi = utilisateurRepository.findById(id);
+			
+		// 	if (utilisateurChoisi.isPresent()) {
+				
+		// 		List<Tache> taches = utilisateurChoisi.get().getListTaches();
+		// 		List<Tache> tachesByDay = new ArrayList<>();
+
+		// 		for (Tache tache: taches) {
+		// 			if (tache.getDateTache().equals(dateTache)) {
+		// 				tachesByDay.add(tache);
+		// 			}
+		// 		}
+
+		// 		List<TacheDTO> tachesByDayDTO = new ArrayList<>();
+				
+		// 		for (Tache tache : tachesByDay) {
+		// 			TacheDTO tacheDTO = this.mapTacheToDTO(tache);
+		// 			tachesByDayDTO.add(tacheDTO);
+		// 		}
+		// 		return ResponseEntity.ok(tachesByDayDTO);
+		// 	} else {
+		// 		return ResponseEntity.notFound().build();
+		// 	}	
+		// }
+
+
+		// public ResponseEntity<Double> getDureeTachesByUtilisateurByDay(int id, Date dateTache) {
+			
+		// 	Optional<Utilisateur> utilisateurChoisi = utilisateurRepository.findById(id);
+			
+		// 	if (utilisateurChoisi.isPresent()) {
+				
+		// 		List<Tache> taches = utilisateurChoisi.get().getListTaches();
+		// 		double dureeJournee = 0;
+
+		// 		for (Tache tache: taches) {
+		// 			if (tache.getDateTache().equals(dateTache)) {
+		// 				dureeJournee += tache.getDureeTache();						
+		// 			}
+		// 		}
+		// 		return ResponseEntity.ok(dureeJournee);
+		// 	} else {
+		// 		return ResponseEntity.notFound().build();
+		// 	}	
+		// }
+
 	
 	public ResponseEntity<?> createTache(TacheDTO tacheDTO) {
 		Tache nouvelleTache = new Tache();

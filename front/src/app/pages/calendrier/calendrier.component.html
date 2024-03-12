@@ -24,7 +24,7 @@
           'weekend-days': day && (i === 5 || i === 6), 
           'empty-cell': !day,
           'current-date': day?.getDate()===today.getDate() && day?.getMonth()===today.getMonth() && day?.getFullYear()===today.getFullYear(),
-          'holidays-days': day && isHolidays(day) 
+          'holidays-days': day && isHolidays(day)
           }">
           {{ day | date: 'd' }}</td>
         <!-- j'ai dû créer des cellules vides après le dernier jour du mois pour pouvoir leur appliquer un style css 

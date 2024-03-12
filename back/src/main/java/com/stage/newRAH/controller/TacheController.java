@@ -44,6 +44,25 @@ public class TacheController {
 	public ResponseEntity<List<TacheDTO>> getTachesByUtilisateur(@PathVariable int id) {
 		return tacheService.getTachesByUtilisateur(id);
 	}
+
+	@GetMapping("/tachesByUtilisateur/{id}/{mois}/{annee}")
+	public ResponseEntity<List<TacheDTO>> getTachesByUtilisateurByMonth(@PathVariable int id, @PathVariable int mois, @PathVariable int annee) {
+		return tacheService.getTachesByUtilisateurByMonth(id, mois, annee);
+	}
+
+
+	// @GetMapping("/tachesByUtilisateur/{id}/{date}")
+	// public ResponseEntity<List<TacheDTO>> getTachesByUtilisateurByDay(@PathVariable int id, @PathVariable @DateTimeFormat(pattern = "dd-MM-yyyy") Date date) {
+	// 	return tacheService.getTachesByUtilisateurByDay(id, date);
+	// }
+
+
+	// @GetMapping("/dureeTachesByUtilisateur/{id}/{date}")
+	// public ResponseEntity<Double> getDureeTachesByUtilisateurByDay(@PathVariable int id, @PathVariable Date date) {
+	// 	return tacheService.getDureeTachesByUtilisateurByDay(id, date);
+	// }
+
+
 	
 	@PostMapping("/createTache")
 	public ResponseEntity<?> createTache(@RequestBody TacheDTO request) {

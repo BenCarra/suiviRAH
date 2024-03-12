@@ -4,6 +4,8 @@ import { RouterLink } from '@angular/router';
 
 import { UtilisateurService } from '../../shared/service/utilisateur.service';
 import { Utilisateur } from '../../shared/model/utilisateur';
+import { TacheService } from '../../shared/service/tache.service';
+import { Tache } from '../../shared/model/tache';
 
 @Component({
   selector: 'app-calendrier',
@@ -27,7 +29,11 @@ export class CalendrierComponent implements OnInit {
   // pour éviter des erreurs à la compilation (le programme essayait d'accéder
   // à prenomUtilisateur alors que l'utilisateur n'était pas encore chargé)
   utilisateur: Utilisateur | any = {};
-  constructor(private utilisateurService: UtilisateurService) {
+
+  dureeByDay!: number;
+  taches!: Tache[];
+  
+  constructor(private utilisateurService: UtilisateurService, private tacheService: TacheService) {
     this.today = new Date();
     this.currentDate = new Date();
     this.daysInMonth = [];
@@ -36,11 +42,10 @@ export class CalendrierComponent implements OnInit {
   ngOnInit(): void {
     
     this.calculateDaysInMonth();
-    // Le code ci-dessous permet d'afficher l'utilisateur connecté
+    // Le code ci-dessous permet de récupérer l'utilisateur connecté
     this.utilisateurService.getUtilisateurById(this.idUtilisateurConnecté).subscribe(data => {
-           this.utilisateur = data});
-
-   
+          this.utilisateur = data});
+    
   }
 
   // Calcule le  nombre de jours dans un mois et cale le 1er jour du mois

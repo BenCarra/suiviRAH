@@ -17,7 +17,6 @@ h1 {
   background-color: #dbdbdb;
   border-collapse: collapse;
   box-shadow: 5px 6px 8px 0 rgba(0,0,0,0.3);
-
   /* pour avoir les colonnes de la même taille : */
   table-layout: fixed;
 }
@@ -26,9 +25,13 @@ h1 {
   background-color: #312B6D;
   text-align: center;
   font-weight: bold;
-  padding: 15px;
+  padding: 10px;
+  /* font-size en vw permet que la taille de police change 
+  lorsqu'on réduit la taille de la page */
+  font-size: 1.1vw;
   border: 1px solid #000000;
   color: white;
+  cursor: default;
 }
 
 .calendar-table tbody td {
@@ -45,7 +48,6 @@ h1 {
 .calendar-container .calendar-table .empty-cell, tbody td:empty  {
   border: none ;
   background-color: #E8E7E7;
-
   cursor: default;
 }
 
@@ -84,8 +86,8 @@ h1 {
 }
 
 .holidays-days {
-  background-color: #bfbdbd !important;
-  color: white;
+  background-color: #c4c3c3 !important;
+  cursor: default;
 }
 
 .arrow-button { 
@@ -93,12 +95,15 @@ h1 {
   padding: 5px 10px;
   cursor: pointer;
   font-size: 16px;
-  transition: background-color 0.3s ease;
   margin-inline: 200px;
   margin-bottom: 20px;
 }
 
 .arrow-button:hover {
   color: #312B6D;
+}
+
+.complete-day {
+  background-color: #00884C !important;
 }
 
