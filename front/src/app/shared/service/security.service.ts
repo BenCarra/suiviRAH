@@ -16,14 +16,15 @@ export class SecurityService {
   }
 
   // Méthode d'authentification
+
   /*public authenticate(credentials:any, callback: any) {
+
 
     const headers = new HttpHeaders(credentials ? {
         authorization : 'Basic ' + btoa(credentials.username + ':' + credentials.password)
     } : {});
 
     
-
     this.http.get(this.url + '/user', {headers: headers, responseType: 'text'}).subscribe(response => {
         console.log(response);
         if (response) {
@@ -36,9 +37,11 @@ export class SecurityService {
 
   }*/
 
+
   /*public login(model: UserSecurity): Observable<boolean>{
     return this.http.post<boolean>(this.url + "/login", model);
   }
+
 
   // Méthode de déconnexion
   public logout(){
