@@ -25,6 +25,7 @@ import { FormUpdateEtatProjetComponent } from './pages/forms/form-update-etat-pr
 import { FormCreateSiteComponent } from './pages/forms/form-create-site/form-create-site.component';
 import { FormUpdateSiteComponent } from './pages/forms/form-update-site/form-update-site.component';
 import { ConnexionComponent } from './pages/connexion/connexion.component';
+import { PageSuivisProjetAdminComponent } from './pages/page-suivis-projet-admin/page-suivis-projet-admin.component';
 /*import { ListProjetsComponent } from './pages/list-projets/list-projets.component';
 import { ListTachesComponent } from './pages/list-taches/list-taches.component';
 import { FormCreateTacheComponent } from './pages/forms/form-create-tache/form-create-tache.component';
@@ -46,8 +47,9 @@ export const routes: Routes = [
 { path: 'admin/equipes/update', component: FormUpdateEquipeComponent },
 /*{ path: 'admin/projets', component: ListProjetsComponent },
 {path: 'admin/projets/create, component: FormCreateProjetComponent},
-{path: 'admin/projets/update, component: FormUpdateProjetComponent},
-{ path: 'admin/taches', component: ListTachesComponent },
+{path: 'admin/projets/update, component: FormUpdateProjetComponent},*/
+{path: 'admin/suivisProjet', component: PageSuivisProjetAdminComponent},
+/*{ path: 'admin/taches', component: ListTachesComponent },
 { path: 'admin/taches/create', component:  FormCreateTacheComponent},
 { path: 'admin/taches/update', component: FormUpdateTacheComponent },*/
 { path: 'admin/parametres', component: PageParametresAdminComponent},

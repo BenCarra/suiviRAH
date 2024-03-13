@@ -1,0 +1,37 @@
+<div class="liste">
+    <h3>SUIVI DES PROJETS - CONSOMMATION</h3>
+    <form class="filtrage" [formGroup]="formFiltrage">
+        <select title="noms-clients" id="noms-clients" autocomplete formControlName="clientRecherche" (change)="onSearch()">
+            <option value="" disabled [selected]="formFiltrage.controls['clientRecherche'].value == ''">
+                -- Sélectionner
+                un client --</option>
+            <option value="tous">Tous les clients</option>
+            @for (nomClient of listNomsClient; track $index) {
+            <option [value]="nomClient">{{ nomClient }}</option>
+            }
+        </select>
+        <label>Projet terminé</label>
+        <input title="projetTermine" type="checkbox" checked="false" formControlName="projetTermine" (change)="onCheck($event)">
+    </form>
+
+    <div class="table">
+        <table border="2">
+            <tbody>
+                <tr>
+                    <th>Client</th>
+                    <th>Nom du projet</th>
+                    <th>Devis estimé</th>
+                    <th>Etat du projet</th>
+                </tr>
+                @for (suiviProjet of listSuiviProjets; track $index) {
+                <tr>
+                    <td>{{ suiviProjet.nomClient }}</td>
+                    <td>{{ suiviProjet.nomProjet }}</td>
+                    <td>{{ suiviProjet.devisEstimation }}</td>
+                    <td>{{ suiviProjet.libelleEtat }}</td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
