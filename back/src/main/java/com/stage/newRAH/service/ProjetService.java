@@ -8,7 +8,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.stage.newRAH.dto.ProjetDTO;
+import com.stage.newRAH.dto.SuiviProjetDTO;
 import com.stage.newRAH.model.Projet;
+import com.stage.newRAH.model.SuiviProjet;
 import com.stage.newRAH.repository.ClientRepository;
 import com.stage.newRAH.repository.CompositionRepository;
 import com.stage.newRAH.repository.EquipeRepository;
@@ -81,6 +83,25 @@ public class ProjetService {
 		return projetDTO;	
 	}
 
+	public SuiviProjetDTO mapSuiviProjetToDTO(SuiviProjet suiviProjet) {
+		
+		SuiviProjetDTO suiviProjetDTO = new SuiviProjetDTO();
+
+		if (suiviProjet.getClient() != null) {
+			suiviProjetDTO.setNomClient(suiviProjet.getClient().getNomClient());
+		}
+
+		suiviProjetDTO.setNomProjet(suiviProjet.getNomProjet());
+		suiviProjetDTO.setDevisEstimation(suiviProjet.getDevisEstimation());
+
+		if (suiviProjet.getEtat() != null) {
+			suiviProjetDTO.setLibelleEtat(suiviProjet.getEtat().getLibelle());
+		}
+
+		return suiviProjetDTO;
+
+	}
+
 	public ResponseEntity<List<ProjetDTO>> getProjets() {
 		Iterable<Projet> projets = projetRepository.findAll();
 		List<ProjetDTO> projetsDTO = new ArrayList<>();
@@ -91,6 +112,44 @@ public class ProjetService {
 		}
 
 		return ResponseEntity.ok(projetsDTO);
+	}
+
+	public ResponseEntity<List<SuiviProjetDTO>> getSuiviProjets() {
+		
+		Iterable<SuiviProjet> suiviProjets = projetRepository.getSuiviProjets();
+		List<SuiviProjetDTO> suiviProjetsDTO = new ArrayList<>();
+
+		if (suiviProjets.iterator().hasNext()) {
+
+			for (SuiviProjet suiviProjet: suiviProjets) {
+				SuiviProjetDTO suiviProjetDTO = mapSuiviProjetToDTO(suiviProjet);
+				suiviProjetsDTO.add(suiviProjetDTO);
+			}
+
+			return ResponseEntity.ok(suiviProjetsDTO);
+		} else {
+			return ResponseEntity.notFound().build();
+		}
+
+	}
+
+	public ResponseEntity<List<SuiviProjetDTO>> getSuiviProjetsByClient(String nomClient) {
+		
+		Iterable<SuiviProjet> suiviProjets = projetRepository.getSuiviProjetsByClient(nomClient);
+		List<SuiviProjetDTO> suiviProjetsDTO = new ArrayList<>();
+
+		if (suiviProjets.iterator().hasNext()) {
+
+			for (SuiviProjet suiviProjet: suiviProjets) {
+				SuiviProjetDTO suiviProjetDTO = mapSuiviProjetToDTO(suiviProjet);
+				suiviProjetsDTO.add(suiviProjetDTO);
+			}
+
+			return ResponseEntity.ok(suiviProjetsDTO);
+		} else {
+			return ResponseEntity.notFound().build();
+		}
+
 	}
 	
 }
