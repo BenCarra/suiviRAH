@@ -1,6 +1,7 @@
 <h1 > {{currentDate | date: 'MMMM yyyy' | titlecase}} - {{utilisateur.prenomUtilisateur }} {{utilisateur.nomUtilisateur }} </h1>
 <div class="navigation">
   <button class="arrow-button" (click)="goToPreviousMonth()"><</button>
+  <button class="arrow-button" (click)="goToCurrentMonth()">Mois actuel</button>
   <button class="arrow-button" (click)="goToNextMonth()">></button>
 </div>
 
@@ -15,7 +16,7 @@
     <tbody>
       <tr *ngFor="let week of weeks" >
         <td [ngClass]="{'current-week': week.weekNumber === getWeekNumber(today)}" 
-        class="weekNumber" 
+        class="week-number" 
         [routerLink]="['/listTaches', week.weekNumber]">{{ week.weekNumber }}</td>
         <!-- je récupère l'index (let i=index) de mon day 
         si l'index est 5 ou 6  et si day est vrai (pas null) alors j'applique la classe CSS weekend-day -->
@@ -24,9 +25,13 @@
           'weekend-days': day && (i === 5 || i === 6), 
           'empty-cell': !day,
           'current-date': day?.getDate()===today.getDate() && day?.getMonth()===today.getMonth() && day?.getFullYear()===today.getFullYear(),
-          'holidays-days': day && isHolidays(day)
-          }">
-          {{ day | date: 'd' }}</td>
+          'holidays-days': day && isHolidays(day),
+          'sup-seven': day && getDureeTachesByDay(day) >= 7,
+          'between-four-six': day && getDureeTachesByDay(day) >= 4 && getDureeTachesByDay(day) <= 6,
+          'between-one-three': day && getDureeTachesByDay(day) >= 1 && getDureeTachesByDay(day) <= 3,
+          'none': day && getDureeTachesByDay(day) == 0 && !(i === 5 || i === 6 || i !=currentDate.getDay())
+          }" [routerLink]="['/listTaches', week.weekNumber]">
+          {{ day | date: 'd' }}</td>       
         <!-- j'ai dû créer des cellules vides après le dernier jour du mois pour pouvoir leur appliquer un style css 
         [].constructor(7 - week.days.length) génère un nombre de cellules supplémentaires vides
         pour s'assurer que chaque ligne a 7 cellules -->
@@ -36,5 +41,18 @@
   </table>
 </div>
 
-
+<h3>Légende</h3>
+  <div class="legend-container">
+    <table class="legend-table">
+      <tr>
+        <td class="current-date">Date du jour</td>
+        <td class="none">Aucune tâche</td>
+        <td class="between-one-three">1 ≤ Charge ≥ 3</td>
+        <td class="between-four-six">4 ≤ Charge ≥ 6</td>
+        <td class="sup-seven">Charge ≥ 7</td>
+        <td class="holidays-days">Jour férié </td>
+        
+      </tr>
+    </table>
+  </div>
 

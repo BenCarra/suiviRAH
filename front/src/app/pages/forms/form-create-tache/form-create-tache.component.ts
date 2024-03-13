@@ -54,6 +54,7 @@ export class FormCreateTacheComponent implements OnInit {
       'nomProjet': new FormControl('', Validators.required),
       'dateTache': new FormControl('', Validators.required),
       'journee': new FormControl(false),
+      //  Validators.max(9) empêche à l'utilisateur de mettre une valeur au dessus de 9
       'dureeTache': new FormControl('', [Validators.required, Validators.max(9)]),
       'commentaires': new FormControl('', Validators.required)
     });

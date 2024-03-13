@@ -22,7 +22,7 @@ import {MatInputModule} from '@angular/material/input';
 })
 export class ListTachesComponent implements OnInit {
 
-  today: Date;
+  currentDate: Date;
   weekNumber!: number;
   id!: number ;
   selectedWeek!: number;
@@ -35,13 +35,13 @@ export class ListTachesComponent implements OnInit {
   idUtilisateurConnecté: number = 4;
 
   constructor(private tacheService:TacheService, private route: ActivatedRoute, private router: Router) {
-    this.today = new Date();
+    this.currentDate = new Date();
   }
 
   ngOnInit(): void {
     // Lorsque j'accède à la page Liste des tâches, j'affiche le n° de 
     // semaine de la date du jour
-    this.initWeeks(this.getWeekNumber(this.today));
+    this.initWeeks(this.getWeekNumber(this.currentDate));
 
     // Récupération du paramètre qui suit /listTaches (cf app.routes.ts)
     this.route.params.subscribe(params => {
@@ -55,8 +55,6 @@ export class ListTachesComponent implements OnInit {
     // Je récupère la liste des tâches de l'utilisateur connecté
     this.tacheService.getTachesByUtilisateur(this.idUtilisateurConnecté).subscribe(data => {
       this.taches = data;
-
-      if (this.selectedWeek !== null) {
         // filter() est une méthode qui crée un nouveau tableau
         // avec tous les éléments qui passent le test implémenté par 
         // la fonction fournie : vérifier si la tâche courante 
@@ -68,11 +66,7 @@ export class ListTachesComponent implements OnInit {
           // si les deux n° correspondent alors la tâche appartient
           // à la semaine donnée et est incluse dans le tableau filteredTaches
             return numberWeek === weekNumber;
-          });
-            
-      } else {
-        this.filteredTaches = this.taches;      
-      }
+        });
     })
     // Une fois que j'ai chargé la liste des tâches, je mets le n° de semaine
     // dans le filtre

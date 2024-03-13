@@ -141,7 +141,9 @@ public class TacheService {
 				List<Tache> tachesByMonth = new ArrayList<>();
 
 				for (Tache tache: taches) {
-					if (tache.getDateTache().getMonth() == mois -1 && tache.getDateTache().getYear() == annee -1900) {
+					// getMonth() : Janvier : 0, février : 1 etc...
+					// getYear() : currentYear + 1900
+					if (tache.getDateTache().getMonth() == mois && tache.getDateTache().getYear() == annee -1900) {
 						tachesByMonth.add(tache);
 					}
 				}

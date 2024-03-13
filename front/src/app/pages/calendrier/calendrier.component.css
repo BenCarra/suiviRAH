@@ -45,22 +45,25 @@ h1 {
   background-color: #f2f5c8 ;
 }
 
+.week-number {
+  font-weight: bold;
+}
+
 .calendar-container .calendar-table .empty-cell, tbody td:empty  {
   border: none ;
   background-color: #E8E7E7;
   cursor: default;
 }
 
-.calendar-table  {
+.calendar-table td {
   cursor: pointer;
 }
 
-.calendar-table tbody td:hover {
-  background-color: #f0f0f0;
-}
-
-.calendar-table tbody .weekNumber:hover {
-  background-color: #f0f0f0;
+.weekend-days {
+  background-color: #6e6e6e; 
+  cursor: default;
+  /* empêche de sélectionner */
+  pointer-events: none;  
 }
 
 .navigation {
@@ -76,18 +79,10 @@ h1 {
   background-color:#d7d4f5;
 }
 
-.weekend-days {
-  background-color: #a9a9a9; 
-  cursor: default;
-}
-
-.calendar-container .calendar-table .weekend-days:hover{
-  background-color: #a9a9a9;
-}
-
 .holidays-days {
-  background-color: #c4c3c3 !important;
+  background-color: #adadad !important;
   cursor: default;
+  pointer-events: none;  
 }
 
 .arrow-button { 
@@ -103,7 +98,63 @@ h1 {
   color: #312B6D;
 }
 
-.complete-day {
-  background-color: #00884C !important;
+.sup-seven {
+  background-color: #00884C ;
 }
+
+.between-four-six {
+  background-color: rgb(240, 175, 36);
+}
+
+.between-one-three {
+  background-color: rgb(230, 3, 3);
+}
+
+.none {
+  background-color: #dbdbdb;
+}
+
+h3{
+  text-align: center; 
+  color: #312B6D;
+  margin-top: 25px;
+  margin-bottom: 25px;
+}
+
+.legend-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.legend-table {
+  text-align: center; 
+  width: 50%;
+  border-collapse: collapse;
+  box-shadow: 5px 6px 8px 0 rgba(0,0,0,0.3);
+  height: 30px;
+   /* pour avoir les colonnes de la même taille : */
+  table-layout: fixed;
+  font-size: 0.7vw;
+}
+
+.legend-table td {
+  border: 1px solid #000000;
+}
+
+/* .calendar-table tbody td:hover {
+  background-color: #f0f0f0;
+}
+
+.calendar-table tbody .weekNumber:hover {
+  background-color: #f0f0f0;
+} */
+
+/* .calendar-container .calendar-table .weekend-days:hover{
+  background-color: #a9a9a9;
+} */
+
+
+
 

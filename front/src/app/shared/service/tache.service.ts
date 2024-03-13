@@ -13,7 +13,7 @@ export class TacheService {
   private tacheURL:string;
   private duplicateURL:string;
   private getTachesByUtilisateurURL:string;
-  private getDureeTachesByUtilisateurURL: string;
+  // private getDureeTachesByUtilisateurURL: string;
 
   constructor(private http:HttpClient) {
     this.getTachesURL = 'http://localhost:8080/taches'
@@ -21,7 +21,7 @@ export class TacheService {
     this.tacheURL = 'http://localhost:8080/tache'
     this.duplicateURL = 'http://localhost:8080/duplicateTache'
     this.getTachesByUtilisateurURL = 'http://localhost:8080/tachesByUtilisateur'
-    this.getDureeTachesByUtilisateurURL = 'http://localhost:8080/dureeTachesByUtilisateur'
+    // this.getDureeTachesByUtilisateurURL = 'http://localhost:8080/dureeTachesByUtilisateur'
    }
 
   public getTaches(): Observable<Tache[]> {

@@ -14,7 +14,7 @@
     <thead>
       <tr>
         <th>Id tache</th>
-        <th>Liste des utilisateurs</th>
+        <!-- <th>Liste des utilisateurs</th> -->
         <th>Nom</th>
         <th>Type de tâche</th>
         <th>Date</th>
@@ -30,7 +30,7 @@
     <tbody>
       <tr *ngFor="let tache of filteredTaches">
         <td>{{ tache.idTache}}</td>
-        <td>{{ tache.listIdUtilisateurs}}</td>
+        <!-- <td>{{ tache.listIdUtilisateurs}}</td> -->
         <td>{{ tache.nomTache}}</td>
         <td>{{ tache.libelleTypeTache}}</td>
         <td>{{ tache.dateTache | date: 'dd/MM/yyyy'  }}</td>
