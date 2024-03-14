@@ -45,9 +45,14 @@ public class TacheController {
 		return tacheService.getTachesByUtilisateur(id);
 	}
 
-	@GetMapping("/tachesByUtilisateur/{id}/{mois}/{annee}")
+	@GetMapping("/tachesByUtilisateurByMonth/{id}/{mois}/{annee}")
 	public ResponseEntity<List<TacheDTO>> getTachesByUtilisateurByMonth(@PathVariable int id, @PathVariable int mois, @PathVariable int annee) {
 		return tacheService.getTachesByUtilisateurByMonth(id, mois, annee);
+	}
+
+	@GetMapping("/tachesByUtilisateurByWeek/{id}/{numSemaine}/{annee}")
+	public ResponseEntity<List<TacheDTO>> getTachesByUtilisateurByWeek(@PathVariable int id, @PathVariable int numSemaine, @PathVariable int annee) {
+		return tacheService.getTachesByUtilisateurByWeek(id, numSemaine, annee);
 	}
 
 

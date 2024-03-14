@@ -13,6 +13,8 @@ export class TacheService {
   private tacheURL:string;
   private duplicateURL:string;
   private getTachesByUtilisateurURL:string;
+  private getTachesByUtilisateurByMonthURL: string;
+  private getTachesByUtilisateurByWeekURL: string;
   // private getDureeTachesByUtilisateurURL: string;
 
   constructor(private http:HttpClient) {
@@ -21,6 +23,9 @@ export class TacheService {
     this.tacheURL = 'http://localhost:8080/tache'
     this.duplicateURL = 'http://localhost:8080/duplicateTache'
     this.getTachesByUtilisateurURL = 'http://localhost:8080/tachesByUtilisateur'
+    this.getTachesByUtilisateurByMonthURL = 'http://localhost:8080/tachesByUtilisateurByMonth'
+    this.getTachesByUtilisateurByWeekURL = 'http://localhost:8080/tachesByUtilisateurByWeek'
+
     // this.getDureeTachesByUtilisateurURL = 'http://localhost:8080/dureeTachesByUtilisateur'
    }
 
@@ -54,7 +59,11 @@ export class TacheService {
   }
 
   public getTachesByUtilisateurByMonth(id:number, month: number, year: number): Observable<Tache[]> {
-    return this.http.get<Tache[]>(`${this.getTachesByUtilisateurURL}/${id}/${month}/${year}`);
+    return this.http.get<Tache[]>(`${this.getTachesByUtilisateurByMonthURL}/${id}/${month}/${year}`);
+  }
+
+  public getTachesByUtilisateurByWeek(id:number, weekNumber: number, year: number): Observable<Tache[]> {
+    return this.http.get<Tache[]>(`${this.getTachesByUtilisateurByWeekURL}/${id}/${weekNumber}/${year}`);
   }
   //  public getTachesByUtilisateurByDay(id:number, date:Date): Observable<Tache[]> {
   //   return this.http.get<Tache[]>(`${this.getTachesByUtilisateurURL}/${id}/${date}`);

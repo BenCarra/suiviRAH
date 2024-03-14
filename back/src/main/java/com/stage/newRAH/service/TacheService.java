@@ -130,7 +130,7 @@ public class TacheService {
 		}
 
 
-		@SuppressWarnings("deprecation")
+		@SuppressWarnings("deprecation") // j'ai dû mettre deprecation pour pouvoir utiliser getMonth() et getYear()
 		public ResponseEntity<List<TacheDTO>> getTachesByUtilisateurByMonth(int id, int mois, int annee) {
 			
 			Optional<Utilisateur> utilisateurChoisi = utilisateurRepository.findById(id);
@@ -153,9 +153,39 @@ public class TacheService {
 				for (Tache tache : tachesByMonth) {
 					TacheDTO tacheDTO = this.mapTacheToDTO(tache);
 					tachesByMonthDTO.add(tacheDTO);
-					System.out.println("coucou");
 				}
 				return ResponseEntity.ok(tachesByMonthDTO);
+				
+			} else {
+				return ResponseEntity.notFound().build();
+			}	
+		}
+
+		@SuppressWarnings("deprecation") // j'ai dû mettre deprecation pour pouvoir utiliser getMonth() et getYear()
+		public ResponseEntity<List<TacheDTO>> getTachesByUtilisateurByWeek(int id, int numSemaine, int annee) {
+			
+			Optional<Utilisateur> utilisateurChoisi = utilisateurRepository.findById(id);
+			
+			if (utilisateurChoisi.isPresent()) {
+				
+				List<Tache> taches = utilisateurChoisi.get().getListTaches();
+				List<Tache> tachesByWeek = new ArrayList<>();
+
+				for (Tache tache: taches) {
+					// getMonth() : Janvier : 0, février : 1 etc...
+					// getYear() : currentYear + 1900
+					if (tache.getWeekNumber(tache.getDateTache()) == numSemaine & tache.getDateTache().getYear() == annee - 1900) {
+						tachesByWeek.add(tache);
+					}
+				}
+
+				List<TacheDTO> tachesByWeekDTO = new ArrayList<>();
+				
+				for (Tache tache : tachesByWeek) {
+					TacheDTO tacheDTO = this.mapTacheToDTO(tache);
+					tachesByWeekDTO.add(tacheDTO);
+				}
+				return ResponseEntity.ok(tachesByWeekDTO);
 				
 			} else {
 				return ResponseEntity.notFound().build();

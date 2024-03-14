@@ -3,8 +3,12 @@
 <div class="filtre-container">
   <mat-form-field>
     <mat-label>Filtre par semaine</mat-label>
-    <mat-select [(value)]="selectedWeek" (selectionChange)="loadTachesByWeek(selectedWeek)">
-      <mat-option *ngFor="let week of weeks" [value]="week">{{week}}</mat-option>
+    <!-- [()] est une syntaxe de liaison bidirectionnelle
+    lorsque l'utilisateur sélectionne une option dans le menu déroulant, selectedWeek est automatiquement mis à jour  -->
+    <mat-select [(value)]="selectedWeek" (selectionChange)="loadTachesByWeek({week: selectedWeek.week,year: selectedWeek.year})">
+      <!-- [value]="week" signifie que lorsque je sélectionne une semaine, l'objet week 
+      est passé comme la valeur sélectionnée -->
+      <mat-option *ngFor="let week of weeks" [value]="week">{{week.week}} </mat-option>
     </mat-select>
   </mat-form-field>
 </div>
@@ -13,7 +17,7 @@
   <table >
     <thead>
       <tr>
-        <th>Id tache</th>
+        <!-- <th>Id tache</th> -->
         <!-- <th>Liste des utilisateurs</th> -->
         <th>Nom</th>
         <th>Type de tâche</th>
@@ -28,8 +32,8 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let tache of filteredTaches">
-        <td>{{ tache.idTache}}</td>
+      <tr *ngFor="let tache of taches">
+        <!-- <td>{{ tache.idTache}}</td> -->
         <!-- <td>{{ tache.listIdUtilisateurs}}</td> -->
         <td>{{ tache.nomTache}}</td>
         <td>{{ tache.libelleTypeTache}}</td>

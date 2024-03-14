@@ -51,7 +51,7 @@ export class CalendrierComponent implements OnInit {
   loadTachesByUtilisateurByMonth() {    
     this.tacheService.getTachesByUtilisateurByMonth(this.idUtilisateurConnecté, this.currentDate.getMonth(), this.currentDate.getFullYear()).subscribe(data => {
       this.tachesByMonth = data;
-      console.log("taches", this.tachesByMonth); 
+      console.log("tachesByMonth", this.tachesByMonth); 
     });
   }
 

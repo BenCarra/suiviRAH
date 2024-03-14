@@ -1,8 +1,11 @@
 package com.stage.newRAH.model;
 
 import java.sql.Date;
+import java.time.LocalDate;
+import java.time.temporal.WeekFields;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -60,6 +63,16 @@ public class Tache {
 		this.typeTache = typeTache;
 		this.projet = projet;
 	}
+
+	public int getWeekNumber(Date date) {
+        // Convertir java.sql.Date en java.time.LocalDate
+        LocalDate localDate = date.toLocalDate();
+        
+        // Utiliser WeekFields pour déterminer le numéro de la semaine selon les conventions locales
+        WeekFields weekFields = WeekFields.of(Locale.getDefault());
+        int weekOfYear = localDate.get(weekFields.weekOfYear());
+        return weekOfYear;
+    }
 	
 	
 }
