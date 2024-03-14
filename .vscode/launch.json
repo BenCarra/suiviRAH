@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-NewRahApplication<newRAH>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.stage.newRAH.NewRahApplication",
+            "projectName": "newRAH",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
