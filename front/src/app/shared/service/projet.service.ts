@@ -36,4 +36,14 @@ export class ProjetService {
   public getSuiviProjetsByClient(nomClient: string): Observable<SuiviProjet[]> {
     return this.http.get<SuiviProjet[]>('http://localhost:8080/suiviProjetsByClient/' + nomClient);
   }
+
+  // Récupère de l'API le suivi des projets par année
+   public getSuiviProjetsByAnnee(annee: number): Observable<SuiviProjet[]> {
+    return this.http.get<SuiviProjet[]>('http://localhost:8080/suiviProjetsByAnnee/' + annee);
+  }
+
+  // Récupère de l'API le suivi des projets par nom de client et par année
+  public getSuiviProjetsByClientByAnnee(nomClient: string, annee: number): Observable<SuiviProjet[]> {
+    return this.http.get<SuiviProjet[]>('http://localhost:8080/suiviProjetsByClientByAnnee/' + nomClient + "/" + annee);
+  }
 }

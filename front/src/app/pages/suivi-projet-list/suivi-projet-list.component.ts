@@ -14,14 +14,26 @@ export class SuiviProjetListComponent {
 
   formFiltrage!: FormGroup;
   listSuiviProjets!: SuiviProjet[];
+  listSuiviProjetsByClient!: SuiviProjet[];
+  listSuiviProjetsByAnnee!: SuiviProjet[];
   listNomsClient!: string[];
-  isChecked!: boolean;
+  anneeActuelle!: number;
+  listAnnees: number[] = [];
 
   constructor(private projetService: ProjetService){
 
   }
 
   ngOnInit(){
+
+    // Récupération de l'année courante
+    this.anneeActuelle = new Date().getFullYear();
+
+    // Création de la liste des années pour le tableau de suivi des projets
+    for (let index = 0; index < (this.anneeActuelle - 2016) + 1; index++) {
+      this.listAnnees.push(2016+index);
+    }
+    
     // Création du formulaire réactif
     this.formFiltrage = new FormGroup({
       clientRecherche: new FormControl('', Validators.required),
@@ -32,13 +44,16 @@ export class SuiviProjetListComponent {
     this.projetService.getSuiviProjets().subscribe(data => {
       this.listSuiviProjets = data;
       this.listNomsClient = [];
-      // Extraction des noms ded clientd pour le filtre
+      // Extraction des noms des clients pour le filtre
       data.forEach((suiviProjet) => {
         if (!this.listNomsClient.includes(suiviProjet.nomClient)) {
           this.listNomsClient.push(suiviProjet.nomClient);
         }
       });
     })
+
+    // Récupération du suivi des projets par client
+    //this.projetService.getSuiviProjetsByClient(this.nomClient)
   }
 
   // Méthode exécutée après sélection d'une option de la liste déroulante

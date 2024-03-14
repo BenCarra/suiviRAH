@@ -22,13 +22,23 @@
                     <th>Nom du projet</th>
                     <th>Devis estimé</th>
                     <th>Etat du projet</th>
+                    @for (annee of listAnnees; track $index) {
+                        <th>{{ annee }}</th>
+                    }
                 </tr>
                 @for (suiviProjet of listSuiviProjets; track $index) {
-                <tr>
+                <tr title="{{ suiviProjet.idProjet }}">
                     <td>{{ suiviProjet.nomClient }}</td>
                     <td>{{ suiviProjet.nomProjet }}</td>
                     <td>{{ suiviProjet.devisEstimation }}</td>
                     <td>{{ suiviProjet.libelleEtat }}</td>
+                    @for (annee of listAnnees; track $index) {
+                        @if (suiviProjet.anneeTache == annee) {
+                            <td>{{ suiviProjet.dureeTache }}</td>
+                        } @else {
+                            <td>0</td>
+                        }
+                    }
                 </tr>
                 }
             </tbody>

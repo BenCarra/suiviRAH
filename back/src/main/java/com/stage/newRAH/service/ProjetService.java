@@ -1,6 +1,9 @@
 package com.stage.newRAH.service;
 
+import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +14,7 @@ import com.stage.newRAH.dto.ProjetDTO;
 import com.stage.newRAH.dto.SuiviProjetDTO;
 import com.stage.newRAH.model.Projet;
 import com.stage.newRAH.model.SuiviProjet;
+import com.stage.newRAH.model.Tache;
 import com.stage.newRAH.repository.ClientRepository;
 import com.stage.newRAH.repository.CompositionRepository;
 import com.stage.newRAH.repository.EquipeRepository;
@@ -87,6 +91,8 @@ public class ProjetService {
 		
 		SuiviProjetDTO suiviProjetDTO = new SuiviProjetDTO();
 
+		suiviProjetDTO.setIdProjet(suiviProjet.getIdProjet());
+
 		if (suiviProjet.getClient() != null) {
 			suiviProjetDTO.setNomClient(suiviProjet.getClient().getNomClient());
 		}
@@ -98,8 +104,15 @@ public class ProjetService {
 			suiviProjetDTO.setLibelleEtat(suiviProjet.getEtat().getLibelle());
 		}
 
-		return suiviProjetDTO;
+		suiviProjetDTO.setDureeTache(suiviProjet.getDureeTache());
 
+		// Récupération de l'année à partir de la date
+		Calendar calendar = new GregorianCalendar();
+		calendar.setTime(suiviProjet.getDateTache());
+		suiviProjetDTO.setAnneeTache(calendar.get(Calendar.YEAR));
+
+		return suiviProjetDTO;
+		
 	}
 
 	public ResponseEntity<List<ProjetDTO>> getProjets() {
@@ -122,6 +135,29 @@ public class ProjetService {
 		if (suiviProjets.iterator().hasNext()) {
 
 			for (SuiviProjet suiviProjet: suiviProjets) {
+				SuiviProjetDTO suiviProjetDTO = new SuiviProjetDTO();
+				suiviProjetDTO = mapSuiviProjetToDTO(suiviProjet);
+				if ((suiviProjet.getNomProjet().equals(suiviProjetDTO.getNomProjet())) && (suiviProjet.getClient().getNomClient().equals(suiviProjetDTO.getNomClient()))) {
+					
+				}
+				suiviProjetsDTO.add(suiviProjetDTO);
+			}
+
+			return ResponseEntity.ok(suiviProjetsDTO);
+		} else {
+			return ResponseEntity.notFound().build();
+		}
+
+	}
+
+	public ResponseEntity<List<SuiviProjetDTO>> getSuiviProjetsByAnnee(int annee) {
+		
+		Iterable<SuiviProjet> suiviProjets = projetRepository.getSuiviProjetsByAnnee(annee);
+		List<SuiviProjetDTO> suiviProjetsDTO = new ArrayList<>();
+
+		if (suiviProjets.iterator().hasNext()) {
+
+			for (SuiviProjet suiviProjet: suiviProjets) {
 				SuiviProjetDTO suiviProjetDTO = mapSuiviProjetToDTO(suiviProjet);
 				suiviProjetsDTO.add(suiviProjetDTO);
 			}
@@ -136,6 +172,25 @@ public class ProjetService {
 	public ResponseEntity<List<SuiviProjetDTO>> getSuiviProjetsByClient(String nomClient) {
 		
 		Iterable<SuiviProjet> suiviProjets = projetRepository.getSuiviProjetsByClient(nomClient);
+		List<SuiviProjetDTO> suiviProjetsDTO = new ArrayList<>();
+
+		if (suiviProjets.iterator().hasNext()) {
+
+			for (SuiviProjet suiviProjet: suiviProjets) {
+				SuiviProjetDTO suiviProjetDTO = mapSuiviProjetToDTO(suiviProjet);
+				suiviProjetsDTO.add(suiviProjetDTO);
+			}
+
+			return ResponseEntity.ok(suiviProjetsDTO);
+		} else {
+			return ResponseEntity.notFound().build();
+		}
+
+	}
+
+	public ResponseEntity<List<SuiviProjetDTO>> getSuiviProjetsByClientByAnnee(String nomClient, int annee) {
+		
+		Iterable<SuiviProjet> suiviProjets = projetRepository.getSuiviProjetsByClientByAnnee(nomClient, annee);
 		List<SuiviProjetDTO> suiviProjetsDTO = new ArrayList<>();
 
 		if (suiviProjets.iterator().hasNext()) {

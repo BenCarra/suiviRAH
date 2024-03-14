@@ -22,5 +22,4 @@ export class Projet {
     dateSortieMCO!: Date;
     libelleEtat!: string;
     commentaires!: string;
-
 }
