@@ -1,5 +1,8 @@
 package com.stage.newRAH.service;
 
+import java.time.LocalDate;
+import java.time.YearMonth;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -190,7 +193,44 @@ public class TacheService {
 			} else {
 				return ResponseEntity.notFound().build();
 			}	
+		}		
+
+	// J'ai testé pour la première fois java.time.LocalDate (et non plus les fonction dépréciées)
+	public ResponseEntity<List<Double>> getListDureesTachesByUtilisateurByMonth(int id, int mois, int annee) {
+		Optional<Utilisateur> utilisateurChoisi = utilisateurRepository.findById(id);
+		
+		// Initialiser la liste avec des zéros pour chaque jour du mois (31 jours)
+		List<Double> listDureesParJour = new ArrayList<>();
+		// En utilisant java.time, je peux calculer facilement le nombre de jours par mois
+		YearMonth yearMonth = YearMonth.of(annee, mois + 1);
+		int lengthOfMonth = yearMonth.lengthOfMonth();
+		for (int i = 0; i < lengthOfMonth; i++) {
+			listDureesParJour.add(0.0);
 		}
+
+		if (utilisateurChoisi.isPresent()) {
+			List<Tache> taches = utilisateurChoisi.get().getListTaches();
+			
+			for (Tache tache : taches) {
+				LocalDate dateTache = tache.getDateTache().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+				
+				// Je vérifie que la tâche est dans le mois et l'année spécifiés
+				if (dateTache.getMonthValue() == mois + 1 && dateTache.getYear() == annee) {
+					// getDate() renvoie le jour du mois (1-31)
+					int jourDuMois = dateTache.getDayOfMonth() - 1; // Les listes commencent à 0 
+					// j'accède à l'élément d'index jourDuMois de la liste listDureesParJour
+					double dureeActuelle = listDureesParJour.get(jourDuMois);
+					// Ajouter la durée de la tâche actuelle à la durée totale pour ce jour
+					// en remplaçant l'élément à l'index jour du mois par dureeActuelle + tache.getDureeTache()
+					listDureesParJour.set(jourDuMois, dureeActuelle + tache.getDureeTache());
+				}
+			}			
+			return ResponseEntity.ok(listDureesParJour);
+		} else {
+			return ResponseEntity.notFound().build();
+		}
+	}
+
 
 		// public ResponseEntity<List<TacheDTO>> getTachesByUtilisateurByDay(int id, Date dateTache) {
 			
@@ -219,8 +259,8 @@ public class TacheService {
 		// 	}	
 		// }
 
-
-		// public ResponseEntity<Double> getDureeTachesByUtilisateurByDay(int id, Date dateTache) {
+		// @SuppressWarnings("deprecation")
+		// public ResponseEntity<Double> getDureeTachesByUtilisateurByDay(int id, int jour, int mois, int annee) {
 			
 		// 	Optional<Utilisateur> utilisateurChoisi = utilisateurRepository.findById(id);
 			
@@ -230,13 +270,16 @@ public class TacheService {
 		// 		double dureeJournee = 0;
 
 		// 		for (Tache tache: taches) {
-		// 			if (tache.getDateTache().equals(dateTache)) {
-		// 				dureeJournee += tache.getDureeTache();						
-		// 			}
+		// 			Date dateTache = tache.getDateTache();
+		// 			if (dateTache.getYear() == annee - 1900 &&
+		// 				dateTache.getMonth() == mois &&
+		// 				dateTache.getDate() == jour) {
+		// 				dureeJournee += tache.getDureeTache();                        
+        //     		} 
 		// 		}
-		// 		return ResponseEntity.ok(dureeJournee);
-		// 	} else {
-		// 		return ResponseEntity.notFound().build();
+		// 			return ResponseEntity.ok(dureeJournee);
+		// 			} else {
+		// 				return ResponseEntity.notFound().build();
 		// 	}	
 		// }
 

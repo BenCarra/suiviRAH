@@ -5,7 +5,7 @@
     <mat-label>Filtre par semaine</mat-label>
     <!-- [()] est une syntaxe de liaison bidirectionnelle
     lorsque l'utilisateur sélectionne une option dans le menu déroulant, selectedWeek est automatiquement mis à jour  -->
-    <mat-select [(value)]="selectedWeek" (selectionChange)="loadTachesByWeek({week: selectedWeek.week,year: selectedWeek.year})">
+    <mat-select [(value)]="selectedWeek" (selectionChange)="loadTachesByWeek({week: selectedWeek.week,year: selectedWeek.year})" [compareWith]="compareFn">
       <!-- [value]="week" signifie que lorsque je sélectionne une semaine, l'objet week 
       est passé comme la valeur sélectionnée -->
       <mat-option *ngFor="let week of weeks" [value]="week">{{week.week}} </mat-option>
@@ -17,8 +17,6 @@
   <table >
     <thead>
       <tr>
-        <!-- <th>Id tache</th> -->
-        <!-- <th>Liste des utilisateurs</th> -->
         <th>Nom</th>
         <th>Type de tâche</th>
         <th>Date</th>
@@ -28,13 +26,10 @@
         <th>Modifier</th>
         <th>Supprimer</th>
         <th>Dupliquer</th>
-
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let tache of taches">
-        <!-- <td>{{ tache.idTache}}</td> -->
-        <!-- <td>{{ tache.listIdUtilisateurs}}</td> -->
+      <tr *ngFor="let tache of tachesByWeek">
         <td>{{ tache.nomTache}}</td>
         <td>{{ tache.libelleTypeTache}}</td>
         <td>{{ tache.dateTache | date: 'dd/MM/yyyy'  }}</td>

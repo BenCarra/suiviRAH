@@ -16,6 +16,7 @@ import { Tache } from '../../shared/model/tache';
 
 export class CalendrierComponent implements OnInit {
 
+  weekNumber!: number;
   today: Date;
   currentDate: Date;
   daysInMonth: (Date | null)[];
@@ -28,7 +29,8 @@ export class CalendrierComponent implements OnInit {
   // à prenomUtilisateur alors que l'utilisateur n'est pas encore chargé)
   utilisateur: Utilisateur | any = {};
   tachesByMonth: Tache[] = [];
-  dureeTachesByDay!: number;
+
+  dureesTachesByMonth: number[] = [];
   
   constructor(private utilisateurService: UtilisateurService, private tacheService: TacheService) {
     // Je suis obligée de créer la date du jour (qui ne se modifiera pas)
@@ -44,7 +46,8 @@ export class CalendrierComponent implements OnInit {
     this.utilisateurService.getUtilisateurById(this.idUtilisateurConnecté).subscribe(data => {
           this.utilisateur = data});
     // Je récupère les tâches de mon utilisateur par mois
-    this.loadTachesByUtilisateurByMonth();      
+    this.loadTachesByUtilisateurByMonth();  
+    this.loadDureesTachesByMonth();    
   }
 
   // Récupération de la liste des tâches de l'utilisateur connecté, par mois
@@ -55,20 +58,29 @@ export class CalendrierComponent implements OnInit {
     });
   }
 
-  // Calcule la durée des tâches dans une journée donnée
-  getDureeTachesByDay(date: Date): number {
-    this.dureeTachesByDay = 0;
-    this.tachesByMonth.forEach(tache => {
-      // tache.dateTache n'étant pas considéré comme une Date
-      // j'ai dû créer une date à partir de tache.dateTache pour pouvoir utiliser 
-      // les getters de la classe Date
-      const tacheDate = new Date(tache.dateTache);
-      if (tacheDate.getFullYear() === date.getFullYear() && tacheDate.getMonth() === date.getMonth() && tacheDate.getDate() === date.getDate()) {
-        this.dureeTachesByDay += tache.dureeTache;
-      } 
-    });
-    return this.dureeTachesByDay;
+  loadDureesTachesByMonth() {
+    this.tacheService.getListDureesTachesByUtilisateurByMonth(this.idUtilisateurConnecté,this.currentDate.getMonth(), this.currentDate.getFullYear() ).subscribe(data => {
+      this.dureesTachesByMonth = data;
+    })
   }
+
+  // // Calcule la durée des tâches dans une journée donnée
+  // getDureeTachesByDay(date: Date): number {
+  //   let dureeTachesByDay = 0;
+  //   this.tachesByMonth.forEach(tache => {
+  //     // tache.dateTache n'étant pas considéré comme une Date
+  //     // j'ai dû créer une date à partir de tache.dateTache pour pouvoir utiliser 
+  //     // les getters de la classe Date
+  //     const tacheDate = new Date(tache.dateTache);
+  //     if (tacheDate.getFullYear() === date.getFullYear() && tacheDate.getMonth() === date.getMonth() && tacheDate.getDate() === date.getDate()) {
+  //       dureeTachesByDay += tache.dureeTache;
+  //       console.log("le "+date.getDate(), "correspond à ", dureeTachesByDay, "h");
+  //     } 
+  //   });
+  //   return dureeTachesByDay;
+  // }
+
+ 
 
   // Calcule le  nombre de jours dans un mois et cale le 1er jour du mois
   // sous le bon nom de jour grâce aux espaces vides
@@ -130,6 +142,7 @@ export class CalendrierComponent implements OnInit {
     this.currentDate = new Date();
     this.getDaysInMonth();
     this.loadTachesByUtilisateurByMonth();
+    this.loadDureesTachesByMonth(); 
   }
   
   // Permet d'afficher le calendrier du mois suivant et de charger sa liste de tâches
@@ -137,6 +150,7 @@ export class CalendrierComponent implements OnInit {
     this.currentDate = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth() - 1, 1);
     this.getDaysInMonth();
     this.loadTachesByUtilisateurByMonth();
+    this.loadDureesTachesByMonth(); 
   }
 
   // Permet d'afficher le calendrier du mois précédent et de charger sa liste de tâches
@@ -144,6 +158,7 @@ export class CalendrierComponent implements OnInit {
     this.currentDate = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth() + 1, 1);
     this.getDaysInMonth();
     this.loadTachesByUtilisateurByMonth();
+    this.loadDureesTachesByMonth(); 
   }
 
   // Permet de calculer le n° de semaine par rapport à une date donnée

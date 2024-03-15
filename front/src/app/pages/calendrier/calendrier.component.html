@@ -23,13 +23,13 @@
         <!-- j'ai mis day && pour d'abord dire que day est true (donc n'est pas null) -->
         <td *ngFor="let day of week.days; let i = index" [ngClass]="{
           'weekend-days': day && (i === 5 || i === 6), 
-          'empty-cell': !day,
+          'empty-cell': !day, 
           'current-date': day?.getDate()===today.getDate() && day?.getMonth()===today.getMonth() && day?.getFullYear()===today.getFullYear(),
           'holidays-days': day && isHolidays(day),
-          'sup-seven': day && getDureeTachesByDay(day) >= 7,
-          'between-four-six': day && getDureeTachesByDay(day) >= 4 && getDureeTachesByDay(day) <= 6,
-          'between-one-three': day && getDureeTachesByDay(day) >= 1 && getDureeTachesByDay(day) <= 3,
-          'none': day && getDureeTachesByDay(day) == 0 && !(i === 5 || i === 6 || i !=currentDate.getDay())
+          'sup-seven': day && dureesTachesByMonth[day.getDate() - 1] >= 7,
+          'between-four-six': day && dureesTachesByMonth[day.getDate() - 1] >= 4 && dureesTachesByMonth[day.getDate() - 1] <= 6,
+          'between-one-three': day && dureesTachesByMonth[day.getDate() - 1] >= 1 && dureesTachesByMonth[day.getDate() - 1] <= 3,
+          'none': day && dureesTachesByMonth[day.getDate() - 1] == 0 && !(i === 5 || i === 6 || i !=currentDate.getDay())
           }" [routerLink]="['/listTaches', week.weekNumber]">
           {{ day | date: 'd' }}</td>       
         <!-- j'ai dû créer des cellules vides après le dernier jour du mois pour pouvoir leur appliquer un style css 

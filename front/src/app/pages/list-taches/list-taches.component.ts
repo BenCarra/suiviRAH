@@ -28,7 +28,7 @@ export class ListTachesComponent implements OnInit {
   id!: number ;
   selectedWeek!: {week:number, year:number};
   weeks: { week: number, year: number }[] = [] ;
-  taches!: Tache[];
+  tachesByWeek!: Tache[];
   
   // Simulation d'un utilisateur connecté 
   idUtilisateurConnecté: number = 4;
@@ -43,6 +43,7 @@ export class ListTachesComponent implements OnInit {
   ngOnInit(): void {
     
     // Récupération du paramètre qui suit /listTaches (cf app.routes.ts)
+    // pour afficher la liste de la semaine sélectionnée au niveau du calendrier
     this.route.params.subscribe(params => {
       this.weekNumber = +params['weekNumber'];
     })
@@ -55,9 +56,9 @@ export class ListTachesComponent implements OnInit {
 
   loadTachesByWeek(selectedWeek: { week: number, year: number }) {
     this.tacheService.getTachesByUtilisateurByWeek(this.idUtilisateurConnecté, selectedWeek.week, selectedWeek.year).subscribe(data => {
-      this.taches = data;
+      this.tachesByWeek = data;
       this.initWeeks(selectedWeek.week, selectedWeek.year);
-      console.log("tachesByWeek", this.taches);  });
+      console.log("tachesByWeek", this.tachesByWeek);  });
       console.log("weekNumber", this.selectedWeek.week);
   }
 
@@ -131,6 +132,11 @@ export class ListTachesComponent implements OnInit {
       this.weeks.push({week: i, year: currentYear - 1 });
     }
   }
+
+  compareFn(t1: { week: number, year: number }, t2: { week: number, year: number }): boolean {
+    return t1 && t2 ? t1.week === t2.week && t1.year === t2.year : t1 === t2;
+}
+
 
   // // Chargement de la liste des tâches par utilisateur et semaine
   // loadTachesByWeek2(weekNumber: number) {
