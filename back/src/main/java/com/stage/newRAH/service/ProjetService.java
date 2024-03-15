@@ -24,6 +24,8 @@ import com.stage.newRAH.repository.TypeDefautRepository;
 import com.stage.newRAH.repository.TypeProjetRepository;
 import com.stage.newRAH.repository.UtilisateurRepository;
 
+import io.micrometer.core.ipc.http.HttpSender.Response;
+
 
 
 @Service
@@ -135,13 +137,21 @@ public class ProjetService {
 		if (suiviProjets.iterator().hasNext()) {
 
 			for (SuiviProjet suiviProjet: suiviProjets) {
-				SuiviProjetDTO suiviProjetDTO = new SuiviProjetDTO();
-				suiviProjetDTO = mapSuiviProjetToDTO(suiviProjet);
-				if ((suiviProjet.getNomProjet().equals(suiviProjetDTO.getNomProjet())) && (suiviProjet.getClient().getNomClient().equals(suiviProjetDTO.getNomClient()))) {
+
+				/*if ((suiviProjet.getNomProjet().equals(suiviProjetDTO.getNomProjet())) && (suiviProjet.getClient().getNomClient().equals(suiviProjetDTO.getNomClient()))) {
 					
-				}
+				}*/
+
+				SuiviProjetDTO suiviProjetDTO = mapSuiviProjetToDTO(suiviProjet);
 				suiviProjetsDTO.add(suiviProjetDTO);
 			}
+
+			/*List<SuiviProjetDTO> list = new ArrayList<>();
+			for (int index = 0; index < suiviProjetsDTO.size(); index++) {
+				if (suiviProjetsDTO.get(index).getNomClient().equals(suiviProjetsDTO.get(index+1).getNomClient()) && (suiviProjetsDTO.get(index).getNomProjet().equals(suiviProjetsDTO.get(index+1).getNomProjet()))) {
+					list.add(suiviProjetsDTO);
+				}
+			}*/
 
 			return ResponseEntity.ok(suiviProjetsDTO);
 		} else {

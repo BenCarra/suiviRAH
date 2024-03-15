@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.stage.newRAH.dto.TacheDTO;
 import com.stage.newRAH.service.TacheService;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
@@ -38,6 +40,12 @@ public class TacheController {
 	public ResponseEntity<List<TacheDTO>> getTachesByUtilisateur(@PathVariable int id) {
 		return tacheService.getTachesByUtilisateur(id);
 	}
+
+	@GetMapping("/listAnneesTaches")
+	public ResponseEntity<List<Integer>> getListAnneesTaches() {
+		return tacheService.getListAnneesTaches();
+	}
+	
 
 }
 

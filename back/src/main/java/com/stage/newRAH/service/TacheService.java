@@ -123,7 +123,19 @@ public class TacheService {
 			} else {
 				return ResponseEntity.notFound().build();
 			}	
+	}
+
+	public ResponseEntity<List<Integer>> getListAnneesTaches(){
+
+		List<Integer> listAnneesTaches = tacheRepository.getListAnneesTaches();
+
+		if (listAnneesTaches.iterator().hasNext()) {
+			return ResponseEntity.ok(listAnneesTaches);
+		} else {
+			return ResponseEntity.notFound().build();
 		}
+
+	}
 	
 }
 

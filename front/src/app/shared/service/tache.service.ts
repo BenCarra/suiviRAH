@@ -8,5 +8,15 @@ import { Tache } from '../model/tache';
 })
 export class TacheService {
 
+  url: String;
+
+  constructor(private http: HttpClient){
+    this.url = "http://localhost:8080";
+  }
+
+  public getListAnneesTaches(): Observable<number[]> {
+    return this.http.get<number[]>(this.url + "/listAnneesTaches");
+  }
+
 }
    
