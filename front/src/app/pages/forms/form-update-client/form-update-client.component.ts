@@ -36,7 +36,8 @@ export class FormUpdateClientComponent {
       adresse: new FormControl('', Validators.required),
       codePostal: new FormControl('', Validators.compose([Validators.required, Validators.pattern("^[0-9]{5}$")])),
       ville: new FormControl('', Validators.required),
-      actif: new FormControl('', Validators.required)
+      actif: new FormControl('', Validators.required),
+      modeFonctionnementMCO: new FormControl('', Validators.required)
     })
 
     // Récupération de l'identifiant du client à modifier
@@ -58,6 +59,7 @@ export class FormUpdateClientComponent {
         this.formUpdate.get("codePostal")?.setValue(this.clientById.codePostalClient);
         this.formUpdate.get("ville")?.setValue(this.clientById.villeClient);
         this.formUpdate.get("actif")?.setValue(this.clientById.actif);
+        this.formUpdate.get("modeFonctionnementMCO")?.setValue(this.clientById.modeFonctionnementMCO);
       }
     );
   }
@@ -74,7 +76,8 @@ export class FormUpdateClientComponent {
       this.formUpdate.controls['adresse'].hasError('required') ||
       this.formUpdate.controls['codePostal'].hasError('required') ||
       this.formUpdate.controls['ville'].hasError('required') || 
-      this.formUpdate.controls['actif'].hasError('required')) {
+      this.formUpdate.controls['actif'].hasError('required') || 
+      this.formUpdate.controls['modeFonctionnementMCO'].hasError('required')) {
       console.log("Un ou plusieurs champs sont requis");
     } else if (this.formUpdate.controls['codePostal'].hasError('pattern')) {
       console.log("Le code postal doit être composé de 5 chiffres")
@@ -83,7 +86,8 @@ export class FormUpdateClientComponent {
       this.clientById.adresseClient = this.formUpdate.get("adresse")?.value;
       this.clientById.codePostalClient = this.formUpdate.get("codePostal")?.value;
       this.clientById.villeClient = this.formUpdate.get("ville")?.value;
-      this.clientById.actif = this.formUpdate.get('actif')?.value
+      this.clientById.actif = this.formUpdate.get('actif')?.value;
+      this.clientById.modeFonctionnementMCO = this.formUpdate.get('modeFonctionnementMCO')?.value;
       this.clientService.update(this.clientById).subscribe({
         next: (response) => {
           alert('Client modifié!');

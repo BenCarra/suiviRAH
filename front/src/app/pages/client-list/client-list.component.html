@@ -38,6 +38,7 @@
                     <th>Code postal</th>
                     <th>Ville</th>
                     <th>Actif</th>
+                    <th>Mode de fonctionnement MCO</th>
                     <th>Projet associé</th>
                     <th>Modifier</th>
                 </tr>
@@ -48,6 +49,7 @@
                     <td>{{ client.codePostalClient }}</td>
                     <td>{{ client.villeClient }}</td>
                     <td>{{ client.actif }}</td>
+                    <td>{{ client.modeFonctionnementMCO }}</td>
                     <td>
                         @for (projet of client.listProjets; track $index){
                         <ul>

@@ -5,5 +5,6 @@ export class Client {
 	codePostalClient!: string;
 	villeClient!: string;
 	actif!: boolean;
+	modeFonctionnementMCO!: boolean;
 	listProjets!: string[][];
 }

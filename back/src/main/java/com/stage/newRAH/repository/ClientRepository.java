@@ -1,7 +1,5 @@
 package com.stage.newRAH.repository;
 
-import java.util.Optional;
-
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -14,8 +12,5 @@ public interface ClientRepository extends CrudRepository<Client, Integer> {
 
 	@Query("SELECT c FROM Client c WHERE nomClient=:nom")
 	Iterable<Client> findByNom(@Param(value="nom") String nom);
-
-	@Query("SELECT c FROM Client c WHERE nomClient=:nom")
-	Optional<Client> findByNomClient(@Param(value="nom") String nomClient);
 
 }

@@ -38,6 +38,7 @@ public class ClientService {
 		clientDTO.setCodePostalClient(client.getCodePostalClient());
 		clientDTO.setVilleClient(client.getVilleClient());
 		clientDTO.setActif(client.isActif());
+		clientDTO.setModeFonctionnementMCO(client.isModeFonctionnementMCO());
 
 		if (client.getListProjets() != null) {
 			for (Projet projet : client.getListProjets()) {
@@ -107,6 +108,7 @@ public class ClientService {
 		nouveauClient.setNomClient(clientDTO.getNomClient());
 		nouveauClient.setVilleClient(clientDTO.getVilleClient());
 		nouveauClient.setActif(clientDTO.isActif());
+		nouveauClient.setModeFonctionnementMCO(clientDTO.isModeFonctionnementMCO());
 
 		clientRepository.save(nouveauClient);
 
@@ -127,6 +129,7 @@ public class ClientService {
 			clientAModifier.setNomClient(clientDTO.getNomClient());
 			clientAModifier.setVilleClient(clientDTO.getVilleClient());
 			clientAModifier.setActif(clientDTO.isActif());
+			clientAModifier.setModeFonctionnementMCO(clientDTO.isModeFonctionnementMCO());
 
 			clientRepository.save(clientAModifier);
 

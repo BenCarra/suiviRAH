@@ -61,6 +61,18 @@
           }
         </div>
       </div>
+      <div class="row">
+        <div class="col">
+          <mat-label>Mode de fonctionnement MCO? :</mat-label>
+          <mat-radio-group formControlName="modeFonctionnementMCO">
+            <mat-radio-button value="true">Oui</mat-radio-button>
+            <mat-radio-button value="false">Non</mat-radio-button>
+          </mat-radio-group>
+          @if (formCreate.controls['modeFonctionnementMCO'].hasError('required')) {
+          <mat-error>Mode de fonctionnement MCO <strong>requis</strong></mat-error>
+          }
+        </div>
+      </div>
     </mat-card-content>
     <mat-card-actions>
       <button mat-raised-button type="submit" (click)="onSubmit()">Envoyer</button>
