@@ -35,6 +35,7 @@ public class EtatService {
 				projetObject.add(projet.getNomProjet());
 				projets.add(projetObject);
 			}
+			etatDTO.setListProjets(projets);
 		}
 		
 		return etatDTO;

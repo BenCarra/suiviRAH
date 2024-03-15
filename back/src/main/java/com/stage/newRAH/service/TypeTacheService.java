@@ -34,6 +34,7 @@ public class TypeTacheService {
 				tacheObject.add(tache.getNomTache());
 				taches.add(tacheObject);
 			}
+			typeTacheDTO.setListTaches(taches);
 		}
 		
 		return typeTacheDTO;

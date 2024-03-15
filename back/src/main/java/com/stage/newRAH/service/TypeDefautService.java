@@ -34,6 +34,7 @@ public class TypeDefautService {
 				projetObject.add(projet.getNomProjet());
 				projets.add(projetObject);
 			}
+			typeDefautDTO.setListProjets(projets);
 		}
 		
 		return typeDefautDTO;
