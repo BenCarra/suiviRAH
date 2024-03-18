@@ -122,14 +122,14 @@ public class EquipeService {
 		equipeACreer.setLibelle(equipeDTO.getLibelle());
 
 		/* On remplit la liste des utilisateurs de l'équipe à créer côté équipe
-		et pour chacun de ses membres, on affecte cette équipe afin d'afficher côté utilisateur la liste des équipes auxquelles un membre appartient */
+		et à chacun de ses membres, on affecte cette équipe afin d'afficher côté utilisateur la liste des équipes auxquelles un utilisateur appartient */
 		List<List<String>> utilisateursString = equipeDTO.getListUtilisateurs();
 		List<Utilisateur> utilisateurs = new ArrayList<>();
 
 		// TODO : Voir si on peut recréer une équipe sans créer une nouvelle composition 
 
 		for (List<String> utilisateurString : utilisateursString) {
-			Utilisateur utilisateur = utilisateurRepository.findById(Integer.valueOf(utilisateurString.get(0))).get();
+			Utilisateur utilisateur = utilisateurRepository.findById(Integer.parseInt(utilisateurString.get(0))).get();
 			List<Equipe> equipes = utilisateur.getListEquipes();
 			equipes.add(equipeACreer);
 			utilisateurs.add(utilisateur);
@@ -155,7 +155,7 @@ public class EquipeService {
 			List<Utilisateur> utilisateurs = new ArrayList<>();
 
 			for (List<String> utilisateurString : utilisateursString) {
-				Utilisateur utilisateur = utilisateurRepository.findById(Integer.valueOf(utilisateurString.get(0))).get();
+				Utilisateur utilisateur = utilisateurRepository.findById(Integer.parseInt(utilisateurString.get(0))).get();
 				List<Equipe> equipes = utilisateur.getListEquipes();
 
 				if (equipes.contains(equipeAModifier)) {

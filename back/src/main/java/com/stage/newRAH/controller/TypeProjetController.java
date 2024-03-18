@@ -37,11 +37,6 @@ public class TypeProjetController {
 		return typeProjetService.getTypesProjetByLibelle(libelle);
 	}
 	
-//	@GetMapping("/typesProjetDefaut/{idTypeProjet}")
-//	public ResponseEntity<List<TypeProjetDTO>> getTypesProjetDefaut(@PathVariable int idTypeProjet){
-//		return typeProjetService.getTypesProjetDefaut(idTypeProjet);
-//	}
-	
 	@PostMapping("/createTypeProjet")
 	public ResponseEntity<TypeProjetDTO> createTypeProjet(@RequestBody TypeProjetDTO typeProjetDTO) {
 		return typeProjetService.createTypeProjet(typeProjetDTO);
