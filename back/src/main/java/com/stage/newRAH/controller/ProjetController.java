@@ -30,19 +30,19 @@ public class ProjetController {
 		return projetService.getSuiviProjets();
 	}
 
-	@GetMapping("/suiviProjetsByAnnee/{annee}")
+	/*@GetMapping("/suiviProjetsByAnnee/{annee}")
 	public ResponseEntity<List<SuiviProjetDTO>> getSuiviProjetsByAnnee(@PathVariable int annee) {
 		return projetService.getSuiviProjetsByAnnee(annee);
-	}
+	}*/
 
 	@GetMapping("/suiviProjetsByClient/{nomClient}")
 	public ResponseEntity<List<SuiviProjetDTO>> getSuiviProjetsByClient(@PathVariable String nomClient) {
 		return projetService.getSuiviProjetsByClient(nomClient);
 	}
 
-	@GetMapping("/suiviProjetsByClientByAnnee/{nomClient}/{annee}")
+	/*@GetMapping("/suiviProjetsByClientByAnnee/{nomClient}/{annee}")
 	public ResponseEntity<List<SuiviProjetDTO>> getSuiviProjetsByClientByAnnee(@PathVariable String nomClient, @PathVariable int annee) {
 		return projetService.getSuiviProjetsByClientByAnnee(nomClient, annee);
-	}
+	}*/
 	
 }

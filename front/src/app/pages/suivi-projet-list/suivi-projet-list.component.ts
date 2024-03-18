@@ -19,7 +19,7 @@ export class SuiviProjetListComponent {
   listSuiviProjetsByAnnee!: SuiviProjet[];
   listNomsClient!: string[];
   anneeActuelle!: number;
-  listAnneesTaches: number[] = [];
+  listAnneesTaches: any[] = [];
 
   constructor(private projetService: ProjetService, private tacheService: TacheService) {
 
@@ -33,6 +33,7 @@ export class SuiviProjetListComponent {
     // Création de la liste des années pour le tableau de suivi des projets 
     this.tacheService.getListAnneesTaches().subscribe(data => {
       this.listAnneesTaches = data;
+      this.listAnneesTaches.push("Total"); // Pour le cas d'affichage de la durée totale pour un suivi projet
     })
 
     // Création du formulaire réactif
@@ -73,7 +74,6 @@ export class SuiviProjetListComponent {
       // Variable servant pour le code HTML des lignes à ajouter du tableau
       let tableauHTML = "";
       data.forEach(suiviProjet => {
-        console.log(suiviProjet)
         // Si le nom du projet suivi est différent du précédent
         if (suiviProjet.nomProjet != nomSuiviProjetActuel || suiviProjet.nomClient != nomClientSuiviProjetActuel) {
           // Si le nom du projet suivi actuel n'est pas vide, on termine la ligne du tableau
@@ -142,7 +142,18 @@ export class SuiviProjetListComponent {
             padding: 8px;">${suiviProjet.dureeTache}</td>`;
             nbtd = 4;
             break;
-          default:
+          default: // Cas "Total"
+            if (nbtd < 4) {
+              for (let i = nbtd; i < 4; i++) {
+                index += `<td style="border: 1px solid black;
+                text-align: left;
+                padding: 8px;"></td>`;
+              }
+            }
+            index += `<td  style="border: 1px solid black;
+            text-align: left;
+            padding: 8px;">${suiviProjet.dureeTache}</td>`;
+            nbtd = 5;
             break;
         }
       })
@@ -175,14 +186,12 @@ export class SuiviProjetListComponent {
           this.listSuiviProjets.push(suiviProjet);
         });
         this.onLoadTable(this.listSuiviProjets);
-        console.log(this.listSuiviProjets);
       });
     }
   }
 
   // Méthode exécutée quand on (dé)coche la case
   onCheck(e: Event) {
-    console.log(this.listSuiviProjets);
     if (e.target instanceof HTMLInputElement) {
       let temp: SuiviProjet[] = [];
       // Si case cochée, affichage des projets terminés
