@@ -120,17 +120,17 @@ public class ProjetService {
 			suiviPsDTO.add(suiviPDTO);
 
 			for (int i = 1; i < suiviPs.size(); i++) {
-				// Si l'idProjet du suivi Projet courant est différent de l'idProjet du suivi Projet précédent
+				// Si l'idProjet du suivi Projet courant est différent de l'idProjet du suivi projet précédent
 				if (suiviPs.get(i).getIdProjet() != suiviPs.get(i-1).getIdProjet()) {
 
 					int j = 0;
 					boolean trouve = false;
-					// Recherche du suivi projet correspondant dans les suivis avec la durée totale du projet précédent
+					// Recherche de l'idProjet du suivi projet correspondant parmi les idProjet des suivis avec la durée totale 
 					while (!trouve && j < suiviPsDT.size()) {
 						
 						if ((suiviPsDT.get(j).getIdProjet() == suiviPs.get(i-1).getIdProjet())) {
 							SuiviProjetDTO suiviPDTO1 = mapSuiviProjetToDTO(suiviPsDT.get(j));
-							suiviPDTO1.setAnneeTache(0); // On met 0 afin de distinguer les cas avec durée totale de suivi projet et duréeTache sur une année
+							suiviPDTO1.setAnneeTache(0); // On met 0 afin de mettre en évidence le cas avec durée totale des tâches d'un suivi projet
 							suiviPsDTO.add(suiviPDTO1);
 							trouve = true;
 						}
