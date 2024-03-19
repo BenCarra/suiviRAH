@@ -5,12 +5,12 @@ import { RouterLink } from '@angular/router';
 import { ClientListComponent } from '../client-list/client-list.component';
 
 @Component({
-    selector: 'app-page-clients-admin',
+    selector: 'app-page-clients',
     standalone: true,
-    templateUrl: './page-clients-admin.component.html',
-    styleUrl: './page-clients-admin.component.css',
+    templateUrl: './page-clients.component.html',
+    styleUrl: './page-clients.component.css',
     imports: [RouterLink, HeaderComponent, FooterComponent, ClientListComponent]
 })
-export class PageClientsAdminComponent {
+export class PageClientsComponent {
 
 }

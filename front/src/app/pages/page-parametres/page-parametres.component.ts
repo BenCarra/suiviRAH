@@ -10,12 +10,12 @@ import { SiteListComponent } from "../site-list/site-list.component";
 import { RouterLink } from '@angular/router';
 
 @Component({
-    selector: 'app-page-parametres-admin',
+    selector: 'app-page-parametres',
     standalone: true,
-    templateUrl: './page-parametres-admin.component.html',
-    styleUrl: './page-parametres-admin.component.css',
+    templateUrl: './page-parametres.component.html',
+    styleUrl: './page-parametres.component.css',
     imports: [RouterLink, HeaderComponent, FooterComponent, TypeUtilisateurListComponent, TypeProjetListComponent, TypeDefautListComponent, TypeTacheListComponent, EtatProjetListComponent, SiteListComponent]
 })
-export class PageParametresAdminComponent {
+export class PageParametresComponent {
 
 }

@@ -8,12 +8,12 @@ import { EquipeListComponent } from "../equipe-list/equipe-list.component";
 import { RouterLink } from '@angular/router';
 
 @Component({
-    selector: 'app-page-accueil-admin',
+    selector: 'app-page-accueil',
     standalone: true,
-    templateUrl: './page-accueil-admin.component.html',
-    styleUrl: './page-accueil-admin.component.scss',
+    templateUrl: './page-accueil.component.html',
+    styleUrl: './page-accueil.component.scss',
     imports: [RouterLink ,HeaderComponent, FooterComponent, UtilisateurListComponent, ClientListComponent, EquipeListComponent]
 })
-export class PageAccueilAdminComponent {
+export class PageAccueilComponent {
 
 }

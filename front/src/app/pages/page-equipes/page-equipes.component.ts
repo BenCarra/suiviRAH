@@ -5,12 +5,12 @@ import { FooterComponent } from "../../shared/component/footer/footer.component"
 import { RouterLink } from '@angular/router';
 
 @Component({
-    selector: 'app-page-equipes-admin',
+    selector: 'app-page-equipes',
     standalone: true,
-    templateUrl: './page-equipes-admin.component.html',
-    styleUrl: './page-equipes-admin.component.css',
+    templateUrl: './page-equipes.component.html',
+    styleUrl: './page-equipes.component.css',
     imports: [RouterLink, HeaderComponent, FooterComponent, EquipeListComponent]
 })
-export class PageEquipesAdminComponent {
+export class PageEquipesComponent {
 
 }

@@ -1,17 +1,17 @@
 import { Routes } from '@angular/router';
-import { PageAccueilAdminComponent } from './pages/page-accueil-admin/page-accueil-admin.component';
+import { PageAccueilComponent } from './pages/page-accueil/page-accueil.component';
 import { HomeComponent } from './pages/home/home.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
-import { PageUtilisateursAdminComponent } from './pages/page-utilisateurs-admin/page-utilisateurs-admin.component';
+import { PageUtilisateursComponent } from './pages/page-utilisateurs/page-utilisateurs.component';
 import { FormUpdateUtilisateurComponent } from './pages/forms/form-update-utilisateur/form-update-utilisateur.component';;
 import { FormCreateUtilisateurComponent } from './pages/forms/form-create-utilisateur/form-create-utilisateur.component';
-import { PageClientsAdminComponent } from './pages/page-clients-admin/page-clients-admin.component';
+import { PageClientsComponent } from './pages/page-clients/page-clients.component';
 import { FormCreateClientComponent } from './pages/forms/form-create-client/form-create-client.component';
 import { FormUpdateClientComponent } from './pages/forms/form-update-client/form-update-client.component';
-import { PageEquipesAdminComponent } from './pages/page-equipes-admin/page-equipes-admin.component';
+import { PageEquipesComponent } from './pages/page-equipes/page-equipes.component';
 import { FormCreateEquipeComponent } from './pages/forms/form-create-equipe/form-create-equipe.component';
 import { FormUpdateEquipeComponent } from './pages/forms/form-update-equipe/form-update-equipe.component';
-import { PageParametresAdminComponent } from './pages/page-parametres-admin/page-parametres-admin.component';
+import { PageParametresComponent } from './pages/page-parametres/page-parametres.component';
 import { FormUpdateTypeUtilisateurComponent } from './pages/forms/form-update-type-utilisateur/form-update-type-utilisateur.component';
 import { FormCreateTypeUtilisateurComponent } from './pages/forms/form-create-type-utilisateur/form-create-type-utilisateur.component';
 import { FormCreateTypeProjetComponent } from './pages/forms/form-create-type-projet/form-create-type-projet.component';
@@ -25,7 +25,7 @@ import { FormUpdateEtatProjetComponent } from './pages/forms/form-update-etat-pr
 import { FormCreateSiteComponent } from './pages/forms/form-create-site/form-create-site.component';
 import { FormUpdateSiteComponent } from './pages/forms/form-update-site/form-update-site.component';
 import { ConnexionComponent } from './pages/connexion/connexion.component';
-import { PageSuivisProjetAdminComponent } from './pages/page-suivis-projet-admin/page-suivis-projet-admin.component';
+import { PageSuivisProjetComponent } from './pages/page-suivis-projet/page-suivis-projet.component';
 /*import { ListProjetsComponent } from './pages/list-projets/list-projets.component';
 import { ListTachesComponent } from './pages/list-taches/list-taches.component';
 import { FormCreateTacheComponent } from './pages/forms/form-create-tache/form-create-tache.component';
@@ -35,15 +35,15 @@ import { FormUpdateTacheComponent } from './pages/forms/form-update-tache/form-u
 export const routes: Routes = [
 { path: '', pathMatch:'full', redirectTo:'login'},
 { path: 'login', component: ConnexionComponent},
-{ path: 'accueil', component: PageAccueilAdminComponent },
+{ path: 'accueil', component: PageAccueilComponent },
 /*{ path: 'calendrier', component: CalendrierComponent},*/
-{ path: 'utilisateurs', component: PageUtilisateursAdminComponent },
+{ path: 'utilisateurs', component: PageUtilisateursComponent },
 { path: 'utilisateurs/create', component: FormCreateUtilisateurComponent },
 { path: 'utilisateurs/update', component: FormUpdateUtilisateurComponent },
-{ path: 'clients', component: PageClientsAdminComponent },
+{ path: 'clients', component: PageClientsComponent },
 { path: 'clients/create', component: FormCreateClientComponent },
 { path: 'clients/update', component: FormUpdateClientComponent },
-{ path: 'equipes', component: PageEquipesAdminComponent },
+{ path: 'equipes', component: PageEquipesComponent },
 { path: 'equipes/create', component: FormCreateEquipeComponent },
 { path: 'equipes/update', component: FormUpdateEquipeComponent },
 /*{ path: 'projets', component: ListProjetsComponent },
@@ -52,8 +52,8 @@ export const routes: Routes = [
 /*{ path: 'taches', component: ListTachesComponent },
 { path: 'taches/create', component:  FormCreateTacheComponent},
 { path: 'taches/update', component: FormUpdateTacheComponent },*/
-{path: 'suivisProjet', component: PageSuivisProjetAdminComponent},
-{ path: 'parametres', component: PageParametresAdminComponent},
+{path: 'suivisProjet', component: PageSuivisProjetComponent},
+{ path: 'parametres', component: PageParametresComponent},
 { path : 'parametres/createTypeUtilisateur', component: FormCreateTypeUtilisateurComponent},
 { path : 'parametres/updateTypeUtilisateur', component: FormUpdateTypeUtilisateurComponent},
 { path : 'parametres/createTypeProjet', component: FormCreateTypeProjetComponent},
