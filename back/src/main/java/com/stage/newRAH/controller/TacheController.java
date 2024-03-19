@@ -1,8 +1,10 @@
 package com.stage.newRAH.controller;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -60,6 +62,11 @@ public class TacheController {
 		return tacheService.getListDureesTachesByUtilisateurByMonth(id, mois, annee);
 	}
 
+	// @GetMapping("/tachesByUtilisateurByWeek/{id}/{date}")
+	// public ResponseEntity<List<TacheDTO>> getTachesByUtilisateurByWeekByDate(@PathVariable int id, @PathVariable @DateTimeFormat(pattern = "dd-MM-yyyy") Date date) {
+	// 	return tacheService.getTachesByUtilisateurByWeekByDate(id, date);
+	// }
+	
 	// @GetMapping("/tachesByUtilisateur/{id}/{date}")
 	// public ResponseEntity<List<TacheDTO>> getTachesByUtilisateurByDay(@PathVariable int id, @PathVariable @DateTimeFormat(pattern = "dd-MM-yyyy") Date date) {
 	// 	return tacheService.getTachesByUtilisateurByDay(id, date);
