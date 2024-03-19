@@ -5,12 +5,17 @@
     <mat-label>Filtre par semaine</mat-label>
     <!-- [()] est une syntaxe de liaison bidirectionnelle
     lorsque l'utilisateur sélectionne une option dans le menu déroulant, selectedWeek est automatiquement mis à jour  -->
-    <mat-select [(value)]="selectedWeek" (selectionChange)="loadTachesByWeek({week: selectedWeek.week,year: selectedWeek.year})" [compareWith]="compareFn">
+    <mat-select [(value)]="selectedWeek" (selectionChange)="loadTachesByWeek({week: selectedWeek.week,year: selectedWeek.year})" [compareWith]="compareWeekNumber">
       <!-- [value]="week" signifie que lorsque je sélectionne une semaine, l'objet week 
       est passé comme la valeur sélectionnée -->
       <mat-option *ngFor="let week of weeks" [value]="week">{{week.week}} </mat-option>
     </mat-select>
   </mat-form-field>
+  <!-- Si l'objet selectedWeekStartEnd est true, ie défini alors angular
+  ajoute l'élément au DOM  -->
+  <p *ngIf="selectedWeekStartEnd">
+    Du {{ selectedWeekStartEnd.start | date: 'dd/MM/yyyy' }} au {{ selectedWeekStartEnd.end | date: 'dd/MM/yyyy' }}
+  </p>
 </div>
 
 <div class="table-container">

@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Tache } from '../model/tache';
+import { formatDate } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
@@ -67,6 +68,12 @@ export class TacheService {
 
   public getListDureesTachesByUtilisateurByMonth(id:number, month: number, year: number): Observable<number[]> {
     return this.http.get<number[]>(`${this.getDureeTachesByUtilisateurURL}/${id}/${month}/${year}`);
+  }
+
+  public getTachesByUtilisateurByWeekByDate(id:number, date:Date): Observable<Tache[]> {
+    const formattedDate = formatDate(date, 'dd-MM-yyyy', 'fr-FR');
+
+    return this.http.get<Tache[]>(`${this.getTachesByUtilisateurByWeekURL}/${id}/${formattedDate}`);
   }
 
   // public getDureeTachesByUtilisateurByDay(id:number, day:number, month: number, year: number): Observable<number> {

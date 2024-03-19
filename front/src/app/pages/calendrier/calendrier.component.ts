@@ -24,12 +24,11 @@ export class CalendrierComponent implements OnInit {
   weeks: { weekNumber: number, days: (Date | null)[] }[] = [];
   // Simulation d'un utilisateur connecté 
   idUtilisateurConnecté: number = 4;
-  // J'ai du initialiser utilisateur avec des valeurs nulle par défaut
+  // J'ai dû initialiser utilisateur avec des valeurs nulle par défaut
   // pour éviter des erreurs à la compilation (le programme essayait d'accéder
   // à prenomUtilisateur alors que l'utilisateur n'est pas encore chargé)
   utilisateur: Utilisateur | any = {};
   tachesByMonth: Tache[] = [];
-
   dureesTachesByMonth: number[] = [];
   
   constructor(private utilisateurService: UtilisateurService, private tacheService: TacheService) {
@@ -58,29 +57,13 @@ export class CalendrierComponent implements OnInit {
     });
   }
 
+  // Récupération de la liste des durées des tâches, de l'utilisateur connecté, par jour sur un mois
   loadDureesTachesByMonth() {
     this.tacheService.getListDureesTachesByUtilisateurByMonth(this.idUtilisateurConnecté,this.currentDate.getMonth(), this.currentDate.getFullYear() ).subscribe(data => {
       this.dureesTachesByMonth = data;
+      console.log("tableau des durées du mois de ", this.currentDate.getMonth() +1 , this.dureesTachesByMonth); 
     })
   }
-
-  // // Calcule la durée des tâches dans une journée donnée
-  // getDureeTachesByDay(date: Date): number {
-  //   let dureeTachesByDay = 0;
-  //   this.tachesByMonth.forEach(tache => {
-  //     // tache.dateTache n'étant pas considéré comme une Date
-  //     // j'ai dû créer une date à partir de tache.dateTache pour pouvoir utiliser 
-  //     // les getters de la classe Date
-  //     const tacheDate = new Date(tache.dateTache);
-  //     if (tacheDate.getFullYear() === date.getFullYear() && tacheDate.getMonth() === date.getMonth() && tacheDate.getDate() === date.getDate()) {
-  //       dureeTachesByDay += tache.dureeTache;
-  //       console.log("le "+date.getDate(), "correspond à ", dureeTachesByDay, "h");
-  //     } 
-  //   });
-  //   return dureeTachesByDay;
-  // }
-
- 
 
   // Calcule le  nombre de jours dans un mois et cale le 1er jour du mois
   // sous le bon nom de jour grâce aux espaces vides
@@ -170,7 +153,7 @@ export class CalendrierComponent implements OnInit {
     // Date de début de l'année
     const yearStart = new Date(Date.UTC(d.getUTCFullYear(),0,1));
     // Calcul de la différence de jours et division par 7 pour obtenir le numéro de semaine
-    // Math.ceil permet d'arrondir au dessus
+    // Math.ceil permet d'arrondir au-dessus
     const weekNo = Math.ceil(( (d.getTime() - yearStart.getTime()) / 86400000 + 1)/7);
     return weekNo;
   }
@@ -188,7 +171,7 @@ export class CalendrierComponent implements OnInit {
     return new Date(year, month - 1, day);
   }
 
-  // Calcul des jours fériers par année
+  // Calcul des jours fériés par année
   getHolidays(year: number): Date[] {
     const easter = this.paques(year);
     // lundi de Pâques
@@ -224,4 +207,20 @@ export class CalendrierComponent implements OnInit {
       holiday.getMonth() === month &&
       holiday.getDate() === day);
   }
+
+   // // Calcule la durée des tâches dans une journée donnée
+  // getDureeTachesByDay(date: Date): number {
+  //   let dureeTachesByDay = 0;
+  //   this.tachesByMonth.forEach(tache => {
+  //     // tache.dateTache n'étant pas considéré comme une Date
+  //     // j'ai dû créer une date à partir de tache.dateTache pour pouvoir utiliser 
+  //     // les getters de la classe Date
+  //     const tacheDate = new Date(tache.dateTache);
+  //     if (tacheDate.getFullYear() === date.getFullYear() && tacheDate.getMonth() === date.getMonth() && tacheDate.getDate() === date.getDate()) {
+  //       dureeTachesByDay += tache.dureeTache;
+  //       console.log("le "+date.getDate(), "correspond à ", dureeTachesByDay, "h");
+  //     } 
+  //   });
+  //   return dureeTachesByDay;
+  // }
 }
