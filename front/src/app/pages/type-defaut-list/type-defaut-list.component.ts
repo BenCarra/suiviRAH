@@ -69,7 +69,7 @@ export class TypeDefautListComponent {
   }
 
   // Méthode exécutée après appui sur le bouton OK du filtre
-  onSearch(e: MouseEvent) {
+  onSearch() {
     let recherche = this.formFiltrage.get('typeDefautRecherche')?.value;
 
     if (this.formFiltrage.value.filtrageDemande == 'Par libellé de type défaut') {
@@ -84,7 +84,7 @@ export class TypeDefautListComponent {
   }
 
   // Méthode exécutée après appui sur le bouton Reset du filtre
-  onReset($event: MouseEvent) {
+  onReset() {
     this.formFiltrage.get('filtrageDemande')?.setValue("");
     this.formFiltrage.get('typeDefautRecherche')?.disable();
     this.formFiltrage.get('boutonSoumission')?.disable();

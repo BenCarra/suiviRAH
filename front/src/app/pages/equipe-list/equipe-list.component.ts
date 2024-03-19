@@ -94,7 +94,7 @@ export class EquipeListComponent {
   }
 
   // Méthode exécutée après appui sur le bouton OK du filtre
-  onSearch(e: MouseEvent) {
+  onSearch() {
     let recherche = this.formFiltrage.get('equipeRecherche')?.value;
 
     if (this.formFiltrage.value.filtrageDemande == 'Par libellé d\'équipe') {
@@ -108,7 +108,7 @@ export class EquipeListComponent {
   }
 
   // Méthode exécutée après appui sur le bouton Reset du filtre
-  onReset($event: MouseEvent) {
+  onReset() {
     this.formFiltrage.get('filtrageDemande')?.setValue("");
     this.formFiltrage.get('equipeRecherche')?.disable();
     this.formFiltrage.get('boutonSoumission')?.disable();

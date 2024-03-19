@@ -1,7 +1,8 @@
 <div class="liste">
     <h3>LISTE DES TYPES DE TÂCHES</h3>
     <form class="filtrage" [formGroup]="formFiltrage">
-        <select title="filtrage-demande" class="filtrage-demande" formControlName="filtrageDemande" (change)="updateFiltrage()">
+        <select title="filtrage-demande" class="filtrage-demande" formControlName="filtrageDemande"
+            (change)="updateFiltrage()">
             <option disabled [selected]="formFiltrage.value.filtrageDemande == ''">-- Sélectionner un filtre --</option>
             <option value="Par libellé de type tâche">Rechercher par libellé de type tâche</option>
         </select>
@@ -15,18 +16,20 @@
             }
         </select>
         }
-        <input type="submit" id="btn-soumission" formControlName="boutonSoumission" (click)="onSearch($event)">
-        <input type="reset" id="btn-reset" (click)="onReset($event)" formControlName="boutonReset">
+        <input type="submit" id="btn-soumission" formControlName="boutonSoumission" (click)="onSearch()">
+        <input type="reset" id="btn-reset" (click)="onReset()" formControlName="boutonReset">
     </form>
 
     <div class="table">
         <table border="2">
-            <tbody>
+            <thead>
                 <tr>
                     <th>Libellé</th>
                     <th>Tâches associées</th>
                     <th>Modifier</th>
                 </tr>
+            </thead>
+            <tbody>
                 @for (typeTache of listTypesTache; track $index) {
                 <tr title="{{ typeTache.idTypeTache }}">
                     <td>{{ typeTache.libelle }}</td>
@@ -39,7 +42,7 @@
                         <br>
                         }
                     </td>
-                    <td><button type="button" routerLink="/admin/parametres/updateTypeTache/"
+                    <td><button type="button" routerLink="/parametres/updateTypeTache/"
                             [queryParams]="{ id: typeTache.idTypeTache}">Modifier</button></td>
                 </tr>
                 }

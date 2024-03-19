@@ -1,15 +1,16 @@
 <div class="liste">
     <h3>
-        @if (routerURL =="/admin/equipes") {
+        @if (routerURL =="/equipes") {
         LISTE DES EQUIPES
         }
-        @else if (routerURL == "/admin/accueil") {
-        <a routerLink="/admin/equipes">LISTE DES EQUIPES</a>
+        @else if (routerURL == "/accueil") {
+        <a routerLink="/equipes">LISTE DES EQUIPES</a>
         }
     </h3>
-    @if (routerURL == "/admin/equipes") {
+    @if (routerURL == "/equipes") {
     <form class="filtrage" [formGroup]="formFiltrage">
-        <select title="filtrage-demande" class="filtrage-demande" formControlName="filtrageDemande" (change)="updateFiltrage()">
+        <select title="filtrage-demande" class="filtrage-demande" formControlName="filtrageDemande"
+            (change)="updateFiltrage()">
             <option disabled [selected]="formFiltrage.value.filtrageDemande == ''">-- Sélectionner un filtre --</option>
             <option value="Par libellé d'équipe">Rechercher par libellé d'équipe</option>
         </select>
@@ -23,16 +24,16 @@
             }
         </select>
         }
-        <input type="submit" id="btn-soumission" formControlName="boutonSoumission" (click)="onSearch($event)">
-        <input type="reset" id="btn-reset" (click)="onReset($event)" formControlName="boutonReset">
+        <input type="submit" id="btn-soumission" formControlName="boutonSoumission" (click)="onSearch()">
+        <input type="reset" id="btn-reset" (click)="onReset()" formControlName="boutonReset">
     </form>
     }
 
     <!-- TODO: Faire en sorte d'avoir les 10 dernières équipes ajoutées (du CP ou de l'admin) sur la page d'accueil -->
     <div class="table">
         <table border="2">
-            <tbody>
-                @if (routerURL =="/admin/equipes") {
+            @if (routerURL =="/equipes") {
+            <thead>
                 <tr>
                     <th>Libellé</th>
                     <th>Utilisateurs membres</th>
@@ -40,6 +41,8 @@
                     <th>Modifier</th>
                     <th>Supprimer</th>
                 </tr>
+            </thead>
+            <tbody>
                 @for (equipe of listEquipes; track $index) {
                 <tr title="{{ equipe.idEquipe }}">
                     <td>{{ equipe.libelle }}</td>
@@ -62,17 +65,21 @@
                         <br>
                         }
                     </td>
-                    <td><button type="button" routerLink="/admin/equipes/update/"
+                    <td><button type="button" routerLink="/equipes/update/"
                             [queryParams]="{ id: equipe.idEquipe}">Modifier</button></td>
                     <td><button type="button" (click)="onDeleteEquipe(equipe.idEquipe.toString())">Supprimer</button>
                     </td>
                 </tr>
                 }
-                } @else if (routerURL =="/admin/accueil") {
+            </tbody>
+            } @else if (routerURL =="/accueil") {
+            <thead>
                 <tr>
                     <th>Libellé</th>
                     <th>Utilisateurs membres</th>
                 </tr>
+            </thead>
+            <tbody>
                 @for (equipe of listEquipes; track $index) {
                 <tr title="{{ equipe.idEquipe }}">
                     <td>{{ equipe.libelle }}</td>
@@ -87,9 +94,8 @@
                     </td>
                 </tr>
                 }
-                }
-
             </tbody>
+            }
         </table>
     </div>
 </div>
