@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.stage.newRAH.dto.ProjetDTO;
 import com.stage.newRAH.dto.SuiviProjetDTO;
 import com.stage.newRAH.service.ProjetService;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
@@ -30,19 +32,30 @@ public class ProjetController {
 		return projetService.getSuiviProjets();
 	}
 
-	/*@GetMapping("/suiviProjetsByAnnee/{annee}")
-	public ResponseEntity<List<SuiviProjetDTO>> getSuiviProjetsByAnnee(@PathVariable int annee) {
-		return projetService.getSuiviProjetsByAnnee(annee);
-	}*/
+	@GetMapping("/suiviProjetsNonTermines")
+	public ResponseEntity<List<SuiviProjetDTO>> getSuiviProjetsNonTermines(){
+		return projetService.getSuiviProjetsNonTermines();
+	}
+
+	@GetMapping("/suiviProjetsTermines")
+	public ResponseEntity<List<SuiviProjetDTO>> getSuiviProjetsTermines() {
+		return projetService.getSuiviProjetsTermines();
+	}
 
 	@GetMapping("/suiviProjetsByClient/{nomClient}")
 	public ResponseEntity<List<SuiviProjetDTO>> getSuiviProjetsByClient(@PathVariable String nomClient) {
 		return projetService.getSuiviProjetsByClient(nomClient);
 	}
 
-	/*@GetMapping("/suiviProjetsByClientByAnnee/{nomClient}/{annee}")
-	public ResponseEntity<List<SuiviProjetDTO>> getSuiviProjetsByClientByAnnee(@PathVariable String nomClient, @PathVariable int annee) {
-		return projetService.getSuiviProjetsByClientByAnnee(nomClient, annee);
-	}*/
+	@GetMapping("/suiviProjetsNonTerminesByClient/{nomClient}")
+	public ResponseEntity<List<SuiviProjetDTO>> getSuiviProjetsNonTerminesByClient(@PathVariable String nomClient){
+		return projetService.getSuiviProjetsNonTerminesByClient(nomClient);
+	}
+
+	@GetMapping("/suiviProjetsTerminesByClient/{nomClient}")
+	public ResponseEntity<List<SuiviProjetDTO>> getMethodName(@PathVariable String nomClient) {
+		return projetService.getSuiviProjetsTerminesByClient(nomClient);
+	}
+	
 	
 }

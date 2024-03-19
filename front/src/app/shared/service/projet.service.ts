@@ -9,41 +9,43 @@ import { SuiviProjet } from '../model/suivi-projet';
 })
 export class ProjetService {
 
-  private projetsURL: string;
-  private projetsByUtilisateurURL: string;
+  private url: string;
 
   constructor(private http: HttpClient) {
-    this.projetsURL = 'http://localhost:8080/projets'
-    this.projetsByUtilisateurURL = 'http://localhost:8080/projetsByUtilisateur'
+    this.url = 'http://localhost:8080';
   }
 
   // Récupère de l'API l'ensemble des projets
   public getProjets(): Observable<Projet[]> {
-    return this.http.get<Projet[]>(this.projetsURL);
-  }
-
-  // Récupère de l'API les projets par utilisateur
-  public getProjetsByUtilisateur(id: number): Observable<Projet[]> {
-    return this.http.get<Projet[]>(`${this.projetsByUtilisateurURL}/${id}`);
+    return this.http.get<Projet[]>(this.url + "/projets");
   }
 
   // Récupère de l'API le suivi des projets
   public getSuiviProjets(): Observable<SuiviProjet[]> {
-    return this.http.get<SuiviProjet[]>('http://localhost:8080/suiviProjets');
+    return this.http.get<SuiviProjet[]>(this.url + "/suiviProjets");
+  }
+
+  public getSuiviProjetsNonTermines() : Observable<SuiviProjet[]> {
+    return this.http.get<SuiviProjet[]>(this.url + "/suiviProjetsNonTermines"); 
+  }
+
+  public getSuiviProjetsTermines() : Observable<SuiviProjet[]>{
+    return this.http.get<SuiviProjet[]>(this.url + "/suiviProjetsTermines");
   }
 
   // Récupère de l'API le suivi des projets par nom de client
   public getSuiviProjetsByClient(nomClient: string): Observable<SuiviProjet[]> {
-    return this.http.get<SuiviProjet[]>('http://localhost:8080/suiviProjetsByClient/' + nomClient);
+    return this.http.get<SuiviProjet[]>(this.url + "/suiviProjetsByClient/" + nomClient);
   }
 
-  /*// Récupère de l'API le suivi des projets par année
-   public getSuiviProjetsByAnnee(annee: number): Observable<SuiviProjet[]> {
-    return this.http.get<SuiviProjet[]>('http://localhost:8080/suiviProjetsByAnnee/' + annee);
+  public getSuiviProjetsNonTerminesByClient(nomClient: string): Observable<SuiviProjet[]> {
+    return this.http.get<SuiviProjet[]>(this.url + "/suiviProjetsNonTerminesByClient/" + nomClient);
   }
 
-  // Récupère de l'API le suivi des projets par nom de client et par année
-  public getSuiviProjetsByClientByAnnee(nomClient: string, annee: number): Observable<SuiviProjet[]> {
-    return this.http.get<SuiviProjet[]>('http://localhost:8080/suiviProjetsByClientByAnnee/' + nomClient + "/" + annee);
-  }*/
+  public getSuiviProjetsTerminesByClient(nomClient: string) : Observable<SuiviProjet[]>{
+    return this.http.get<SuiviProjet[]>(this.url + "/suiviProjetsTerminesByClient/" + nomClient);
+  }
+
+  
+
 }

@@ -11,8 +11,8 @@
             <option [value]="nomClient">{{ nomClient }}</option>
             }
         </select>
-        <label>Projet terminé</label>
-        <input title="projetTermine" type="checkbox" checked="false" formControlName="projetTermine"
+        <label>Projets terminés</label>
+        <input title="projetsTermines" type="checkbox" checked="false" formControlName="projetsTermines"
             (change)="onCheck($event)">
     </form>
 
@@ -25,7 +25,11 @@
                     <th>Devis estimé</th>
                     <th>Etat du projet</th>
                     @for (annee of listAnneesTaches; track $index) {
-                    <th>{{ annee }}</th>
+                        @if (annee == 0) { <!-- Pour le cas d'affichage de la durée totale pour un suivi projet -->
+                            <th>Total</th>
+                        } @else {
+                            <th>{{ annee }}</th>
+                        }
                     }
                 </tr>
             </thead>

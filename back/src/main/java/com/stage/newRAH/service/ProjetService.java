@@ -180,28 +180,28 @@ public class ProjetService {
 
 	}
 
-	/*
-	 * public ResponseEntity<List<SuiviProjetDTO>> getSuiviProjetsByAnnee(int annee)
-	 * {
-	 * 
-	 * Iterable<SuiviProjet> suiviProjets =
-	 * projetRepository.getSuiviProjetsByAnnee(annee);
-	 * List<SuiviProjetDTO> suiviProjetsDTO = new ArrayList<>();
-	 * 
-	 * if (suiviProjets.iterator().hasNext()) {
-	 * 
-	 * for (SuiviProjet suiviProjet: suiviProjets) {
-	 * SuiviProjetDTO suiviProjetDTO = mapSuiviProjetToDTO(suiviProjet);
-	 * suiviProjetsDTO.add(suiviProjetDTO);
-	 * }
-	 * 
-	 * return ResponseEntity.ok(suiviProjetsDTO);
-	 * } else {
-	 * return ResponseEntity.notFound().build();
-	 * }
-	 * 
-	 * }
-	 */
+	public ResponseEntity<List<SuiviProjetDTO>> getSuiviProjetsNonTermines(){
+
+		List<SuiviProjet> suiviProjetsNonTermines = projetRepository.getSuiviProjetsNonTermines();
+		List<SuiviProjet> suiviProjetsNonTerminesDureeTotale = projetRepository.getSuiviProjetsNonTerminesDureeTotale();
+		List<SuiviProjetDTO> suiviProjetsNonTerminesDTO = new ArrayList<>();
+
+		ResponseEntity<List<SuiviProjetDTO>> response = this.buildSuiviProjets(suiviProjetsNonTermines, suiviProjetsNonTerminesDureeTotale, suiviProjetsNonTerminesDTO);
+
+		return response;
+
+	}
+
+	public ResponseEntity<List<SuiviProjetDTO>> getSuiviProjetsTermines() {
+
+        List<SuiviProjet> suiviProjetsTermines = projetRepository.getSuiviProjetsTermines();
+		List<SuiviProjet> suiviProjetsTerminesDureeTotale = projetRepository.getSuiviProjetsTerminesDureeTotale();
+		List<SuiviProjetDTO> suiviProjetsTerminesByClientDTO = new ArrayList<>();
+
+		ResponseEntity<List<SuiviProjetDTO>> response = this.buildSuiviProjets(suiviProjetsTermines, suiviProjetsTerminesDureeTotale, suiviProjetsTerminesByClientDTO);
+
+		return response;
+    }
 
 	public ResponseEntity<List<SuiviProjetDTO>> getSuiviProjetsByClient(String nomClient) {
 
@@ -215,23 +215,28 @@ public class ProjetService {
 
 	}
 
-	/*public ResponseEntity<List<SuiviProjetDTO>> getSuiviProjetsByClientByAnnee(String nomClient, int annee) {
-		
-		Iterable<SuiviProjet> suiviProjets = projetRepository.getSuiviProjetsByClientByAnnee(nomClient, annee);
-		List<SuiviProjetDTO> suiviProjetsDTO = new ArrayList<>();
+	public ResponseEntity<List<SuiviProjetDTO>> getSuiviProjetsNonTerminesByClient(String nomClient) {
 
-		if (suiviProjets.iterator().hasNext()) {
+		List<SuiviProjet> suiviProjetsNonTerminesByClient = projetRepository.getSuiviProjetsNonTerminesByClient(nomClient);
+		List<SuiviProjet> suiviProjetsNonTerminesDureeTotale = projetRepository.getSuiviProjetsNonTerminesByClientDureeTotale(nomClient);
+		List<SuiviProjetDTO> suiviProjetsNonTerminesByClientDTO = new ArrayList<>();
 
-			for (SuiviProjet suiviProjet: suiviProjets) {
-				SuiviProjetDTO suiviProjetDTO = mapSuiviProjetToDTO(suiviProjet);
-				suiviProjetsDTO.add(suiviProjetDTO);
-			}
+		ResponseEntity<List<SuiviProjetDTO>> response = this.buildSuiviProjets(suiviProjetsNonTerminesByClient, suiviProjetsNonTerminesDureeTotale, suiviProjetsNonTerminesByClientDTO);
 
-			return ResponseEntity.ok(suiviProjetsDTO);
-		} else {
-			return ResponseEntity.notFound().build();
-		}
+		return response;
 
-	}*/
+	}
+
+    public ResponseEntity<List<SuiviProjetDTO>> getSuiviProjetsTerminesByClient(String nomClient) {
+
+        List<SuiviProjet> suiviProjetsTerminesByClient = projetRepository.getSuiviProjetsTerminesByClient(nomClient);
+		List<SuiviProjet> suiviProjetsTerminesDureeTotale = projetRepository.getSuiviProjetsTerminesByClientDureeTotale(nomClient);
+		List<SuiviProjetDTO> suiviProjetsTerminesByClientDTO = new ArrayList<>();
+
+		ResponseEntity<List<SuiviProjetDTO>> response = this.buildSuiviProjets(suiviProjetsTerminesByClient, suiviProjetsTerminesDureeTotale, suiviProjetsTerminesByClientDTO);
+
+		return response;
+
+    }
 	
 }

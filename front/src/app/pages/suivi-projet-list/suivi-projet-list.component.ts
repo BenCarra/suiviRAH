@@ -16,9 +16,7 @@ export class SuiviProjetListComponent {
   formFiltrage!: FormGroup;
   listSuiviProjets!: SuiviProjet[];
   listSuiviProjetsByClient!: SuiviProjet[];
-  listSuiviProjetsByAnnee!: SuiviProjet[];
   listNomsClient!: string[];
-  anneeActuelle!: number;
   listAnneesTaches: any[] = [];
 
   constructor(private projetService: ProjetService, private tacheService: TacheService) {
@@ -27,40 +25,34 @@ export class SuiviProjetListComponent {
 
   ngOnInit() {
 
-    // Récupération de l'année courante
-    this.anneeActuelle = new Date().getFullYear();
-
     // Création de la liste des années pour le tableau de suivi des projets 
     this.tacheService.getListAnneesTaches().subscribe(data => {
       this.listAnneesTaches = data;
-      this.listAnneesTaches.push("Total"); // Pour le cas d'affichage de la durée totale pour un suivi projet
     })
 
     // Création du formulaire réactif
     this.formFiltrage = new FormGroup({
       clientRecherche: new FormControl('', Validators.required),
-      projetTermine: new FormControl('', Validators.required)
+      projetsTermines: new FormControl('', Validators.required)
     }),
 
-    // Récupération du suivi des projets
-    this.projetService.getSuiviProjets().subscribe(data => {
-      this.listSuiviProjets = data;
-      this.listNomsClient = [];
-      // Extraction des noms des clients pour le filtre
-      data.forEach((suiviProjet) => {
-        if (!this.listNomsClient.includes(suiviProjet.nomClient)) {
-          this.listNomsClient.push(suiviProjet.nomClient);
-        }
+      // Par défaut, on récupère le suivi des projets non terminés
+      this.projetService.getSuiviProjetsNonTermines().subscribe(data => {
+        this.listSuiviProjets = data;
+        this.listNomsClient = [];
+        // Extraction des noms des clients pour le filtre
+        data.forEach((suiviProjet) => {
+          if (!this.listNomsClient.includes(suiviProjet.nomClient)) {
+            this.listNomsClient.push(suiviProjet.nomClient);
+          }
+        });
+        this.onLoadTable(this.listSuiviProjets);
       });
-      this.onLoadTable(this.listSuiviProjets);
-    });
 
-    // Récupération du suivi des projets par client
-    //this.projetService.getSuiviProjetsByClient(this.nomClient)
   }
 
   // Chargement de la table du suivi des projets
-  onLoadTable(data: SuiviProjet[]){
+  onLoadTable(data: SuiviProjet[]) {
     let tableauElement = document.getElementById("table-body-suivi-projets");
     if (tableauElement != null) {
       // Variable stockant le suivi de projet parcouru, sachant que listSuiviProjets peut avoir des éléments ayant le même nom de projet
@@ -150,7 +142,7 @@ export class SuiviProjetListComponent {
                 padding: 8px;"></td>`;
               }
             }
-            index += `<td  style="border: 1px solid black;
+            index += `<td style="border: 1px solid black;
             text-align: left;
             padding: 8px;">${suiviProjet.dureeTache}</td>`;
             nbtd = 5;
@@ -170,17 +162,17 @@ export class SuiviProjetListComponent {
     let clientRecherche = this.formFiltrage.controls['clientRecherche'].value;
 
     // Quand on change de client, on réinitialise la case à cocher à false
-    if (this.formFiltrage.controls['projetTermine'].value) {
-      this.formFiltrage.controls['projetTermine'].setValue(false);
+    if (this.formFiltrage.controls['projetsTermines'].value) {
+      this.formFiltrage.controls['projetsTermines'].setValue(false);
     }
 
     if (clientRecherche == "tous" || clientRecherche == "") {
-      this.projetService.getSuiviProjets().subscribe(data => {
+      this.projetService.getSuiviProjetsNonTermines().subscribe(data => {
         this.listSuiviProjets = data;
         this.onLoadTable(this.listSuiviProjets);
       });
     } else {
-      this.projetService.getSuiviProjetsByClient(clientRecherche).subscribe(data => {
+      this.projetService.getSuiviProjetsNonTerminesByClient(clientRecherche).subscribe(data => {
         this.listSuiviProjets = [];
         data.forEach(suiviProjet => {
           this.listSuiviProjets.push(suiviProjet);
@@ -190,19 +182,30 @@ export class SuiviProjetListComponent {
     }
   }
 
-  // Méthode exécutée quand on (dé)coche la case
+  // Méthode exécutée quand on (dé)coche la case "Projets terminés"
   onCheck(e: Event) {
     if (e.target instanceof HTMLInputElement) {
-      let temp: SuiviProjet[] = [];
-      // Si case cochée, affichage des projets terminés
+
+      // Si case cochée, affichage des projets terminés en plus des autres
       if (e.target.checked) {
-        this.listSuiviProjets.forEach(suiviProjet => {
-          if (suiviProjet.libelleEtat == "terminé") {
-            temp.push(suiviProjet);
-          }
-          this.listSuiviProjets = temp;
-          this.onLoadTable(this.listSuiviProjets)
-        })
+        // On ajoute les projets terminés à la liste des projets déjà récupérée avec 2 cas possibles selon le filtre client
+        if (["tous", ""].includes(this.formFiltrage.controls['clientRecherche'].value)) {
+          this.projetService.getSuiviProjetsTermines().subscribe(data => {
+            data.forEach(suiviProjet => {
+              this.listSuiviProjets.push(suiviProjet);
+            })
+            this.onLoadTable(this.listSuiviProjets)
+          });
+        } else {
+          this.projetService.getSuiviProjetsTerminesByClient(this.formFiltrage.controls['clientRecherche'].value).subscribe(data => {
+            data.forEach(suiviProjet => {
+              this.listSuiviProjets.push(suiviProjet);
+            })
+            this.onLoadTable(this.listSuiviProjets)
+          });
+        }
+
+
       }
       // Sinon, on remet le suivi des projets d'origine en fonction du (ou des) client(s) sélectionné(s) 
       else {
