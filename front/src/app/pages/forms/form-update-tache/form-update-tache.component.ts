@@ -33,7 +33,6 @@ import { Tache } from '../../../shared/model/tache';
 })
 export class FormUpdateTacheComponent implements OnInit {
 
-  weekNumber!: number;
   idTacheSelectionnee!: number;
   submitted: boolean = false;
   formUpdateTache: FormGroup;
@@ -62,11 +61,15 @@ export class FormUpdateTacheComponent implements OnInit {
     });
   }
 
-   // Filtre pour ne pas pouvoir créer de tâche le samedi et le dimanche
-   myFilter = (d: Date | null): boolean => {
-    const day = (d || new Date()).getDay();
-    // Prevent Saturday and Sunday from being selected.
-    return day !== 0 && day !== 6;
+   // Filtre pour ne pas pouvoir créer de tâche le samedi,
+  // le dimanche et les jours fériés
+  myFilter = (d: Date | null): boolean => {
+    const date = d || new Date();
+    // j'extrais le jour de la date fournie
+    const day = date.getDay();
+    // Si le jour fourni n'est ni un dimanche, ni un samedi,
+    // ni un jour ferié, je renvoie true (donc sélectionnable)
+    return day !== 0 && day !== 6 && !this.isHolidays(date);
   };
   
   ngOnInit(): void {
@@ -127,10 +130,10 @@ export class FormUpdateTacheComponent implements OnInit {
           // Après le message, j'affiche la page liste des tâches de la semaine
           // qui correspond à la date de la tâche modifiée
           const date = new Date(tacheAModifier.dateTache);
-          const numberWeek = this.getWeekNumber(date);
+          const weekNumber = this.getWeekNumber(date);
           // Comme je suis dans la méthode onSubmit() la page va se recharger
           // lorsque je cliquerai sur Valider 
-          this.router.navigate(['/listTaches', numberWeek]);
+          this.router.navigate(['/listTaches', weekNumber]);
         }, 
         error:(error) => {
           console.error('Erreur lors de la modification de la tâche', error);
@@ -165,6 +168,57 @@ export class FormUpdateTacheComponent implements OnInit {
     // Calcul de la différence de jours et division par 7 pour obtenir le numéro de semaine
     const weekNo = Math.ceil(( (d.getTime() - yearStart.getTime()) / 86400000 + 1)/7);
     return weekNo;
+  }
+
+  // Les méthodes ci-dessous nous permettrons de ne pas pouvoir créer de tâche les jours fériés
+  // Calcul du dimanche de Pâques par année
+  paques(year: number): Date {
+    const a = year % 19;
+    const century = Math.floor(year / 100);
+    const yearsAfterCentury = year % 100;
+    const d = (19 * a + century - Math.floor(century / 4) - Math.floor((Math.floor(century - (century + 8) / 25) + 1) / 3) + 15) % 30;
+    const e = (32 + 2 * (century % 4) + 2 * Math.floor(yearsAfterCentury / 4) - d - (yearsAfterCentury % 4)) % 7;
+    const f = d + e - 7 * Math.floor((a + 11 * d + 22 * e) / 451) + 114;
+    const month = Math.floor(f / 31);
+    const day = (f % 31) + 1;
+    return new Date(year, month - 1, day);
+  }
+
+  // Calcul des jours fériés par année
+  getHolidays(year: number): Date[] {
+    const easter = this.paques(year);
+    // lundi de Pâques
+    const easterMonday= new Date (easter.getFullYear(), easter.getMonth(), easter.getDate()+1)
+    // Ascension
+    const ascension = new Date (easter.getFullYear(), easter.getMonth(), easter.getDate()+39);
+    
+    const holidays: Date[] = [
+     new Date(year, 0, 1), // Jour de l'An
+     easterMonday,
+     new Date(year, 4, 1), // Fête du travail
+     new Date(year, 4, 8), // Victoire 1945
+     ascension,
+     new Date(year, 6, 14), // Fête Nationale
+     new Date(year, 7, 15), // Assomption
+     new Date(year, 10, 1), // Toussaint
+     new Date(year, 10, 11), // Armistice 1918
+     new Date(year, 11, 25), // Noël
+    ]
+    return holidays;
+  }
+
+  // Méthode qui vérifie si un jour est férié
+  isHolidays(date: Date) : boolean {
+    const day = date.getDate();
+    const month = date.getMonth();
+    const year = date.getFullYear();
+    const holidays = this.getHolidays(year);
+    // some() va itérer sur tous les éléments de holidays et appliquer 
+    // la fonction fléchée fournie à chaque élément (holiday)
+    return holidays.some(holiday =>
+      holiday.getFullYear() === year &&
+      holiday.getMonth() === month &&
+      holiday.getDate() === day);
   }
 
 }
