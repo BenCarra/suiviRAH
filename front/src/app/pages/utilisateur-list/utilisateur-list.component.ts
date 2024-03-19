@@ -93,7 +93,7 @@ export class UtilisateurListComponent {
   }
 
   // Méthode exécutée après appui sur le bouton OK du filtre
-  onSearch(e: MouseEvent) {
+  onSearch() {
     let recherche = this.formFiltrage.get('utilisateurRecherche')?.value;
 
     // Selon le filtre choisi, on récupère les résultats
@@ -121,7 +121,7 @@ export class UtilisateurListComponent {
   }
 
   // Méthode exécutée après appui sur le bouton Reset du filtre
-  onReset($event: MouseEvent) {
+  onReset() {
     this.formFiltrage.get('filtrageDemande')?.setValue("");
     this.formFiltrage.get('utilisateurRecherche')?.disable();
     this.formFiltrage.get('boutonSoumission')?.disable();

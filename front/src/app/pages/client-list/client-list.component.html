@@ -1,15 +1,16 @@
 <div class="liste">
     <h3>
-        @if (routerURL =="/admin/clients") {
+        @if (routerURL =="/clients") {
         LISTE DES CLIENTS
         }
-        @else if (routerURL == "/admin/accueil") {
-        <a routerLink="/admin/clients">LISTE DES CLIENTS</a>
+        @else if (routerURL == "/accueil") {
+        <a routerLink="/clients">LISTE DES CLIENTS</a>
         }
     </h3>
-    @if (routerURL == "/admin/clients") {
+    @if (routerURL == "/clients") {
     <form class="filtrage" [formGroup]="formFiltrage">
-        <select title="filtrage-demande" class="filtrage-demande" formControlName="filtrageDemande" (change)="updateFiltrage()">
+        <select title="filtrage-demande" class="filtrage-demande" formControlName="filtrageDemande"
+            (change)="updateFiltrage()">
             <option disabled [selected]="formFiltrage.value.filtrageDemande == ''">-- Sélectionner un filtre --</option>
             <option value="Par nom de client">Rechercher par nom de client</option>
         </select>
@@ -22,16 +23,16 @@
             }
         </select>
         }
-        <input type="submit" id="btn-soumission" formControlName="boutonSoumission" (click)="onSearch($event)">
-        <input type="reset" id="btn-reset" (click)="onReset($event)" formControlName="boutonReset">
+        <input type="submit" id="btn-soumission" formControlName="boutonSoumission" (click)="onSearch()">
+        <input type="reset" id="btn-reset" (click)="onReset()" formControlName="boutonReset">
     </form>
     }
 
     <!-- TODO: Faire en sorte d'avoir les 10 derniers clients ajoutés sur la page d'accueil-->
     <div class="table">
         <table border="2">
-            <tbody>
-                @if (routerURL =="/admin/clients") {
+            @if (routerURL =="/clients") {
+            <thead>
                 <tr>
                     <th>Nom</th>
                     <th>Adresse</th>
@@ -42,6 +43,8 @@
                     <th>Projet associé</th>
                     <th>Modifier</th>
                 </tr>
+            </thead>
+            <tbody>
                 @for (client of listClients; track $index) {
                 <tr [className]="client.actif" title="{{ client.idClient }}">
                     <td>{{ client.nomClient }}</td>
@@ -59,17 +62,21 @@
                         <br>
                         }
                     </td>
-                    <td><button type="button" routerLink="/admin/clients/update/"
+                    <td><button type="button" routerLink="/clients/update/"
                             [queryParams]="{ id: client.idClient}">Modifier</button></td>
                 </tr>
                 }
-                } @else if (routerURL =="/admin/accueil") {
+            </tbody>
+            } @else if (routerURL =="/accueil") {
+            <thead>
                 <tr>
                     <th>Nom</th>
                     <th>Adresse</th>
                     <th>Code postal</th>
                     <th>Ville</th>
                 </tr>
+            </thead>
+            <tbody>
                 @for (client of listClients; track $index) {
                 <tr [className]="client.actif" title="{{ client.idClient }}">
                     <td>{{ client.nomClient }}</td>
@@ -78,9 +85,8 @@
                     <td>{{ client.villeClient }}</td>
                 </tr>
                 }
-                }
-
             </tbody>
+            }
         </table>
     </div>
 </div>

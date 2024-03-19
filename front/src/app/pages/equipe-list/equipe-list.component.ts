@@ -51,12 +51,10 @@ export class EquipeListComponent {
       this.equipeService.delete(id).subscribe({
         next: (response) => {
           alert("Equipe " + response.libelle + " supprimée");
-          // Si on supprime la seule équipe restante
-          if (this.listEquipes.length == 1) { 
+          if (this.listEquipes.length == 1) { // Si on supprime la seule équipe restante
             this.listEquipes = [];
-          } else {
+          } else { 
             this.equipeService.findAll().subscribe(data => {
-              //console.log(data);
               this.listEquipes = data;
             })
           }
@@ -94,7 +92,7 @@ export class EquipeListComponent {
   }
 
   // Méthode exécutée après appui sur le bouton OK du filtre
-  onSearch(e: MouseEvent) {
+  onSearch() {
     let recherche = this.formFiltrage.get('equipeRecherche')?.value;
 
     if (this.formFiltrage.value.filtrageDemande == 'Par libellé d\'équipe') {
@@ -108,7 +106,7 @@ export class EquipeListComponent {
   }
 
   // Méthode exécutée après appui sur le bouton Reset du filtre
-  onReset($event: MouseEvent) {
+  onReset() {
     this.formFiltrage.get('filtrageDemande')?.setValue("");
     this.formFiltrage.get('equipeRecherche')?.disable();
     this.formFiltrage.get('boutonSoumission')?.disable();

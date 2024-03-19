@@ -55,7 +55,7 @@ export class FormUpdateTypeDefautComponent {
 
   // Méthode exécutée quand on appuie sur le bouton Retour
   onClose() {
-    this.router.navigateByUrl("/admin/parametres");
+    this.router.navigateByUrl("/parametres");
   }
 
   // Méthode exécutée quand on appuie sur le bouton Envoyer
@@ -67,7 +67,7 @@ export class FormUpdateTypeDefautComponent {
       this.typeDefautService.update(this.typeDefautById).subscribe({
         next: (response) => {
           alert('Type défaut modifié!');
-          this.router.navigateByUrl("/admin/parametres");
+          this.router.navigateByUrl("/parametres");
         },
         error: (error) => {
           console.error("Erreur lors de la modification du type défaut", error);

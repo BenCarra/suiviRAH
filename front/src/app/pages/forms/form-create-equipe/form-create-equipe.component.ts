@@ -54,7 +54,7 @@ export class FormCreateEquipeComponent {
 
   // Méthode exécutée quand on appuie sur le bouton Retour
   onClose() {
-    this.router.navigateByUrl("/admin/equipes");
+    this.router.navigateByUrl("/equipes");
   }
 
   // Méthode exécutée quand on appuie sur le bouton Envoyer
@@ -69,7 +69,7 @@ export class FormCreateEquipeComponent {
       this.equipeService.create(this.equipeCreee).subscribe({
         next: (response) => {
           alert('Equipe ' + response.libelle + ' créée!');
-          this.router.navigateByUrl("/admin/equipes");
+          this.router.navigateByUrl("/equipes");
         },
         error: (error) => {
           console.error('Erreur lors de la création de l\'équipe', error);

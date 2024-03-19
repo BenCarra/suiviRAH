@@ -69,7 +69,7 @@ export class TypeProjetListComponent {
   }
 
   // Méthode exécutée après appui sur le bouton OK du filtre
-  onSearch(e: MouseEvent) {
+  onSearch() {
     let recherche = this.formFiltrage.get('typeProjetRecherche')?.value;
 
     // Selon le filtre choisi, on récupère les résultats
@@ -86,7 +86,7 @@ export class TypeProjetListComponent {
   }
 
   // Méthode exécutée après appui sur le bouton Reset du filtre
-  onReset($event: MouseEvent) {
+  onReset() {
     this.formFiltrage.get('filtrageDemande')?.setValue("");
     this.formFiltrage.get('typeProjetRecherche')?.disable();
     this.formFiltrage.get('boutonSoumission')?.disable();

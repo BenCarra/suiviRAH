@@ -66,7 +66,7 @@ export class FormUpdateClientComponent {
 
   // Méthode exécutée quand on appuie sur le bouton Retour
   onClose() {
-    this.router.navigateByUrl("/admin/clients");
+    this.router.navigateByUrl("/clients");
   }
 
   // Méthode exécutée quand on appuie sur le bouton Envoyer
@@ -91,7 +91,7 @@ export class FormUpdateClientComponent {
       this.clientService.update(this.clientById).subscribe({
         next: (response) => {
           alert('Client modifié!');
-          this.router.navigateByUrl("/admin/clients");
+          this.router.navigateByUrl("/clients");
         },
         error: (error) => {
           console.error('Erreur lors de la modification du client', error);

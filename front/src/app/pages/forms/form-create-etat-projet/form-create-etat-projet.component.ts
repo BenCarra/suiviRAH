@@ -48,7 +48,7 @@ export class FormCreateEtatProjetComponent {
       this.etatProjetService.create(this.etatProjetCree).subscribe({
         next: (response) => {
           alert('Etat de projet ' + response.libelle + ' créé!');
-          this.router.navigateByUrl("/admin/parametres");
+          this.router.navigateByUrl("/parametres");
         },
         error: (error) => {
           console.error("Erreur lors de la création de l'état de projet", error);

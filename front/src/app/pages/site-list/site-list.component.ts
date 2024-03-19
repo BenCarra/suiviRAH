@@ -68,7 +68,7 @@ export class SiteListComponent {
   }
 
   // Méthode exécutée après appui sur le bouton OK du filtre
-  onSearch(e: MouseEvent) {
+  onSearch() {
     let recherche = this.formFiltrage.get('siteRecherche')?.value;
 
     if (this.formFiltrage.value.filtrageDemande == 'Par nom de site') {
@@ -83,7 +83,7 @@ export class SiteListComponent {
   }
 
   // Méthode exécutée après appui sur le bouton Reset du filtre
-  onReset($event: MouseEvent) {
+  onReset() {
     this.formFiltrage.get('filtrageDemande')?.setValue("");
     this.formFiltrage.get('siteRecherche')?.disable();
     this.formFiltrage.get('boutonSoumission')?.disable();

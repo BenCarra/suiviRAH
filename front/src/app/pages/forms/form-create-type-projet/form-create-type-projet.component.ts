@@ -35,7 +35,7 @@ export class FormCreateTypeProjetComponent {
 
   // Méthode exécutée quand on appuie sur le bouton Retour
   onClose() {
-    this.router.navigateByUrl("/admin/parametres");
+    this.router.navigateByUrl("/parametres");
   }
 
   // Méthode exécutée quand on appuie sur le bouton Envoyer
@@ -48,7 +48,7 @@ export class FormCreateTypeProjetComponent {
       this.typeProjetService.create(this.typeProjetCree).subscribe({
         next: (response) => {
           alert('Type projet ' + response.libelle + ' créé!');
-          this.router.navigateByUrl("/admin/parametres");
+          this.router.navigateByUrl("/parametres");
         },
         error: (error) => {
           console.error("Erreur lors de la création du type projet", error);

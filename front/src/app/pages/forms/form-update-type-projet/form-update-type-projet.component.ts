@@ -55,7 +55,7 @@ export class FormUpdateTypeProjetComponent {
 
   // Méthode exécutée quand on appuie sur le bouton Retour
   onClose() {
-    this.router.navigateByUrl("/admin/parametres");
+    this.router.navigateByUrl("/parametres");
   }
 
   // Méthode exécutée quand on appuie sur le bouton Envoyer
@@ -67,7 +67,7 @@ export class FormUpdateTypeProjetComponent {
       this.typeProjetService.update(this.typeProjetById).subscribe({
         next: (response) => {
           alert('Type projet modifié!');
-          this.router.navigateByUrl("/admin/parametres");
+          this.router.navigateByUrl("/parametres");
         },
         error: (error) => {
           console.error("Erreur lors de la modification du type projet", error);

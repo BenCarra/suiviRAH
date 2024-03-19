@@ -97,7 +97,7 @@ export class FormUpdateUtilisateurComponent {
 
   // Méthode exécutée quand on appuie sur le bouton Retour
   onClose() {
-    this.router.navigateByUrl("/admin/utilisateurs");
+    this.router.navigateByUrl("/utilisateurs");
   }
 
   // Méthode exécutée quand on appuie sur le bouton Envoyer
@@ -126,7 +126,7 @@ export class FormUpdateUtilisateurComponent {
       this.utilisateurService.update(this.utilisateurById).subscribe({
         next: (response) => {
           alert('Utilisateur modifié!');
-          this.router.navigateByUrl("/admin/utilisateurs");
+          this.router.navigateByUrl("/utilisateurs");
         },
         error: (error) => {
           console.error("Erreur lors de la modification de l'utilisateur", error);

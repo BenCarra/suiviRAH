@@ -57,7 +57,7 @@ export class FormUpdateTypeUtilisateurComponent {
 
   // Méthode exécutée quand on appuie sur le bouton Retour
   onClose() {
-    this.router.navigateByUrl("/admin/parametres");
+    this.router.navigateByUrl("/parametres");
   }
 
   // Méthode exécutée quand on appuie sur le bouton Envoyer
@@ -69,7 +69,7 @@ export class FormUpdateTypeUtilisateurComponent {
       this.typeUtilisateurService.update(this.typeUtilisateurById).subscribe({
         next: (response) => {
           alert('Type utilisateur modifié!');
-          this.router.navigateByUrl("/admin/parametres");
+          this.router.navigateByUrl("/parametres");
         },
         error: (error) => {
           console.error("Erreur lors de la modification du type utilisateur", error);

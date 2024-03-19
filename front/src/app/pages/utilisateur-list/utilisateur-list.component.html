@@ -1,15 +1,16 @@
 <div class="liste">
     <h3>
-        @if (routerURL == "/admin/utilisateurs") {
+        @if (routerURL == "/utilisateurs") {
         LISTE DES UTILISATEURS
         }
-        @else if (routerURL == "/admin/accueil") {
-        <a routerLink="/admin/utilisateurs">LISTE DES UTILISATEURS</a>
+        @else if (routerURL == "/accueil") {
+        <a routerLink="/utilisateurs">LISTE DES UTILISATEURS</a>
         }
     </h3>
-    @if (routerURL == "/admin/utilisateurs") {
+    @if (routerURL == "/utilisateurs") {
     <form class="filtrage" [formGroup]="formFiltrage">
-        <select title="filtrage-demande" class="filtrage-demande" formControlName="filtrageDemande" (change)="updateFiltrage()">
+        <select title="filtrage-demande" class="filtrage-demande" formControlName="filtrageDemande"
+            (change)="updateFiltrage()">
             <option disabled [selected]="formFiltrage.value.filtrageDemande == ''">-- Sélectionner un filtre --</option>
             <option value="Par nom d'utilisateur">Rechercher par nom d'utilisateur</option>
             <option value="Par type d'utilisateur">Rechercher par type d'utilisateur</option>
@@ -30,22 +31,23 @@
             }
         </select>
         } @else if (formFiltrage.get("filtrageDemande")?.getRawValue() == "Par nom de site") {
-        <select title="nom-sites-utilisateur" id="nom-sites-utilisateur" autocomplete formControlName="utilisateurRecherche">
+        <select title="nom-sites-utilisateur" id="nom-sites-utilisateur" autocomplete
+            formControlName="utilisateurRecherche">
             @for (siteUtilisateur of listSitesUtilisateur; track $index) {
             <option [value]="siteUtilisateur">{{ siteUtilisateur }}</option>
             }
         </select>
         }
-        <input type="submit" id="btn-soumission" formControlName="boutonSoumission" (click)="onSearch($event)">
-        <input type="reset" id="btn-reset" (click)="onReset($event)" formControlName="boutonReset">
+        <input type="submit" id="btn-soumission" formControlName="boutonSoumission" (click)="onSearch()">
+        <input type="reset" id="btn-reset" (click)="onReset()" formControlName="boutonReset">
     </form>
     }
 
     <!-- TODO: Faire en sorte d'avoir les 10 derniers utilisateurs ajoutés sur la page d'accueil -->
     <div class="table">
         <table border="2">
-            <tbody>
-                @if (routerURL == "/admin/utilisateurs") {
+            @if (routerURL == "/utilisateurs") {
+            <thead>
                 <tr>
                     <th>Login</th>
                     <th>Prénom</th>
@@ -60,12 +62,15 @@
                     <th>Compositions intégrées</th>
                     <th>Modifier</th>
                 </tr>
+            </thead>
+            <tbody>
                 @for (utilisateur of listUtilisateurs; track $index) {
                 <tr [className]="utilisateur.actif" title="{{ utilisateur.idUtilisateur }}">
                     <td>{{ utilisateur.login }}</td>
                     <td>{{ utilisateur.prenomUtilisateur }}</td>
                     <td>{{ utilisateur.nomUtilisateur }}</td>
-                    <td>{{ utilisateur.dateNaissance | date:'dd-MM' }}</td> <!-- Ajouter la possibilité d'afficher un message lorsque c'est l'anniversaire d'un utilisateur -->
+                    <td>{{ utilisateur.dateNaissance | date:'dd-MM' }}</td>
+                    <!-- Ajouter la possibilité d'afficher un message lorsque c'est l'anniversaire d'un utilisateur -->
                     <td>{{ utilisateur.mail }}</td>
                     <td>{{ utilisateur.actif }}</td>
                     <td>{{ utilisateur.nomSite }}</td>
@@ -101,17 +106,21 @@
                         }
                         }
                     </td>
-                    <td><button type="button" routerLink="/admin/utilisateurs/update/"
+                    <td><button type="button" routerLink="/utilisateurs/update/"
                             [queryParams]="{ id: utilisateur.idUtilisateur}">Modifier</button></td>
                 </tr>
                 }
-                } @else if (routerURL == "/admin/accueil") {
+            </tbody>
+            } @else if (routerURL == "/accueil") {
+            <thead>
                 <tr>
                     <th>Login</th>
                     <th>Prénom</th>
                     <th>Nom</th>
                     <th>Actif</th>
                 </tr>
+            </thead>
+            <tbody>
                 @for (utilisateur of listUtilisateurs; track $index) {
                 <tr [className]="utilisateur.actif" title="{{ utilisateur.idUtilisateur }}">
                     <td>{{ utilisateur.login }}</td>
@@ -119,9 +128,8 @@
                     <td>{{ utilisateur.nomUtilisateur }}</td>
                     <td>{{ utilisateur.actif }}</td>
                     }
-                    }
-
             </tbody>
+            }
         </table>
     </div>
 </div>

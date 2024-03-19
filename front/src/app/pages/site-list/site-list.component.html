@@ -1,7 +1,8 @@
 <div class="liste">
     <h3>LISTE DES SITES</h3>
     <form class="filtrage" [formGroup]="formFiltrage">
-        <select title="filtrage-demande" id="filtrage-demande" formControlName="filtrageDemande" (change)="updateFiltrage()">
+        <select title="filtrage-demande" id="filtrage-demande" formControlName="filtrageDemande"
+            (change)="updateFiltrage()">
             <option disabled [selected]="formFiltrage.value.filtrageDemande == ''">-- Sélectionner un filtre --</option>
             <option value="Par nom de site">Rechercher par nom de site</option>
         </select>
@@ -15,13 +16,13 @@
             }
         </select>
         }
-        <input type="submit" id="btn-soumission" formControlName="boutonSoumission" (click)="onSearch($event)">
-        <input type="reset" id="btn-reset" (click)="onReset($event)" formControlName="boutonReset">
+        <input type="submit" id="btn-soumission" formControlName="boutonSoumission" (click)="onSearch()">
+        <input type="reset" id="btn-reset" (click)="onReset()" formControlName="boutonReset">
     </form>
 
     <div class="table">
         <table border="2">
-            <tbody>
+            <thead>
                 <tr>
                     <th>Nom</th>
                     <th>Adresse</th>
@@ -30,6 +31,8 @@
                     <th>Utilisateurs associés</th>
                     <th>Modifier</th>
                 </tr>
+            </thead>
+            <tbody>
                 @for (site of listSites; track $index) {
                 <tr title="{{ site.idSite }}">
                     <td>{{ site.nomSite }}</td>
@@ -45,7 +48,7 @@
                         <br>
                         }
                     </td>
-                    <td><button type="button" routerLink="/admin/parametres/updateSite/"
+                    <td><button type="button" routerLink="/parametres/updateSite/"
                             [queryParams]="{ id: site.idSite }">Modifier</button></td>
                 </tr>
                 }

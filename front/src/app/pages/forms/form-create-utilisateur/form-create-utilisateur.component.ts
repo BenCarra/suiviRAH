@@ -73,7 +73,7 @@ export class FormCreateUtilisateurComponent {
 
   // Méthode exécutée quand on appuie sur le bouton Retour
   onClose() {
-    this.router.navigateByUrl("/admin/utilisateurs");
+    this.router.navigateByUrl("/utilisateurs");
   }
 
   // Méthode exécutée quand on appuie sur le bouton Envoyer
@@ -103,7 +103,7 @@ export class FormCreateUtilisateurComponent {
         {
           next: (response) => {
             alert('Utilisateur ' + response.prenomUtilisateur + ' ' + response.nomUtilisateur + ' créé!');
-            this.router.navigateByUrl("/admin/utilisateurs");
+            this.router.navigateByUrl("/utilisateurs");
           },
           error: (error) => {
             console.error('Erreur lors de la création de l\'utilisateur', error);

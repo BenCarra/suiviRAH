@@ -41,7 +41,7 @@ export class FormCreateClientComponent {
 
   // Méthode exécutée quand on appuie sur le bouton Retour
   onClose() {
-    this.router.navigateByUrl("/admin/clients");
+    this.router.navigateByUrl("/clients");
   }
 
   // Méthode exécutée quand on appuie sur le bouton Envoyer
@@ -67,7 +67,7 @@ export class FormCreateClientComponent {
       this.clientService.create(this.clientCree).subscribe({
         next: (response) => {
           alert('Client ' + response.nomClient + ' créé!');
-          this.router.navigateByUrl("/admin/clients");
+          this.router.navigateByUrl("/clients");
         },
         error: (error) => {
           console.error('Erreur lors de la création du client', error);

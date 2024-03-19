@@ -1,12 +1,14 @@
 <div class="liste">
     <h3>LISTE DES TYPES UTILISATEURS</h3>
     <form class="filtrage" [formGroup]="formFiltrage">
-        <select title="filtrage-demande" class="filtrage-demande" formControlName="filtrageDemande" (change)="updateFiltrage()">
+        <select title="filtrage-demande" class="filtrage-demande" formControlName="filtrageDemande"
+            (change)="updateFiltrage()">
             <option disabled [selected]="formFiltrage.value.filtrageDemande == ''">-- Sélectionner un filtre --</option>
             <option value="Par libellé de type utilisateur">Rechercher par libellé de type utilisateur</option>
         </select>
         @if (formFiltrage.get("filtrageDemande")?.getRawValue() == "Par libellé de type utilisateur") {
-        <select title="filtrage-demande" id="libelles-type-utilisateur" autocomplete formControlName="typeUtilisateurRecherche">
+        <select title="filtrage-demande" id="libelles-type-utilisateur" autocomplete
+            formControlName="typeUtilisateurRecherche">
             <option disabled [selected]="formFiltrage.value.filtrageDemande == 'Par libellé de type utilisateur'">--
                 Sélectionner
                 un type d'utilisateur --</option>
@@ -15,18 +17,20 @@
             }
         </select>
         }
-        <input type="submit" id="btn-soumission" formControlName="boutonSoumission" (click)="onSearch($event)">
-        <input type="reset" id="btn-reset" (click)="onReset($event)" formControlName="boutonReset">
+        <input type="submit" id="btn-soumission" formControlName="boutonSoumission" (click)="onSearch()">
+        <input type="reset" id="btn-reset" (click)="onReset()" formControlName="boutonReset">
     </form>
 
     <div class="table">
         <table border="2">
-            <tbody>
+            <thead>
                 <tr>
                     <th>Libellé</th>
                     <th>Utilisateurs associés</th>
                     <th>Modifier</th>
                 </tr>
+            </thead>
+            <tbody>
                 @for (typeUtilisateur of listTypesUtilisateur; track $index) {
                 <tr title="{{ typeUtilisateur.idTypeUtilisateur }}">
                     <td>{{ typeUtilisateur.libelle }}</td>
@@ -39,7 +43,7 @@
                         <br>
                         }
                     </td>
-                    <td><button type="button" routerLink="/admin/parametres/updateTypeUtilisateur/"
+                    <td><button type="button" routerLink="/parametres/updateTypeUtilisateur/"
                             [queryParams]="{ id: typeUtilisateur.idTypeUtilisateur }">Modifier</button></td>
                 </tr>
                 }

@@ -36,7 +36,7 @@ export class FormCreateTypeDefautComponent {
 
   // Méthode exécutée quand on appuie sur le bouton Retour
   onClose() {
-    this.router.navigateByUrl("/admin/parametres");
+    this.router.navigateByUrl("/parametres");
   }
 
   // Méthode exécutée quand on appuie sur le bouton Envoyer
@@ -49,7 +49,7 @@ export class FormCreateTypeDefautComponent {
       this.typeDefautService.create(this.typeDefautCree).subscribe({
         next: (response) => {
           alert('Type défaut ' + response.libelle + ' créé!');
-          this.router.navigateByUrl("/admin/parametres");
+          this.router.navigateByUrl("/parametres");
         },
         error: (error) => {
           console.error("Erreur lors de la création du type défaut", error);

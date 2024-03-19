@@ -1,7 +1,8 @@
 <div class="liste">
     <h3>SUIVI DES PROJETS - CONSOMMATION</h3>
     <form class="filtrage" [formGroup]="formFiltrage">
-        <select title="noms-clients" id="noms-clients" autocomplete formControlName="clientRecherche" (change)="onSearch()">
+        <select title="noms-clients" id="noms-clients" autocomplete formControlName="clientRecherche"
+            (change)="onSearch()">
             <option value="" disabled [selected]="formFiltrage.controls['clientRecherche'].value == ''">
                 -- Sélectionner
                 un client --</option>
@@ -11,7 +12,8 @@
             }
         </select>
         <label>Projet terminé</label>
-        <input title="projetTermine" type="checkbox" checked="false" formControlName="projetTermine" (change)="onCheck($event)">
+        <input title="projetTermine" type="checkbox" checked="false" formControlName="projetTermine"
+            (change)="onCheck($event)">
     </form>
 
     <div class="table">
@@ -23,29 +25,12 @@
                     <th>Devis estimé</th>
                     <th>Etat du projet</th>
                     @for (annee of listAnneesTaches; track $index) {
-                        <th>{{ annee }}</th>
+                    <th>{{ annee }}</th>
                     }
                 </tr>
             </thead>
-
             <tbody id="table-body-suivi-projets">
-                <!-- 
-
-                @for (suiviProjet of listSuiviProjets; track $index) {
-                    <tr title="{{ suiviProjet.idProjet }}">
-                        <td>{{ suiviProjet.nomClient }}</td>
-                        <td>{{ suiviProjet.nomProjet }}</td>
-                        <td>{{ suiviProjet.devisEstimation }}</td>
-                        <td>{{ suiviProjet.libelleEtat }}</td>   
-                        @for (annee of listAnneesTaches; track $index) {
-                                @if (suiviProjet.anneeTache == annee) {
-                                    <td>{{ suiviProjet.dureeTache }}</td>
-                                } @else {
-                                    <td>0</td>
-                                }
-                        } 
-                    </tr>
-                } -->
+                <!-- Remplissage du tableau via la méthode onLoadTable(data: SuiviProjet[]) du fichier ts-->
             </tbody>
         </table>
     </div>

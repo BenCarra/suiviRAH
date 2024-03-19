@@ -38,7 +38,7 @@ export class FormCreateSiteComponent {
 
   // Méthode exécutée quand on appuie sur le bouton Retour
   onClose() {
-    this.router.navigateByUrl("/admin/parametres");
+    this.router.navigateByUrl("/parametres");
   }
 
   // Méthode exécutée quand on appuie sur le bouton Envoyer
@@ -59,7 +59,7 @@ export class FormCreateSiteComponent {
       this.siteService.create(this.siteCree).subscribe({
         next: (response) => {
           alert('Site ' + response.nomSite + ' créé!');
-          this.router.navigateByUrl("/admin/parametres");
+          this.router.navigateByUrl("/parametres");
         },
         error: (error) => {
           console.error("Erreur lors de la création du site", error);

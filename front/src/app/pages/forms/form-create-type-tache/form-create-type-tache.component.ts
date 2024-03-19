@@ -35,7 +35,7 @@ export class FormCreateTypeTacheComponent {
 
   // Méthode exécutée quand on appuie sur le bouton Retour
   onClose() {
-    this.router.navigateByUrl("/admin/parametres");
+    this.router.navigateByUrl("/parametres");
   }
 
   // Méthode exécutée quand on appuie sur le bouton Envoyer
@@ -48,7 +48,7 @@ export class FormCreateTypeTacheComponent {
       this.typeTacheService.create(this.typeTacheCree).subscribe({
         next: (response) => {
           alert('Type tâche ' + response.libelle + ' créé!');
-          this.router.navigateByUrl("/admin/parametres");
+          this.router.navigateByUrl("/parametres");
         },
         error: (error) => {
           console.error("Erreur lors de la création du type tâche", error);

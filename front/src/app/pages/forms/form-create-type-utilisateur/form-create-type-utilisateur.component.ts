@@ -35,7 +35,7 @@ export class FormCreateTypeUtilisateurComponent {
 
   // Méthode exécutée quand on appuie sur le bouton Retour
   onClose() {
-    this.router.navigateByUrl("/admin/parametres");
+    this.router.navigateByUrl("/parametres");
   }
 
   // Méthode exécutée quand on appuie sur le bouton Envoyer
@@ -48,7 +48,7 @@ export class FormCreateTypeUtilisateurComponent {
       this.typeUtilisateurService.create(this.typeUtilisateurCree).subscribe({
         next: (response) => {
           alert('Type utilisateur ' + response.libelle + ' créé!');
-          this.router.navigateByUrl("/admin/parametres");
+          this.router.navigateByUrl("/parametres");
         },
         error: (error) => {
           console.error("Erreur lors de la création du type utilisateur", error);

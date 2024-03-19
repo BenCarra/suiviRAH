@@ -72,7 +72,7 @@ export class FormUpdateEquipeComponent {
 
   // Méthode exécutée quand on appuie sur le bouton Retour
   onClose() {
-    this.router.navigateByUrl("/admin/equipes");
+    this.router.navigateByUrl("/equipes");
   }
 
   // Méthode exécutée quand on appuie sur le bouton Envoyer
@@ -87,7 +87,7 @@ export class FormUpdateEquipeComponent {
       this.equipeService.update(this.equipeById).subscribe({
         next: (response) => {
           alert('Equipe modifiée!');
-          this.router.navigateByUrl("/admin/equipes");
+          this.router.navigateByUrl("/equipes");
         },
         error: (error) => {
           console.error("Erreur lors de la modification de l'équipe", error);
