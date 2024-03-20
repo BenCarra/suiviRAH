@@ -4,52 +4,61 @@
 <!-- Utilisation de la directive formGroup pour lier le formulaire 
 à l'objet FormGroup -->
 <form class="form-container" [formGroup]="formCreateTache" (ngSubmit)="onSubmit()">
-    <mat-form-field appearance="outline" class="form-field">
-        <mat-label>Nom de la tâche</mat-label>
-        <!-- Utilisation de la directive formControlName pour lier chaque
-        champ de formulaire à un controle FormContral dans l'objet FormGroup -->
-        <input formControlName="nomTache" matInput>
-        <!-- <mat-error *ngIf="formCreateTache.get('nomTache')?.touched && formCreateTache.get('nomTache')?.hasError('required')">
-            Le nom de la tâche est requis
-          </mat-error> -->
-    </mat-form-field>
+    <div class="part">
+        <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Nom de la tâche</mat-label>
+            <!-- Utilisation de la directive formControlName pour lier chaque
+            champ de formulaire à un controle FormContral dans l'objet FormGroup -->
+            <input formControlName="nomTache" matInput>
+            <!-- <mat-error *ngIf="formCreateTache.get('nomTache')?.touched && formCreateTache.get('nomTache')?.hasError('required')">
+                Le nom de la tâche est requis
+            </mat-error> -->
+        </mat-form-field>
 
-    <mat-form-field color="primary" class="form-field">
-        <mat-label>Type de tâche</mat-label>
-            <mat-select formControlName="libelleTypeTache">
-                <mat-option *ngFor="let typeTache of typeTaches" [value]="typeTache.libelle">
-                {{typeTache.libelle}}</mat-option>
-            </mat-select>
-    </mat-form-field>
+        <mat-form-field color="primary" class="form-field">
+            <mat-label>Type de tâche</mat-label>
+                <mat-select formControlName="libelleTypeTache">
+                    <mat-option *ngFor="let typeTache of typeTaches" [value]="typeTache.libelle">
+                    {{typeTache.libelle}}</mat-option>
+                </mat-select>
+        </mat-form-field>
 
-    <mat-form-field class="form-field">
-        <mat-label>Projet</mat-label>
-            <mat-select formControlName="nomProjet">
-                <mat-option *ngFor="let projet of projets" [value]="projet.nomProjet">
-                {{projet.nomProjet}}</mat-option>
-            </mat-select>
-    </mat-form-field>
+        <mat-form-field class="form-field">
+            <mat-label>Projet</mat-label>
+                <mat-select formControlName="nomProjet">
+                    <mat-option *ngFor="let projet of projets" [value]="projet.nomProjet">
+                    {{projet.nomProjet}}</mat-option>
+                </mat-select>
+        </mat-form-field>
+    </div>
 
-    <mat-form-field class="form-field">
-        <mat-label>Date</mat-label>
-            <input formControlName="dateTache" matInput [matDatepicker]="picker" [matDatepickerFilter]="myFilter">
-            <mat-hint>JJ/MM/AAAA</mat-hint>
-        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
-    </mat-form-field>
+    <div class="part">
+        <mat-form-field class="form-field">
+            <mat-label>Date</mat-label>
+                <input formControlName="dateTache" matInput [matDatepicker]="picker" [matDatepickerFilter]="myFilter">
+                <mat-hint>JJ/MM/AAAA</mat-hint>
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
 
-    <mat-checkbox formControlName="journee" color="primary" class="form-field">Journée ou </mat-checkbox>
-   
-    <mat-form-field appearance="outline" class="form-field">
-        <mat-label>Durée (max 9h)</mat-label>
-        <input formControlName="dureeTache" matInput>
-    </mat-form-field>
+        <mat-checkbox formControlName="journee" color="primary" class="form-field">Journée ou </mat-checkbox>
+    
+        <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Durée (max 9h)</mat-label>
+            <input formControlName="dureeTache" matInput>
+        </mat-form-field>
 
+        <mat-checkbox formControlName="mco" color="primary" class="form-field">MCO</mat-checkbox>
 
-    <mat-form-field class="form-field">
-        <mat-label>Commentaires</mat-label>
-            <textarea formControlName="commentaires" matInput></textarea>
-    </mat-form-field>
+        <mat-checkbox formControlName="nouvelleDemande" color="primary" class="form-field">Nouvelle demande</mat-checkbox>
+    </div>
+
+    <div class="part">
+        <mat-form-field class="form-field custom-width">
+            <mat-label>Commentaires</mat-label>
+                <textarea formControlName="commentaires" rows="5" matInput></textarea>
+        </mat-form-field>
+    </div>
 
     <div>
         <button mat-raised-button class="button-element" color="primary" type="submit">Valider</button>

@@ -26,7 +26,8 @@
           'empty-cell': !day, 
           'current-date': day?.getDate()===today.getDate() && day?.getMonth()===today.getMonth() && day?.getFullYear()===today.getFullYear(),
           'holidays-days': day && isHolidays(day),
-          'sup-seven': day && dureesTachesByMonth[day.getDate() - 1] >= 7,
+          'sup-seven': day && dureesTachesByMonth[day.getDate() - 1] > 7,
+          'seven': day && dureesTachesByMonth[day.getDate() - 1] == 7,
           'between-four-six': day && dureesTachesByMonth[day.getDate() - 1] >= 4 && dureesTachesByMonth[day.getDate() - 1] <= 6,
           'between-one-three': day && dureesTachesByMonth[day.getDate() - 1] >= 1 && dureesTachesByMonth[day.getDate() - 1] <= 3,
           'none': day && dureesTachesByMonth[day.getDate() - 1] == 0 && !(i === 5 || i === 6 || i !=currentDate.getDay())
@@ -49,7 +50,8 @@
         <td class="none">Aucune tâche</td>
         <td class="between-one-three">1 ≤ Charge ≥ 3</td>
         <td class="between-four-six">4 ≤ Charge ≥ 6</td>
-        <td class="sup-seven">Charge ≥ 7</td>
+        <td class="seven">Charge = 7</td>
+        <td class="sup-seven">Charge > 7</td>
         <td class="holidays-days">Jour férié </td>
         
       </tr>

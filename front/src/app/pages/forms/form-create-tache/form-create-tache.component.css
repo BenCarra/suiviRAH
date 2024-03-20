@@ -8,10 +8,12 @@ h1 {
 
 .form-field {
     margin-left: 25px; 
+    
 }
 
 .form-container {
     text-align: center;
+ 
 }
 
 .button-element {
@@ -28,21 +30,9 @@ h1 {
     color: rgb(253, 64, 64);
     text-align: center;
 }
+
+.custom-width {
+    width: 50%;
+}
+
     
-
-
-
-
-
-/* form {
-    text-align: center;
-    color: #00884C;  
-}
-
-.form-element {
-    margin-bottom: 15px;
-}
-
-.button-position {
-    margin-top: 25px
-} */

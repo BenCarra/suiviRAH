@@ -49,7 +49,7 @@ h1 {
   font-weight: bold;
 }
 
-.calendar-container .calendar-table .empty-cell, tbody td:empty  {
+.calendar-container .calendar-table .empty-cell {
   border: none ;
   background-color: #E8E7E7;
   cursor: default;
@@ -99,6 +99,10 @@ h1 {
 }
 
 .sup-seven {
+  background-color: #f5fd01 ;
+}
+
+.seven {
   background-color: #00884C ;
 }
 

@@ -56,6 +56,8 @@ export class FormUpdateTacheComponent implements OnInit {
       'dateTache': new FormControl('', Validators.required),
       'journee': new FormControl(false),
       //  Validators.max(9) empêche à l'utilisateur de mettre une valeur au dessus de 9
+      'mco' : new FormControl(false),
+      'nouvelleDemande': new FormControl(false),
       'dureeTache': new FormControl('', [Validators.required, Validators.max(9)]),
       'commentaires': new FormControl('', Validators.required)
     });
@@ -105,7 +107,9 @@ export class FormUpdateTacheComponent implements OnInit {
         nomProjet: tache.nomProjet,
         dateTache: tache.dateTache,
         dureeTache: tache.dureeTache,
-        commentaires: tache.commentaires
+        commentaires: tache.commentaires,
+        mco: tache.mco,
+        nouvelleDemande: tache.nouvelleDemande
       });
     });
   }
@@ -123,6 +127,15 @@ export class FormUpdateTacheComponent implements OnInit {
       if (this.formUpdateTache.value.journee) {
         tacheAModifier.dureeTache = 7;
       }
+
+      if (this.formUpdateTache.value.mco) {
+        tacheAModifier.mco = true;
+      }
+  
+      if (this.formUpdateTache.value.nouvelleDemande) {
+        tacheAModifier.nouvelleDemande = true;
+      }
+    
 
       this.tacheService.updateTache(this.idTacheSelectionnee, tacheAModifier).subscribe({       
         next:(response) => {

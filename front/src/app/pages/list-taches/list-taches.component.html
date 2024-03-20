@@ -28,6 +28,8 @@
         <th>Durée </th>
         <th>Commentaires </th>
         <th>Projet </th>
+        <th>MCO</th>
+        <th>Nouvelle Demande</th>
         <th>Modifier</th>
         <th>Supprimer</th>
         <th>Dupliquer</th>
@@ -41,6 +43,8 @@
         <td>{{ tache.dureeTache }}</td>
         <td>{{ tache.commentaires }}</td>
         <td>{{ tache.nomProjet }}</td>
+        <td>{{ tache.mco ? 'oui' : 'non' }}</td>
+        <td>{{ tache.nouvelleDemande ? 'oui' : 'non' }}</td>
         <td><button [routerLink]="['/formUpdateTache']" [queryParams]="{ id: tache.idTache }">Modifier</button></td>
         <td><button (click)="onDeleteTache(tache.idTache)">Supprimer</button></td>
         <td><button (click)="onDuplicateTache(tache.idTache, tache)">Dupliquer</button></td>

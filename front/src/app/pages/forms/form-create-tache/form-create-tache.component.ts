@@ -55,6 +55,8 @@ export class FormCreateTacheComponent implements OnInit {
       'dateTache': new FormControl('', Validators.required),
       'journee': new FormControl(false),
       //  Validators.max(9) empêche à l'utilisateur de mettre une valeur au dessus de 9
+      'mco' : new FormControl(false),
+      'nouvelleDemande': new FormControl(false),
       'dureeTache': new FormControl('', [Validators.required, Validators.max(9)]),
       'commentaires': new FormControl('', Validators.required)
     });
@@ -98,6 +100,15 @@ export class FormCreateTacheComponent implements OnInit {
     // Si la checkbox 'journee' est cochée, définir 'dureeTache' à 7
     if (tache.journee) {
       tache.dureeTache = 7;
+    }
+
+    if (tache.mco) {
+      tache.mco = true;
+      console.log("valeur de mco : ", tache.mco);
+    }
+
+    if (tache.nouvelleDemande) {
+      tache.mco = true;
     }
   
     // Appeler mon service pour envoyer tache à mon backend/API

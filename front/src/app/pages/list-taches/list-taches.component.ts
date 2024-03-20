@@ -69,10 +69,12 @@ export class ListTachesComponent implements OnInit {
 
     this.tacheService.getTachesByUtilisateurByWeek(this.idUtilisateurConnecté, selectedWeek.week, selectedWeek.year).subscribe(data => {
       this.tachesByWeek = data;      
-      });
 
       console.log("tachesByWeek", this.tachesByWeek);
       console.log("weekNumber", this.selectedWeek.week);
+      });
+
+      
   }
 
    // Méthode qui permet de filtrer par semaine 
