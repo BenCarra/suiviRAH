@@ -26,8 +26,9 @@ import { FormCreateSiteComponent } from './pages/forms/form-create-site/form-cre
 import { FormUpdateSiteComponent } from './pages/forms/form-update-site/form-update-site.component';
 import { ConnexionComponent } from './pages/connexion/connexion.component';
 import { PageSuivisProjetComponent } from './pages/page-suivis-projet/page-suivis-projet.component';
-/*import { ListProjetsComponent } from './pages/list-projets/list-projets.component';
-import { ListTachesComponent } from './pages/list-taches/list-taches.component';
+import { PageRDSComponent } from './pages/page-rds/page-rds.component';
+/*import { ListProjetsComponent } from './pages/list-projets/list-projets.component';*/
+/*import { ListTachesComponent } from './pages/list-taches/list-taches.component';
 import { FormCreateTacheComponent } from './pages/forms/form-create-tache/form-create-tache.component';
 import { FormUpdateTacheComponent } from './pages/forms/form-update-tache/form-update-tache.component';*/
 
@@ -49,6 +50,7 @@ export const routes: Routes = [
 /*{ path: 'projets', component: ListProjetsComponent },
 {path: 'projets/create, component: FormCreateProjetComponent},
 {path: 'projets/update, component: FormUpdateProjetComponent},*/
+{ path: 'rds', component: PageRDSComponent},
 /*{ path: 'taches', component: ListTachesComponent },
 { path: 'taches/create', component:  FormCreateTacheComponent},
 { path: 'taches/update', component: FormUpdateTacheComponent },*/
