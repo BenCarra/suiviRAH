@@ -1,29 +1,82 @@
+.page-container {
+    background-image: url('/assets/img/fondVertRouge.jpg');
+    background-size: cover; /* Ajuste la taille de l'image pour couvrir toute la surface */
+    background-repeat: no-repeat; /* Ne pas répéter l'image */
+    height: 100vh; /* Pour que l'élément prenne toute la hauteur de la fenêtre */
+    display: flex; /* Pour que les enfants s'étendent pour remplir l'espace */
+    align-items: center; /* Centrer le contenu verticalement */
+    justify-content: center; /* Centrer le contenu horizontalement */
+  }
+
+.form-container {
+    border-radius: 5px;
+    text-align: center;
+    background-color: white;
+    width: 650px;
+    height: 250px;
+    padding: 25px;
+}
+
 h1 {
-    text-align: center; 
-    font-size:25px; 
-    margin-top: 25px;
+    font-size:25px;     
 }
 
 .text-under-connexion {
-    text-align: center; 
-    font-size:15px; 
+    color: #bebebe;
     margin-bottom: 25px;
 }
 
-form {
-    text-align: center;
-    color: #00884C;  
-}
-
 button {
+    border-radius: 5px;
     background-color: #00884C;
-    font-size: 20px; 
-    padding: 5px 10px; 
+    font-size: 10px; 
+    padding: 10px 20px; 
     cursor: pointer;
     color: white; 
     border: none;
+    transition: background-color 0.3s; /* Transition en douceur pour la couleur de fond */
+}
+
+.input-login {
+    margin-bottom: 5px;
+}
+
+.text-lost-password {
+    text-decoration: underline;
+    margin-top: 0px;
+    font-size: 10px;
+    font-style: italic;
+    margin-bottom: 25px;
 }
 
 input {
-    margin-right: 15px;
+    background-color: #bebebe;
+    border-radius: 5px;
+    border: none;
+    width: 175px;
+    height: 25px;
 }
+
+input:focus {
+    outline-color:#031CFB;
+  }
+
+::placeholder {
+    text-align: center;
+    color: #166264;
+    opacity: 0.5;
+  }
+
+
+
+  
+button:hover{
+    background-color: #312B6D;
+    border-color: #312B6D;
+}
+
+input:selection {
+    background-color: #031CFB;
+}
+  
+  
