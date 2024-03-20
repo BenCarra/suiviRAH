@@ -328,6 +328,8 @@ public class TacheService {
 		tacheAModifier.setProjet(projet);
 		tacheAModifier.setTypeTache(typeTache);
 		tacheAModifier.setCommentaires(tacheDTO.getCommentaires());
+		tacheAModifier.setMco(tacheDTO.isMco());
+		tacheAModifier.setNouvelleDemande(tacheDTO.isNouvelleDemande());;
 		tacheAModifier.setNomTache(tacheDTO.getNomTache());
 
 		tacheRepository.save(tacheAModifier);
@@ -362,6 +364,8 @@ public class TacheService {
 			nouvelleTache.setTypeTache(typeTache);
 			nouvelleTache.setProjet(projet);
 			nouvelleTache.setDureeTache(tacheDTO.getDureeTache());
+			nouvelleTache.setMco(tacheDTO.isMco());
+			nouvelleTache.setNouvelleDemande(tacheDTO.isNouvelleDemande());;
 			
 			// Gestion de la date
 			Date dateOriginale = tacheDTO.getDateTache();
