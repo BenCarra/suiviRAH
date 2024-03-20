@@ -50,6 +50,8 @@ public class TacheService {
 		tacheDTO.setDateTache(tache.getDateTache());
 		tacheDTO.setDureeTache(tache.getDureeTache());
 		tacheDTO.setCommentaires(tache.getCommentaires());
+		tacheDTO.setMco(tache.isMco());
+		tacheDTO.setNouvelleDemande(tache.isNouvelleDemande());
 		if (tache.getTypeTache() != null) { 
 			tacheDTO.setLibelleTypeTache(tache.getTypeTache().getLibelle());
 		}
@@ -62,9 +64,7 @@ public class TacheService {
 			listIdUtilisateurs.add(utilisateur.getIdUtilisateur());
 			}
 		}
-
 		tacheDTO.setListIdUtilisateurs(listIdUtilisateurs);
-		
 				
 		return tacheDTO;
 	}
@@ -266,6 +266,8 @@ public class TacheService {
 		nouvelleTache.setDateTache(tacheDTO.getDateTache());
 		nouvelleTache.setDureeTache(tacheDTO.getDureeTache());
 		nouvelleTache.setCommentaires(tacheDTO.getCommentaires());
+		nouvelleTache.setMco(tacheDTO.isMco());
+		nouvelleTache.setNouvelleDemande(tacheDTO.isNouvelleDemande());
 		nouvelleTache.setTypeTache(typeTache);
 		nouvelleTache.setProjet(projet);
 
