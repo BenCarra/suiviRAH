@@ -66,6 +66,13 @@ export class FormCreateEquipeComponent {
     } else {
       this.equipeCreee.libelle = this.formCreate.get("libelle")?.value;
       this.equipeCreee.listUtilisateurs = this.formCreate.get("utilisateurs")?.value;
+
+      /*this.equipeCreee.listCompositions = [];
+      for (let utilisateurString of this.equipeCreee.listUtilisateurs) {
+        let composition = ["0","0", utilisateurString[0]];
+        this.equipeCreee.listCompositions.push(composition);
+      }*/
+
       this.equipeService.create(this.equipeCreee).subscribe({
         next: (response) => {
           alert('Equipe ' + response.libelle + ' créée!');

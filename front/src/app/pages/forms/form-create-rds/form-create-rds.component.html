@@ -1,0 +1,46 @@
+<h1>Création d'un RDS</h1>
+
+<form [formGroup]="formCreate">
+  <mat-card class="card">
+    <mat-card-content>
+      <div class="row">
+        <div class="col">
+          <mat-form-field appearance="outline">
+            <mat-label>Nom :</mat-label>
+            <input title="nom" matInput formControlName="nom">
+            @if (formCreate.controls['nom'].hasError('required')) {
+            <mat-error>Nom <strong>requis</strong></mat-error>
+            }
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <mat-form-field appearance="outline">
+            <mat-label>Direction :</mat-label>
+            <input title="direction" matInput formControlName="direction">
+            @if (formCreate.controls['direction'].hasError('required')) {
+            <mat-error>Direction <strong>requise</strong></mat-error>
+            }
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <mat-form-field appearance="outline">
+            <mat-label>Service :</mat-label>
+            <input title="service" matInput formControlName="service">
+            @if (formCreate.controls['service'].hasError('required')) {
+            <mat-error>Service <strong>requis</strong></mat-error>
+            }
+          </mat-form-field>
+        </div>
+      </div>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button type="submit" (click)="onSubmit()">Envoyer</button>
+      <button mat-raised-button type="reset">Réinitialiser</button>
+      <button mat-raised-button type="button" (click)="onClose()">Retour</button>
+    </mat-card-actions>
+  </mat-card>
+</form>

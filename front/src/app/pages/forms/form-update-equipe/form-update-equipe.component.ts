@@ -84,6 +84,7 @@ export class FormUpdateEquipeComponent {
     } else {
       this.equipeById.libelle = this.formUpdate.get("libelle")?.value;
       this.equipeById.listUtilisateurs = this.formUpdate.get("utilisateurs")?.value;
+      console.log(this.equipeById.listCompositions);
       this.equipeService.update(this.equipeById).subscribe({
         next: (response) => {
           alert('Equipe modifiée!');

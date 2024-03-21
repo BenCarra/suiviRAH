@@ -1,1 +1,46 @@
-<p>rds-list works!</p>
+<div class="liste">
+    <h3>LISTE DES RDS</h3>
+    <form class="filtrage" [formGroup]="formFiltrage">
+        <select title="filtrage-demande" id="filtrage-demande" formControlName="filtrageDemande"
+            (change)="updateFiltrage()">
+            <option disabled [selected]="formFiltrage.value.filtrageDemande == ''">-- Sélectionner un filtre --</option>
+            <option value="Par nom de rds">Rechercher par nom de rds</option>
+        </select>
+        @if (formFiltrage.get("filtrageDemande")?.getRawValue() == "Par nom de rds") {
+        <select title="noms-rds" id="noms-rds" autocomplete formControlName="rdsRecherche">
+            <option disabled [selected]="formFiltrage.value.filtrageDemande == 'Par nom de rds'">--
+                Sélectionner
+                un nom de rds --</option>
+            @for (nomRDS of listNomsRDS; track $index) {
+            <option [value]="nomRDS">{{ nomRDS }}</option>
+            }
+        </select>
+        }
+        <input type="submit" id="btn-soumission" formControlName="boutonSoumission" (click)="onSearch()">
+        <input type="reset" id="btn-reset" (click)="onReset()" formControlName="boutonReset">
+    </form>
+
+    <div class="table">
+        <table border="2">
+            <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Direction</th>
+                    <th>Service</th>
+                    <th>Modifier</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (rds of listRDS; track $index) {
+                <tr title="{{ rds.idRDS }}">
+                    <td>{{ rds.nom }}</td>
+                    <td>{{ rds.direction }}</td>
+                    <td>{{ rds.service }}</td>
+                    <td><button type="button" routerLink="/rds/update"
+                            [queryParams]="{ id: rds.idRDS }">Modifier</button></td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
