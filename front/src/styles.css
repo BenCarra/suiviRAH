@@ -9,11 +9,14 @@
     src: url('/assets/fonts/Mostardesign - FilsonSoftMedium.otf') format('opentype');
   }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: 'PoliceTexte', sans-serif; background:#E8E7E7}
+html, body { 
+  height: 100%; 
+}
 
-* {
-    font-family: 'PoliceTexte', sans-serif;
+body { 
+  margin: 0; 
+  font-family: 'PoliceTexte', sans-serif; 
+  background:#E8E7E7
 }
 
 h1 {

@@ -1,5 +1,6 @@
 package com.stage.newRAH.model;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,6 +32,9 @@ public class Utilisateur {
 	
 	@Column(name="prenom_utilisateur")
 	private String prenomUtilisateur;
+
+	@Column(name="date_naissance", columnDefinition = "datetime")
+	private Date dateNaissance;
 	
 	private String login ;
 	
@@ -59,23 +63,21 @@ public class Utilisateur {
 	@OneToMany(mappedBy="utilisateur")
 	private List<Composition> listCompositions;
 	
-		
 	public Utilisateur() {
 
 	}
 
-
-	public Utilisateur(int idUtilisateur, String nomUtilisateur, String prenomUtilisateur, String login, String mail,
-			Site site, boolean actif, TypeUtilisateur typeUtilisateur) {
-
+	public Utilisateur(int idUtilisateur, String nomUtilisateur, String prenomUtilisateur, Date dateNaissance, String login, String mail, Site site, boolean actif, TypeUtilisateur typeUtilisateur) {
 		this.idUtilisateur = idUtilisateur;
 		this.nomUtilisateur = nomUtilisateur;
 		this.prenomUtilisateur = prenomUtilisateur;
+		this.dateNaissance = dateNaissance;
 		this.login = login;
 		this.mail = mail;
 		this.site = site;
 		this.actif = actif;
 		this.typeUtilisateur = typeUtilisateur;
 	}
+	
 
 }

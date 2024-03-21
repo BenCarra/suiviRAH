@@ -42,7 +42,7 @@ export class CalendrierComponent implements OnInit {
   ngOnInit(): void {    
     this.getDaysInMonth();
     // Je récupère l'utilisateur connecté
-    this.utilisateurService.getUtilisateurById(this.idUtilisateurConnecté).subscribe(data => {
+    this.utilisateurService.findById(this.idUtilisateurConnecté).subscribe(data => {
           this.utilisateur = data});
     // Je récupère les tâches de mon utilisateur par mois
     this.loadTachesByUtilisateurByMonth();  

@@ -1,5 +1,5 @@
 .page-container {
-    background-image: url('/assets/img/fondVertRouge.jpg');
+    background-image: url('/assets/img/fondAngelique.jpg');
     background-size: cover; /* Ajuste la taille de l'image pour couvrir toute la surface */
     background-repeat: no-repeat; /* Ne pas répéter l'image */
     height: 100vh; /* Pour que l'élément prenne toute la hauteur de la fenêtre */
@@ -12,25 +12,30 @@
     border-radius: 5px;
     text-align: center;
     background-color: white;
-    width: 650px;
-    height: 250px;
-    padding: 25px;
+    width: 600px;
+    height: 600px;
+}
+
+.logo {
+    margin-top: 35px;
 }
 
 h1 {
-    font-size:25px;     
+    font-size:29px;  
+    margin-top: 40.57px;   
 }
 
-.text-under-connexion {
+/* .text-under-connexion {
     color: #bebebe;
     margin-bottom: 25px;
-}
+} */
 
 button {
     border-radius: 5px;
+    width: 258.64px;
+    height: 61.91px;
     background-color: #00884C;
-    font-size: 10px; 
-    padding: 10px 20px; 
+    font-size: 17px; 
     cursor: pointer;
     color: white; 
     border: none;
@@ -38,23 +43,29 @@ button {
 }
 
 .input-login {
-    margin-bottom: 5px;
+    margin-bottom: 22.31px;
+}
+
+.input-password {
+    margin-bottom: 10.31px;
 }
 
 .text-lost-password {
     text-decoration: underline;
-    margin-top: 0px;
-    font-size: 10px;
+    font-size: 18px;
     font-style: italic;
-    margin-bottom: 25px;
+    margin-bottom: 70px;
+    color: #242424;
+
 }
 
 input {
-    background-color: #bebebe;
+    background-color: #E8E7E7;
     border-radius: 5px;
     border: none;
-    width: 175px;
-    height: 25px;
+    width: 369.36px;
+    height: 50.58px;
+    font-size: 20px;
 }
 
 input:focus {
@@ -66,9 +77,6 @@ input:focus {
     color: #166264;
     opacity: 0.5;
   }
-
-
-
   
 button:hover{
     background-color: #312B6D;
