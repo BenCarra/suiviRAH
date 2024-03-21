@@ -1,8 +1,11 @@
 package com.stage.newRAH.model;
 
 import java.sql.Date;
+import java.time.LocalDate;
+import java.time.temporal.WeekFields;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -35,6 +38,12 @@ public class Tache {
 	private double dureeTache;
 	
 	private String commentaires;
+
+	@Column(name="mco", nullable = true)
+	private boolean mco;
+
+	@Column(name="nouvelle_demande", nullable = true)
+	private boolean nouvelleDemande;
 	
 	@ManyToMany(mappedBy="listTaches")
 	private List<Utilisateur> listUtilisateurs = new ArrayList<>();
@@ -50,16 +59,29 @@ public class Tache {
 	public Tache() {
 	}
 
-
-	public Tache(int idTache, String nomTache, Date dateTache, double dureeTache, String commentaires, TypeTache typeTache, Projet projet) {
+	public Tache(int idTache, String nomTache, Date dateTache, double dureeTache, String commentaires, boolean mco, boolean nouvelleDemande,
+	 TypeTache typeTache, Projet projet) {
 		this.idTache = idTache;
 		this.nomTache = nomTache;
 		this.dateTache = dateTache;
 		this.dureeTache = dureeTache;
 		this.commentaires = commentaires;
+		this.mco = mco;
+		this.nouvelleDemande = nouvelleDemande;
 		this.typeTache = typeTache;
 		this.projet = projet;
 	}
+	
+
+	public int getWeekNumber(Date date) {
+        // Convertir java.sql.Date en java.time.LocalDate
+        LocalDate localDate = date.toLocalDate();
+        
+        // Utiliser WeekFields pour déterminer le numéro de la semaine selon les conventions locales
+        WeekFields weekFields = WeekFields.of(Locale.getDefault());
+        int weekOfYear = localDate.get(weekFields.weekOfYear());
+        return weekOfYear;
+    }
 	
 	
 }

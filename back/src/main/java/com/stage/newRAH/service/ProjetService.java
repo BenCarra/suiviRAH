@@ -2,8 +2,8 @@ package com.stage.newRAH.service;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -11,8 +11,15 @@ import org.springframework.stereotype.Service;
 
 import com.stage.newRAH.dto.ProjetDTO;
 import com.stage.newRAH.dto.SuiviProjetDTO;
+import com.stage.newRAH.model.Client;
+import com.stage.newRAH.model.Composition;
+import com.stage.newRAH.model.Equipe;
+import com.stage.newRAH.model.Etat;
 import com.stage.newRAH.model.Projet;
 import com.stage.newRAH.model.SuiviProjet;
+import com.stage.newRAH.model.TypeDefaut;
+import com.stage.newRAH.model.TypeProjet;
+import com.stage.newRAH.model.Utilisateur;
 import com.stage.newRAH.repository.ClientRepository;
 import com.stage.newRAH.repository.CompositionRepository;
 import com.stage.newRAH.repository.EquipeRepository;
@@ -27,13 +34,13 @@ public class ProjetService {
 
 	@Autowired
 	ProjetRepository projetRepository;
-
+	
 	@Autowired
 	CompositionRepository compositionRepository;
-
+	
 	@Autowired
 	EquipeRepository equipeRepository;
-
+	
 	@Autowired
 	UtilisateurRepository utilisateurRepository;
 
@@ -80,6 +87,19 @@ public class ProjetService {
 		}
 		projetDTO.setLibelleTypeProjet(projet.getTypeProjet().getLibelle());
 
+		if (projet.getListCompositions() != null) {
+			List<List<String>> listCompositions = new ArrayList<>();
+			for (Composition composition : projet.getListCompositions()) {
+				List<String> compositionObject = new ArrayList<>();
+				compositionObject.add(String.valueOf(composition.getIdComposition()));
+				compositionObject.add(composition.getEquipe().getLibelle());
+				compositionObject.add(composition.getUtilisateur().getPrenomUtilisateur());
+				compositionObject.add(composition.getUtilisateur().getNomUtilisateur());
+				listCompositions.add(compositionObject);
+			}
+			projetDTO.setListCompositions(listCompositions);
+		}
+
 		return projetDTO;
 	}
 
@@ -103,7 +123,7 @@ public class ProjetService {
 		suiviProjetDTO.setDureeTache(suiviProjet.getDureeTache());
 
 		// Récupération de l'année à partir de la date
-		Calendar calendar = new GregorianCalendar();
+		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(suiviProjet.getDateTache());
 		suiviProjetDTO.setAnneeTache(calendar.get(Calendar.YEAR));
 
@@ -166,6 +186,96 @@ public class ProjetService {
 		}
 
 		return ResponseEntity.ok(projetsDTO);
+	}
+
+	public ResponseEntity<ProjetDTO> getProjetById(int id) {
+		Optional<Projet> projetChoisi = projetRepository.findById(id);
+
+		if (projetChoisi.isPresent()) {
+			ProjetDTO projetChoisiDTO = mapProjetToDTO(projetChoisi.get());
+			return ResponseEntity.ok(projetChoisiDTO);
+		} else {
+			return ResponseEntity.notFound().build();
+		}
+
+	}
+
+	public ResponseEntity<ProjetDTO> getProjetByNom(String nom) {
+		Optional<Projet> projetChoisi = projetRepository.findByNom(nom);
+
+		if (projetChoisi.isPresent()) {
+			ProjetDTO projetChoisiDTO = mapProjetToDTO(projetChoisi.get());
+			return ResponseEntity.ok(projetChoisiDTO);
+		} else {
+			return ResponseEntity.notFound().build();
+		}
+	}
+
+	// Je n'ai pas utilisé ResponseEntity comme retour afin de pouvoir réutiliser
+	// facilement cette méthode dans getProjetsByEquipe
+	public List<ProjetDTO> getProjetsByComposition(int id) {
+		Optional<Composition> compositionChoisie = compositionRepository.findById(id);
+		
+		if (compositionChoisie.isPresent()) {
+			List<Projet> projets = compositionChoisie.get().getListProjets();
+			List<ProjetDTO> projetsDTO = new ArrayList<>();
+			
+			for(Projet projet : projets) {
+				ProjetDTO projetDTO = mapProjetToDTO(projet);
+				projetsDTO.add(projetDTO);
+			}
+			
+			return(projetsDTO);
+		} else {
+			return null;
+		}
+	}
+
+	public ResponseEntity<List<ProjetDTO>> getProjetsByEquipe(int id) {
+		List<ProjetDTO> projetsDTO = new ArrayList<>();
+		Equipe equipeChoisie = equipeRepository.findById(id).get();
+		
+		List<Composition> compositions = equipeChoisie.getListCompositions();
+		
+		for (Composition composition : compositions) {
+			List<ProjetDTO> projetsDTOByCompo = getProjetsByComposition(composition.getIdComposition());
+		
+			for (ProjetDTO projetDTO : projetsDTOByCompo ) {
+
+				// Pour pouvoir utiliser la méthode contains, il faut redéfinir la méthode equals (si deux projets ont le même id, ils sont identiques)
+				if (!projetsDTO.contains(projetDTO)) {
+				projetsDTO.add(projetDTO);
+				}	
+			}			
+		}
+		return ResponseEntity.ok(projetsDTO);
+
+	}
+
+	public ResponseEntity<List<ProjetDTO>> getProjetsByUtilisateur(int id) {
+		List<ProjetDTO> projetsDTO = new ArrayList<>();
+		Optional<Utilisateur> utilisateurChoisi = utilisateurRepository.findById(id);
+
+		if (utilisateurChoisi.isPresent()) {
+		
+		List<Composition> compositions = utilisateurChoisi.get().getListCompositions();
+		
+		for (Composition composition : compositions) {
+			List<ProjetDTO> projetsDTOByCompo = getProjetsByComposition(composition.getIdComposition());
+		
+			for (ProjetDTO projetDTO : projetsDTOByCompo ) {
+
+				// Pour pouvoir utiliser la méthode contains, il faut redéfinir la méthode equals (si deux projets ont le même id, ils sont identiques)
+				if (!projetsDTO.contains(projetDTO)) {
+				projetsDTO.add(projetDTO);
+				}	
+			}			
+		}	
+		return ResponseEntity.ok(projetsDTO);	
+	} else {
+		return ResponseEntity.notFound().build();
+	}
+		
 	}
 
 	public ResponseEntity<List<SuiviProjetDTO>> getSuiviProjets() {
@@ -237,6 +347,114 @@ public class ProjetService {
 
 		return response;
 
+    }
+
+	public ResponseEntity<ProjetDTO> createProjet(ProjetDTO projetDTO){
+		Projet projetACreer = new Projet();
+
+		Client client = clientRepository.findByNom(projetDTO.getNomClient()).iterator().next();
+		Etat etat = etatRepository.findByLibelle(projetDTO.getLibelleEtat()).get();
+		TypeDefaut typeDefaut = typeDefautRepository.findByLibelle(projetDTO.getLibelleTypeDefaut()).get();
+		TypeProjet typeProjet = typeProjetRepository.findByLibelle(projetDTO.getLibelleTypeProjet()).get();
+
+		projetACreer.setNomProjet(projetDTO.getNomProjet());
+		projetACreer.setJira(projetDTO.getJira());
+		projetACreer.setTechno(projetDTO.getTechno());
+		projetACreer.setService(projetDTO.getService());
+		projetACreer.setDateDemande(projetDTO.getDateDemande());
+		projetACreer.setLivraisonSouhaitee(projetDTO.getLivraisonSouhaitee());
+		projetACreer.setLivraisonRevisee(projetDTO.getLivraisonRevisee());
+		projetACreer.setAffectationCDS(projetDTO.getAffectationCDS());
+		projetACreer.setPriseEnCompteCDS(projetDTO.getPriseEnCompteCDS());
+		projetACreer.setDateEstimation(projetDTO.getDateEstimation());
+		projetACreer.setDevisEstimation(projetDTO.getDevisEstimation());
+		projetACreer.setDontGarantie(projetDTO.getDontGarantie());
+		projetACreer.setDateFeuVert(projetDTO.getDateFeuVert());
+		projetACreer.setDateLivraison(projetDTO.getDateLivraison());
+		projetACreer.setMCO(projetDTO.isMCO());
+		projetACreer.setDatePassageMCO(projetDTO.getDatePassageMCO());
+		projetACreer.setDateSortieMCO(projetDTO.getDateSortieMCO());
+		projetACreer.setCommentaires(projetDTO.getCommentaires());
+		projetACreer.setClient(client);
+		projetACreer.setEtat(etat);
+		projetACreer.setTypeDefaut(typeDefaut);
+		projetACreer.setTypeProjet(typeProjet);
+
+		List<List<String>> compositionsString = projetDTO.getListCompositions();
+		List<Composition> compositions = new ArrayList<>();
+
+		for (List<String> compositionString : compositionsString) {
+			Composition composition = compositionRepository.findById(Integer.parseInt(compositionString.get(0))).get();
+			List<Projet> projets = composition.getListProjets();
+			projets.add(projetACreer);
+			compositions.add(composition);
+		}
+
+
+		projetACreer.setListCompositions(compositions);
+		
+		Projet projetSauvegarde = projetRepository.save(projetACreer);
+
+		ProjetDTO projetSauvegardeDTO = mapProjetToDTO(projetSauvegarde);
+
+		return ResponseEntity.ok(projetSauvegardeDTO);
+	}
+
+	public ResponseEntity<ProjetDTO> updateProjet(ProjetDTO projetDTO, int id){
+		Projet projetAModifier = projetRepository.findById(id).get();
+
+		Client client = clientRepository.findByNom(projetDTO.getNomClient()).iterator().next();
+		Etat etat = etatRepository.findByLibelle(projetDTO.getLibelleEtat()).get();
+		TypeDefaut typeDefaut = typeDefautRepository.findByLibelle(projetDTO.getLibelleTypeDefaut()).get();
+		TypeProjet typeProjet = typeProjetRepository.findByLibelle(projetDTO.getLibelleTypeProjet()).get();
+
+		//Projet projetAModifierOld = projetAModifier;
+
+		projetAModifier.setNomProjet(projetDTO.getNomProjet());
+		projetAModifier.setJira(projetDTO.getJira());
+		projetAModifier.setTechno(projetDTO.getTechno());
+		projetAModifier.setService(projetDTO.getService());
+		projetAModifier.setDateDemande(projetDTO.getDateDemande());
+		projetAModifier.setLivraisonSouhaitee(projetDTO.getLivraisonSouhaitee());
+		projetAModifier.setLivraisonRevisee(projetDTO.getLivraisonRevisee());
+		projetAModifier.setAffectationCDS(projetDTO.getAffectationCDS());
+		projetAModifier.setPriseEnCompteCDS(projetDTO.getPriseEnCompteCDS());
+		projetAModifier.setDateEstimation(projetDTO.getDateEstimation());
+		projetAModifier.setDevisEstimation(projetDTO.getDevisEstimation());
+		projetAModifier.setDontGarantie(projetDTO.getDontGarantie());
+		projetAModifier.setDateFeuVert(projetDTO.getDateFeuVert());
+		projetAModifier.setDateLivraison(projetDTO.getDateLivraison());
+		projetAModifier.setMCO(projetDTO.isMCO());
+		projetAModifier.setDatePassageMCO(projetDTO.getDatePassageMCO());
+		projetAModifier.setDateSortieMCO(projetDTO.getDateSortieMCO());
+		projetAModifier.setCommentaires(projetDTO.getCommentaires());
+		projetAModifier.setClient(client);
+		projetAModifier.setEtat(etat);
+		projetAModifier.setTypeDefaut(typeDefaut);
+		projetAModifier.setTypeProjet(typeProjet);
+
+		/*List<List<String>> compositionsString = projetDTO.getListCompositions();
+		List<Composition> compositions = new ArrayList<>();
+
+		for (List<String> compositionString : compositionsString) {
+			Composition composition = compositionRepository.findById(Integer.parseInt(compositionString.get(0))).get();
+			List<Projet> projets = composition.getListProjets();
+			projets.set(projets.indexOf(projetAModifierOld), projetAModifier);
+			compositions.add(composition);
+		}
+
+		projetAModifier.setListCompositions(compositions);*/
+		
+		//projetRepository.save(projetAModifier);
+
+		ProjetDTO projetSauvegardeDTO = mapProjetToDTO(projetAModifier);
+
+		return ResponseEntity.ok(projetSauvegardeDTO);
+	}
+
+    public ResponseEntity<ProjetDTO> deleteProjet(int id) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'deleteProjet'");
     }
 	
 }

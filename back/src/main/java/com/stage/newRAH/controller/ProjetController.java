@@ -5,14 +5,17 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.stage.newRAH.dto.ProjetDTO;
 import com.stage.newRAH.dto.SuiviProjetDTO;
 import com.stage.newRAH.service.ProjetService;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PutMapping;
 
 
 @RestController
@@ -25,6 +28,32 @@ public class ProjetController {
 	@GetMapping("/projets")
 	public ResponseEntity<List<ProjetDTO>> getProjets() {
 		return projetService.getProjets();
+	}
+
+	@GetMapping("/projetById/{id}")
+	public ResponseEntity<ProjetDTO> getProjets(@PathVariable int id) {
+		return projetService.getProjetById(id);
+	}
+
+	@GetMapping("/projetByNom/{nom}")
+	public ResponseEntity<ProjetDTO> getProjetByNom(@PathVariable String nom) {
+		return projetService.getProjetByNom(nom);
+	}
+	
+	@GetMapping("/projetsByComposition/{id}")
+	public List<ProjetDTO> getProjetsByComposition(@PathVariable int id) {
+		return projetService.getProjetsByComposition(id);
+		
+	}
+	
+	@GetMapping("/projetsByEquipe/{id}")
+	public ResponseEntity<List<ProjetDTO>> getProjetsByEquipe(@PathVariable int id) {
+		return projetService.getProjetsByEquipe(id);
+	}
+	
+	@GetMapping("/projetsByUtilisateur/{id}")
+	public ResponseEntity<List<ProjetDTO>> getProjetsByUtilisateur(@PathVariable int id) {
+		return projetService.getProjetsByUtilisateur(id);
 	}
 
 	@GetMapping("/suiviProjets")
@@ -56,6 +85,20 @@ public class ProjetController {
 	public ResponseEntity<List<SuiviProjetDTO>> getMethodName(@PathVariable String nomClient) {
 		return projetService.getSuiviProjetsTerminesByClient(nomClient);
 	}
+
+	@PostMapping("/createProjet")
+	public ResponseEntity<ProjetDTO> createProjet(@RequestBody ProjetDTO projetDTO) {
+		return projetService.createProjet(projetDTO);
+	}
+
+	@PutMapping("/updateProjet/{id}")
+	public ResponseEntity<ProjetDTO> updateProjet(@RequestBody ProjetDTO projetDTO, @PathVariable int id) {
+		return projetService.updateProjet(projetDTO, id);
+	}
 	
+	@DeleteMapping("/deleteProjet/{id}")
+	public ResponseEntity<ProjetDTO> deleteProjet(@PathVariable int id){
+		return projetService.deleteProjet(id);
+	}
 	
 }

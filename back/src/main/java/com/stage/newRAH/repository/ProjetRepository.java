@@ -1,6 +1,7 @@
 package com.stage.newRAH.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -11,6 +12,9 @@ import com.stage.newRAH.model.SuiviProjet;
 
 @Repository
 public interface ProjetRepository extends CrudRepository<Projet, Integer> {
+
+    @Query("SELECT p FROM Projet p WHERE p.nomProjet=:nom")
+    public Optional<Projet> findByNom(@Param(value = "nom") String nom);
 
     /*
      * Pour permettre l'opération de projection JPA en JPQL, on définit une

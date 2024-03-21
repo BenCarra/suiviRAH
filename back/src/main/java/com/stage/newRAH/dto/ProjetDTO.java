@@ -1,6 +1,7 @@
 package com.stage.newRAH.dto;
 
 import java.sql.Date;
+import java.util.List;
 
 import lombok.Data;
 
@@ -30,6 +31,7 @@ public class ProjetDTO {
 	private String libelleEtat;
 	private String libelleTypeDefaut;
 	private String libelleTypeProjet;
+	private List<List<String>> listCompositions;
 	
 	public ProjetDTO() {
 	}
