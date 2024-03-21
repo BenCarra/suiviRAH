@@ -45,6 +45,18 @@ public class RDSService {
         }
     }
 
+    public ResponseEntity<RDSDTO> getRDSById(int id) {
+      Optional<RDS> rdsChoisi = rdsRepository.findById(id);
+
+      if (rdsChoisi.isPresent()) {
+        RDSDTO rdsChoisiDTO = this.mapRDStoDTO(rdsChoisi.get());
+        return ResponseEntity.ok(rdsChoisiDTO); 
+      } else {
+        return ResponseEntity.notFound().build();
+      }
+    }
+
+
     public ResponseEntity<List<RDSDTO>> getRDSByNom(String nom){
         Iterable<RDS> rds = rdsRepository.findByNom(nom);
 

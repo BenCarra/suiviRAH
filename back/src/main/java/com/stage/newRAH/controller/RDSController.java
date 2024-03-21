@@ -27,6 +27,11 @@ public class RDSController {
         return rdsService.getRDS();
     }
 
+    @GetMapping("/rdsById/{id}")
+    public ResponseEntity<RDSDTO> getRDSById(@PathVariable int id){
+        return rdsService.getRDSById(id);
+    }
+
     @GetMapping("/rdsByNom/{nom}")
     public ResponseEntity<List<RDSDTO>> getRDSByNom(@PathVariable String nom){
         return rdsService.getRDSByNom(nom);
