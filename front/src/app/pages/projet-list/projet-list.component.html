@@ -1,0 +1,196 @@
+<div class="liste">
+    <h3>
+        @if (routerURL == "/projets") {
+        LISTE DES PROJETS
+        }
+        @else if (routerURL == "/accueil") {
+        <a routerLink="/utilisateurs">LISTE DES PROJETS</a>
+        }
+    </h3>
+    @if (routerURL == "/projets") {
+    <form class="filtrage" [formGroup]="formFiltrage">
+        <select title="filtrage-demande" class="filtrage-demande" formControlName="filtrageDemande"
+            (change)="updateFiltrage()">
+            <option disabled [selected]="formFiltrage.value.filtrageDemande == ''">-- Sélectionner un filtre --</option>
+            <option value="Par nom de projet">Rechercher par nom de projet</option>
+            <option value="Par composition">Rechercher par composition</option>
+            <option value="Par équipe">Rechercher par équipe</option>
+            <option value="Par utilisateur">Rechercher par utilisateur</option>
+        </select>
+        @if (formFiltrage.get("filtrageDemande")?.getRawValue() == "Par nom de projet") {
+        <select title="noms-projet" id="noms-projet" autocomplete formControlName="projetRecherche">
+            <option disabled [selected]="formFiltrage.value.filtrageDemande == 'Par nom de projet'">-- Sélectionner
+                un nom de projet --</option>
+            @for (nomProjet of listNomsProjet; track $index) {
+            <option [value]="nomProjet">{{ nomProjet }}</option>
+            }
+        </select>
+        } @else if (formFiltrage.get("filtrageDemande")?.getRawValue() == "Par composition") {
+        <select title="compositions" id="compositions" autocomplete formControlName="projetRecherche">
+            @for (composition of listCompositions; track $index) {
+            <option [value]="composition[0]">{{ composition[1] }}, {{ composition[2] }}</option>
+            }
+        </select>
+        } @else if (formFiltrage.get("filtrageDemande")?.getRawValue() == "Par équipe") {
+        <select title="equipes" id="equipes" autocomplete formControlName="projetRecherche">
+            @for (equipe of listEquipes; track $index) {
+            <option [value]="equipe">{{ equipe }}</option>
+            }
+        </select>
+        } @else if (formFiltrage.get("filtrageDemande")?.getRawValue() == "Par utilisateur") {
+        <select title="utilisateurs" id="utilisateurs" autocomplete formControlName="projetRecherche">
+            @for (utilisateur of listUtilisateurs; track $index) {
+            <option [value]="utilisateur">{{ utilisateur }}</option>
+            }
+        </select>
+        }
+        <input type="submit" id="btn-soumission" formControlName="boutonSoumission" (click)="onSearch()">
+        <input type="reset" id="btn-reset" (click)="onReset()" formControlName="boutonReset">
+    </form>
+    }
+
+    <!-- TODO: Faire en sorte d'avoir les 10 derniers projets ajoutés sur la page d'accueil -->
+    <div class="table">
+        <table border="2">
+            @if (routerURL == "/projets") {
+            <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Client</th>
+                    <th>Jira</th>
+                    <th>Type de projet</th>
+                    <th>Type de défaut </th>
+                    <th>Technologie</th>
+                    <th>Nom RDS</th>
+                    <th>Direction RDS</th>
+                    <th>Service RDS</th>
+                    <th>Date demande</th>
+                    <th>Livraison souhaitée</th>
+                    <th>Livraison révisée</th>
+                    <th>Affectation CDS</th>
+                    <th>Prise en compte CDS</th>
+                    <th>Date Estimation</th>
+                    <th>Devis Estimation</th>
+                    <th>Dont Garantie</th>
+                    <th>Date Feu Vert</th>
+                    <th>Date Livraison</th>
+                    <th>MCO</th>
+                    <th>Date passage MCO</th>
+                    <th>Date sortie MCO</th>
+                    <th>Etat</th>
+                    <th>Commentaires</th>
+                    <th>Tâches associées</th>
+                    <th>Compositions associées</th>
+                    <th>Equipes associées</th>
+                    <th>Utilisateurs associés</th>
+                    <th>Modifier</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (projet of listProjets; track $index) {
+                <tr title="{{ projet.idProjet }}">
+                    <td>{{ projet.nomProjet}}</td>
+                    <td>{{ projet.nomClient}}</td>
+                    <td>{{ projet.jira}}</td>
+                    <td>{{ projet.libelleTypeProjet}}</td>
+                    <td>{{ projet.libelleTypeDefaut}}</td>
+                    <td>{{ projet.techno}}</td>
+                    @if (projet.rds) {
+                        <td>{{ projet.rds[1] }}</td>
+                        <td>{{ projet.rds[2] }}</td>
+                        <td>{{ projet.rds[3] }}</td>
+                    } @else {
+                        <td>/</td>
+                        <td>/</td>
+                        <td>/</td>
+                    }
+                    <td>{{ projet.dateDemande}}</td>
+                    <td>{{ projet.livraisonSouhaitee}}</td>
+                    <td>{{ projet.livraisonRevisee}}</td>
+                    <td>{{ projet.affectationCDS}}</td>
+                    <td>{{ projet.priseEnCompteCDS}}</td>
+                    <td>{{ projet.dateEstimation}}</td>
+                    <td>{{ projet.devisEstimation}}</td>
+                    <td>{{ projet.dontGarantie}}</td>
+                    <td>{{ projet.dateFeuVert}}</td>
+                    <td>{{ projet.dateLivraison}}</td>
+                    <td>{{ projet.mco}}</td>
+                    <td>{{ projet.datePassageMCO}}</td>
+                    <td>{{ projet.dateSortieMCO}}</td>
+                    <td>{{ projet.libelleEtat}}</td>
+                    <td>{{ projet.commentaires}}</td>
+                    <td>
+                        @for (tache of projet.listTaches; track $index){
+                        <ul>
+                            <li>Tâche n°{{ tache[0] }}</li>
+                            <li>{{ tache[1] }}</li>
+                        </ul>
+                        <br>
+                        }
+                    </td>
+                    <td>
+                        @for (composition of projet.listCompositions; track $index){
+                        <ul>
+                            <li>Composition n°{{ composition[0] }} : Equipe n°{{ composition[1] }}, Utilisateur n°{{ composition[2] }}</li>
+                        </ul>
+                        <br>
+                        }
+                    </td>
+                    <td>
+                        @if ((projet.listCompositions) && (projet.listCompositions.length != 0)) {
+                        @for (equipe of listEquipes; track $index){
+
+                        @for (composition of projet.listCompositions; track $index) {
+                        @if (composition[1] == equipe.split("|")[1]) {
+                        <ul>
+                            <li>{{ equipe }}</li>
+                        </ul>
+                        <br>
+                        }
+                        }
+                        }
+                        }
+                    </td>
+                    <td>
+                        @if ((projet.listCompositions) && (projet.listCompositions.length != 0)) {
+                        @for (utilisateur of listUtilisateurs; track $index){
+                        @for (composition of projet.listCompositions; track $index) {
+                        @if (composition[2] == utilisateur.split("|")[1]) {
+                        <ul>
+                            <li>{{ utilisateur }}</li>
+                        </ul>
+                        <br>
+                        }
+                        }
+                        }
+                        }
+                    </td>
+                    <td><button type="button" routerLink="/projets/update/"
+                            [queryParams]="{ id: projet.idProjet}">Modifier</button></td>
+                </tr>
+                }
+            </tbody>
+            } @else if (routerURL == "/accueil") {
+            <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Client</th>
+                    <th>Jira</th>
+                    <th>Type de projet</th>
+                    <th>Type de défaut </th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (projet of listProjets; track $index) {
+                <tr title="{{ projet.idProjet }}">
+                    <td>{{ projet.nomProjet}}</td>
+                    <td>{{ projet.nomClient}}</td>
+                    <td>{{ projet.jira}}</td>
+                    <td>{{ projet.libelleTypeProjet}}</td>
+                    <td>{{ projet.libelleTypeDefaut}}</td>
+                    }
+            </tbody>
+            }
+        </table>
+    </div>
+</div>

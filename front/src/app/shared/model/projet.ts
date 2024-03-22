@@ -1,3 +1,5 @@
+import { RDS } from "./rds";
+
 export class Projet {
     idProjet!: number;
     nomProjet!: string;
@@ -22,4 +24,7 @@ export class Projet {
     dateSortieMCO!: Date;
     libelleEtat!: string;
     commentaires!: string;
+    rds!: string[];
+    listTaches!: string[][];
+    listCompositions!: number[][];
 }

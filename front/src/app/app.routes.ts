@@ -29,7 +29,10 @@ import { PageSuivisProjetComponent } from './pages/page-suivis-projet/page-suivi
 import { PageRDSComponent } from './pages/page-rds/page-rds.component';
 import { FormCreateRdsComponent } from './pages/forms/form-create-rds/form-create-rds.component';
 import { FormUpdateRdsComponent } from './pages/forms/form-update-rds/form-update-rds.component';
-/*import { ListProjetsComponent } from './pages/list-projets/list-projets.component';*/
+import { ProjetListComponent } from './pages/projet-list/projet-list.component';
+import { FormCreateProjetComponent } from './pages/forms/form-create-projet/form-create-projet.component';
+import { FormUpdateProjetComponent } from './pages/forms/form-update-projet/form-update-projet.component';
+import { PageProjetsComponent } from './pages/page-projets/page-projets.component';
 /*import { ListTachesComponent } from './pages/list-taches/list-taches.component';
 import { FormCreateTacheComponent } from './pages/forms/form-create-tache/form-create-tache.component';
 import { FormUpdateTacheComponent } from './pages/forms/form-update-tache/form-update-tache.component';*/
@@ -49,9 +52,9 @@ export const routes: Routes = [
 { path: 'equipes', component: PageEquipesComponent },
 { path: 'equipes/create', component: FormCreateEquipeComponent },
 { path: 'equipes/update', component: FormUpdateEquipeComponent },
-/*{ path: 'projets', component: ListProjetsComponent },
-{path: 'projets/create, component: FormCreateProjetComponent},
-{path: 'projets/update, component: FormUpdateProjetComponent},*/
+{ path: 'projets', component: PageProjetsComponent },
+{ path: 'projets/create', component: FormCreateProjetComponent},
+{ path: 'projets/update', component: FormUpdateProjetComponent},
 { path: 'rds', component: PageRDSComponent},
 { path: 'rds/create', component: FormCreateRdsComponent},
 { path: 'rds/update', component: FormUpdateRdsComponent},

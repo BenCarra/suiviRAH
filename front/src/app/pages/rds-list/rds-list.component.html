@@ -27,6 +27,7 @@
                     <th>Nom</th>
                     <th>Direction</th>
                     <th>Service</th>
+                    <th>Projets associés</th>
                     <th>Modifier</th>
                 </tr>
             </thead>
@@ -36,6 +37,14 @@
                     <td>{{ rds.nom }}</td>
                     <td>{{ rds.direction }}</td>
                     <td>{{ rds.service }}</td>
+                    <td>
+                        @for (projet of rds.listProjets; track $index){
+                        <ul>
+                            <li>Projet n°{{ projet[0] }} : {{ projet[1] }}</li>
+                        </ul>
+                        <br>
+                        }
+                    </td>
                     <td><button type="button" routerLink="/rds/update"
                             [queryParams]="{ id: rds.idRDS }">Modifier</button></td>
                 </tr>

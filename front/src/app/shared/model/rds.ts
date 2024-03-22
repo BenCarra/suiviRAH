@@ -3,4 +3,5 @@ export class RDS {
     nom!: string;
     direction!: string;
     service!: string;
+    listProjets!: string[][];
 }

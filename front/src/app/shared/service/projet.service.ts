@@ -20,6 +20,26 @@ export class ProjetService {
     return this.http.get<Projet[]>(this.url + "/projets");
   }
 
+  public getProjetById(id: number): Observable<Projet> {
+    return this.http.get<Projet>(this.url + "/projetByid/" + id);
+  }
+
+  public getProjetByNom(nom: string): Observable<Projet> {
+    return this.http.get<Projet>(this.url + "/projetByNom/" + nom);
+  }
+
+  public getProjetsByComposition(idComposition: number): Observable<Projet[]> {
+    return this.http.get<Projet[]>(this.url + "/projetsByComposition/" + idComposition);
+  }
+
+  public getProjetsByEquipe(idEquipe: number): Observable<Projet[]> {
+    return this.http.get<Projet[]>(this.url + "/projetsByEquipe/" + idEquipe);
+  }
+
+  public getProjetsByUtilisateur(idUtilisateur: number): Observable<Projet[]> {
+    return this.http.get<Projet[]>(this.url + "/projetsByUtilisateur/" + idUtilisateur);
+  }
+
   // Récupère de l'API le suivi des projets
   public getSuiviProjets(): Observable<SuiviProjet[]> {
     return this.http.get<SuiviProjet[]>(this.url + "/suiviProjets");
@@ -46,6 +66,16 @@ export class ProjetService {
     return this.http.get<SuiviProjet[]>(this.url + "/suiviProjetsTerminesByClient/" + nomClient);
   }
 
-  
+  public create(projet: Projet){
+    return this.http.post<Projet>(this.url + "/createProjet", projet);
+  }
+
+  public update(projet: Projet){
+    return this.http.put<Projet>(this.url + "/updateProjet/" + projet.idProjet, projet);
+  }
+
+  public delete(id: number){
+    return this.http.delete<Projet>(this.url + "/deleteProjet/" + id);
+  }
 
 }
