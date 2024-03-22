@@ -15,11 +15,10 @@ public class TypeTacheDTO {
 
 	}
 
-	public TypeTacheDTO(int idTypeTache, String libelle, List<List<String>> listTaches) {
+	public TypeTacheDTO(int idTypeTache, String libelle) {
 
 		this.idTypeTache = idTypeTache;
 		this.libelle = libelle;
-		this.listTaches = listTaches;
 	}
 
 }

@@ -15,10 +15,9 @@ public class TypeProjetDTO {
 		
 	}
 
-	public TypeProjetDTO(int idTypeProjet, String libelle, List<List<String>> listProjets) {
+	public TypeProjetDTO(int idTypeProjet, String libelle) {
 		this.idTypeProjet = idTypeProjet;
 		this.libelle = libelle;
-		this.listProjets = listProjets;
 	}
 
 }

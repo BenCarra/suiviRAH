@@ -12,7 +12,6 @@ public class ProjetDTO {
 	private String nomProjet;
 	private String jira;
 	private String techno;
-	private String service;
 	private Date dateDemande;
 	private Date livraisonSouhaitee;
 	private Date livraisonRevisee;
@@ -31,17 +30,18 @@ public class ProjetDTO {
 	private String libelleEtat;
 	private String libelleTypeDefaut;
 	private String libelleTypeProjet;
-	private List<List<String>> listCompositions;
+	private List<String> rds;
+	private List<List<Integer>> listCompositions;
+	private List<List<String>> listTaches;
 	
 	public ProjetDTO() {
 	}
 
-	public ProjetDTO(int idProjet, String nomProjet, String jira, String techno, String service, Date dateDemande, Date livraisonSouhaitee, Date livraisonRevisee, Date affectationCDS, Date priseEnCompteCDS, Date dateEstimation, double devisEstimation, double dontGarantie, Date dateFeuVert, Date dateLivraison, boolean MCO, Date datePassageMCO, Date dateSortieMCO, String commentaires, String nomClient, String libelleEtat, String libelleTypeDefaut, String libelleTypeProjet) {
+	public ProjetDTO(int idProjet, String nomProjet, String jira, String techno, Date dateDemande, Date livraisonSouhaitee, Date livraisonRevisee, Date affectationCDS, Date priseEnCompteCDS, Date dateEstimation, double devisEstimation, double dontGarantie, Date dateFeuVert, Date dateLivraison, boolean MCO, Date datePassageMCO, Date dateSortieMCO, String commentaires, String nomClient, String libelleEtat, String libelleTypeDefaut, String libelleTypeProjet) {
 		this.idProjet = idProjet;
 		this.nomProjet = nomProjet;
 		this.jira = jira;
 		this.techno = techno;
-		this.service = service;
 		this.dateDemande = dateDemande;
 		this.livraisonSouhaitee = livraisonSouhaitee;
 		this.livraisonRevisee = livraisonRevisee;

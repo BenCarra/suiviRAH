@@ -15,10 +15,9 @@ public class TypeDefautDTO {
 		
 	}
 
-	public TypeDefautDTO(int idTypeDefaut, String libelle, List<List<String>> listProjets) {
+	public TypeDefautDTO(int idTypeDefaut, String libelle) {
 		this.idTypeDefaut = idTypeDefaut;
 		this.libelle = libelle;
-		this.listProjets = listProjets;
 	}
 	
 }

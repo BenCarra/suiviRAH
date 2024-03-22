@@ -27,8 +27,7 @@ public class UtilisateurDTO {
 	}
 
 	public UtilisateurDTO(int idUtilisateur, String nomUtilisateur, String prenomUtilisateur, Date dateNaissance,
-			String login, String mail, boolean actif, String nomSite, String libelleTypeUtilisateur,
-			List<List<String>> listTaches, List<List<String>> listEquipes, List<List<String>> listCompositions) {
+			String login, String mail, boolean actif, String nomSite, String libelleTypeUtilisateur) {
 		this.idUtilisateur = idUtilisateur;
 		this.nomUtilisateur = nomUtilisateur;
 		this.prenomUtilisateur = prenomUtilisateur;
@@ -38,9 +37,6 @@ public class UtilisateurDTO {
 		this.actif = actif;
 		this.nomSite = nomSite;
 		this.libelleTypeUtilisateur = libelleTypeUtilisateur;
-		this.listTaches = listTaches;
-		this.listEquipes = listEquipes;
-		this.listCompositions = listCompositions;
 	}
 	
 }	

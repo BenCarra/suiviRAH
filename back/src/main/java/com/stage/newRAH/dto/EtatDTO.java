@@ -16,10 +16,9 @@ public class EtatDTO {
 		
 	}
 
-	public EtatDTO(int idEtat, String libelle, List<List<String>> listProjets) {
+	public EtatDTO(int idEtat, String libelle) {
 		this.idEtat = idEtat;
 		this.libelle = libelle;
-		this.listProjets = listProjets;
 	}
 
 }

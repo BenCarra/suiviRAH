@@ -15,11 +15,10 @@ public class TypeUtilisateurDTO {
 
 	}
 
-	public TypeUtilisateurDTO(int idTypeUtilisateur, String libelle, List<List<String>> listUtilisateurs) {
+	public TypeUtilisateurDTO(int idTypeUtilisateur, String libelle) {
 
 		this.idTypeUtilisateur = idTypeUtilisateur;
 		this.libelle = libelle;
-		this.listUtilisateurs = listUtilisateurs;
 	}
 	
 }

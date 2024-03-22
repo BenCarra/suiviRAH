@@ -69,8 +69,7 @@ public class Utilisateur {
 	}
 
 	public Utilisateur(int idUtilisateur, String nomUtilisateur, String prenomUtilisateur, Date dateNaissance,
-            String login, String mail, Site site, boolean actif, TypeUtilisateur typeUtilisateur,
-            List<Tache> listTaches, List<Equipe> listEquipes, List<Composition> listCompositions) {
+            String login, String mail, Site site, boolean actif, TypeUtilisateur typeUtilisateur) {
         this.idUtilisateur = idUtilisateur;
         this.nomUtilisateur = nomUtilisateur;
         this.prenomUtilisateur = prenomUtilisateur;
@@ -80,9 +79,6 @@ public class Utilisateur {
         this.site = site;
         this.actif = actif;
         this.typeUtilisateur = typeUtilisateur;
-        this.listTaches = listTaches;
-        this.listEquipes = listEquipes;
-        this.listCompositions = listCompositions;
     }
 
 

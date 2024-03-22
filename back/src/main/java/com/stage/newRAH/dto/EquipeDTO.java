@@ -16,12 +16,9 @@ public class EquipeDTO {
 
 	}
 
-	public EquipeDTO(int idEquipe, String libelle, List<List<String>> listUtilisateurs,
-			List<List<String>> listCompositions) {
+	public EquipeDTO(int idEquipe, String libelle) {
 		this.idEquipe = idEquipe;
 		this.libelle = libelle;
-		this.listUtilisateurs = listUtilisateurs;
-		this.listCompositions = listCompositions;
 	}
 	
 }

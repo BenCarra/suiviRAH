@@ -21,7 +21,7 @@ public class ClientDTO {
 	}
 
 	public ClientDTO(int idClient, String nomClient, String adresseClient, String codePostalClient, String villeClient,
-			boolean actif, boolean modeFonctionnementMCO, List<List<String>> listProjets) {
+			boolean actif, boolean modeFonctionnementMCO) {
 		this.idClient = idClient;
 		this.nomClient = nomClient;
 		this.adresseClient = adresseClient;
@@ -29,7 +29,6 @@ public class ClientDTO {
 		this.villeClient = villeClient;
 		this.actif = actif;
 		this.modeFonctionnementMCO = modeFonctionnementMCO;
-		this.listProjets = listProjets;
 	}
 
 }

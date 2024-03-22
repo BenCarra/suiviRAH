@@ -17,13 +17,12 @@ public class SiteDTO {
 	public SiteDTO() {
 	}
 
-	public SiteDTO(int idSite, String nomSite, String adresseSite, String codePostalSite, String villeSite, List<List<String>> listUtilisateurs) {
+	public SiteDTO(int idSite, String nomSite, String adresseSite, String codePostalSite, String villeSite) {
 		this.idSite = idSite;
 		this.nomSite = nomSite;
 		this.adresseSite = adresseSite;
 		this.codePostalSite = codePostalSite;
 		this.villeSite = villeSite;
-		this.listUtilisateurs = listUtilisateurs;
 	}
 
 }
