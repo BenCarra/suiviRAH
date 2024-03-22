@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.stage.newRAH.dto.RDSDTO;
+import com.stage.newRAH.model.Projet;
 import com.stage.newRAH.model.RDS;
 import com.stage.newRAH.repository.RDSRepository;
 
@@ -25,6 +26,17 @@ public class RDSService {
         rdsDTO.setNom(rds.getNom());
         rdsDTO.setDirection(rds.getDirection());
         rdsDTO.setService(rds.getService());
+
+        if (rds.getListProjets() != null) {
+            List<List<String>> listProjets = new ArrayList<>();
+            for (Projet projet : rds.getListProjets()) {
+                List<String> projetObject = new ArrayList<>();
+                projetObject.add(String.valueOf(projet.getIdProjet()));
+                projetObject.add(projet.getNomProjet());
+                listProjets.add(projetObject);
+            }
+            rdsDTO.setListProjets(listProjets);
+        }
 
         return rdsDTO;
     }

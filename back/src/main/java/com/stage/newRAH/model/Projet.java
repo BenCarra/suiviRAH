@@ -34,8 +34,6 @@ public class Projet {
 	
 	private String techno;
 	
-	private String service;
-	
 	@Column(name="date_demande")
 	private Date dateDemande;
 	
@@ -93,7 +91,11 @@ public class Projet {
 	
 	@ManyToOne
 	@JoinColumn(name="id_etat")
-	private Etat etat;	
+	private Etat etat;
+	
+	@ManyToOne
+	@JoinColumn(name="rds")
+	private RDS rds;
 	
 	@ManyToMany
 	@JoinTable(name="ProjetComposition",
@@ -104,17 +106,16 @@ public class Projet {
 	public Projet() {
 	}
 
-	public Projet(int idProjet, String nomProjet, String jira, String techno, String service, Date dateDemande,
+	public Projet(int idProjet, String nomProjet, String jira, String techno, Date dateDemande,
 			Date livraisonSouhaitee, Date livraisonRevisee, Date affectationCDS, Date priseEnCompteCDS,
 			Date dateEstimation, double devisEstimation, double dontGarantie, Date dateFeuVert, Date dateLivraison,
 			boolean mCO, Date datePassageMCO, Date dateSortieMCO, String commentaires, Client client,
-			TypeProjet typeProjet, TypeDefaut typeDefaut, Etat etat) {
+			TypeProjet typeProjet, TypeDefaut typeDefaut, Etat etat, RDS rds) {
 		super();
 		this.idProjet = idProjet;
 		this.nomProjet = nomProjet;
 		this.jira = jira;
 		this.techno = techno;
-		this.service = service;
 		this.dateDemande = dateDemande;
 		this.livraisonSouhaitee = livraisonSouhaitee;
 		this.livraisonRevisee = livraisonRevisee;
@@ -133,5 +134,6 @@ public class Projet {
 		this.typeProjet = typeProjet;
 		this.typeDefaut = typeDefaut;
 		this.etat = etat;
+		this.rds = rds;
 	}
 }

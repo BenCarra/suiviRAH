@@ -12,12 +12,19 @@ import org.springframework.web.bind.annotation.RestController;
 import com.stage.newRAH.dto.CompositionDTO;
 import com.stage.newRAH.service.CompositionService;
 
+
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
 public class CompositionController {
 	
 	@Autowired
 	private CompositionService compositionService;
+
+	@GetMapping("/compositions")
+	public ResponseEntity<List<CompositionDTO>> getCompositions() {
+		return compositionService.getCompositions();
+	}
+	
 	
 	@GetMapping("/compositionsByEquipe/{id}")
 	public ResponseEntity<List<CompositionDTO>> getCompositionsByEquipe (@PathVariable int id){

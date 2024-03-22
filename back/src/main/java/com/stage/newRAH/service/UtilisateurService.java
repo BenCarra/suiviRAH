@@ -195,21 +195,6 @@ public class UtilisateurService {
 		utilisateurACreer.setSite(site);
 		utilisateurACreer.setTypeUtilisateur(typeUtilisateur);
 
-		/*List<List<String>> tachesString = utilisateurDTO.getListTaches();
-		List<Tache> taches = new ArrayList<>();
-
-
-		for (List<String> tacheString : tachesString) {
-			Tache tache = tacheRepository.findById(Integer.valueOf(tacheString.get(0))).get();
-			List<Utilisateur> utilisateurs = tache.getListUtilisateurs();
-			utilisateurs.add(utilisateurACreer);
-			taches.add(tache);
-		}
-
-		utilisateurACreer.setListTaches(taches);*/
-
-
-
 		utilisateurRepository.save(utilisateurACreer);
 
 		UtilisateurDTO utilisateurACreerDTO = this.mapUtilisateurToDTO(utilisateurACreer);

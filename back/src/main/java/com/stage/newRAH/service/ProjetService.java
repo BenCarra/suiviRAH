@@ -16,7 +16,9 @@ import com.stage.newRAH.model.Composition;
 import com.stage.newRAH.model.Equipe;
 import com.stage.newRAH.model.Etat;
 import com.stage.newRAH.model.Projet;
+import com.stage.newRAH.model.RDS;
 import com.stage.newRAH.model.SuiviProjet;
+import com.stage.newRAH.model.Tache;
 import com.stage.newRAH.model.TypeDefaut;
 import com.stage.newRAH.model.TypeProjet;
 import com.stage.newRAH.model.Utilisateur;
@@ -25,6 +27,7 @@ import com.stage.newRAH.repository.CompositionRepository;
 import com.stage.newRAH.repository.EquipeRepository;
 import com.stage.newRAH.repository.EtatRepository;
 import com.stage.newRAH.repository.ProjetRepository;
+import com.stage.newRAH.repository.RDSRepository;
 import com.stage.newRAH.repository.TypeDefautRepository;
 import com.stage.newRAH.repository.TypeProjetRepository;
 import com.stage.newRAH.repository.UtilisateurRepository;
@@ -56,6 +59,9 @@ public class ProjetService {
 	@Autowired
 	EtatRepository etatRepository;
 
+	@Autowired
+	RDSRepository rdsRepository;
+
 	public ProjetDTO mapProjetToDTO(Projet projet) {
 
 		ProjetDTO projetDTO = new ProjetDTO();
@@ -64,7 +70,6 @@ public class ProjetService {
 		projetDTO.setNomProjet(projet.getNomProjet());
 		projetDTO.setJira(projet.getJira());
 		projetDTO.setTechno(projet.getTechno());
-		projetDTO.setService(projet.getService());
 		projetDTO.setDateDemande(projet.getDateDemande());
 		projetDTO.setLivraisonSouhaitee(projet.getLivraisonSouhaitee());
 		projetDTO.setLivraisonRevisee(projet.getLivraisonRevisee());
@@ -86,19 +91,38 @@ public class ProjetService {
 			projetDTO.setLibelleTypeDefaut(projet.getTypeDefaut().getLibelle());
 		}
 		projetDTO.setLibelleTypeProjet(projet.getTypeProjet().getLibelle());
+		if (projet.getRds() != null) {
+			List<String> rdsObject = new ArrayList<>();
+			rdsObject.add(String.valueOf(projet.getRds().getIdRDS()));
+			rdsObject.add(projet.getRds().getNom());
+			rdsObject.add(projet.getRds().getDirection());
+			rdsObject.add(projet.getRds().getService());
+			projetDTO.setRds(rdsObject);
+		}
+
+		if (projet.getListTaches() != null) {
+			List<List<String>> listTaches = new ArrayList<>();
+			for (Tache tache : projet.getListTaches()) {
+				List<String> tacheObject = new ArrayList<>();
+				tacheObject.add(String.valueOf(tache.getIdTache()));
+				tacheObject.add(tache.getNomTache());
+				listTaches.add(tacheObject);
+			}
+			projetDTO.setListTaches(listTaches);
+		}
 
 		if (projet.getListCompositions() != null) {
-			List<List<String>> listCompositions = new ArrayList<>();
+			List<List<Integer>> listCompositions = new ArrayList<>();
 			for (Composition composition : projet.getListCompositions()) {
-				List<String> compositionObject = new ArrayList<>();
-				compositionObject.add(String.valueOf(composition.getIdComposition()));
-				compositionObject.add(composition.getEquipe().getLibelle());
-				compositionObject.add(composition.getUtilisateur().getPrenomUtilisateur());
-				compositionObject.add(composition.getUtilisateur().getNomUtilisateur());
+				List<Integer> compositionObject = new ArrayList<>();
+				compositionObject.add(composition.getIdComposition());
+				compositionObject.add(composition.getEquipe().getIdEquipe());
+				compositionObject.add(composition.getUtilisateur().getIdUtilisateur());
 				listCompositions.add(compositionObject);
 			}
 			projetDTO.setListCompositions(listCompositions);
 		}
+		
 
 		return projetDTO;
 	}
@@ -244,7 +268,7 @@ public class ProjetService {
 
 				// Pour pouvoir utiliser la méthode contains, il faut redéfinir la méthode equals (si deux projets ont le même id, ils sont identiques)
 				if (!projetsDTO.contains(projetDTO)) {
-				projetsDTO.add(projetDTO);
+					projetsDTO.add(projetDTO);
 				}	
 			}			
 		}
@@ -356,11 +380,11 @@ public class ProjetService {
 		Etat etat = etatRepository.findByLibelle(projetDTO.getLibelleEtat()).get();
 		TypeDefaut typeDefaut = typeDefautRepository.findByLibelle(projetDTO.getLibelleTypeDefaut()).get();
 		TypeProjet typeProjet = typeProjetRepository.findByLibelle(projetDTO.getLibelleTypeProjet()).get();
+		RDS rds = rdsRepository.findById(Integer.parseInt(projetDTO.getRds().get(0))).get();
 
 		projetACreer.setNomProjet(projetDTO.getNomProjet());
 		projetACreer.setJira(projetDTO.getJira());
 		projetACreer.setTechno(projetDTO.getTechno());
-		projetACreer.setService(projetDTO.getService());
 		projetACreer.setDateDemande(projetDTO.getDateDemande());
 		projetACreer.setLivraisonSouhaitee(projetDTO.getLivraisonSouhaitee());
 		projetACreer.setLivraisonRevisee(projetDTO.getLivraisonRevisee());
@@ -379,12 +403,13 @@ public class ProjetService {
 		projetACreer.setEtat(etat);
 		projetACreer.setTypeDefaut(typeDefaut);
 		projetACreer.setTypeProjet(typeProjet);
+		projetACreer.setRds(rds);
 
-		List<List<String>> compositionsString = projetDTO.getListCompositions();
+		List<List<Integer>> compositionsInteger = projetDTO.getListCompositions();
 		List<Composition> compositions = new ArrayList<>();
 
-		for (List<String> compositionString : compositionsString) {
-			Composition composition = compositionRepository.findById(Integer.parseInt(compositionString.get(0))).get();
+		for (List<Integer> compositionInteger : compositionsInteger) {
+			Composition composition = compositionRepository.findById(compositionInteger.get(0)).get();
 			List<Projet> projets = composition.getListProjets();
 			projets.add(projetACreer);
 			compositions.add(composition);
@@ -407,13 +432,13 @@ public class ProjetService {
 		Etat etat = etatRepository.findByLibelle(projetDTO.getLibelleEtat()).get();
 		TypeDefaut typeDefaut = typeDefautRepository.findByLibelle(projetDTO.getLibelleTypeDefaut()).get();
 		TypeProjet typeProjet = typeProjetRepository.findByLibelle(projetDTO.getLibelleTypeProjet()).get();
+		RDS rds = rdsRepository.findById(Integer.parseInt(projetDTO.getRds().get(0))).get();
 
 		//Projet projetAModifierOld = projetAModifier;
 
 		projetAModifier.setNomProjet(projetDTO.getNomProjet());
 		projetAModifier.setJira(projetDTO.getJira());
 		projetAModifier.setTechno(projetDTO.getTechno());
-		projetAModifier.setService(projetDTO.getService());
 		projetAModifier.setDateDemande(projetDTO.getDateDemande());
 		projetAModifier.setLivraisonSouhaitee(projetDTO.getLivraisonSouhaitee());
 		projetAModifier.setLivraisonRevisee(projetDTO.getLivraisonRevisee());
@@ -432,6 +457,7 @@ public class ProjetService {
 		projetAModifier.setEtat(etat);
 		projetAModifier.setTypeDefaut(typeDefaut);
 		projetAModifier.setTypeProjet(typeProjet);
+		projetAModifier.setRds(rds);
 
 		/*List<List<String>> compositionsString = projetDTO.getListCompositions();
 		List<Composition> compositions = new ArrayList<>();
