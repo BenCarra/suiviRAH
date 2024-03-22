@@ -59,7 +59,6 @@ public class UtilisateurController {
 		return utilisateurService.updateUtilisateur(utilisateurDTO, id);
 	}
 
-
 	// Mon code
 	// @GetMapping("/utilisateur/{id}")
 	// public ResponseEntity<UtilisateurDTO> getUtilisateurById(@PathVariable int id) {

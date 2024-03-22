@@ -1,0 +1,129 @@
+<h1>Création d'un utilisateur</h1>
+
+<form [formGroup]="formCreate">
+  <mat-card class="card">
+    <mat-card-content>
+      <div class="row">
+        <div class="col">
+          <mat-form-field appearance="outline">
+            <mat-label>Login :</mat-label>
+            <input title="login" matInput formControlName="login">
+            @if (formCreate.controls['login'].hasError('required')) {
+            <mat-error>Login <strong>requis</strong></mat-error>
+            }
+          </mat-form-field>
+        </div>
+        <div class="col">
+            <mat-form-field appearance="outline">
+              <mat-label>Password :</mat-label>
+              <input title="password" matInput formControlName="password">
+              @if (formCreate.controls['password'].hasError('required')) {
+              <mat-error>Password <strong>requis</strong></mat-error>
+              }
+            </mat-form-field>
+          </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col">
+          <mat-form-field appearance="outline">
+            <mat-label>Prénom : </mat-label>
+            <input title="prénom" matInput formControlName="prénom">
+            @if (formCreate.controls['prénom'].hasError('required')) {
+            <mat-error>Prénom <strong>requis</strong></mat-error>
+            }
+          </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-form-field appearance="outline">
+            <mat-label>Nom :</mat-label>
+            <input title="nom" matInput formControlName="nom">
+            @if (formCreate.controls['nom'].hasError('required')) {
+            <mat-error>Nom <strong>requis</strong></mat-error>
+            }
+          </mat-form-field>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col">
+          <mat-form-field appearance="outline">
+            <mat-label>Date de naissance :</mat-label>
+            <input title="dateNaissance" matInput [matDatepicker]="picker" formControlName="dateNaissance">
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+            @if (formCreate.controls['dateNaissance'].hasError('required')) {
+            <mat-error>Date de naissance <strong>requise</strong></mat-error>
+            }
+          </mat-form-field>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col">
+          <mat-form-field appearance="outline">
+            <mat-label>Mail :</mat-label>
+            <input title="mail" matInput formControlName="mail">
+            @if (formCreate.controls['mail'].hasError('required')) {
+            <mat-error>Mail <strong>requis</strong></mat-error>
+            } @else if (formCreate.controls['mail'].hasError('email')) {
+            <mat-error>Mail <strong>mal formé</strong></mat-error>
+            }
+          </mat-form-field>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col">
+          <mat-form-field appearance="outline">
+            <mat-label>Site :</mat-label>
+            <mat-select formControlName="site">
+              @for (site of sites; track $index) {
+                <mat-option [value]="site.nomSite">{{ site.nomSite }}</mat-option>
+              }
+            </mat-select>
+            @if (formCreate.controls['site'].hasError('required')) {
+            <mat-error>Site <strong>requis</strong></mat-error>
+            }
+          </mat-form-field>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col">
+          <mat-form-field appearance="outline">
+            <mat-label>Type utilisateur :</mat-label>
+            <mat-select formControlName="typeUtilisateur">
+              @for (typeUtilisateur of typesUtilisateur; track $index) {
+                <mat-option [value]="typeUtilisateur.libelle" >{{ typeUtilisateur.libelle }}</mat-option>
+              }
+            </mat-select>
+            @if (formCreate.controls['typeUtilisateur'].hasError('required')) {
+            <mat-error>Type utilisateur <strong>requis</strong></mat-error>
+            }
+          </mat-form-field>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col">
+          <mat-label>Actif ? :</mat-label>
+          <br>
+          <mat-radio-group formControlName="actif">
+            <mat-radio-button value="true">Oui</mat-radio-button>
+            <mat-radio-button value="false">Non</mat-radio-button>
+          </mat-radio-group>
+          @if (formCreate.controls['actif'].hasError('required')) {
+          <mat-error>Actif <strong>requis</strong></mat-error>
+          }
+        </div>
+      </div>
+      <br>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button type="submit" (click)="onSubmit()">Envoyer</button>
+      <button mat-raised-button type="reset">Réinitialiser</button>
+      <button mat-raised-button type="button" (click)="onClose()">Retour</button>
+    </mat-card-actions>
+  </mat-card>
+</form>

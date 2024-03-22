@@ -5,6 +5,7 @@ import { ListProjetsComponent } from './pages/list-projets/list-projets.componen
 import { ListTachesComponent } from './pages/list-taches/list-taches.component';
 import { FormCreateTacheComponent } from './pages/forms/form-create-tache/form-create-tache.component';
 import { FormUpdateTacheComponent } from './pages/forms/form-update-tache/form-update-tache.component';
+import { FormCreateUtilisateurComponent } from './pages/forms/form-create-utilisateur/form-create-utilisateur.component';
 
 export const routes: Routes = [
     {path:'', component: ConnexionComponent},
@@ -12,5 +13,6 @@ export const routes: Routes = [
     {path:'listProjets', component: ListProjetsComponent},
     {path:'listTaches/:weekNumber', component: ListTachesComponent},
     {path:'formCreateTache', component: FormCreateTacheComponent},
-    {path:'formUpdateTache', component: FormUpdateTacheComponent}
+    {path:'formUpdateTache', component: FormUpdateTacheComponent},
+    {path:'utilisateurs/create', component: FormCreateUtilisateurComponent }
 ];

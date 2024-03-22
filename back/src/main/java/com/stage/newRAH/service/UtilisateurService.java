@@ -46,6 +46,7 @@ public class UtilisateurService {
 		utilisateurDTO.setPrenomUtilisateur(utilisateur.getPrenomUtilisateur());
 		utilisateurDTO.setDateNaissance(utilisateur.getDateNaissance());
 		utilisateurDTO.setLogin(utilisateur.getLogin());
+		utilisateurDTO.setPassword(utilisateur.getPassword());
 		utilisateurDTO.setMail(utilisateur.getMail());
 		utilisateurDTO.setActif(utilisateur.isActif());
 
@@ -193,6 +194,7 @@ public class UtilisateurService {
 		utilisateurACreer.setPrenomUtilisateur(utilisateurDTO.getPrenomUtilisateur());
 		utilisateurACreer.setDateNaissance(utilisateurDTO.getDateNaissance());
 		utilisateurACreer.setLogin(utilisateurDTO.getLogin());
+		utilisateurACreer.setPassword(utilisateurDTO.getPassword());
 		utilisateurACreer.setMail(utilisateurDTO.getMail());
 		utilisateurACreer.setActif(utilisateurDTO.isActif());
 		utilisateurACreer.setSite(site);
@@ -233,6 +235,7 @@ public class UtilisateurService {
 			utilisateurAModifier.setPrenomUtilisateur(utilisateurDTO.getPrenomUtilisateur());
 			utilisateurAModifier.setDateNaissance(utilisateurDTO.getDateNaissance());
 			utilisateurAModifier.setLogin(utilisateurDTO.getLogin());
+			utilisateurAModifier.setPassword(utilisateurDTO.getPassword());
 			utilisateurAModifier.setMail(utilisateurDTO.getMail());
 			utilisateurAModifier.setActif(utilisateurDTO.isActif());
 			utilisateurAModifier.setSite(site);

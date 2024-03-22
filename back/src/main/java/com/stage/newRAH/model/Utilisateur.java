@@ -37,6 +37,8 @@ public class Utilisateur {
 	private Date dateNaissance;
 	
 	private String login ;
+
+	private String password;
 	
 	private String mail;
 
@@ -67,12 +69,14 @@ public class Utilisateur {
 
 	}
 
-	public Utilisateur(int idUtilisateur, String nomUtilisateur, String prenomUtilisateur, Date dateNaissance, String login, String mail, Site site, boolean actif, TypeUtilisateur typeUtilisateur) {
+
+	public Utilisateur(int idUtilisateur, String nomUtilisateur, String prenomUtilisateur, Date dateNaissance, String login, String password, String mail, Site site, boolean actif, TypeUtilisateur typeUtilisateur, List<Tache> listTaches, List<Equipe> listEquipes, List<Composition> listCompositions) {
 		this.idUtilisateur = idUtilisateur;
 		this.nomUtilisateur = nomUtilisateur;
 		this.prenomUtilisateur = prenomUtilisateur;
 		this.dateNaissance = dateNaissance;
 		this.login = login;
+		this.password = password;
 		this.mail = mail;
 		this.site = site;
 		this.actif = actif;

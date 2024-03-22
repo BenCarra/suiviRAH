@@ -3,13 +3,14 @@ export class Utilisateur {
     nomUtilisateur!: string;
     prenomUtilisateur!: string;
     dateNaissance!: Date;
-    login!: string
-    mail!: string
-    actif!: boolean
+    login!: string;
+    password!: string;
+    mail!: string;
+    actif!: boolean;
     nomSite!: string;
     libelleTypeUtilisateur!: string;
     listTaches!: string[][];
     listEquipes!: string[][];
-    listCompositions!: string[][]
+    listCompositions!: string[][];
 
 }
