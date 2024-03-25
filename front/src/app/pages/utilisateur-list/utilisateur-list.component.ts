@@ -15,7 +15,6 @@ import { DatePipe } from '@angular/common';
 export class UtilisateurListComponent {
 
   routerURL: string;
-  idUtilisateur!: string;
   listUtilisateurs!: Utilisateur[];
   listNomsUtilisateur: String[] = [];
   listTypesUtilisateur: String[] = [];

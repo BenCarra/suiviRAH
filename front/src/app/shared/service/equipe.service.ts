@@ -21,7 +21,7 @@ export class EquipeService {
   }
 
   // Récupère de l'API une équipe par son identifiant
-  public findById(id: string | undefined): Observable<Equipe> {
+  public findById(id: number): Observable<Equipe> {
     return this.http.get<Equipe>(this.url + "/equipeById/" + id);
   }
 
@@ -41,7 +41,7 @@ export class EquipeService {
   }
 
   // Demande à l'API de supprimer une équipe
-  public delete(id: string | undefined): Observable<Equipe> {
+  public delete(id: number): Observable<Equipe> {
     return this.http.delete<Equipe>(this.url + "/deleteEquipe/" + id);
   }
 }

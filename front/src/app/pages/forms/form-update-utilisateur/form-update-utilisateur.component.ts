@@ -35,7 +35,7 @@ import { TypeUtilisateurService } from '../../../shared/service/type-utilisateur
 export class FormUpdateUtilisateurComponent {
 
   formUpdate!: FormGroup;
-  idUtilisateur!: string;
+  idUtilisateur!: number;
   utilisateurById!: Utilisateur;
   sites!: Site[];
   typesUtilisateur!: TypeUtilisateur[];

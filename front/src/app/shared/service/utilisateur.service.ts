@@ -21,7 +21,7 @@ export class UtilisateurService {
   }
 
   // Récupère de l'API un utilisateur par son identifiant
-  public findById(id: string | undefined): Observable<Utilisateur> {
+  public findById(id: number | undefined): Observable<Utilisateur> {
     return this.http.get<Utilisateur>(this.url + "/utilisateurById/" + id);
   }
 
@@ -47,7 +47,7 @@ export class UtilisateurService {
 
   // Demande à l'API de mettre à jour un utilisateur
   public update(utilisateur: Utilisateur) {
-    return this.http.put<Utilisateur>(this.url + "/updateUtilisateur/" + utilisateur.idUtilisateur.toString(), utilisateur);
+    return this.http.put<Utilisateur>(this.url + "/updateUtilisateur/" + utilisateur.idUtilisateur, utilisateur);
   }
 
 }

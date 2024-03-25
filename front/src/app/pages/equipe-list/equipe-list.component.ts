@@ -13,7 +13,6 @@ import { EquipeService } from '../../shared/service/equipe.service';
 })
 export class EquipeListComponent {
   routerURL: string;
-  idEquipe!: string;
   listEquipes!: Equipe[];
   listLibellesEquipe: String[] = [];
   formFiltrage!: FormGroup;
@@ -46,7 +45,7 @@ export class EquipeListComponent {
   }
 
   // Méthode pour supprimer une équipe
-  onDeleteEquipe(id: string) {
+  onDeleteEquipe(id: number) {
     if (confirm("Voulez-vous vraiment supprimer cette équipe ?")) {
       this.equipeService.delete(id).subscribe({
         next: (response) => {

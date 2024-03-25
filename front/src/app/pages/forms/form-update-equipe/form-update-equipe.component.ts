@@ -25,7 +25,7 @@ import { UtilisateurService } from '../../../shared/service/utilisateur.service'
 export class FormUpdateEquipeComponent {
 
   formUpdate!: FormGroup;
-  idEquipe!: string;
+  idEquipe!: number;
   equipeById!: Equipe;
   utilisateurs!: Utilisateur[];
 
@@ -43,7 +43,7 @@ export class FormUpdateEquipeComponent {
       params => {
         const id = params['id'];
         if (id) {
-          this.idEquipe = id.toString();
+          this.idEquipe = id;
         }
       }
     )
