@@ -11,6 +11,8 @@ import com.stage.newRAH.model.Utilisateur;
 @Repository
 public interface UtilisateurRepository extends CrudRepository<Utilisateur, Integer> {
 
+    Utilisateur findByLogin(String login);
+
     @Query("SELECT u FROM Utilisateur u WHERE u.nomUtilisateur=:nom")
     Iterable<Utilisateur> findByNom(@Param("nom") String nom);
 
