@@ -13,6 +13,15 @@
             }
           </mat-form-field>
         </div>
+        <div class="col">
+          <mat-form-field appearance="outline">
+            <mat-label>Password :</mat-label>
+            <input title="password" matInput formControlName="password">
+            @if (formCreate.controls['password'].hasError('required')) {
+            <mat-error>Password <strong>requis</strong></mat-error>
+            }
+          </mat-form-field>
+        </div>
       </div>
       <br>
       <div class="row">

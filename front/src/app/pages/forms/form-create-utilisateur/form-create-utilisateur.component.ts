@@ -46,6 +46,7 @@ export class FormCreateUtilisateurComponent {
     // Création du formulaire réactif
     this.formCreate = new FormGroup({
       login: new FormControl('', Validators.required),
+      password : new FormControl('', Validators.required),
       prénom: new FormControl('', Validators.required),
       nom: new FormControl('', Validators.required),
       dateNaissance: new FormControl('', Validators.required),
@@ -80,6 +81,7 @@ export class FormCreateUtilisateurComponent {
   onSubmit(): void {
 
     if (this.formCreate.controls['login'].hasError('required') ||
+      this.formCreate.controls['password'].hasError('required') ||
       this.formCreate.controls['prénom'].hasError('required') ||
       this.formCreate.controls['nom'].hasError('required') ||
       this.formCreate.controls['dateNaissance'].hasError('required') ||
@@ -92,6 +94,7 @@ export class FormCreateUtilisateurComponent {
       console.log("Mail mal formé");
     } else {
       this.utilisateurCree.login = this.formCreate.get("login")?.value;
+      this.utilisateurCree.password = this.formCreate.get("password")?.value;
       this.utilisateurCree.prenomUtilisateur = this.formCreate.get("prénom")?.value;
       this.utilisateurCree.nomUtilisateur = this.formCreate.get("nom")?.value;
       this.utilisateurCree.dateNaissance = this.formCreate.get("dateNaissance")?.value;
