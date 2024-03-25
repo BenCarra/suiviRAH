@@ -21,7 +21,7 @@ export class ProjetService {
   }
 
   public getProjetById(id: number): Observable<Projet> {
-    return this.http.get<Projet>(this.url + "/projetByid/" + id);
+    return this.http.get<Projet>(this.url + "/projetById/" + id);
   }
 
   public getProjetByNom(nom: string): Observable<Projet> {

@@ -94,7 +94,7 @@ public class Projet {
 	private Etat etat;
 	
 	@ManyToOne
-	@JoinColumn(name="rds")
+	@JoinColumn(name="id_rds")
 	private RDS rds;
 	
 	@ManyToMany

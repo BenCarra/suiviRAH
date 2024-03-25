@@ -380,7 +380,12 @@ public class ProjetService {
 		Etat etat = etatRepository.findByLibelle(projetDTO.getLibelleEtat()).get();
 		TypeDefaut typeDefaut = typeDefautRepository.findByLibelle(projetDTO.getLibelleTypeDefaut()).get();
 		TypeProjet typeProjet = typeProjetRepository.findByLibelle(projetDTO.getLibelleTypeProjet()).get();
-		RDS rds = rdsRepository.findById(Integer.parseInt(projetDTO.getRds().get(0))).get();
+		
+		if (projetDTO.getRds() != null) {
+			RDS rds = rdsRepository.findById(Integer.parseInt(projetDTO.getRds().get(0))).get();
+			projetACreer.setRds(rds);
+		}
+		
 
 		projetACreer.setNomProjet(projetDTO.getNomProjet());
 		projetACreer.setJira(projetDTO.getJira());
@@ -403,7 +408,6 @@ public class ProjetService {
 		projetACreer.setEtat(etat);
 		projetACreer.setTypeDefaut(typeDefaut);
 		projetACreer.setTypeProjet(typeProjet);
-		projetACreer.setRds(rds);
 
 		List<List<Integer>> compositionsInteger = projetDTO.getListCompositions();
 		List<Composition> compositions = new ArrayList<>();
@@ -432,9 +436,13 @@ public class ProjetService {
 		Etat etat = etatRepository.findByLibelle(projetDTO.getLibelleEtat()).get();
 		TypeDefaut typeDefaut = typeDefautRepository.findByLibelle(projetDTO.getLibelleTypeDefaut()).get();
 		TypeProjet typeProjet = typeProjetRepository.findByLibelle(projetDTO.getLibelleTypeProjet()).get();
-		RDS rds = rdsRepository.findById(Integer.parseInt(projetDTO.getRds().get(0))).get();
+		
+		if (projetDTO.getRds() != null) {
+			RDS rds = rdsRepository.findById(Integer.parseInt(projetDTO.getRds().get(0))).get();
+			projetAModifier.setRds(rds);
+		}
 
-		//Projet projetAModifierOld = projetAModifier;
+		Projet projetAModifierOld = projetAModifier;
 
 		projetAModifier.setNomProjet(projetDTO.getNomProjet());
 		projetAModifier.setJira(projetDTO.getJira());
@@ -457,21 +465,21 @@ public class ProjetService {
 		projetAModifier.setEtat(etat);
 		projetAModifier.setTypeDefaut(typeDefaut);
 		projetAModifier.setTypeProjet(typeProjet);
-		projetAModifier.setRds(rds);
 
-		/*List<List<String>> compositionsString = projetDTO.getListCompositions();
+		List<List<Integer>> compositionsInteger = projetDTO.getListCompositions();
 		List<Composition> compositions = new ArrayList<>();
 
-		for (List<String> compositionString : compositionsString) {
-			Composition composition = compositionRepository.findById(Integer.parseInt(compositionString.get(0))).get();
+		for (List<Integer> compositionInteger : compositionsInteger) {
+			Composition composition = compositionRepository.findById(compositionInteger.get(0)).get();
 			List<Projet> projets = composition.getListProjets();
-			projets.set(projets.indexOf(projetAModifierOld), projetAModifier);
+			projets.remove(projetAModifierOld);
+			projets.add(projetAModifier);
 			compositions.add(composition);
 		}
 
-		projetAModifier.setListCompositions(compositions);*/
+		projetAModifier.setListCompositions(compositions);
 		
-		//projetRepository.save(projetAModifier);
+		projetRepository.save(projetAModifier);
 
 		ProjetDTO projetSauvegardeDTO = mapProjetToDTO(projetAModifier);
 

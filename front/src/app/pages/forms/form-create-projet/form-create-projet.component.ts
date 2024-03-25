@@ -72,7 +72,7 @@ export class FormCreateProjetComponent {
       typeProjet: new FormControl('', Validators.required),
       typeDefaut: new FormControl('', Validators.required),
       etat: new FormControl('', Validators.required),
-      rds: new FormControl(''),
+      rds: new FormControl(null),
       compositions: new FormControl('', Validators.required)
     })
 
@@ -173,7 +173,7 @@ export class FormCreateProjetComponent {
       this.projetService.create(this.projetCree).subscribe({
         next: (response) => {
           alert('Projet ' + response.nomProjet + ' créé!');
-          this.router.navigateByUrl("/equipes");
+          this.router.navigateByUrl("/projets");
         },
         error: (error) => {
           console.error('Erreur lors de la création du projet', error);

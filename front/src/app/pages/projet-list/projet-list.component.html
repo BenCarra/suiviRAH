@@ -115,8 +115,13 @@
                     <td>{{ projet.dateFeuVert}}</td>
                     <td>{{ projet.dateLivraison}}</td>
                     <td>{{ projet.mco}}</td>
-                    <td>{{ projet.datePassageMCO}}</td>
-                    <td>{{ projet.dateSortieMCO}}</td>
+                    @if (projet.mco) {
+                        <td>{{ projet.datePassageMCO}}</td>
+                        <td>{{ projet.dateSortieMCO}}</td>
+                    } @else {
+                        <td>/</td>
+                        <td>/</td>
+                    }
                     <td>{{ projet.libelleEtat}}</td>
                     <td>{{ projet.commentaires}}</td>
                     <td>

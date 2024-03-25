@@ -1,1 +1,305 @@
-<p>form-update-projet works!</p>
+<h1>Mise à jour d'un projet</h1>
+
+<form [formGroup]="formUpdate">
+    <mat-card class="card">
+        <mat-card-content>
+            <div class="row">
+                <div class="col">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Nom :</mat-label>
+                        <input title="nom" matInput formControlName="nom">
+                        @if (formUpdate.controls['nom'].hasError('required')) {
+                        <mat-error>Nom <strong>requis</strong></mat-error>
+                        }
+                    </mat-form-field>
+                </div>
+                <div class="col">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Jira :</mat-label>
+                        <input title="jira" matInput formControlName="jira">
+                        @if (formUpdate.controls['jira'].hasError('required')) {
+                        <mat-error>Jira <strong>requis</strong></mat-error>
+                        }
+                    </mat-form-field>
+                </div>
+                <div class="col">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Technologie :</mat-label>
+                        <input title="techno" matInput formControlName="techno">
+                        @if (formUpdate.controls['techno'].hasError('required')) {
+                        <mat-error>Technologie <strong>requise</strong></mat-error>
+                        }
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Date de demande :</mat-label>
+                        <input title="dateDemande" matInput [matDatepicker]="picker" formControlName="dateDemande">
+                        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                        @if (formUpdate.controls['dateDemande'].hasError('required')) {
+                        <mat-error>Date de demande <strong>requise</strong></mat-error>
+                        }
+                    </mat-form-field>
+                </div>
+                <div class="col">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Livraison souhaitée :</mat-label>
+                        <input title="livraisonSouhaitee" matInput [matDatepicker]="picker1"
+                            formControlName="livraisonSouhaitee">
+                        <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
+                        <mat-datepicker #picker1></mat-datepicker>
+                        @if (formUpdate.controls['livraisonSouhaitee'].hasError('required')) {
+                        <mat-error>Livraison souhaitée <strong>requise</strong></mat-error>
+                        }
+                    </mat-form-field>
+                </div>
+                <div class="col">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Livraison révisée :</mat-label>
+                        <input title="livraisonRevisee" matInput [matDatepicker]="picker2"
+                            formControlName="livraisonRevisee">
+                        <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
+                        <mat-datepicker #picker2></mat-datepicker>
+                        @if (formUpdate.controls['livraisonRevisee'].hasError('required')) {
+                        <mat-error>Livraison révisée <strong>requise</strong></mat-error>
+                        }
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Affectation CDS :</mat-label>
+                        <input title="affectationCDS" matInput [matDatepicker]="picker3"
+                            formControlName="affectationCDS">
+                        <mat-datepicker-toggle matIconSuffix [for]="picker3"></mat-datepicker-toggle>
+                        <mat-datepicker #picker3></mat-datepicker>
+                        @if (formUpdate.controls['affectationCDS'].hasError('required')) {
+                        <mat-error>Affectation CDS <strong>requise</strong></mat-error>
+                        }
+                    </mat-form-field>
+                </div>
+                <div class="col">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Prise en compte CDS :</mat-label>
+                        <input title="priseEnCompteCDS" matInput [matDatepicker]="picker4"
+                            formControlName="priseEnCompteCDS">
+                        <mat-datepicker-toggle matIconSuffix [for]="picker4"></mat-datepicker-toggle>
+                        <mat-datepicker #picker4></mat-datepicker>
+                        @if (formUpdate.controls['priseEnCompteCDS'].hasError('required')) {
+                        <mat-error>Prise en compte CDS <strong>requise</strong></mat-error>
+                        }
+                    </mat-form-field>
+                </div>
+                <div class="col">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Date d'estimation :</mat-label>
+                        <input title="dateEstimation" matInput [matDatepicker]="picker5"
+                            formControlName="dateEstimation">
+                        <mat-datepicker-toggle matIconSuffix [for]="picker5"></mat-datepicker-toggle>
+                        <mat-datepicker #picker5></mat-datepicker>
+                        @if (formUpdate.controls['dateEstimation'].hasError('required')) {
+                        <mat-error>Date estimation <strong>requise</strong></mat-error>
+                        }
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Devis estimation :</mat-label>
+                        <input title="devisEstimation" matInput formControlName="devisEstimation">
+                        @if (formUpdate.controls['devisEstimation'].hasError('required')) {
+                        <mat-error>Devis estimation <strong>requis</strong></mat-error>
+                        }
+                    </mat-form-field>
+                </div>
+                <div class="col">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Dont garantie :</mat-label>
+                        <input title="dontGarantie" matInput formControlName="dontGarantie">
+                        @if (formUpdate.controls['devisEstimation'].hasError('required')) {
+                        <mat-error>Dont garantie <strong>requis</strong></mat-error>
+                        }
+                    </mat-form-field>
+                </div>
+                <div class="col">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Date feu vert :</mat-label>
+                        <input title="dateFeuVert" matInput [matDatepicker]="picker6" formControlName="dateFeuVert">
+                        <mat-datepicker-toggle matIconSuffix [for]="picker6"></mat-datepicker-toggle>
+                        <mat-datepicker #picker6></mat-datepicker>
+                        @if (formUpdate.controls['dateFeuVert'].hasError('required')) {
+                        <mat-error>Date feu vert <strong>requise</strong></mat-error>
+                        }
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Date livraison :</mat-label>
+                        <input title="dateLivraison" matInput [matDatepicker]="picker7" formControlName="dateLivraison">
+                        <mat-datepicker-toggle matIconSuffix [for]="picker7"></mat-datepicker-toggle>
+                        <mat-datepicker #picker7></mat-datepicker>
+                        @if (formUpdate.controls['dateLivraison'].hasError('required')) {
+                        <mat-error>Date livraison <strong>requise</strong></mat-error>
+                        }
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <mat-label>MCO ? :</mat-label>
+                    <br>
+                    <mat-radio-group formControlName="mco">
+                        @if (projetById != undefined) {
+                            <mat-radio-button value="true" [checked]="projetById.mco == true">Oui</mat-radio-button>
+                            <mat-radio-button value="false" [checked]="projetById.mco == false">Non</mat-radio-button>
+                            }
+                    </mat-radio-group>
+                    @if (formUpdate.controls['mco'].hasError('required')) {
+                    <mat-error>MCO <strong>requis</strong></mat-error>
+                    }
+                </div>
+            </div>
+            @if (formUpdate.controls['mco'].value == true) {
+            <div class="row">
+                <div class="col">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Date passage MCO :</mat-label>
+                        <input title="datePassageMCO" matInput [matDatepicker]="picker8"
+                            formControlName="datePassageMCO">
+                        <mat-datepicker-toggle matIconSuffix [for]="picker8"></mat-datepicker-toggle>
+                        <mat-datepicker #picker8></mat-datepicker>
+                        @if (formUpdate.controls['datePassageMCO'].hasError('required')) {
+                        <mat-error>Date passage MCO <strong>requise</strong></mat-error>
+                        }
+                    </mat-form-field>
+                </div>
+                <div class="col">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Date sortie MCO :</mat-label>
+                        <input title="dateSortieMCO" matInput [matDatepicker]="picker9" formControlName="dateSortieMCO">
+                        <mat-datepicker-toggle matIconSuffix [for]="picker9"></mat-datepicker-toggle>
+                        <mat-datepicker #picker9></mat-datepicker>
+                        @if (formUpdate.controls['dateSortieMCO'].hasError('required')) {
+                        <mat-error>Date sortie MCO <strong>requise</strong></mat-error>
+                        }
+                    </mat-form-field>
+                </div>
+            </div>
+
+            }
+            <div class="row">
+                <div class="col">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Commentaires :</mat-label>
+                        <input title="commentaires" matInput formControlName="commentaires">
+                        @if (formUpdate.controls['commentaires'].hasError('required')) {
+                        <mat-error>Commentaires <strong>requis</strong></mat-error>
+                        }
+                    </mat-form-field>
+                </div>
+                <div class="col">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Client :</mat-label>
+                        <mat-select formControlName="client">
+                            @for (client of clients; track $index) {
+                            <mat-option [value]="client.nomClient">{{ client.nomClient }}</mat-option>
+                            }
+                        </mat-select>
+                        @if (formUpdate.controls['client'].hasError('required')) {
+                        <mat-error>Client <strong>requis</strong></mat-error>
+                        }
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Type de projet :</mat-label>
+                        <mat-select formControlName="typeProjet">
+                            @for (typeProjet of typesProjet; track $index) {
+                            <mat-option [value]="typeProjet.libelle">{{ typeProjet.libelle }}</mat-option>
+                            }
+                        </mat-select>
+                        @if (formUpdate.controls['typeProjet'].hasError('required')) {
+                        <mat-error>Type de projet <strong>requis</strong></mat-error>
+                        }
+                    </mat-form-field>
+                </div>
+                <div class="col">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Type de défaut :</mat-label>
+                        <mat-select formControlName="typeDefaut">
+                            @for (typeDefaut of typesDefaut; track $index) {
+                            <mat-option [value]="typeDefaut.libelle">{{ typeDefaut.libelle }}</mat-option>
+                            }
+                        </mat-select>
+                        @if (formUpdate.controls['typeDefaut'].hasError('required')) {
+                        <mat-error>Type de défaut <strong>requis</strong></mat-error>
+                        }
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Etat du projet :</mat-label>
+                        <mat-select formControlName="etat">
+                            @for (etat of etats; track $index) {
+                            <mat-option [value]="etat.libelle">{{ etat.libelle }}</mat-option>
+                            }
+                        </mat-select>
+                        @if (formUpdate.controls['etat'].hasError('required')) {
+                        <mat-error>Etat du projet <strong>requis</strong></mat-error>
+                        }
+                    </mat-form-field>
+                </div>
+                @if (formUpdate.controls['client'].value == "Toto") {
+                <div class="col">
+                    <mat-form-field appearance="outline">
+                        <mat-label>RDS :</mat-label>
+                        <mat-select formControlName="rds">
+                            @for (r of rds; track $index) {
+                            <mat-option [value]=[r.idRDS.toString(),r.nom,r.direction,r.service]>{{ r.nom }}, {{
+                                r.direction }}, {{ r.service }}</mat-option>
+                            }
+                        </mat-select>
+                        @if (formUpdate.controls['rds'].hasError('required')) {
+                        <mat-error>RDS <strong>requis</strong></mat-error>
+                        }
+                    </mat-form-field>
+                </div>
+                }
+            </div>
+            <div class="row">
+                <div class="col">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Compositions à ajouter :</mat-label>
+                        <br>
+                        <mat-select formControlName="compositions" multiple>
+                            @for (composition of compositions; track $index) {
+                            <mat-option
+                                [value]=[composition.idComposition,composition.idEquipe,composition.idUtilisateur]>{{
+                                composition.idComposition }} ({{ composition.idEquipe }} {{ composition.idUtilisateur
+                                }})</mat-option>
+                            }
+                        </mat-select>
+                        @if (formUpdate.controls['compositions'].hasError('required')) {
+                        <mat-error>Compositions à ajouter <strong>requis</strong></mat-error>
+                        }
+                    </mat-form-field>
+                </div>
+            </div>
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-raised-button type="submit" (click)="onSubmit()">Envoyer</button>
+            <button mat-raised-button type="button" (click)="onClose()">Retour</button>
+        </mat-card-actions>
+    </mat-card>
+</form>
