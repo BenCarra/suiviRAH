@@ -41,8 +41,4 @@ public class TypeUtilisateur {
 		this.libelle = libelle;
 	}
 
-	public List<Fonctionnalite> getListFonctionnalites() {
-		return this.listFonctionnalites;
-	}
-
 }

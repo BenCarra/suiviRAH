@@ -41,4 +41,5 @@ public class Fonctionnalite {
 		this.idFonctionnalite = idFonctionnalite;
 		this.libelle = libelle;
 	}
+
 }

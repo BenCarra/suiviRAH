@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.stage.newRAH.dto.UtilisateurDTO;
@@ -30,6 +31,9 @@ public class UtilisateurService {
 
 	@Autowired
 	TypeUtilisateurRepository typeUtilisateurRepository;
+
+	@Autowired
+	private BCryptPasswordEncoder passwordEncoder;
 	
 	public UtilisateurDTO mapUtilisateurToDTO(Utilisateur utilisateur) {
 		
@@ -187,6 +191,9 @@ public class UtilisateurService {
 	public ResponseEntity<UtilisateurDTO> createUtilisateur(UtilisateurDTO utilisateurDTO) {
 		Utilisateur utilisateurACreer = new Utilisateur();
 
+		String originalPassword = utilisateurDTO.getPassword();
+		String hashPassword  = passwordEncoder.encode(originalPassword);
+
 		Site site = siteRepository.findByNom(utilisateurDTO.getNomSite()).get();
 		TypeUtilisateur typeUtilisateur = typeUtilisateurRepository.findByLibelle(utilisateurDTO.getLibelleTypeUtilisateur()).get();
 
@@ -194,7 +201,7 @@ public class UtilisateurService {
 		utilisateurACreer.setPrenomUtilisateur(utilisateurDTO.getPrenomUtilisateur());
 		utilisateurACreer.setDateNaissance(utilisateurDTO.getDateNaissance());
 		utilisateurACreer.setLogin(utilisateurDTO.getLogin());
-		utilisateurACreer.setPassword(utilisateurDTO.getPassword());
+		utilisateurACreer.setPassword(hashPassword);
 		utilisateurACreer.setMail(utilisateurDTO.getMail());
 		utilisateurACreer.setActif(utilisateurDTO.isActif());
 		utilisateurACreer.setSite(site);
@@ -249,8 +256,6 @@ public class UtilisateurService {
 		} else {
 			return ResponseEntity.notFound().build();
 		}
-
-		
 	}
 }
 	

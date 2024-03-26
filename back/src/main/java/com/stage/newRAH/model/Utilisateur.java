@@ -82,6 +82,11 @@ public class Utilisateur {
 		this.actif = actif;
 		this.typeUtilisateur = typeUtilisateur;
 	}
+
+	public List<Fonctionnalite> getListFonctionnalites() {
+
+		return this.typeUtilisateur.getListFonctionnalites();
+	}
 	
 
 }
