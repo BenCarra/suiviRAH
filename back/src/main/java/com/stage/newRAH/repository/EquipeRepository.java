@@ -1,5 +1,7 @@
 package com.stage.newRAH.repository;
 
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -11,6 +13,6 @@ import com.stage.newRAH.model.Equipe;
 public interface EquipeRepository extends CrudRepository<Equipe, Integer> {
 
     @Query("SELECT e FROM Equipe e WHERE e.libelle=:libelle")
-    Iterable<Equipe> findByLibelle(@Param("libelle") String libelle);
+    Optional<Equipe> findByLibelle(@Param("libelle") String libelle);
     
 }

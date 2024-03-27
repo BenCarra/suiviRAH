@@ -102,18 +102,12 @@ public class EquipeService {
 		
 	}
 
-	public ResponseEntity<List<EquipeDTO>> getEquipesByLibelle(String libelle) {
-		Iterable<Equipe> equipesChoisies = equipeRepository.findByLibelle(libelle);
+	public ResponseEntity<EquipeDTO> getEquipesByLibelle(String libelle) {
+		Optional<Equipe> equipeChoisie = equipeRepository.findByLibelle(libelle);
 
-		if (equipesChoisies.iterator().hasNext()) {
-			List<EquipeDTO> equipesChoisiesDTO = new ArrayList<>();
-
-			for (Equipe equipeChoisie : equipesChoisies) {
-				EquipeDTO equipeDTO = this.mapEquipeToDTO(equipeChoisie);
-				equipesChoisiesDTO.add(equipeDTO);
-			}
-
-			return ResponseEntity.ok(equipesChoisiesDTO);
+		if (equipeChoisie.isPresent()) {
+			EquipeDTO equipeDTO = this.mapEquipeToDTO(equipeChoisie.get());
+			return ResponseEntity.ok(equipeDTO);
 		} else {
 			return ResponseEntity.notFound().build();
 		}

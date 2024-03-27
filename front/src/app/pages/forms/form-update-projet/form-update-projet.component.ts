@@ -8,7 +8,6 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Client } from '../../../shared/model/client';
-import { Composition } from '../../../shared/model/composition';
 import { EtatProjet } from '../../../shared/model/etat-projet';
 import { Projet } from '../../../shared/model/projet';
 import { RDS } from '../../../shared/model/rds';
@@ -45,7 +44,7 @@ export class FormUpdateProjetComponent {
   typesDefaut!: TypeDefaut[];
   etats!: EtatProjet[];
   rds!: RDS[];
-  compositions!: number[][];
+  compositions!: string[][];
   compoFound: boolean = false;
 
 
@@ -115,10 +114,10 @@ export class FormUpdateProjetComponent {
       data => {
         this.compositions = [];
         data.forEach(composition => {
-          let compositionObject: number[] = [];
-          compositionObject.push(composition.idComposition);
-          compositionObject.push(composition.idEquipe);
-          compositionObject.push(composition.idUtilisateur);
+          let compositionObject: string[] = [];
+          compositionObject.push(composition.idComposition.toString());
+          compositionObject.push(composition.libelleEquipe);
+          compositionObject.push(composition.loginUtilisateur);
           this.compositions.push(compositionObject);
         })
       }
@@ -173,21 +172,20 @@ export class FormUpdateProjetComponent {
           for (let c of this.projetById.listCompositions) {
             if (c[0] == composition[0]) {
               html += `<option
-                  [value]="c" selected>
-                  ${composition[0]},${composition[1]},${composition[2]}
-                  </option>`;
+                  value="${composition[0]}, ${composition[1]}, ${composition[2]}" selected>
+                  Equipe ${composition[1]}, Utilisateur ${composition[2]}</option>`;
               found = true;
             }
           }
           if (!found) {
             html += `<option
-              [value]="[${composition[0]}, ${composition[1]}, ${composition[2]}]">
-              ${composition[0]},${composition[1]},${composition[2]}
-              </option>`;
+            value="${composition[0]}, ${composition[1]}, ${composition[2]}">
+            Equipe ${composition[1]}, Utilisateur ${composition[2]}</option>`;
           }
         }
       }
       select!.innerHTML = html;
+      console.log(this.projetById.listCompositions);
       this.formUpdate.get('compositions')?.setValue(this.projetById.listCompositions);
     })
 
@@ -265,14 +263,15 @@ export class FormUpdateProjetComponent {
         this.projetById.rds = null;
       }
 
-      // Ici, je suis obligé de convertir les valeurs d'identifiants en entiers, car dans le remplissage de la liste des compositions en javascript, l'attribut value de chaque élément option a sa valeur transformée en string  
-      let listC: number[][] = [];
+      // Ici, je suis obligé faire une conversion, car dans le remplissage de la liste des compositions en javascript, l'attribut value de chaque élément option a sa valeur transformée en string et non en tableau de string 
+      let listC: string[][] = [];
       this.formUpdate.get("compositions")?.value.forEach((c: any) => {
-        if (typeof (c) == "string") {
-          let temp0: number[] = [];
-          let temp = c.split(",");
+        if (typeof(c) == "string") {
+          let temp0: string[] = [];
+          let temp: any[] = c.split(",");
+          temp[0] = parseInt(temp[0]);
           temp.forEach(value => {
-            temp0.push(parseInt(value));
+            temp0.push(value);
           })
           listC.push(temp0);
         }

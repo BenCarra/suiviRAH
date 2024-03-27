@@ -34,7 +34,7 @@ public class EquipeController {
 	}
 	
 	@GetMapping("/equipesByLibelle/{libelle}")
-	public ResponseEntity<List<EquipeDTO>> getEquipesByLibelle(@PathVariable String libelle){
+	public ResponseEntity<EquipeDTO> getEquipesByLibelle(@PathVariable String libelle){
 		return equipeService.getEquipesByLibelle(libelle);
 	}
 	

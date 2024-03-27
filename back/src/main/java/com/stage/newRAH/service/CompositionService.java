@@ -32,8 +32,8 @@ public class CompositionService {
 		CompositionDTO compositionDTO = new CompositionDTO();
 
 		compositionDTO.setIdComposition(composition.getIdComposition());
-		compositionDTO.setIdEquipe(composition.getEquipe().getIdEquipe());
-		compositionDTO.setIdUtilisateur(composition.getUtilisateur().getIdUtilisateur());
+		compositionDTO.setLibelleEquipe(composition.getEquipe().getLibelle());
+		compositionDTO.setLoginUtilisateur(composition.getUtilisateur().getLogin());
 
 		return compositionDTO;
 
@@ -74,8 +74,8 @@ public class CompositionService {
 
 		Composition compositionACreer = new Composition();
 
-		Equipe equipe = equipeRepository.findById(compositionDTO.getIdEquipe()).get();
-		Utilisateur utilisateur = utilisateurRepository.findById(compositionDTO.getIdUtilisateur()).get();
+		Equipe equipe = equipeRepository.findByLibelle(compositionDTO.getLibelleEquipe()).get();
+		Utilisateur utilisateur = utilisateurRepository.findByLogin(compositionDTO.getLoginUtilisateur()).get();
 
 		compositionACreer.setEquipe(equipe);
 		compositionACreer.setUtilisateur(utilisateur);
@@ -96,8 +96,8 @@ public class CompositionService {
 
 			Composition compositionAModifier = compositionAModifierOptional.get();
 
-			Equipe equipe = equipeRepository.findById(compositionDTO.getIdEquipe()).get();
-			Utilisateur utilisateur = utilisateurRepository.findById(compositionDTO.getIdUtilisateur()).get();
+			Equipe equipe = equipeRepository.findByLibelle(compositionDTO.getLibelleEquipe()).get();
+			Utilisateur utilisateur = utilisateurRepository.findByLogin(compositionDTO.getLoginUtilisateur()).get();
 
 			compositionAModifier.setEquipe(equipe);
 			compositionAModifier.setUtilisateur(utilisateur);

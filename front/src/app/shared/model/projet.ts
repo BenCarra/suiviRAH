@@ -26,5 +26,5 @@ export class Projet {
     commentaires!: string;
     rds!: string[] | null;
     listTaches!: string[][];
-    listCompositions!: number[][];
+    listCompositions!: string[][];
 }

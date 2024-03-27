@@ -5,7 +5,6 @@ import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { Projet } from '../../../shared/model/projet';
-import { Composition } from '../../../shared/model/composition';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatRadioModule } from '@angular/material/radio';
 import { Client } from '../../../shared/model/client';
@@ -21,6 +20,7 @@ import { TypeDefautService } from '../../../shared/service/type-defaut.service';
 import { EtatProjetService } from '../../../shared/service/etat-projet.service';
 import { RDSService } from '../../../shared/service/rds.service';
 import { CompositionService } from '../../../shared/service/composition.service';
+import { EquipeService } from '../../../shared/service/equipe.service';
 
 @Component({
   selector: 'app-form-create-projet',
@@ -44,9 +44,10 @@ export class FormCreateProjetComponent {
   typesDefaut!: TypeDefaut[];
   etats!: EtatProjet[];
   rds!: RDS[];
-  compositions!: number[][];
+  compositions!: string[][];
+  test!: any;
 
-  constructor(private projetService: ProjetService, private clientService: ClientService, private typeProjetService: TypeProjetService, private typeDefautService: TypeDefautService, private etatProjetService: EtatProjetService, private rdsService: RDSService, private compositionService: CompositionService, private router: Router) { }
+  constructor(private projetService: ProjetService, private clientService: ClientService, private typeProjetService: TypeProjetService, private typeDefautService: TypeDefautService, private etatProjetService: EtatProjetService, private rdsService: RDSService, private compositionService: CompositionService, private equipeservice: EquipeService , private router: Router) { }
 
   ngOnInit() {
     // Création du formulaire réactif
@@ -73,7 +74,7 @@ export class FormCreateProjetComponent {
       typeDefaut: new FormControl('', Validators.required),
       etat: new FormControl('', Validators.required),
       rds: new FormControl(null),
-      compositions: new FormControl('', Validators.required)
+      compositions: new FormControl('', Validators.required),
     })
 
     // Récupération des clients actifs
@@ -109,11 +110,12 @@ export class FormCreateProjetComponent {
     this.compositionService.findAll().subscribe(
       data => {
         this.compositions = [];
+        this.test = [];
         data.forEach(composition => {
-          let compositionObject: number[] = [];
-          compositionObject.push(composition.idComposition);
-          compositionObject.push(composition.idEquipe);
-          compositionObject.push(composition.idUtilisateur);
+          let compositionObject: string[] = [];
+          compositionObject.push(composition.idComposition.toString());
+          compositionObject.push(composition.libelleEquipe);
+          compositionObject.push(composition.loginUtilisateur);
           this.compositions.push(compositionObject);
         })
       }

@@ -26,8 +26,8 @@ export class EquipeService {
   }
 
   // Récupère de l'API les équipes par libellé
-  public findByLibelle(libelle: string): Observable<Equipe[]> {
-    return this.http.get<Equipe[]>(this.url + "/equipesByLibelle/" + libelle);
+  public findByLibelle(libelle: string): Observable<Equipe> {
+    return this.http.get<Equipe>(this.url + "/equipesByLibelle/" + libelle);
   }
 
   // Demande à l'API de créer une équipe

@@ -116,12 +116,12 @@ public class ProjetService {
 		}
 
 		if (projet.getListCompositions() != null) {
-			List<List<Integer>> listCompositions = new ArrayList<>();
+			List<List<String>> listCompositions = new ArrayList<>();
 			for (Composition composition : projet.getListCompositions()) {
-				List<Integer> compositionObject = new ArrayList<>();
-				compositionObject.add(composition.getIdComposition());
-				compositionObject.add(composition.getEquipe().getIdEquipe());
-				compositionObject.add(composition.getUtilisateur().getIdUtilisateur());
+				List<String> compositionObject = new ArrayList<>();
+				compositionObject.add(String.valueOf(composition.getIdComposition()));
+				compositionObject.add(composition.getEquipe().getLibelle());
+				compositionObject.add(composition.getUtilisateur().getLogin());
 				listCompositions.add(compositionObject);
 			}
 			projetDTO.setListCompositions(listCompositions);
@@ -444,11 +444,11 @@ public class ProjetService {
 		projetACreer.setEtat(etat);
 		projetACreer.setTypeProjet(typeProjet);
 
-		List<List<Integer>> compositionsInteger = projetDTO.getListCompositions();
+		List<List<String>> compositionsString = projetDTO.getListCompositions();
 		List<Composition> compositions = new ArrayList<>();
 
-		for (List<Integer> compositionInteger : compositionsInteger) {
-			int idComposition = compositionInteger.get(0);
+		for (List<String> compositionString : compositionsString) {
+			int idComposition = Integer.parseInt(compositionString.get(0));
 			Composition composition = compositionRepository.findById(idComposition).get();
 			List<Projet> projets = composition.getListProjets();
 			projets.add(projetACreer);
@@ -520,11 +520,11 @@ public class ProjetService {
 			projetAModifier.setEtat(etat);
 			projetAModifier.setTypeProjet(typeProjet);
 
-			List<List<Integer>> compositionsInteger = projetDTO.getListCompositions();
+			List<List<String>> compositionsString = projetDTO.getListCompositions();
 			List<Composition> compositions = new ArrayList<>();
 
-			for (List<Integer> compositionInteger : compositionsInteger) {
-				int idComposition = compositionInteger.get(0);
+			for (List<String> compositionString : compositionsString) {
+				int idComposition = Integer.parseInt(compositionString.get(0));
 				Composition composition = compositionRepository.findById(idComposition).get();
 				List<Projet> projets = composition.getListProjets();
 				projets.remove(projetAModifierOld);

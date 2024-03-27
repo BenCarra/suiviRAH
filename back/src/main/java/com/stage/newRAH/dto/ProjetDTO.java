@@ -31,7 +31,7 @@ public class ProjetDTO {
 	private String libelleTypeDefaut;
 	private String libelleTypeProjet;
 	private List<String> rds;
-	private List<List<Integer>> listCompositions;
+	private List<List<String>> listCompositions;
 	private List<List<String>> listTaches;
 	
 	public ProjetDTO() {

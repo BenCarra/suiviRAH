@@ -81,8 +81,10 @@
                     <th>Commentaires</th>
                     <th>Tâches associées</th>
                     <th>Compositions associées</th>
+                    <!--
                     <th>Equipes associées</th>
                     <th>Utilisateurs associés</th>
+                    -->
                     <th>Modifier</th>
                     <th>Supprimer</th>
                 </tr>
@@ -140,41 +142,30 @@
                     </td>
                     <td>
                         @for (composition of projet.listCompositions; track $index){
-                        <ul>
-                            <li>Composition n°{{ composition[0] }} : Equipe n°{{ composition[1] }}, Utilisateur n°{{ composition[2] }}</li>
-                        </ul>
-                        <br>
+                            <ul>
+                                <li>Composition n°{{ composition[0] }} : Equipe {{ composition[1] }}, Utilisateur {{ composition[2] }}</li>
+                            </ul>
+                            <br>
+                        }
+                    </td>
+                    <!--
+                    <td>
+                        @for (composition of projet.listCompositions; track $index){
+                            <ul>
+                                <li>{{ composition[1] }}</li>
+                            </ul>
+                            <br>
                         }
                     </td>
                     <td>
-                        @if ((projet.listCompositions) && (projet.listCompositions.length != 0)) {
-                        @for (equipe of listEquipes; track $index){
-
-                        @for (composition of projet.listCompositions; track $index) {
-                        @if (composition[1] == equipe.split("|")[1]) {
-                        <ul>
-                            <li>{{ equipe }}</li>
-                        </ul>
-                        <br>
-                        }
-                        }
-                        }
+                        @for (composition of projet.listCompositions; track $index){
+                            <ul>
+                                <li>{{ composition[2] }}</li>
+                            </ul>
+                            <br>
                         }
                     </td>
-                    <td>
-                        @if ((projet.listCompositions) && (projet.listCompositions.length != 0)) {
-                        @for (utilisateur of listUtilisateurs; track $index){
-                        @for (composition of projet.listCompositions; track $index) {
-                        @if (composition[2] == utilisateur.split("|")[1]) {
-                        <ul>
-                            <li>{{ utilisateur }}</li>
-                        </ul>
-                        <br>
-                        }
-                        }
-                        }
-                        }
-                    </td>
+                    -->
                     <td><button type="button" routerLink="/projets/update/"
                             [queryParams]="{ id: projet.idProjet}">Modifier</button></td>
                     <td><button type="button" (click)="onDeleteProjet(projet.idProjet)">Supprimer</button></td>     

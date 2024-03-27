@@ -95,9 +95,10 @@ export class EquipeListComponent {
     let recherche = this.formFiltrage.get('equipeRecherche')?.value;
 
     if (this.formFiltrage.value.filtrageDemande == 'Par libellé d\'équipe') {
+      this.listEquipes = [];
       this.equipeService.findByLibelle(recherche!).subscribe(
         data => {
-          this.listEquipes = data;
+          this.listEquipes.push(data);
         }
       )
     }

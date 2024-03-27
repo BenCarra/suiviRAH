@@ -18,10 +18,9 @@ export class ProjetListComponent {
   routerURL: string;
   listProjets!: Projet[];
   listNomsProjet: String[] = [];
-  listCompositions!: number[][];
-  texteComposition!: string;
-  listEquipes: any = [];
-  listUtilisateurs: any = [];
+  listCompositions!: string[][];
+  listEquipes: string[] = [];
+  listUtilisateurs: string[] = [];
   formFiltrage!: FormGroup;
 
 
@@ -44,18 +43,9 @@ export class ProjetListComponent {
       data.forEach(projet => {
         if ((projet.listCompositions) && (projet.listCompositions.length != 0)) {
           projet.listCompositions.forEach(composition => {
-            this.equipeService.findById(composition[1]).subscribe(equipe => {
-              if (!this.listEquipes.includes(equipe.libelle + " |" + equipe.idEquipe + "|")) {
-                this.listEquipes.push(equipe.libelle + " |" + equipe.idEquipe + "|");
-              }
+                this.listEquipes.push(composition[1]);
+                this.listUtilisateurs.push(composition[2]);
             });
-            this.utilisateurService.findById(composition[2]).subscribe(utilisateur => {
-              if (!this.listUtilisateurs.includes(utilisateur.nomUtilisateur + " |" + utilisateur.idUtilisateur + "|")) {
-                this.listUtilisateurs.push(utilisateur.nomUtilisateur + " |" + utilisateur.idUtilisateur + "|");
-              }
-            });
-  
-          })
         }
         
       })
@@ -130,7 +120,7 @@ export class ProjetListComponent {
                 }
               });
             } else if (this.formFiltrage.value.filtrageDemande == 'Par utilisateur') {
-              this.listUtilisateurs.forEach((utilisateur: any[]) => {
+              this.listUtilisateurs.forEach((utilisateur) => {
                 if (!this.listUtilisateurs.includes(utilisateur)) {
                   this.listUtilisateurs.push(utilisateur);
                 }

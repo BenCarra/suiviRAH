@@ -1,5 +1,5 @@
 export class Composition {
 	idComposition!: number;
-	idEquipe!: number;
-	idUtilisateur!: number;
+	libelleEquipe!: string;
+	loginUtilisateur!: string;
 }

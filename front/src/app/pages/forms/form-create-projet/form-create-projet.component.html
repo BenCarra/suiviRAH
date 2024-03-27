@@ -285,9 +285,8 @@
                         <mat-select formControlName="compositions" multiple>
                             @for (composition of compositions; track $index) {
                             <mat-option
-                                [value]="[composition[0],composition[1],composition[2]]">{{
-                                composition[0]}} ({{ composition[1] }} {{ composition[2]
-                                }})</mat-option>
+                                [value]="[composition[0],composition[1],composition[2]]">Equipe {{ composition[1] }}, Utilisateur {{ composition[2]
+                                }}</mat-option>
                             }
                         </mat-select>
                         @if (formCreate.controls['compositions'].hasError('required')) {

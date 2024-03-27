@@ -6,18 +6,18 @@ import lombok.Data;
 public class CompositionDTO {
 	
 	private int idComposition;
-	private int idEquipe;
-	private int idUtilisateur;
+	private String libelleEquipe;
+	private String loginUtilisateur;
 	
 	public CompositionDTO() {
 		
 	}
 
-	public CompositionDTO(int idComposition, int idEquipe, int idUtilisateur) {
+	public CompositionDTO(int idComposition, String libelleEquipe, String loginUtilisateur) {
 
 		this.idComposition = idComposition;
-		this.idEquipe = idEquipe;
-		this.idUtilisateur = idUtilisateur;
+		this.libelleEquipe = libelleEquipe;
+		this.loginUtilisateur = loginUtilisateur;
 	}
 
 }
