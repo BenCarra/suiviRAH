@@ -156,15 +156,15 @@
                     <mat-label>MCO ? :</mat-label>
                     <br>
                     <mat-radio-group formControlName="mco">
-                        <mat-radio-button value="true">Oui</mat-radio-button>
-                        <mat-radio-button value="false">Non</mat-radio-button>
+                        <mat-radio-button [value]="true">Oui</mat-radio-button>
+                        <mat-radio-button [value]="false">Non</mat-radio-button>
                     </mat-radio-group>
                     @if (formCreate.controls['mco'].hasError('required')) {
                     <mat-error>MCO <strong>requis</strong></mat-error>
                     }
                 </div>
             </div>
-            @if (formCreate.controls['mco'].value == "true") {
+            @if (formCreate.controls['mco'].value == true) {
             <div class="row">
                 <div class="col">
                     <mat-form-field appearance="outline">
@@ -223,7 +223,6 @@
                     <mat-form-field appearance="outline">
                         <mat-label>Type de projet :</mat-label>
                         <mat-select formControlName="typeProjet">
-                            <mat-option value="Aucun">Aucun</mat-option>
                             @for (typeProjet of typesProjet; track $index) {
                             <mat-option [value]="typeProjet.libelle">{{ typeProjet.libelle }}</mat-option>
                             }
@@ -268,8 +267,7 @@
                         <mat-label>RDS :</mat-label>
                         <mat-select formControlName="rds">
                             @for (r of rds; track $index) {
-                            <mat-option [value]="[r.idRDS.toString(),r.nom,r.direction,r.service]">{{ r.nom }}, {{
-                                r.direction }}, {{ r.service }}</mat-option>
+                            <mat-option [value]="[r.idRDS.toString(),r.nom,r.direction,r.service]">{{ r.nom }}</mat-option>
                             }
                         </mat-select>
                         @if (formCreate.controls['rds'].hasError('required')) {

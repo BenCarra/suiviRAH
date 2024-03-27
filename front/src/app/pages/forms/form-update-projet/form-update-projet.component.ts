@@ -164,9 +164,9 @@ export class FormUpdateProjetComponent {
       this.formUpdate.get('etat')?.setValue(this.projetById.libelleEtat);
       this.formUpdate.get('rds')?.setValue(this.projetById.rds);
 
+      // Remplissage de la liste déroulante des compositions
       let select = document.getElementById("compositions");
       let html = "";
-
       for (let composition of this.compositions) {
         if (this.projetById != undefined) {
           let found = false;
@@ -185,16 +185,9 @@ export class FormUpdateProjetComponent {
               ${composition[0]},${composition[1]},${composition[2]}
               </option>`;
           }
-
-
         }
       }
-
-
       select!.innerHTML = html;
-
-      console.log(this.compositions);
-
       this.formUpdate.get('compositions')?.setValue(this.projetById.listCompositions);
     })
 
@@ -272,6 +265,7 @@ export class FormUpdateProjetComponent {
         this.projetById.rds = null;
       }
 
+      // Ici, je suis obligé de convertir les valeurs d'identifiants en entiers, car dans le remplissage de la liste des compositions en javascript, l'attribut value de chaque élément option a sa valeur transformée en string  
       let listC: number[][] = [];
       this.formUpdate.get("compositions")?.value.forEach((c: any) => {
         if (typeof (c) == "string") {
@@ -283,8 +277,6 @@ export class FormUpdateProjetComponent {
           listC.push(temp0);
         }
       })
-      console.log(listC);
-
       if (listC.length != 0){
         this.projetById.listCompositions = listC;
       } else {
@@ -293,7 +285,6 @@ export class FormUpdateProjetComponent {
 
       this.projetService.update(this.projetById).subscribe({
         next: (response) => {
-          console.log(response);
           alert('Projet ' + response.nomProjet + ' modifié!');
           this.router.navigateByUrl("/projets");
         },

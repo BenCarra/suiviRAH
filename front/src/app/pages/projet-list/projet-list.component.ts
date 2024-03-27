@@ -68,6 +68,27 @@ export class ProjetListComponent {
     this.formFiltrage.get('boutonReset')?.disable();
   }
 
+   // Méthode pour supprimer une équipe
+   onDeleteProjet(id: number) {
+    if (confirm("Voulez-vous vraiment supprimer ce projet ?")) {
+      this.projetService.delete(id).subscribe({
+        next: (response) => {
+          alert("Projet " + response.nomProjet + " supprimé");
+          if (this.listProjets.length == 1) { // Si on supprime le seul projet restant
+            this.listProjets = [];
+          } else { 
+            this.projetService.getProjets().subscribe(data => {
+              this.listProjets = data;
+            })
+          }
+        },
+        error: (error) => { // Si erreur
+          console.log("Erreur lors de la suppression du projet", error);
+        }
+      });
+    }
+  }
+
   // Méthode pour le filtrage des projets
   updateFiltrage() {
     // Quand le filtre est sélectionné
