@@ -193,9 +193,7 @@ export class FormCreateProjetComponent {
       }
 
       this.projetCree.listCompositions = this.formCreate.get("compositions")?.value;
-
-      console.log(this.projetCree);
-
+      
       this.projetService.create(this.projetCree).subscribe({
         next: (response) => {
           alert('Projet ' + response.nomProjet + ' créé!');

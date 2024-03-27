@@ -84,6 +84,7 @@
                     <th>Equipes associées</th>
                     <th>Utilisateurs associés</th>
                     <th>Modifier</th>
+                    <th>Supprimer</th>
                 </tr>
             </thead>
             <tbody>
@@ -176,6 +177,7 @@
                     </td>
                     <td><button type="button" routerLink="/projets/update/"
                             [queryParams]="{ id: projet.idProjet}">Modifier</button></td>
+                    <td><button type="button" (click)="onDeleteProjet(projet.idProjet)">Supprimer</button></td>     
                 </tr>
                 }
             </tbody>
