@@ -280,17 +280,16 @@
             <div class="row">
                 <div class="col">
                     <mat-form-field appearance="outline">
-                        <mat-label>Compositions à ajouter :</mat-label>
+                        <mat-label>Equipe :</mat-label>
                         <br>
-                        <mat-select formControlName="compositions" multiple>
-                            @for (composition of compositions; track $index) {
+                        <mat-select formControlName="equipes">
+                            @for (equipe of equipes; track $index) {
                             <mat-option
-                                [value]="[composition[0],composition[1],composition[2]]">Equipe {{ composition[1] }}, Utilisateur {{ composition[2]
-                                }}</mat-option>
+                                [value]="equipe.libelle">{{ equipe.libelle }}</mat-option>
                             }
                         </mat-select>
-                        @if (formCreate.controls['compositions'].hasError('required')) {
-                        <mat-error>Compositions à ajouter <strong>requis</strong></mat-error>
+                        @if (formCreate.controls['equipes'].hasError('required')) {
+                        <mat-error>Equipe <strong>requise</strong></mat-error>
                         }
                     </mat-form-field>
                 </div>

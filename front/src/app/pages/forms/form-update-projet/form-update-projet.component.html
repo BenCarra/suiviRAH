@@ -295,32 +295,19 @@
             </div>
             <div class="row">
                 <div class="col">
-                        <label>Compositions à ajouter : <br>(Ctrl + clic gauche pour en sélectionner plusieurs) </label>
-                        <br><br>
-                        <select title="compositions" id="compositions" matNativeControl formControlName="compositions" multiple>
-                           <!-- @for (composition of compositions; track $index) {
-                                @if (projetById != undefined) {
-                                    @for (c of projetById.listCompositions; track $index) {
-                                        @if (c[0] == composition[0]) {
-                                            <option
-                                            [value]="c" selected>{{
-                                            composition[0] }},{{ composition[1] }},{{ composition[2]
-                                            }}, {{ compoFound }}</option>
-                                        }
-                                        }  
-                                    }
-                                    @if (!compoFound) {
-                                        <option
-                                            [value]="[composition[0], composition[1], composition[2]]">
-                                             {{ composition[0] }}, {{ composition[1] }}, {{ composition[2] }}, {{ compoFound }}
-                                            </option>
-                                    }
-                                    
-                                } -->
-                        </select>
-                        @if (formUpdate.controls['compositions'].hasError('required')) {
-                        <mat-error>Compositions à ajouter <strong>requis</strong></mat-error>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Equipe :</mat-label>
+                        <br>
+                        <mat-select formControlName="equipes">
+                            @for (equipe of equipes; track $index) {
+                            <mat-option
+                                [value]="equipe.libelle">{{ equipe.libelle }}</mat-option>
+                            }
+                        </mat-select>
+                        @if (formUpdate.controls['equipes'].hasError('required')) {
+                        <mat-error>Equipe <strong>requise</strong></mat-error>
                         }
+                    </mat-form-field>
                 </div>
             </div>
         </mat-card-content>

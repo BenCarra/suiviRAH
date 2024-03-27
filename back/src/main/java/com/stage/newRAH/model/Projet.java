@@ -10,8 +10,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -96,13 +94,11 @@ public class Projet {
 	@ManyToOne
 	@JoinColumn(name="id_rds")
 	private RDS rds;
-	
-	@ManyToMany
-	@JoinTable(name="ProjetComposition",
-			joinColumns = @JoinColumn(name="id_projet"),
-			inverseJoinColumns = @JoinColumn(name="id_composition"))
-	private List<Composition> listCompositions;
 
+	@ManyToOne
+	@JoinColumn(name="id_equipe")
+	private Equipe equipe;
+	
 	public Projet() {
 	}
 
@@ -110,8 +106,7 @@ public class Projet {
 			Date livraisonSouhaitee, Date livraisonRevisee, Date affectationCDS, Date priseEnCompteCDS,
 			Date dateEstimation, double devisEstimation, double dontGarantie, Date dateFeuVert, Date dateLivraison,
 			boolean mCO, Date datePassageMCO, Date dateSortieMCO, String commentaires, Client client,
-			TypeProjet typeProjet, TypeDefaut typeDefaut, Etat etat, RDS rds) {
-		super();
+			TypeProjet typeProjet, TypeDefaut typeDefaut, Etat etat, RDS rds, Equipe equipe) {
 		this.idProjet = idProjet;
 		this.nomProjet = nomProjet;
 		this.jira = jira;
@@ -126,7 +121,7 @@ public class Projet {
 		this.dontGarantie = dontGarantie;
 		this.dateFeuVert = dateFeuVert;
 		this.dateLivraison = dateLivraison;
-		MCO = mCO;
+		this.MCO = mCO;
 		this.datePassageMCO = datePassageMCO;
 		this.dateSortieMCO = dateSortieMCO;
 		this.commentaires = commentaires;
@@ -135,5 +130,6 @@ public class Projet {
 		this.typeDefaut = typeDefaut;
 		this.etat = etat;
 		this.rds = rds;
+		this.equipe = equipe;
 	}
 }

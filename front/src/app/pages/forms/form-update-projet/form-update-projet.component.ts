@@ -20,6 +20,8 @@ import { ProjetService } from '../../../shared/service/projet.service';
 import { RDSService } from '../../../shared/service/rds.service';
 import { TypeDefautService } from '../../../shared/service/type-defaut.service';
 import { TypeProjetService } from '../../../shared/service/type-projet.service';
+import { EquipeService } from '../../../shared/service/equipe.service';
+import { Equipe } from '../../../shared/model/equipe';
 
 @Component({
   selector: 'app-form-update-projet',
@@ -44,11 +46,9 @@ export class FormUpdateProjetComponent {
   typesDefaut!: TypeDefaut[];
   etats!: EtatProjet[];
   rds!: RDS[];
-  compositions!: string[][];
-  compoFound: boolean = false;
+  equipes!: Equipe[];
 
-
-  constructor(private projetService: ProjetService, private clientService: ClientService, private typeProjetService: TypeProjetService, private typeDefautService: TypeDefautService, private etatProjetService: EtatProjetService, private rdsService: RDSService, private compositionService: CompositionService, private activatedRoute: ActivatedRoute, private router: Router) {
+  constructor(private projetService: ProjetService, private clientService: ClientService, private typeProjetService: TypeProjetService, private typeDefautService: TypeDefautService, private etatProjetService: EtatProjetService, private rdsService: RDSService, private equipeService: EquipeService, private activatedRoute: ActivatedRoute, private router: Router) {
 
   }
 
@@ -77,7 +77,7 @@ export class FormUpdateProjetComponent {
       typeDefaut: new FormControl('', Validators.required),
       etat: new FormControl('', Validators.required),
       rds: new FormControl(null),
-      compositions: new FormControl('', Validators.required)
+      equipes: new FormControl('', Validators.required)
     })
 
     // Récupération des clients actifs
@@ -109,19 +109,10 @@ export class FormUpdateProjetComponent {
       this.rds = data;
     })
 
-    // Récupération des compositions pour l'affectation d'une ou plusieurs compositions à un projet
-    this.compositionService.findAll().subscribe(
-      data => {
-        this.compositions = [];
-        data.forEach(composition => {
-          let compositionObject: string[] = [];
-          compositionObject.push(composition.idComposition.toString());
-          compositionObject.push(composition.libelleEquipe);
-          compositionObject.push(composition.loginUtilisateur);
-          this.compositions.push(compositionObject);
-        })
-      }
-    )
+    // Récupération des équipes
+    this.equipeService.findAll().subscribe(data => {
+      this.equipes = data;
+    })
 
     // Récupération de l'identifiant du projet à modifier
     this.activatedRoute.queryParams.subscribe(params => {
@@ -162,8 +153,9 @@ export class FormUpdateProjetComponent {
 
       this.formUpdate.get('etat')?.setValue(this.projetById.libelleEtat);
       this.formUpdate.get('rds')?.setValue(this.projetById.rds);
+      this.formUpdate.get('equipes')?.setValue(this.projetById.libelleEquipe);
 
-      // Remplissage de la liste déroulante des compositions
+      /*// Remplissage de la liste déroulante des compositions
       let select = document.getElementById("compositions");
       let html = "";
       for (let composition of this.compositions) {
@@ -187,8 +179,8 @@ export class FormUpdateProjetComponent {
       select!.innerHTML = html;
       console.log(this.projetById.listCompositions);
       this.formUpdate.get('compositions')?.setValue(this.projetById.listCompositions);
-    })
-
+    })*/
+    });
   }
 
   // Méthode exécutée quand on appuie sur le bouton Retour
@@ -218,7 +210,7 @@ export class FormUpdateProjetComponent {
       this.formUpdate.controls['typeProjet'].hasError('required') ||
       this.formUpdate.controls['typeDefaut'].hasError('required') ||
       this.formUpdate.controls['etat'].hasError('required') ||
-      this.formUpdate.controls['compositions'].hasError('required')) {
+      this.formUpdate.controls['equipes'].hasError('required')) {
       console.log("Un ou plusieurs champs sont requis");
     } else {
       this.projetById.nomProjet = this.formUpdate.get("nom")?.value;
@@ -263,7 +255,9 @@ export class FormUpdateProjetComponent {
         this.projetById.rds = null;
       }
 
-      // Ici, je suis obligé faire une conversion, car dans le remplissage de la liste des compositions en javascript, l'attribut value de chaque élément option a sa valeur transformée en string et non en tableau de string 
+      this.projetById.libelleEquipe = this.formUpdate.get("equipes")?.value;
+      console.log(this.projetById.libelleEquipe);
+      /*// Ici, je suis obligé faire une conversion, car dans le remplissage de la liste des compositions en javascript, l'attribut value de chaque élément option a sa valeur transformée en string et non en tableau de string 
       let listC: string[][] = [];
       this.formUpdate.get("compositions")?.value.forEach((c: any) => {
         if (typeof(c) == "string") {
@@ -280,7 +274,7 @@ export class FormUpdateProjetComponent {
         this.projetById.listCompositions = listC;
       } else {
         this.projetById.listCompositions = this.formUpdate.get("compositions")?.value;
-      }
+      }*/
 
       this.projetService.update(this.projetById).subscribe({
         next: (response) => {

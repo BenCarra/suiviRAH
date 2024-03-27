@@ -30,14 +30,13 @@ public class ProjetDTO {
 	private String libelleEtat;
 	private String libelleTypeDefaut;
 	private String libelleTypeProjet;
+	private String libelleEquipe;
 	private List<String> rds;
-	private List<List<String>> listCompositions;
-	private List<List<String>> listTaches;
 	
 	public ProjetDTO() {
 	}
 
-	public ProjetDTO(int idProjet, String nomProjet, String jira, String techno, Date dateDemande, Date livraisonSouhaitee, Date livraisonRevisee, Date affectationCDS, Date priseEnCompteCDS, Date dateEstimation, double devisEstimation, double dontGarantie, Date dateFeuVert, Date dateLivraison, boolean MCO, Date datePassageMCO, Date dateSortieMCO, String commentaires, String nomClient, String libelleEtat, String libelleTypeDefaut, String libelleTypeProjet) {
+	public ProjetDTO(int idProjet, String nomProjet, String jira, String techno, Date dateDemande, Date livraisonSouhaitee, Date livraisonRevisee, Date affectationCDS, Date priseEnCompteCDS, Date dateEstimation, double devisEstimation, double dontGarantie, Date dateFeuVert, Date dateLivraison, boolean MCO, Date datePassageMCO, Date dateSortieMCO, String commentaires, String nomClient, String libelleEtat, String libelleTypeDefaut, String libelleTypeProjet, String libelleEquipe) {
 		this.idProjet = idProjet;
 		this.nomProjet = nomProjet;
 		this.jira = jira;
@@ -60,5 +59,6 @@ public class ProjetDTO {
 		this.libelleEtat = libelleEtat;
 		this.libelleTypeDefaut = libelleTypeDefaut;
 		this.libelleTypeProjet = libelleTypeProjet;
+		this.libelleEquipe = libelleEquipe;
 	}
 }

@@ -40,22 +40,11 @@ public class ProjetController {
 		return projetService.getProjetByNom(nom);
 	}
 	
-	@GetMapping("/projetsByComposition/{id}")
-	public List<ProjetDTO> getProjetsByComposition(@PathVariable int id) {
-		return projetService.getProjetsByComposition(id);
-		
+	@GetMapping("/projetByEquipe/{id}")
+	public ResponseEntity<ProjetDTO> getProjetByEquipe(@PathVariable int idEquipe) {
+		return projetService.getProjetsByEquipe(idEquipe);
 	}
 	
-	@GetMapping("/projetsByEquipe/{id}")
-	public ResponseEntity<List<ProjetDTO>> getProjetsByEquipe(@PathVariable int id) {
-		return projetService.getProjetsByEquipe(id);
-	}
-	
-	@GetMapping("/projetsByUtilisateur/{id}")
-	public ResponseEntity<List<ProjetDTO>> getProjetsByUtilisateur(@PathVariable int id) {
-		return projetService.getProjetsByUtilisateur(id);
-	}
-
 	@GetMapping("/suiviProjets")
 	public ResponseEntity<List<SuiviProjetDTO>> getSuiviProjets() {
 		return projetService.getSuiviProjets();

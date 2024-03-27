@@ -24,7 +24,6 @@ export class Projet {
     dateSortieMCO!: Date | null;
     libelleEtat!: string;
     commentaires!: string;
+    libelleEquipe!: string;
     rds!: string[] | null;
-    listTaches!: string[][];
-    listCompositions!: string[][];
 }

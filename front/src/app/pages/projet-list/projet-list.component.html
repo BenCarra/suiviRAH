@@ -13,9 +13,7 @@
             (change)="updateFiltrage()">
             <option disabled [selected]="formFiltrage.value.filtrageDemande == ''">-- Sélectionner un filtre --</option>
             <option value="Par nom de projet">Rechercher par nom de projet</option>
-            <option value="Par composition">Rechercher par composition</option>
             <option value="Par équipe">Rechercher par équipe</option>
-            <option value="Par utilisateur">Rechercher par utilisateur</option>
         </select>
         @if (formFiltrage.get("filtrageDemande")?.getRawValue() == "Par nom de projet") {
         <select title="noms-projet" id="noms-projet" autocomplete formControlName="projetRecherche">
@@ -25,22 +23,10 @@
             <option [value]="nomProjet">{{ nomProjet }}</option>
             }
         </select>
-        } @else if (formFiltrage.get("filtrageDemande")?.getRawValue() == "Par composition") {
-        <select title="compositions" id="compositions" autocomplete formControlName="projetRecherche">
-            @for (composition of listCompositions; track $index) {
-            <option [value]="composition[0]">{{ composition[1] }}, {{ composition[2] }}</option>
-            }
-        </select>
         } @else if (formFiltrage.get("filtrageDemande")?.getRawValue() == "Par équipe") {
         <select title="equipes" id="equipes" autocomplete formControlName="projetRecherche">
             @for (equipe of listEquipes; track $index) {
             <option [value]="equipe">{{ equipe }}</option>
-            }
-        </select>
-        } @else if (formFiltrage.get("filtrageDemande")?.getRawValue() == "Par utilisateur") {
-        <select title="utilisateurs" id="utilisateurs" autocomplete formControlName="projetRecherche">
-            @for (utilisateur of listUtilisateurs; track $index) {
-            <option [value]="utilisateur">{{ utilisateur }}</option>
             }
         </select>
         }
@@ -79,12 +65,7 @@
                     <th>Date sortie MCO</th>
                     <th>Etat</th>
                     <th>Commentaires</th>
-                    <th>Tâches associées</th>
-                    <th>Compositions associées</th>
-                    <!--
-                    <th>Equipes associées</th>
-                    <th>Utilisateurs associés</th>
-                    -->
+                    <th>Equipe associée</th>
                     <th>Modifier</th>
                     <th>Supprimer</th>
                 </tr>
@@ -131,41 +112,7 @@
                     }
                     <td>{{ projet.libelleEtat}}</td>
                     <td>{{ projet.commentaires}}</td>
-                    <td>
-                        @for (tache of projet.listTaches; track $index){
-                        <ul>
-                            <li>Tâche n°{{ tache[0] }}</li>
-                            <li>{{ tache[1] }}</li>
-                        </ul>
-                        <br>
-                        }
-                    </td>
-                    <td>
-                        @for (composition of projet.listCompositions; track $index){
-                            <ul>
-                                <li>Composition n°{{ composition[0] }} : Equipe {{ composition[1] }}, Utilisateur {{ composition[2] }}</li>
-                            </ul>
-                            <br>
-                        }
-                    </td>
-                    <!--
-                    <td>
-                        @for (composition of projet.listCompositions; track $index){
-                            <ul>
-                                <li>{{ composition[1] }}</li>
-                            </ul>
-                            <br>
-                        }
-                    </td>
-                    <td>
-                        @for (composition of projet.listCompositions; track $index){
-                            <ul>
-                                <li>{{ composition[2] }}</li>
-                            </ul>
-                            <br>
-                        }
-                    </td>
-                    -->
+                    <td>{{ projet.libelleEquipe }}</td>
                     <td><button type="button" routerLink="/projets/update/"
                             [queryParams]="{ id: projet.idProjet}">Modifier</button></td>
                     <td><button type="button" (click)="onDeleteProjet(projet.idProjet)">Supprimer</button></td>     
@@ -179,7 +126,8 @@
                     <th>Client</th>
                     <th>Jira</th>
                     <th>Type de projet</th>
-                    <th>Type de défaut </th>
+                    <th>Type de défaut</th>
+                    <th>Equipe associée/th>
                 </tr>
             </thead>
             <tbody>
@@ -194,6 +142,7 @@
                     } @else {
                         <td>/</td>
                     }
+                    <td>{{ projet.libelleEquipe }}</td>
                     }
             </tbody>
             }

@@ -16,6 +16,9 @@ public interface ProjetRepository extends CrudRepository<Projet, Integer> {
     @Query("SELECT p FROM Projet p WHERE p.nomProjet=:nom")
     public Optional<Projet> findByNom(@Param(value = "nom") String nom);
 
+    @Query("SELECT p FROM Projet p WHERE p.equipe.id=:idEquipe")
+    public Optional<Projet> findByEquipe(@Param(value = "idEquipe") int idEquipe);
+
     /*
      * Pour permettre l'opération de projection JPA en JPQL, on définit une
      * interface SuiviProjet. Spring crée une instance proxy de l'interface de

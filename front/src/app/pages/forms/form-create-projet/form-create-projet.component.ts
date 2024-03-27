@@ -19,8 +19,8 @@ import { TypeProjetService } from '../../../shared/service/type-projet.service';
 import { TypeDefautService } from '../../../shared/service/type-defaut.service';
 import { EtatProjetService } from '../../../shared/service/etat-projet.service';
 import { RDSService } from '../../../shared/service/rds.service';
-import { CompositionService } from '../../../shared/service/composition.service';
 import { EquipeService } from '../../../shared/service/equipe.service';
+import { Equipe } from '../../../shared/model/equipe';
 
 @Component({
   selector: 'app-form-create-projet',
@@ -44,10 +44,9 @@ export class FormCreateProjetComponent {
   typesDefaut!: TypeDefaut[];
   etats!: EtatProjet[];
   rds!: RDS[];
-  compositions!: string[][];
-  test!: any;
+  equipes!: Equipe[];
 
-  constructor(private projetService: ProjetService, private clientService: ClientService, private typeProjetService: TypeProjetService, private typeDefautService: TypeDefautService, private etatProjetService: EtatProjetService, private rdsService: RDSService, private compositionService: CompositionService, private equipeservice: EquipeService , private router: Router) { }
+  constructor(private projetService: ProjetService, private clientService: ClientService, private typeProjetService: TypeProjetService, private typeDefautService: TypeDefautService, private etatProjetService: EtatProjetService, private rdsService: RDSService, private equipeService: EquipeService, private router: Router) { }
 
   ngOnInit() {
     // Création du formulaire réactif
@@ -74,7 +73,7 @@ export class FormCreateProjetComponent {
       typeDefaut: new FormControl('', Validators.required),
       etat: new FormControl('', Validators.required),
       rds: new FormControl(null),
-      compositions: new FormControl('', Validators.required),
+      equipes: new FormControl('', Validators.required),
     })
 
     // Récupération des clients actifs
@@ -106,20 +105,11 @@ export class FormCreateProjetComponent {
       this.rds = data;
     })
 
-    // Récupération des compositions pour l'affectation d'une ou plusieurs compositions à un projet
-    this.compositionService.findAll().subscribe(
-      data => {
-        this.compositions = [];
-        this.test = [];
-        data.forEach(composition => {
-          let compositionObject: string[] = [];
-          compositionObject.push(composition.idComposition.toString());
-          compositionObject.push(composition.libelleEquipe);
-          compositionObject.push(composition.loginUtilisateur);
-          this.compositions.push(compositionObject);
-        })
-      }
-    )
+    // Récupération des équipes
+    this.equipeService.findAll().subscribe(data => {
+      this.equipes = data;
+      console.log(this.equipes);
+    })
 
   }
 
@@ -132,25 +122,25 @@ export class FormCreateProjetComponent {
   onSubmit(): void {
 
     if (this.formCreate.controls['nom'].hasError('required') ||
-    this.formCreate.controls['jira'].hasError('required') ||
-    this.formCreate.controls['techno'].hasError('required') ||
-    this.formCreate.controls['dateDemande'].hasError('required') ||
-    this.formCreate.controls['livraisonSouhaitee'].hasError('required') ||
-    this.formCreate.controls['livraisonRevisee'].hasError('required') ||
-    this.formCreate.controls['affectationCDS'].hasError('required') ||
-    this.formCreate.controls['priseEnCompteCDS'].hasError('required') ||
-    this.formCreate.controls['dateEstimation'].hasError('required') ||
-    this.formCreate.controls['devisEstimation'].hasError('required') ||
-    this.formCreate.controls['dontGarantie'].hasError('required') ||
-    this.formCreate.controls['dateFeuVert'].hasError('required') ||
-    this.formCreate.controls['dateLivraison'].hasError('required') ||
-    this.formCreate.controls['mco'].hasError('required') ||
-    this.formCreate.controls['commentaires'].hasError('required') ||
-    this.formCreate.controls['client'].hasError('required') ||
-    this.formCreate.controls['typeProjet'].hasError('required') ||
-    this.formCreate.controls['typeDefaut'].hasError('required') ||
-    this.formCreate.controls['etat'].hasError('required') ||
-    this.formCreate.controls['compositions'].hasError('required')) {
+      this.formCreate.controls['jira'].hasError('required') ||
+      this.formCreate.controls['techno'].hasError('required') ||
+      this.formCreate.controls['dateDemande'].hasError('required') ||
+      this.formCreate.controls['livraisonSouhaitee'].hasError('required') ||
+      this.formCreate.controls['livraisonRevisee'].hasError('required') ||
+      this.formCreate.controls['affectationCDS'].hasError('required') ||
+      this.formCreate.controls['priseEnCompteCDS'].hasError('required') ||
+      this.formCreate.controls['dateEstimation'].hasError('required') ||
+      this.formCreate.controls['devisEstimation'].hasError('required') ||
+      this.formCreate.controls['dontGarantie'].hasError('required') ||
+      this.formCreate.controls['dateFeuVert'].hasError('required') ||
+      this.formCreate.controls['dateLivraison'].hasError('required') ||
+      this.formCreate.controls['mco'].hasError('required') ||
+      this.formCreate.controls['commentaires'].hasError('required') ||
+      this.formCreate.controls['client'].hasError('required') ||
+      this.formCreate.controls['typeProjet'].hasError('required') ||
+      this.formCreate.controls['typeDefaut'].hasError('required') ||
+      this.formCreate.controls['etat'].hasError('required') ||
+      this.formCreate.controls['equipes'].hasError('required')) {
       console.log("Un ou plusieurs champs sont requis");
     } else {
       this.projetCree.nomProjet = this.formCreate.get("nom")?.value;
@@ -194,7 +184,7 @@ export class FormCreateProjetComponent {
         this.projetCree.rds = null;
       }
 
-      this.projetCree.listCompositions = this.formCreate.get("compositions")?.value;
+      this.projetCree.libelleEquipe = this.formCreate.get("equipes")?.value;
       
       this.projetService.create(this.projetCree).subscribe({
         next: (response) => {

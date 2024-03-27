@@ -94,7 +94,9 @@ public class ProjetService {
 		if (projet.getTypeDefaut() != null) {
 			projetDTO.setLibelleTypeDefaut(projet.getTypeDefaut().getLibelle());
 		}
+
 		projetDTO.setLibelleTypeProjet(projet.getTypeProjet().getLibelle());
+
 		if (projet.getRds() != null) {
 			List<String> rdsObject = new ArrayList<>();
 			rdsObject.add(String.valueOf(projet.getRds().getIdRDS()));
@@ -104,28 +106,7 @@ public class ProjetService {
 			projetDTO.setRds(rdsObject);
 		}
 
-		if (projet.getListTaches() != null) {
-			List<List<String>> listTaches = new ArrayList<>();
-			for (Tache tache : projet.getListTaches()) {
-				List<String> tacheObject = new ArrayList<>();
-				tacheObject.add(String.valueOf(tache.getIdTache()));
-				tacheObject.add(tache.getNomTache());
-				listTaches.add(tacheObject);
-			}
-			projetDTO.setListTaches(listTaches);
-		}
-
-		if (projet.getListCompositions() != null) {
-			List<List<String>> listCompositions = new ArrayList<>();
-			for (Composition composition : projet.getListCompositions()) {
-				List<String> compositionObject = new ArrayList<>();
-				compositionObject.add(String.valueOf(composition.getIdComposition()));
-				compositionObject.add(composition.getEquipe().getLibelle());
-				compositionObject.add(composition.getUtilisateur().getLogin());
-				listCompositions.add(compositionObject);
-			}
-			projetDTO.setListCompositions(listCompositions);
-		}
+		projetDTO.setLibelleEquipe(projet.getEquipe().getLibelle());
 
 		return projetDTO;
 	}
@@ -242,73 +223,15 @@ public class ProjetService {
 		}
 	}
 
-	// Je n'ai pas utilisé ResponseEntity comme retour afin de pouvoir réutiliser
-	// facilement cette méthode dans getProjetsByEquipe
-	public List<ProjetDTO> getProjetsByComposition(int id) {
-		Optional<Composition> compositionChoisie = compositionRepository.findById(id);
+	public ResponseEntity<ProjetDTO> getProjetsByEquipe(int idEquipe) {
+		Optional<Projet> projetChoisiOptional = projetRepository.findByEquipe(idEquipe);
 
-		if (compositionChoisie.isPresent()) {
-			List<Projet> projets = compositionChoisie.get().getListProjets();
-			List<ProjetDTO> projetsDTO = new ArrayList<>();
-
-			for (Projet projet : projets) {
-				ProjetDTO projetDTO = mapProjetToDTO(projet);
-				projetsDTO.add(projetDTO);
-			}
-
-			return (projetsDTO);
-		} else {
-			return null;
-		}
-	}
-
-	public ResponseEntity<List<ProjetDTO>> getProjetsByEquipe(int id) {
-		List<ProjetDTO> projetsDTO = new ArrayList<>();
-		Equipe equipeChoisie = equipeRepository.findById(id).get();
-
-		List<Composition> compositions = equipeChoisie.getListCompositions();
-
-		for (Composition composition : compositions) {
-			List<ProjetDTO> projetsDTOByCompo = getProjetsByComposition(composition.getIdComposition());
-
-			for (ProjetDTO projetDTO : projetsDTOByCompo) {
-
-				// Pour pouvoir utiliser la méthode contains, il faut redéfinir la méthode
-				// equals (si deux projets ont le même id, ils sont identiques)
-				if (!projetsDTO.contains(projetDTO)) {
-					projetsDTO.add(projetDTO);
-				}
-			}
-		}
-		return ResponseEntity.ok(projetsDTO);
-
-	}
-
-	public ResponseEntity<List<ProjetDTO>> getProjetsByUtilisateur(int id) {
-		List<ProjetDTO> projetsDTO = new ArrayList<>();
-		Optional<Utilisateur> utilisateurChoisi = utilisateurRepository.findById(id);
-
-		if (utilisateurChoisi.isPresent()) {
-
-			List<Composition> compositions = utilisateurChoisi.get().getListCompositions();
-
-			for (Composition composition : compositions) {
-				List<ProjetDTO> projetsDTOByCompo = getProjetsByComposition(composition.getIdComposition());
-
-				for (ProjetDTO projetDTO : projetsDTOByCompo) {
-
-					// Pour pouvoir utiliser la méthode contains, il faut redéfinir la méthode
-					// equals (si deux projets ont le même id, ils sont identiques)
-					if (!projetsDTO.contains(projetDTO)) {
-						projetsDTO.add(projetDTO);
-					}
-				}
-			}
-			return ResponseEntity.ok(projetsDTO);
+		if (projetChoisiOptional.isPresent()) {
+			ProjetDTO projetChoisiDTO = mapProjetToDTO(projetChoisiOptional.get());
+			return ResponseEntity.ok(projetChoisiDTO);
 		} else {
 			return ResponseEntity.notFound().build();
 		}
-
 	}
 
 	public ResponseEntity<List<SuiviProjetDTO>> getSuiviProjets() {
@@ -398,6 +321,7 @@ public class ProjetService {
 		Client client = clientRepository.findByNom(projetDTO.getNomClient()).iterator().next();
 		Etat etat = etatRepository.findByLibelle(projetDTO.getLibelleEtat()).get();
 		TypeProjet typeProjet = typeProjetRepository.findByLibelle(projetDTO.getLibelleTypeProjet()).get();
+		Equipe equipe = equipeRepository.findByLibelle(projetDTO.getLibelleEquipe()).get();
 
 		if (projetDTO.getLibelleTypeDefaut() != "") {
 			TypeDefaut typeDefaut = typeDefautRepository.findByLibelle(projetDTO.getLibelleTypeDefaut()).get();
@@ -443,19 +367,7 @@ public class ProjetService {
 		projetACreer.setClient(client);
 		projetACreer.setEtat(etat);
 		projetACreer.setTypeProjet(typeProjet);
-
-		List<List<String>> compositionsString = projetDTO.getListCompositions();
-		List<Composition> compositions = new ArrayList<>();
-
-		for (List<String> compositionString : compositionsString) {
-			int idComposition = Integer.parseInt(compositionString.get(0));
-			Composition composition = compositionRepository.findById(idComposition).get();
-			List<Projet> projets = composition.getListProjets();
-			projets.add(projetACreer);
-			compositions.add(composition);
-		}
-
-		projetACreer.setListCompositions(compositions);
+		projetACreer.setEquipe(equipe);
 
 		Projet projetSauvegarde = projetRepository.save(projetACreer);
 
@@ -469,11 +381,11 @@ public class ProjetService {
 
 		if (projetAModifierOptional.isPresent()) {
 			Projet projetAModifier = projetAModifierOptional.get();
+
 			Client client = clientRepository.findByNom(projetDTO.getNomClient()).iterator().next();
 			Etat etat = etatRepository.findByLibelle(projetDTO.getLibelleEtat()).get();
 			TypeProjet typeProjet = typeProjetRepository.findByLibelle(projetDTO.getLibelleTypeProjet()).get();
-
-			Projet projetAModifierOld = projetAModifier;
+			Equipe equipe = equipeRepository.findByLibelle(projetDTO.getLibelleEquipe()).get();
 
 			if (projetDTO.getLibelleTypeDefaut() != "") {
 				TypeDefaut typeDefaut = typeDefautRepository.findByLibelle(projetDTO.getLibelleTypeDefaut()).get();
@@ -519,20 +431,7 @@ public class ProjetService {
 			projetAModifier.setClient(client);
 			projetAModifier.setEtat(etat);
 			projetAModifier.setTypeProjet(typeProjet);
-
-			List<List<String>> compositionsString = projetDTO.getListCompositions();
-			List<Composition> compositions = new ArrayList<>();
-
-			for (List<String> compositionString : compositionsString) {
-				int idComposition = Integer.parseInt(compositionString.get(0));
-				Composition composition = compositionRepository.findById(idComposition).get();
-				List<Projet> projets = composition.getListProjets();
-				projets.remove(projetAModifierOld);
-				projets.add(projetAModifier);
-				compositions.add(composition);
-			}
-
-			projetAModifier.setListCompositions(compositions);
+			projetAModifier.setEquipe(equipe);
 
 			projetRepository.save(projetAModifier);
 
@@ -552,16 +451,6 @@ public class ProjetService {
 
 			Projet projetASupprimer = projetASupprimerOptional.get();
 
-			/* On supprime le lien entre composition et projet */
-			List<Composition> compositions = projetASupprimer.getListCompositions();
-
-			for (Composition composition : compositions) {
-				List<Projet> projetsComposition = composition.getListProjets();
-				projetsComposition.removeAll(projetsComposition);
-			}
-
-			compositions.removeAll(compositions);
-
 			/* On supprime le lien entre les tâches et le projet */
 			List<Tache> taches = projetASupprimer.getListTaches();
 
@@ -570,8 +459,6 @@ public class ProjetService {
 			}
 
 			taches.removeAll(taches);
-
-			
 
 			projetRepository.deleteById(id);
 

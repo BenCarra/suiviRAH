@@ -1,7 +1,5 @@
 package com.stage.newRAH.dto;
 
-import java.util.List;
-
 import lombok.Data;
 
 @Data
@@ -11,7 +9,6 @@ public class RDSDTO {
     private String nom;
     private String direction;
     private String service;
-    private List<List<String>> listProjets;
 
     public RDSDTO(){
 

@@ -18,7 +18,6 @@ export class ProjetListComponent {
   routerURL: string;
   listProjets!: Projet[];
   listNomsProjet: String[] = [];
-  listCompositions!: string[][];
   listEquipes: string[] = [];
   listUtilisateurs: string[] = [];
   formFiltrage!: FormGroup;
@@ -40,15 +39,6 @@ export class ProjetListComponent {
 
     // Récupération de tous les projets à afficher
     this.projetService.getProjets().subscribe(data => {
-      data.forEach(projet => {
-        if ((projet.listCompositions) && (projet.listCompositions.length != 0)) {
-          projet.listCompositions.forEach(composition => {
-                this.listEquipes.push(composition[1]);
-                this.listUtilisateurs.push(composition[2]);
-            });
-        }
-        
-      })
       this.listProjets = data;      
     })
 
@@ -89,46 +79,23 @@ export class ProjetListComponent {
       this.formFiltrage.get('boutonSoumission')?.enable();
       this.formFiltrage.get('boutonReset')?.enable();
 
-      // Pour un filtre choisi, on remplit la liste des caractéristiques projet correspondantes
-
       if (this.formFiltrage.value.filtrageDemande == 'Par nom de projet') {
         this.listNomsProjet = [];
         this.projetService.getProjets().subscribe(data => {
-          data.forEach((projet) => {
+          data.forEach(projet => {
             if (!this.listNomsProjet.includes(projet.nomProjet)) {
               this.listNomsProjet.push(projet.nomProjet);
             }
           });
         });
-      } else if ((this.formFiltrage.value.filtrageDemande == 'Par composition') ||
-        (this.formFiltrage.value.filtrageDemande == 'Par équipe') ||
-        (this.formFiltrage.value.filtrageDemande == 'Par utilisateur')) {
-        this.listCompositions = [];
+      } else if (this.formFiltrage.value.filtrageDemande == 'Par équipe') {
+        this.listEquipes = [];
         this.projetService.getProjets().subscribe(data => {
-          data.forEach((projet) => {
-
-            if (this.formFiltrage.value.filtrageDemande == 'Par composition') {
-              projet.listCompositions.forEach(composition => {
-                if (!this.listCompositions.includes(composition)) {
-                  this.listCompositions.push(composition);
-                }
-              });
-            } else if (this.formFiltrage.value.filtrageDemande == 'Par équipe') {
-              this.listEquipes.forEach((equipe: any) => {
-                if (!this.listEquipes.includes(equipe)) {
-                  this.listEquipes.push(equipe);
-                }
-              });
-            } else if (this.formFiltrage.value.filtrageDemande == 'Par utilisateur') {
-              this.listUtilisateurs.forEach((utilisateur) => {
-                if (!this.listUtilisateurs.includes(utilisateur)) {
-                  this.listUtilisateurs.push(utilisateur);
-                }
-              });
+          data.forEach(projet => {
+            if (!this.listEquipes.includes(projet.libelleEquipe)) {
+              this.listEquipes.push(projet.libelleEquipe);
             }
-
-
-          })
+          });
         });
       }
     }
@@ -141,33 +108,20 @@ export class ProjetListComponent {
     // Selon le filtre choisi, on récupère les résultats
 
     if (this.formFiltrage.value.filtrageDemande == 'Par nom de projet') {
-      this.listProjets = []
-      this.projetService.getProjetByNom(recherche!).subscribe(
+      this.listProjets = [];
+      this.projetService.getProjetByNom(recherche).subscribe(
         data => {
           this.listProjets.push(data);
         }
       )
-    } else if (this.formFiltrage.value.filtrageDemande == 'Par composition') {
-      this.projetService.getProjetsByComposition(recherche!).subscribe(
+    }  else if (this.formFiltrage.value.filtrageDemande == 'Par équipe') {
+      this.listProjets = [];
+      this.projetService.getProjetByEquipe(recherche).subscribe(
         data => {
-          this.listProjets = data;
+          this.listProjets.push(data);
         }
       )
-    } else if (this.formFiltrage.value.filtrageDemande == 'Par équipe') {
-      let idRecherche = recherche.split("|")[1];
-      this.projetService.getProjetsByEquipe(idRecherche).subscribe(
-        data => {
-          this.listProjets = data;
-        }
-      )
-    } else if (this.formFiltrage.value.filtrageDemande == 'Par utilisateur') {
-      let idRecherche = recherche.split("|")[1];
-      this.projetService.getProjetsByUtilisateur(idRecherche).subscribe(
-        data => {
-          this.listProjets = data;
-        }
-      )
-    }
+    } 
 
   }
 

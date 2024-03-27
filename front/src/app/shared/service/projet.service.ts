@@ -28,16 +28,8 @@ export class ProjetService {
     return this.http.get<Projet>(this.url + "/projetByNom/" + nom);
   }
 
-  public getProjetsByComposition(idComposition: number): Observable<Projet[]> {
-    return this.http.get<Projet[]>(this.url + "/projetsByComposition/" + idComposition);
-  }
-
-  public getProjetsByEquipe(idEquipe: number): Observable<Projet[]> {
-    return this.http.get<Projet[]>(this.url + "/projetsByEquipe/" + idEquipe);
-  }
-
-  public getProjetsByUtilisateur(idUtilisateur: number): Observable<Projet[]> {
-    return this.http.get<Projet[]>(this.url + "/projetsByUtilisateur/" + idUtilisateur);
+  public getProjetByEquipe(idEquipe: number): Observable<Projet> {
+    return this.http.get<Projet>(this.url + "/projetByEquipe/" + idEquipe);
   }
 
   // Récupère de l'API le suivi des projets
