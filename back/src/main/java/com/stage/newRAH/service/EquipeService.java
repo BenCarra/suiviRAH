@@ -32,6 +32,9 @@ public class EquipeService {
 
 	@Autowired
 	ProjetRepository projetRepository;
+
+	@Autowired
+	CompositionService compositionService;
 	
 	public EquipeDTO mapEquipeToDTO(Equipe equipe) {
 		EquipeDTO equipeDTO = new EquipeDTO();
@@ -123,28 +126,54 @@ public class EquipeService {
 
 		/* On remplit la liste des utilisateurs de l'équipe à créer côté équipe
 		et à chacun de ses membres, on affecte cette équipe afin d'afficher côté utilisateur la liste des équipes auxquelles un utilisateur appartient */
+
+		// Récupération des informations utilisateurs du formulaire de création
 		List<List<String>> utilisateursString = equipeDTO.getListUtilisateurs();
+		// Création de la liste des informations utilisateurs de l'équipe créée à envoyer au front-end		
 		List<Utilisateur> utilisateurs = new ArrayList<>();
+
 
 		// TODO : Voir si on peut recréer une équipe sans créer une nouvelle composition 
 
 		for (List<String> utilisateurString : utilisateursString) {
 			Utilisateur utilisateur = utilisateurRepository.findById(Integer.parseInt(utilisateurString.get(0))).get();
 			List<Equipe> equipes = utilisateur.getListEquipes();
+			// Ajout de l'équipe créée dans la liste des équipes associées à l'utilisateur récupéré
 			equipes.add(equipeACreer);
+			// Ajout de l'utilisateur dans la liste des utilisateurs de l'équipe créée
 			utilisateurs.add(utilisateur);
 		}
+
 
 		equipeACreer.setListUtilisateurs(utilisateurs);
 
 		equipeRepository.save(equipeACreer);
+
+		/*for (List<String> compositionString : compositionsString) {
+			ResponseEntity<CompositionDTO> compositionCreee = compositionService.create(new CompositionDTO(Integer.parseInt(compositionString.get(0)), equipeACreer.getIdEquipe(), Integer.parseInt(compositionString.get(2))));
+
+			Composition composition = new Composition();
+
+			Equipe equipeComposition = equipeRepository.findById(compositionCreee.getBody().getIdEquipe()).get();
+			Utilisateur utilisateurComposition = utilisateurRepository.findById(compositionCreee.getBody().getIdUtilisateur()).get();
+
+			composition.setIdComposition(0);
+			composition.setEquipe(equipeComposition);
+			composition.setUtilisateur(utilisateurComposition);
+			compositions.add(composition);
+		}
+
+		equipeACreer.setListCompositions(compositions);
+
+		equipeRepository.save(equipeACreer);*/
 
 		EquipeDTO equipeACreerDTO = this.mapEquipeToDTO(equipeACreer);
 
 		return ResponseEntity.ok(equipeACreerDTO);
 	}
 
-	// TODO : Régler le problème du lien entre projet et composition (éventuellement modifier le lien côté projet)
+	// TODO : Régler le problème du lien entre projet et composition (éventuellement modifier le lien côté projet) + 
+	// composition effacée puis recréée quand modification équipe (problème d'idComposition qui s'incrémente quand on modifie l'équipe)
 	public ResponseEntity<EquipeDTO> updateEquipe(EquipeDTO equipeDTO, int id) {
 		Optional<Equipe> equipeAModifierOptional = equipeRepository.findById(id);
 
@@ -154,44 +183,50 @@ public class EquipeService {
 			List<List<String>> utilisateursString = equipeDTO.getListUtilisateurs();
 			List<Utilisateur> utilisateurs = new ArrayList<>();
 
+			equipeAModifier.setLibelle(equipeDTO.getLibelle());
+
 			for (List<String> utilisateurString : utilisateursString) {
 				Utilisateur utilisateur = utilisateurRepository.findById(Integer.parseInt(utilisateurString.get(0))).get();
 				List<Equipe> equipes = utilisateur.getListEquipes();
 
 				if (equipes.contains(equipeAModifier)) {
-					equipes.remove(equipeAModifier);
-					equipeAModifier.setLibelle(equipeDTO.getLibelle());
-					equipes.add(equipeAModifier);
+					int indexEquipeAModifier = equipes.indexOf(equipeAModifier);
+					equipes.get(indexEquipeAModifier).setLibelle(equipeDTO.getLibelle());
 				}
+
 				utilisateurs.add(utilisateur);
 			}
 
 			equipeAModifier.setListUtilisateurs(utilisateurs);
 
-			equipeRepository.save(equipeAModifier);
-
-			/* On modifie le lien entre composition et projet 
+			//On modifie le lien entre composition et projet 
 			List<Composition> compositions = equipeAModifier.getListCompositions();
-			Iterable<Projet> projets = projetRepository.findAll();
+			Iterable<Projet> projets =  projetRepository.findAll();
 
 			for (Composition composition : compositions) {
 ;
-				Projet ancienProjet = null;
-				Projet nouveauProjet = null;
-
 				for (Projet projet : projets) {
 					if (projet.getListCompositions().contains(composition)) {
-						ancienProjet = projet;
-						composition.setEquipe(equipeAModifier);
+
+						Projet oldProjet = projet;
+
+						int indexCompositionAModifier = projet.getListCompositions().indexOf(composition);
+						projet.getListCompositions().get(indexCompositionAModifier).setEquipe(equipeAModifier);
+
+						List<Projet> projetsComposition = composition.getListProjets();
+						//composition.setEquipe(equipeAModifier);
+						projetsComposition.remove(oldProjet);
+						projetsComposition.add(projet);
+
 						projetRepository.save(projet);
-						nouveauProjet = projet;
 					}
 				}
-
-				List<Projet> projetsComposition = composition.getListProjets();
-				projetsComposition.removeAll(projetsComposition);
 				
-			}*/
+			}
+
+			equipeAModifier.setListCompositions(compositions);
+
+			equipeRepository.save(equipeAModifier);
 
 			EquipeDTO equipeAModifierDTO = this.mapEquipeToDTO(equipeAModifier);
 

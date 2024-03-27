@@ -43,8 +43,9 @@ public class Equipe {
 		
 	}
 
-	public Equipe(int idEquipe) {
+	public Equipe(int idEquipe, String libelle) {
 		this.idEquipe = idEquipe;
+		this.libelle = libelle;
 	}
 	
 }

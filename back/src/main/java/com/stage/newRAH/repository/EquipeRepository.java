@@ -12,5 +12,5 @@ public interface EquipeRepository extends CrudRepository<Equipe, Integer> {
 
     @Query("SELECT e FROM Equipe e WHERE e.libelle=:libelle")
     Iterable<Equipe> findByLibelle(@Param("libelle") String libelle);
-
+    
 }
