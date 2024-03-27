@@ -192,6 +192,7 @@ public class UtilisateurService {
 		Utilisateur utilisateurACreer = new Utilisateur();
 
 		String originalPassword = utilisateurDTO.getPassword();
+		// J'encode le mot de passe pour que personne ne puisse pas le comprendre dans la bdd
 		String hashPassword  = passwordEncoder.encode(originalPassword);
 
 		Site site = siteRepository.findByNom(utilisateurDTO.getNomSite()).get();

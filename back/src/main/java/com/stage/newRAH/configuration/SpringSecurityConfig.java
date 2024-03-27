@@ -1,5 +1,7 @@
 package com.stage.newRAH.configuration;
 
+import javax.crypto.spec.SecretKeySpec;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,15 +11,27 @@ import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.oauth2.jose.jws.MacAlgorithm;
+import org.springframework.security.oauth2.jwt.JwtDecoder;
+import org.springframework.security.oauth2.jwt.JwtEncoder;
+import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
+import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
+import com.nimbusds.jose.jwk.source.ImmutableSecret;
 import com.stage.newRAH.service.CustomUserDetailsService;
 
-
+// @Config permet à toute application Java de collaborer avec Spring Security dans le frameword Spring
 @Configuration
+// @Enable informe mon application qu'elle utilisera Spring Security
 @EnableWebSecurity
 public class SpringSecurityConfig {
+
+    // clé symétrique (256) utilisée pour le chiffrement et le déchiffrement
+    // je l'ai générée sur https://www.jmpconcept.fr/generateur-cle-wep.html
+    private String jwtKey = "356b7266295f49465a6c2565513726503e687d2f23217a7255703f2872"; 
 
     @Autowired
     private CustomUserDetailsService customUserDetailsService;  
@@ -25,15 +39,26 @@ public class SpringSecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
-        .csrf(csrf -> csrf.disable())
-        .authorizeHttpRequests(auth -> {
-            auth.requestMatchers("/utilisateurs").hasAuthority("CREATE_UTILISATEUR");
-            auth.requestMatchers(HttpMethod.POST,"/createUtilisateur").hasAuthority("CREATE_UTILISATEUR");
-            auth.requestMatchers(HttpMethod.POST, "/createTache").hasAuthority("CREATE_TACHE");
-            auth.anyRequest().authenticated();
-        }).formLogin(Customizer.withDefaults()).build();
+            // je désactive le csrf :
+            .csrf(csrf -> csrf.disable())
+            // je passe en mode stateless :
+            .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+            .authorizeHttpRequests(auth -> {
+                auth.requestMatchers("/utilisateurs").hasAuthority("CREATE_UTILISATEUR");
+                auth.requestMatchers("/taches").hasAuthority("CREATE_TACHE");
+                auth.requestMatchers(HttpMethod.POST,"/createUtilisateur").hasAuthority("CREATE_UTILISATEUR");
+                auth.requestMatchers(HttpMethod.POST, "/createTache").hasAuthority("CREATE_TACHE");
+                // je vais demander que toutes les requêtes soient authentifiées :
+                auth.anyRequest().authenticated();
+                })
+            // je rajoute la méthode de securité (mode d'authenfication par défaut de SpringSecurity) : Basic Auth :
+            .httpBasic(Customizer.withDefaults())
+            .oauth2ResourceServer((oauth2) -> oauth2.jwt(Customizer.withDefaults()))
+            .build();
     }
 
+    // Cette méthode permet d'indiquer à Spring Security d'utiliser la classe CustomUserDetailsService pour
+    // authentifier des utilisateurs
     @Bean
     public AuthenticationManager authenticationManager(HttpSecurity http, BCryptPasswordEncoder bCryptPasswordEncoder) throws Exception {
         AuthenticationManagerBuilder authenticationManagerBuilder = http.getSharedObject(AuthenticationManagerBuilder.class);
@@ -47,42 +72,14 @@ public class SpringSecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
+    @Bean
+    public JwtDecoder jwtDecoder() {
+        SecretKeySpec secretKey = new SecretKeySpec(this.jwtKey.getBytes(), 0, this.jwtKey.getBytes().length,"RSA");
+        return NimbusJwtDecoder.withSecretKey(secretKey).macAlgorithm(MacAlgorithm.HS256).build();
+    }
 
-
-//     // clé symétrique utilisée pour le chiffrement et le déchiffrement
-//     private String jwtKey = "laclegeneree256…."; 
-
-//     // Chaine de filtre de sécurité
-//     @Bean
-//     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-//         return http
-//         .csrf(csrf -> csrf.disable() ) // je désactive le csrf
-//         .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // je passe en mode Stateless
-//         .authorizeHttpRequests(auth -> auth.anyRequest().authenticated()) // je vais demander que toutes les requêtes soient authentifiées
-//         .httpBasic(Customizer.withDefaults()) // je rajoute la méthode de securité (mode d'authenfication par défaut de SpringSecurity)
-//         .oauth2ResourceServer((oauth2) -> oauth2.jwt(Customizer.withDefaults()))
-//         .build(); 
-//     }
-
-//     // Je rajoute un encodeur
-//     @Bean
-//     public BCryptPasswordEncoder passwordEncoder() {
-//         return new BCryptPasswordEncoder();
-//     }
-
-//     // Je crée des utilisateurs en mémoire pour vérifier ma configuration de sécurité
-//     @Bean
-//     public UserDetailsService users() {
-//         UserDetails user = User.builder().username("user").password(passwordEncoder().encode("password")).roles("USER").build();
-//         return new InMemoryUserDetailsManager(user);
-//     }
-
-    
-//     @Bean
-//     public JwtDecoder jwtDecoder() {
-//         SecretKeySpec secretKey = new SecretKeySpec(this.jwtKey.getBytes(), 0, this.jwtKey.getBytes().length,"RSA");
-//         return NimbusJwtDecoder.withSecretKey(secretKey).macAlgorithm(MacAlgorithm.HS256).build();
-//     }
-
-
+    @Bean
+	public JwtEncoder jwtEncoder() {
+		return new NimbusJwtEncoder(new ImmutableSecret<>(this.jwtKey.getBytes()));
+	}
 }

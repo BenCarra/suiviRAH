@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.stage.newRAH.dto.FonctionnaliteDTO;
@@ -34,7 +33,8 @@ public class FonctionnaliteService {
 		
 	}
 	
-	public ResponseEntity<List<FonctionnaliteDTO>> getFonctionnalitesByTypeUtilisateur(TypeUtilisateur typeUtilisateur) {
+	// Modification du retour de cette méthode pour pouvoir récupérer les fonctionnalités dans CustomUserDetailsService
+	public List<FonctionnaliteDTO> getFonctionnalitesByTypeUtilisateur(TypeUtilisateur typeUtilisateur) {
 
 		List<FonctionnaliteDTO> fonctionnalitesDTO = new ArrayList<>();
 		
@@ -52,7 +52,7 @@ public class FonctionnaliteService {
             	}
             }
         }		
-		return ResponseEntity.ok(fonctionnalitesDTO);		
+		return fonctionnalitesDTO;		
 	}
 	
 

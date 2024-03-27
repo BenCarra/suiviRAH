@@ -14,7 +14,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.stage.newRAH.model.Fonctionnalite;
+import com.stage.newRAH.dto.FonctionnaliteDTO;
 import com.stage.newRAH.model.TypeUtilisateur;
 import com.stage.newRAH.model.Utilisateur;
 import com.stage.newRAH.repository.UtilisateurRepository;
@@ -28,6 +28,7 @@ public class CustomUserDetailsService implements UserDetailsService{
     @Autowired
     private FonctionnaliteService fonctionnaliteService;
 
+    // Utilisation de Logger pour vérifier la récupération des autorisations
     private static final Logger logger = LoggerFactory.getLogger(CustomUserDetailsService.class);
 
 
@@ -36,15 +37,17 @@ public class CustomUserDetailsService implements UserDetailsService{
         Utilisateur utilisateur = utilisateurRepository.findByLogin(login);
 
         List<GrantedAuthority> authorities = getGrantedAuthorities(utilisateur.getTypeUtilisateur());
-        logger.info("Autorités pour l'utilisateur {}: {}", login, authorities);
+
+        logger.info("Autorisations pour l'utilisateur {}: {}", login, authorities);
+
         return new User(utilisateur.getLogin(), utilisateur.getPassword(),getGrantedAuthorities(utilisateur.getTypeUtilisateur())); 
     }
 
     private List<GrantedAuthority> getGrantedAuthorities(TypeUtilisateur typeUtilisateur) {
-        @SuppressWarnings("unchecked")
-        List<Fonctionnalite> fonctionnalites = (List<Fonctionnalite>) fonctionnaliteService.getFonctionnalitesByTypeUtilisateur(typeUtilisateur);
+
+        List<FonctionnaliteDTO> fonctionnalites = fonctionnaliteService.getFonctionnalitesByTypeUtilisateur(typeUtilisateur);
 		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-        for (Fonctionnalite fonctionnalite : fonctionnalites) {
+        for (FonctionnaliteDTO fonctionnalite : fonctionnalites) {
             authorities.add(new SimpleGrantedAuthority(fonctionnalite.getLibelle()));
         }
 		return authorities;

@@ -1,24 +1,24 @@
 package com.stage.newRAH.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.stage.newRAH.service.JWTService;
 
 @RestController
 public class LoginController {
 
-    @GetMapping("/user")
-	public String getUser() {
-		return "Welcome, User";
+    private JWTService jwtService;
+
+	public LoginController(JWTService jwtService) {
+		this.jwtService = jwtService;
 	}
-	
-	@GetMapping("/admin")
-	public String getAdmin() {
-		return "Welcome, Admin";
-	}
-    
-	@GetMapping("/")
-	public String getAdminOrUser() {
-		return "Welcome, Admin or User";
+
+	@PostMapping("/login")
+	public String getToken(Authentication authentication) {
+		String token = jwtService.generateToken(authentication);
+		return token;
 	}
 
 }

@@ -5,7 +5,6 @@ import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -29,7 +28,7 @@ public class TypeUtilisateur {
 	@OneToMany(mappedBy="typeUtilisateur", targetEntity=Utilisateur.class)
 	private List<Utilisateur> listUtilisateurs = new ArrayList<>();
 
-	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "listTypeUtilisateurs")
+	@ManyToMany(mappedBy = "listTypeUtilisateurs")
     private List<Fonctionnalite> listFonctionnalites = new ArrayList<>();
 
 	

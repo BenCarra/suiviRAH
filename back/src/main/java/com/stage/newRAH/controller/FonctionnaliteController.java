@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,14 +23,14 @@ public class FonctionnaliteController {
 	TypeUtilisateurRepository typeUtilisateurRepository;
 	
 	@GetMapping("/fonctionnalitesByTypeUtilisateur/{id}")
-	public ResponseEntity<List<FonctionnaliteDTO>> getFonctionnalitesByTypeUtilisateur(@PathVariable int id) {
+	public List<FonctionnaliteDTO> getFonctionnalitesByTypeUtilisateur(@PathVariable int id) {
 		// Récupération du TypeUtilisateur à partir de l'identifiant
 		Optional<TypeUtilisateur> typeUtilisateurOptional = typeUtilisateurRepository.findById(id);
 		
 		// Vérification de si le TypeUtilisateur existe
 	    if (typeUtilisateurOptional.isEmpty()) {
-	        // Retourner une réponse 404 si le TypeUtilisateur n'existe pas
-	        return ResponseEntity.notFound().build();
+	        
+	        return null;
 	    }
 	    
 	 // Extraction de l'objet TypeUtilisateur de l'Optional
