@@ -46,6 +46,7 @@ export class FormUpdateProjetComponent {
   etats!: EtatProjet[];
   rds!: RDS[];
   compositions!: number[][];
+  compoFound: boolean = false;
 
 
   constructor(private projetService: ProjetService, private clientService: ClientService, private typeProjetService: TypeProjetService, private typeDefautService: TypeDefautService, private etatProjetService: EtatProjetService, private rdsService: RDSService, private compositionService: CompositionService, private activatedRoute: ActivatedRoute, private router: Router) {
@@ -163,25 +164,38 @@ export class FormUpdateProjetComponent {
       this.formUpdate.get('etat')?.setValue(this.projetById.libelleEtat);
       this.formUpdate.get('rds')?.setValue(this.projetById.rds);
 
-/*   for (let composition of this.compositions) {
+      let select = document.getElementById("compositions");
+      let html = "";
+
+      for (let composition of this.compositions) {
         if (this.projetById != undefined) {
-            for (let c of this.projetById.listCompositions) {
-              console.log(c[0]);
-                if ((c[0] == composition.idComposition) && (!this.comp1.includes(c))) {
-                  this.comp1.push(c);
-                } else if ((c[0] != composition.idComposition) && (!this.comp1.includes(c))){
-                  this.comp1.push(c);
-                }
+          let found = false;
+          for (let c of this.projetById.listCompositions) {
+            if (c[0] == composition[0]) {
+              html += `<option
+                  [value]="c" selected>
+                  ${composition[0]},${composition[1]},${composition[2]}
+                  </option>`;
+              found = true;
             }
-            if (!this.comp1.includes(composition)) {
-              
-            }
-        }     
-      }*/
+          }
+          if (!found) {
+            html += `<option
+              [value]="[${composition[0]}, ${composition[1]}, ${composition[2]}]">
+              ${composition[0]},${composition[1]},${composition[2]}
+              </option>`;
+          }
+
+
+        }
+      }
+
+
+      select!.innerHTML = html;
 
       console.log(this.compositions);
 
-      this.formUpdate.get('compositions')?.setValue(this.projetById.listCompositions); 
+      this.formUpdate.get('compositions')?.setValue(this.projetById.listCompositions);
     })
 
   }
@@ -195,25 +209,25 @@ export class FormUpdateProjetComponent {
   onSubmit(): void {
 
     if (this.formUpdate.controls['nom'].hasError('required') ||
-    this.formUpdate.controls['jira'].hasError('required') ||
-    this.formUpdate.controls['techno'].hasError('required') ||
-    this.formUpdate.controls['dateDemande'].hasError('required') ||
-    this.formUpdate.controls['livraisonSouhaitee'].hasError('required') ||
-    this.formUpdate.controls['livraisonRevisee'].hasError('required') ||
-    this.formUpdate.controls['affectationCDS'].hasError('required') ||
-    this.formUpdate.controls['priseEnCompteCDS'].hasError('required') ||
-    this.formUpdate.controls['dateEstimation'].hasError('required') ||
-    this.formUpdate.controls['devisEstimation'].hasError('required') ||
-    this.formUpdate.controls['dontGarantie'].hasError('required') ||
-    this.formUpdate.controls['dateFeuVert'].hasError('required') ||
-    this.formUpdate.controls['dateLivraison'].hasError('required') ||
-    this.formUpdate.controls['mco'].hasError('required') ||
-    this.formUpdate.controls['commentaires'].hasError('required') ||
-    this.formUpdate.controls['client'].hasError('required') ||
-    this.formUpdate.controls['typeProjet'].hasError('required') ||
-    this.formUpdate.controls['typeDefaut'].hasError('required') ||
-    this.formUpdate.controls['etat'].hasError('required') ||
-    this.formUpdate.controls['compositions'].hasError('required')) {
+      this.formUpdate.controls['jira'].hasError('required') ||
+      this.formUpdate.controls['techno'].hasError('required') ||
+      this.formUpdate.controls['dateDemande'].hasError('required') ||
+      this.formUpdate.controls['livraisonSouhaitee'].hasError('required') ||
+      this.formUpdate.controls['livraisonRevisee'].hasError('required') ||
+      this.formUpdate.controls['affectationCDS'].hasError('required') ||
+      this.formUpdate.controls['priseEnCompteCDS'].hasError('required') ||
+      this.formUpdate.controls['dateEstimation'].hasError('required') ||
+      this.formUpdate.controls['devisEstimation'].hasError('required') ||
+      this.formUpdate.controls['dontGarantie'].hasError('required') ||
+      this.formUpdate.controls['dateFeuVert'].hasError('required') ||
+      this.formUpdate.controls['dateLivraison'].hasError('required') ||
+      this.formUpdate.controls['mco'].hasError('required') ||
+      this.formUpdate.controls['commentaires'].hasError('required') ||
+      this.formUpdate.controls['client'].hasError('required') ||
+      this.formUpdate.controls['typeProjet'].hasError('required') ||
+      this.formUpdate.controls['typeDefaut'].hasError('required') ||
+      this.formUpdate.controls['etat'].hasError('required') ||
+      this.formUpdate.controls['compositions'].hasError('required')) {
       console.log("Un ou plusieurs champs sont requis");
     } else {
       this.projetById.nomProjet = this.formUpdate.get("nom")?.value;
@@ -249,7 +263,7 @@ export class FormUpdateProjetComponent {
         this.projetById.libelleTypeDefaut = "";
       }
 
-      
+
       this.projetById.libelleEtat = this.formUpdate.get("etat")?.value;
 
       if (this.projetById.nomClient == "Toto") {
@@ -258,9 +272,24 @@ export class FormUpdateProjetComponent {
         this.projetById.rds = null;
       }
 
-      this.projetById.listCompositions = this.formUpdate.get("compositions")?.value;
+      let listC: number[][] = [];
+      this.formUpdate.get("compositions")?.value.forEach((c: any) => {
+        if (typeof (c) == "string") {
+          let temp0: number[] = [];
+          let temp = c.split(",");
+          temp.forEach(value => {
+            temp0.push(parseInt(value));
+          })
+          listC.push(temp0);
+        }
+      })
+      console.log(listC);
 
-      console.log(this.projetById);
+      if (listC.length != 0){
+        this.projetById.listCompositions = listC;
+      } else {
+        this.projetById.listCompositions = this.formUpdate.get("compositions")?.value;
+      }
 
       this.projetService.update(this.projetById).subscribe({
         next: (response) => {

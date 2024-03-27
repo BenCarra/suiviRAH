@@ -295,44 +295,32 @@
             </div>
             <div class="row">
                 <div class="col">
-                    <mat-form-field appearance="outline">
-                        <mat-label>Compositions à ajouter :</mat-label>
-                        <br>
-                        <mat-select formControlName="compositions" multiple>
-                            @for (composition of compositions; track $index) {
+                        <label>Compositions à ajouter :</label>
+                        <br><br>
+                        <select title="compositions" id="compositions" matNativeControl formControlName="compositions" multiple>
+                           <!-- @for (composition of compositions; track $index) {
                                 @if (projetById != undefined) {
                                     @for (c of projetById.listCompositions; track $index) {
                                         @if (c[0] == composition[0]) {
-                                        <mat-option
-                                            [value]="c">{{
+                                            <option
+                                            [value]="c" selected>{{
                                             composition[0] }},{{ composition[1] }},{{ composition[2]
-                                            }}</mat-option>
+                                            }}, {{ compoFound }}</option>
                                         }
+                                        }  
                                     }
-                                    <mat-option
-                                            [value]="[composition[0], composition[1], composition[2]]">{{
-                                                composition[0] }},{{ composition[1] }},{{ composition[2]
-                                                }}</mat-option> 
-                                }    
-                               
-                            }
-                            <!--@for (composition of compositions; track $index) {
-                                @if (projetById != undefined) {
-                                    @for (c of projetById.listCompositions; track $index) {
-                                        @if (c[0] != composition.idComposition) {
-                                            <mat-option
-                                            [value]="[composition.idComposition, composition.idEquipe, composition.idUtilisateur]">{{
-                                            composition.idComposition }},{{ composition.idEquipe }},{{ composition.idUtilisateur
-                                            }}</mat-option>
-                                        } 
+                                    @if (!compoFound) {
+                                        <option
+                                            [value]="[composition[0], composition[1], composition[2]]">
+                                             {{ composition[0] }}, {{ composition[1] }}, {{ composition[2] }}, {{ compoFound }}
+                                            </option>
                                     }
-                                }     
-                            } -->
-                        </mat-select>
+                                    
+                                } -->
+                        </select>
                         @if (formUpdate.controls['compositions'].hasError('required')) {
                         <mat-error>Compositions à ajouter <strong>requis</strong></mat-error>
                         }
-                    </mat-form-field>
                 </div>
             </div>
         </mat-card-content>
