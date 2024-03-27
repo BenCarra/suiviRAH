@@ -196,7 +196,7 @@ public class ProjetService {
 
 			return ResponseEntity.ok(suiviPsDTO);
 		} else {
-			return ResponseEntity.notFound().build();
+			return ResponseEntity.ofNullable(suiviPsDTO);
 		}
 	}
 
@@ -378,15 +378,34 @@ public class ProjetService {
 
 		Client client = clientRepository.findByNom(projetDTO.getNomClient()).iterator().next();
 		Etat etat = etatRepository.findByLibelle(projetDTO.getLibelleEtat()).get();
-		TypeDefaut typeDefaut = typeDefautRepository.findByLibelle(projetDTO.getLibelleTypeDefaut()).get();
 		TypeProjet typeProjet = typeProjetRepository.findByLibelle(projetDTO.getLibelleTypeProjet()).get();
 		
+		if (projetDTO.getLibelleTypeDefaut() != "") {
+			TypeDefaut typeDefaut = typeDefautRepository.findByLibelle(projetDTO.getLibelleTypeDefaut()).get();
+			projetACreer.setTypeDefaut(typeDefaut);
+		} else {
+			projetACreer.setTypeDefaut(null);
+		}
+
 		if (projetDTO.getRds() != null) {
 			RDS rds = rdsRepository.findById(Integer.parseInt(projetDTO.getRds().get(0))).get();
 			projetACreer.setRds(rds);
+		} else {
+			projetACreer.setRds(null);
+		}
+
+		if (projetDTO.getDatePassageMCO() != null) {
+			projetACreer.setDatePassageMCO(projetDTO.getDatePassageMCO());
+		} else {
+			projetACreer.setDatePassageMCO(null);
+		}
+
+		if (projetDTO.getDateSortieMCO() != null) {
+			projetACreer.setDateSortieMCO(projetDTO.getDateSortieMCO());
+		} else {
+			projetACreer.setDateSortieMCO(null);
 		}
 		
-
 		projetACreer.setNomProjet(projetDTO.getNomProjet());
 		projetACreer.setJira(projetDTO.getJira());
 		projetACreer.setTechno(projetDTO.getTechno());
@@ -401,19 +420,17 @@ public class ProjetService {
 		projetACreer.setDateFeuVert(projetDTO.getDateFeuVert());
 		projetACreer.setDateLivraison(projetDTO.getDateLivraison());
 		projetACreer.setMCO(projetDTO.isMCO());
-		projetACreer.setDatePassageMCO(projetDTO.getDatePassageMCO());
-		projetACreer.setDateSortieMCO(projetDTO.getDateSortieMCO());
 		projetACreer.setCommentaires(projetDTO.getCommentaires());
 		projetACreer.setClient(client);
 		projetACreer.setEtat(etat);
-		projetACreer.setTypeDefaut(typeDefaut);
 		projetACreer.setTypeProjet(typeProjet);
 
 		List<List<Integer>> compositionsInteger = projetDTO.getListCompositions();
 		List<Composition> compositions = new ArrayList<>();
 
 		for (List<Integer> compositionInteger : compositionsInteger) {
-			Composition composition = compositionRepository.findById(compositionInteger.get(0)).get();
+			int idComposition = compositionInteger.get(0);
+			Composition composition = compositionRepository.findById(idComposition).get();
 			List<Projet> projets = composition.getListProjets();
 			projets.add(projetACreer);
 			compositions.add(composition);
@@ -434,12 +451,32 @@ public class ProjetService {
 
 		Client client = clientRepository.findByNom(projetDTO.getNomClient()).iterator().next();
 		Etat etat = etatRepository.findByLibelle(projetDTO.getLibelleEtat()).get();
-		TypeDefaut typeDefaut = typeDefautRepository.findByLibelle(projetDTO.getLibelleTypeDefaut()).get();
 		TypeProjet typeProjet = typeProjetRepository.findByLibelle(projetDTO.getLibelleTypeProjet()).get();
 		
+		if (projetDTO.getLibelleTypeDefaut() != "") {
+			TypeDefaut typeDefaut = typeDefautRepository.findByLibelle(projetDTO.getLibelleTypeDefaut()).get();
+			projetAModifier.setTypeDefaut(typeDefaut);
+		} else {
+			projetAModifier.setTypeDefaut(null);
+		}
+
 		if (projetDTO.getRds() != null) {
 			RDS rds = rdsRepository.findById(Integer.parseInt(projetDTO.getRds().get(0))).get();
 			projetAModifier.setRds(rds);
+		} else {
+			projetAModifier.setRds(null);
+		}
+
+		if (projetDTO.getDatePassageMCO() != null) {
+			projetAModifier.setDatePassageMCO(projetDTO.getDatePassageMCO());
+		} else {
+			projetAModifier.setDatePassageMCO(null);
+		}
+
+		if (projetDTO.getDateSortieMCO() != null) {
+			projetAModifier.setDateSortieMCO(projetDTO.getDateSortieMCO());
+		} else {
+			projetAModifier.setDateSortieMCO(null);
 		}
 
 		Projet projetAModifierOld = projetAModifier;
@@ -458,19 +495,17 @@ public class ProjetService {
 		projetAModifier.setDateFeuVert(projetDTO.getDateFeuVert());
 		projetAModifier.setDateLivraison(projetDTO.getDateLivraison());
 		projetAModifier.setMCO(projetDTO.isMCO());
-		projetAModifier.setDatePassageMCO(projetDTO.getDatePassageMCO());
-		projetAModifier.setDateSortieMCO(projetDTO.getDateSortieMCO());
 		projetAModifier.setCommentaires(projetDTO.getCommentaires());
 		projetAModifier.setClient(client);
 		projetAModifier.setEtat(etat);
-		projetAModifier.setTypeDefaut(typeDefaut);
 		projetAModifier.setTypeProjet(typeProjet);
 
 		List<List<Integer>> compositionsInteger = projetDTO.getListCompositions();
 		List<Composition> compositions = new ArrayList<>();
 
 		for (List<Integer> compositionInteger : compositionsInteger) {
-			Composition composition = compositionRepository.findById(compositionInteger.get(0)).get();
+			int idComposition = compositionInteger.get(0);
+			Composition composition = compositionRepository.findById(idComposition).get();
 			List<Projet> projets = composition.getListProjets();
 			projets.remove(projetAModifierOld);
 			projets.add(projetAModifier);
@@ -487,8 +522,41 @@ public class ProjetService {
 	}
 
     public ResponseEntity<ProjetDTO> deleteProjet(int id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deleteProjet'");
+       Optional<Projet> projetASupprimerOptional = projetRepository.findById(id);
+
+		if (projetASupprimerOptional.isPresent()) {
+
+			Projet projetASupprimer = projetASupprimerOptional.get();
+
+			projetRepository.deleteById(id);
+
+			ProjetDTO projetASupprimerDTO = this.mapProjetToDTO(projetASupprimer);
+
+			/* On supprime le lien entre composition et projet */
+			/*List<Composition> compositions = projetASupprimer.getListCompositions();
+			Iterable<Projet> projets = projetRepository.findAll();
+
+			for (Composition composition : compositions) {
+
+				for (Projet projet : projets) {
+					if (projet.getListCompositions().contains(composition)) {
+						projet.getListCompositions().remove(composition);
+						projetRepository.save(projet);
+					}
+				}
+
+				List<Projet> projetsComposition = composition.getListProjets();
+				projetsComposition.removeAll(projetsComposition);
+			}
+
+			EquipeDTO equipeASupprimerDTO = this.mapEquipeToDTO(equipeASupprimer);
+
+			equipeRepository.delete(equipeASupprimer);*/
+
+			return ResponseEntity.ok(projetASupprimerDTO);
+		} else {
+			return ResponseEntity.notFound().build();
+		}
     }
 	
 }

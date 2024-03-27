@@ -6,13 +6,14 @@ import { UtilisateurListComponent } from "../utilisateur-list/utilisateur-list.c
 import { ClientListComponent } from "../client-list/client-list.component";
 import { EquipeListComponent } from "../equipe-list/equipe-list.component";
 import { RouterLink } from '@angular/router';
+import { ProjetListComponent } from "../projet-list/projet-list.component";
 
 @Component({
     selector: 'app-page-accueil',
     standalone: true,
     templateUrl: './page-accueil.component.html',
     styleUrl: './page-accueil.component.scss',
-    imports: [RouterLink ,HeaderComponent, FooterComponent, UtilisateurListComponent, ClientListComponent, EquipeListComponent]
+    imports: [RouterLink, HeaderComponent, FooterComponent, UtilisateurListComponent, ClientListComponent, EquipeListComponent, ProjetListComponent]
 })
 export class PageAccueilComponent {
 

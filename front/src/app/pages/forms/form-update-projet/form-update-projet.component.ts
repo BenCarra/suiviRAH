@@ -45,9 +45,12 @@ export class FormUpdateProjetComponent {
   typesDefaut!: TypeDefaut[];
   etats!: EtatProjet[];
   rds!: RDS[];
-  compositions!: Composition[];
+  compositions!: number[][];
 
-  constructor(private projetService: ProjetService, private clientService: ClientService, private typeProjetService: TypeProjetService, private typeDefautService: TypeDefautService, private etatProjetService: EtatProjetService, private rdsService: RDSService, private compositionService: CompositionService, private activatedRoute: ActivatedRoute, private router: Router) { }
+
+  constructor(private projetService: ProjetService, private clientService: ClientService, private typeProjetService: TypeProjetService, private typeDefautService: TypeDefautService, private etatProjetService: EtatProjetService, private rdsService: RDSService, private compositionService: CompositionService, private activatedRoute: ActivatedRoute, private router: Router) {
+
+  }
 
   ngOnInit() {
     // Création du formulaire réactif
@@ -109,7 +112,14 @@ export class FormUpdateProjetComponent {
     // Récupération des compositions pour l'affectation d'une ou plusieurs compositions à un projet
     this.compositionService.findAll().subscribe(
       data => {
-        this.compositions = data;
+        this.compositions = [];
+        data.forEach(composition => {
+          let compositionObject: number[] = [];
+          compositionObject.push(composition.idComposition);
+          compositionObject.push(composition.idEquipe);
+          compositionObject.push(composition.idUtilisateur);
+          this.compositions.push(compositionObject);
+        })
       }
     )
 
@@ -137,16 +147,41 @@ export class FormUpdateProjetComponent {
       this.formUpdate.get('dontGarantie')?.setValue(this.projetById.dontGarantie);
       this.formUpdate.get('dateFeuVert')?.setValue(this.projetById.dateFeuVert);
       this.formUpdate.get('dateLivraison')?.setValue(this.projetById.dateLivraison);
-      this.formUpdate.get('mco')?.setValue(this.projetById.mco);
+      this.formUpdate.controls['mco'].setValue(this.projetById.mco); // ici, j'utilise controls pour mettre un boolean au lieu d'une string et ainsi permettre le changement visuel
       this.formUpdate.get('datePassageMCO')?.setValue(this.projetById.datePassageMCO);
       this.formUpdate.get('dateSortieMCO')?.setValue(this.projetById.dateSortieMCO);
       this.formUpdate.get('commentaires')?.setValue(this.projetById.commentaires);
       this.formUpdate.get('client')?.setValue(this.projetById.nomClient);
       this.formUpdate.get('typeProjet')?.setValue(this.projetById.libelleTypeProjet);
-      this.formUpdate.get('typeDefaut')?.setValue(this.projetById.libelleTypeDefaut);
+
+      if (this.projetById.libelleTypeDefaut != null) {
+        this.formUpdate.get('typeDefaut')?.setValue(this.projetById.libelleTypeDefaut);
+      } else {
+        this.formUpdate.get('typeDefaut')?.setValue("Aucun");
+      }
+
       this.formUpdate.get('etat')?.setValue(this.projetById.libelleEtat);
       this.formUpdate.get('rds')?.setValue(this.projetById.rds);
-      this.formUpdate.get('compositions')?.setValue(this.projetById.listCompositions);
+
+/*   for (let composition of this.compositions) {
+        if (this.projetById != undefined) {
+            for (let c of this.projetById.listCompositions) {
+              console.log(c[0]);
+                if ((c[0] == composition.idComposition) && (!this.comp1.includes(c))) {
+                  this.comp1.push(c);
+                } else if ((c[0] != composition.idComposition) && (!this.comp1.includes(c))){
+                  this.comp1.push(c);
+                }
+            }
+            if (!this.comp1.includes(composition)) {
+              
+            }
+        }     
+      }*/
+
+      console.log(this.compositions);
+
+      this.formUpdate.get('compositions')?.setValue(this.projetById.listCompositions); 
     })
 
   }
@@ -194,15 +229,35 @@ export class FormUpdateProjetComponent {
       this.projetById.dontGarantie = this.formUpdate.get("dontGarantie")?.value;
       this.projetById.dateFeuVert = this.formUpdate.get("dateFeuVert")?.value;
       this.projetById.dateLivraison = this.formUpdate.get("dateLivraison")?.value;
-      this.projetById.mco = this.formUpdate.get("mco")?.value;
-      this.projetById.datePassageMCO = this.formUpdate.get("datePassageMCO")?.value;
-      this.projetById.dateSortieMCO = this.formUpdate.get("dateSortieMCO")?.value;
+      this.projetById.mco = this.formUpdate.controls['mco'].value; // ici, j'utilise controls pour mettre un boolean au lieu d'une string et ainsi permettre le changement dans la base de données
+
+      if (this.projetById.mco == true) {
+        this.projetById.datePassageMCO = this.formUpdate.get("datePassageMCO")?.value;
+        this.projetById.dateSortieMCO = this.formUpdate.get("dateSortieMCO")?.value;
+      } else {
+        this.projetById.datePassageMCO = null;
+        this.projetById.dateSortieMCO = null;
+      }
+
       this.projetById.commentaires = this.formUpdate.get("commentaires")?.value;
       this.projetById.nomClient = this.formUpdate.get("client")?.value;
       this.projetById.libelleTypeProjet = this.formUpdate.get("typeProjet")?.value;
-      this.projetById.libelleTypeDefaut = this.formUpdate.get("typeDefaut")?.value;
+
+      if (this.formUpdate.get("typeDefaut")?.value != "Aucun") {
+        this.projetById.libelleTypeDefaut = this.formUpdate.get("typeDefaut")?.value;
+      } else {
+        this.projetById.libelleTypeDefaut = "";
+      }
+
+      
       this.projetById.libelleEtat = this.formUpdate.get("etat")?.value;
-      this.projetById.rds = this.formUpdate.get("rds")?.value;
+
+      if (this.projetById.nomClient == "Toto") {
+        this.projetById.rds = this.formUpdate.get("rds")?.value;
+      } else {
+        this.projetById.rds = null;
+      }
+
       this.projetById.listCompositions = this.formUpdate.get("compositions")?.value;
 
       console.log(this.projetById);

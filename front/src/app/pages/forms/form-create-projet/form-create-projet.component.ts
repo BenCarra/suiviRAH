@@ -44,7 +44,7 @@ export class FormCreateProjetComponent {
   typesDefaut!: TypeDefaut[];
   etats!: EtatProjet[];
   rds!: RDS[];
-  compositions!: Composition[];
+  compositions!: number[][];
 
   constructor(private projetService: ProjetService, private clientService: ClientService, private typeProjetService: TypeProjetService, private typeDefautService: TypeDefautService, private etatProjetService: EtatProjetService, private rdsService: RDSService, private compositionService: CompositionService, private router: Router) { }
 
@@ -108,7 +108,14 @@ export class FormCreateProjetComponent {
     // Récupération des compositions pour l'affectation d'une ou plusieurs compositions à un projet
     this.compositionService.findAll().subscribe(
       data => {
-        this.compositions = data;
+        this.compositions = [];
+        data.forEach(composition => {
+          let compositionObject: number[] = [];
+          compositionObject.push(composition.idComposition);
+          compositionObject.push(composition.idEquipe);
+          compositionObject.push(composition.idUtilisateur);
+          this.compositions.push(compositionObject);
+        })
       }
     )
 
@@ -157,15 +164,34 @@ export class FormCreateProjetComponent {
       this.projetCree.dontGarantie = this.formCreate.get("dontGarantie")?.value;
       this.projetCree.dateFeuVert = this.formCreate.get("dateFeuVert")?.value;
       this.projetCree.dateLivraison = this.formCreate.get("dateLivraison")?.value;
-      this.projetCree.mco = this.formCreate.get("mco")?.value;
-      this.projetCree.datePassageMCO = this.formCreate.get("datePassageMCO")?.value;
-      this.projetCree.dateSortieMCO = this.formCreate.get("dateSortieMCO")?.value;
+      this.projetCree.mco = this.formCreate.controls['mco'].value; // ici, j'utilise controls pour mettre un boolean au lieu d'une string et ainsi permettre le changement dans la base de données
+
+      if (this.projetCree.mco == true) {
+        this.projetCree.datePassageMCO = this.formCreate.get("datePassageMCO")?.value;
+        this.projetCree.dateSortieMCO = this.formCreate.get("dateSortieMCO")?.value;
+      } else {
+        this.projetCree.datePassageMCO = null;
+        this.projetCree.dateSortieMCO = null;
+      }
+
       this.projetCree.commentaires = this.formCreate.get("commentaires")?.value;
       this.projetCree.nomClient = this.formCreate.get("client")?.value;
       this.projetCree.libelleTypeProjet = this.formCreate.get("typeProjet")?.value;
-      this.projetCree.libelleTypeDefaut = this.formCreate.get("typeDefaut")?.value;
+
+      if (this.formCreate.get("typeDefaut")?.value != "Aucun") {
+        this.projetCree.libelleTypeDefaut = this.formCreate.get("typeDefaut")?.value;
+      } else {
+        this.projetCree.libelleTypeDefaut = "";
+      }
+
       this.projetCree.libelleEtat = this.formCreate.get("etat")?.value;
-      this.projetCree.rds = this.formCreate.get("rds")?.value;
+
+      if (this.projetCree.nomClient == "Toto") {
+        this.projetCree.rds = this.formCreate.get("rds")?.value;
+      } else {
+        this.projetCree.rds = null;
+      }
+
       this.projetCree.listCompositions = this.formCreate.get("compositions")?.value;
 
       console.log(this.projetCree);

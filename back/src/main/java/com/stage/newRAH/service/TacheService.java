@@ -271,7 +271,7 @@ public class TacheService {
 		nouvelleTache.setTypeTache(typeTache);
 		nouvelleTache.setProjet(projet);
 
-		for (Integer id : idUtilisateurs) {
+		for (int id : idUtilisateurs) {
 			// J'ajoute à chaque utilisateur la tache que je suis en train de créér
 			// En résumé, je remplis la table "utilisateur_tache"
 			Utilisateur utilisateur = utilisateurRepository.findById(id).get();
@@ -384,7 +384,7 @@ public class TacheService {
 			java.sql.Date nouvelleDateSql = new java.sql.Date(nouvelleDateUtil.getTime());
 			nouvelleTache.setDateTache(nouvelleDateSql);
 
-			for (Integer id : idUtilisateurs) {
+			for (int id : idUtilisateurs) {
 				// J'ajoute à chaque utilisateur la tache que je suis en train de créér
 				// En résumé, je remplis la table "utilisateur_tache"
 				Utilisateur utilisateur = utilisateurRepository.findById(id).get();

@@ -34,20 +34,23 @@ export class SuiviProjetListComponent {
     this.formFiltrage = new FormGroup({
       clientRecherche: new FormControl('', Validators.required),
       projetsTermines: new FormControl('', Validators.required)
-    }),
+    });
 
-      // Par défaut, on récupère le suivi des projets non terminés
-      this.projetService.getSuiviProjetsNonTermines().subscribe(data => {
-        this.listSuiviProjets = data;
-        this.listNomsClient = [];
-        // Extraction des noms des clients pour le filtre
-        data.forEach((suiviProjet) => {
-          if (!this.listNomsClient.includes(suiviProjet.nomClient)) {
-            this.listNomsClient.push(suiviProjet.nomClient);
-          }
-        });
-        this.onLoadTable(this.listSuiviProjets);
+    // Par défaut, on récupère le suivi des projets non terminés
+    this.projetService.getSuiviProjetsNonTermines().subscribe(data => {
+      this.listSuiviProjets = data;
+      this.onLoadTable(this.listSuiviProjets);
+    });
+
+    // Extraction des noms de tous les clients pour le filtre 
+    this.projetService.getSuiviProjets().subscribe(data => {
+      this.listNomsClient = [];
+      data.forEach((suiviProjet) => {
+        if (!this.listNomsClient.includes(suiviProjet.nomClient)) {
+          this.listNomsClient.push(suiviProjet.nomClient);
+        }
       });
+    })
 
   }
 

@@ -102,8 +102,8 @@
           <br>
           <mat-radio-group formControlName="actif">
             @if (utilisateurById != undefined) {
-            <mat-radio-button value="true" [checked]="utilisateurById.actif == true">Oui</mat-radio-button>
-            <mat-radio-button value="false" [checked]="utilisateurById.actif == false">Non</mat-radio-button>
+            <mat-radio-button value="true" [checked]="formUpdate.controls['actif'].value == true">Oui</mat-radio-button>
+            <mat-radio-button value="false" [checked]="formUpdate.controls['actif'].value == false">Non</mat-radio-button>
             }
           </mat-radio-group>
           @if (formUpdate.controls['actif'].hasError('required')) {

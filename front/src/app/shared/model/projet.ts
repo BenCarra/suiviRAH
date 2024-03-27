@@ -20,11 +20,11 @@ export class Projet {
     dateFeuVert!: Date;
     dateLivraison!: Date;
     mco!: boolean;
-    datePassageMCO!: Date;
-    dateSortieMCO!: Date;
+    datePassageMCO!: Date | null;
+    dateSortieMCO!: Date | null;
     libelleEtat!: string;
     commentaires!: string;
-    rds!: string[];
+    rds!: string[] | null;
     listTaches!: string[][];
     listCompositions!: number[][];
 }

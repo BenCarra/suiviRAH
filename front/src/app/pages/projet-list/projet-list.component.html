@@ -4,7 +4,7 @@
         LISTE DES PROJETS
         }
         @else if (routerURL == "/accueil") {
-        <a routerLink="/utilisateurs">LISTE DES PROJETS</a>
+        <a routerLink="/projets">LISTE DES PROJETS</a>
         }
     </h3>
     @if (routerURL == "/projets") {
@@ -93,7 +93,11 @@
                     <td>{{ projet.nomClient}}</td>
                     <td>{{ projet.jira}}</td>
                     <td>{{ projet.libelleTypeProjet}}</td>
-                    <td>{{ projet.libelleTypeDefaut}}</td>
+                    @if (projet.libelleTypeDefaut) {
+                        <td>{{ projet.libelleTypeDefaut }}</td>
+                    } @else {
+                        <td>/</td>
+                    }
                     <td>{{ projet.techno}}</td>
                     @if (projet.rds) {
                         <td>{{ projet.rds[1] }}</td>
@@ -192,7 +196,11 @@
                     <td>{{ projet.nomClient}}</td>
                     <td>{{ projet.jira}}</td>
                     <td>{{ projet.libelleTypeProjet}}</td>
-                    <td>{{ projet.libelleTypeDefaut}}</td>
+                    @if (projet.libelleTypeDefaut) {
+                        <td>{{ projet.libelleTypeDefaut }}</td>
+                    } @else {
+                        <td>/</td>
+                    }
                     }
             </tbody>
             }

@@ -153,13 +153,15 @@
             </div>
             <div class="row">
                 <div class="col">
-                    <mat-label>MCO ? :</mat-label>
+                    <mat-label>MCO ?</mat-label>
                     <br>
                     <mat-radio-group formControlName="mco">
                         @if (projetById != undefined) {
-                            <mat-radio-button value="true" [checked]="projetById.mco == true">Oui</mat-radio-button>
-                            <mat-radio-button value="false" [checked]="projetById.mco == false">Non</mat-radio-button>
-                            }
+                        <mat-radio-button [value]="true"
+                            [checked]="formUpdate.controls['mco'].value == true">Oui</mat-radio-button>
+                        <mat-radio-button [value]="false"
+                            [checked]="formUpdate.controls['mco'].value == false">Non</mat-radio-button>
+                        }
                     </mat-radio-group>
                     @if (formUpdate.controls['mco'].hasError('required')) {
                     <mat-error>MCO <strong>requis</strong></mat-error>
@@ -193,6 +195,8 @@
                 </div>
             </div>
 
+            } @else {
+            <br>
             }
             <div class="row">
                 <div class="col">
@@ -236,6 +240,7 @@
                     <mat-form-field appearance="outline">
                         <mat-label>Type de défaut :</mat-label>
                         <mat-select formControlName="typeDefaut">
+                            <mat-option value="Aucun">Aucun</mat-option>
                             @for (typeDefaut of typesDefaut; track $index) {
                             <mat-option [value]="typeDefaut.libelle">{{ typeDefaut.libelle }}</mat-option>
                             }
@@ -266,8 +271,19 @@
                         <mat-label>RDS :</mat-label>
                         <mat-select formControlName="rds">
                             @for (r of rds; track $index) {
-                            <mat-option [value]=[r.idRDS.toString(),r.nom,r.direction,r.service]>{{ r.nom }}, {{
-                                r.direction }}, {{ r.service }}</mat-option>
+                            @if (projetById.rds != null) {
+                            @if (projetById.rds[0] == r.idRDS.toString()) { <mat-option [value]="projetById.rds">{{
+                                r.nom
+                                }}</mat-option>
+                            } @else {
+                            <mat-option [value]="[r.idRDS, r.nom, r.direction, r.service]">{{ r.nom
+                                }}</mat-option>
+                            }
+                            } @else {
+                            <mat-option [value]="[r.idRDS, r.nom, r.direction, r.service]">{{ r.nom
+                                }}</mat-option>
+                            }
+
                             }
                         </mat-select>
                         @if (formUpdate.controls['rds'].hasError('required')) {
@@ -284,11 +300,34 @@
                         <br>
                         <mat-select formControlName="compositions" multiple>
                             @for (composition of compositions; track $index) {
-                            <mat-option
-                                [value]=[composition.idComposition,composition.idEquipe,composition.idUtilisateur]>{{
-                                composition.idComposition }} ({{ composition.idEquipe }} {{ composition.idUtilisateur
-                                }})</mat-option>
+                                @if (projetById != undefined) {
+                                    @for (c of projetById.listCompositions; track $index) {
+                                        @if (c[0] == composition[0]) {
+                                        <mat-option
+                                            [value]="c">{{
+                                            composition[0] }},{{ composition[1] }},{{ composition[2]
+                                            }}</mat-option>
+                                        }
+                                    }
+                                    <mat-option
+                                            [value]="[composition[0], composition[1], composition[2]]">{{
+                                                composition[0] }},{{ composition[1] }},{{ composition[2]
+                                                }}</mat-option> 
+                                }    
+                               
                             }
+                            <!--@for (composition of compositions; track $index) {
+                                @if (projetById != undefined) {
+                                    @for (c of projetById.listCompositions; track $index) {
+                                        @if (c[0] != composition.idComposition) {
+                                            <mat-option
+                                            [value]="[composition.idComposition, composition.idEquipe, composition.idUtilisateur]">{{
+                                            composition.idComposition }},{{ composition.idEquipe }},{{ composition.idUtilisateur
+                                            }}</mat-option>
+                                        } 
+                                    }
+                                }     
+                            } -->
                         </mat-select>
                         @if (formUpdate.controls['compositions'].hasError('required')) {
                         <mat-error>Compositions à ajouter <strong>requis</strong></mat-error>

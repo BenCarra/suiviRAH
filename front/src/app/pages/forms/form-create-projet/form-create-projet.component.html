@@ -191,6 +191,8 @@
                 </div>
             </div>
 
+            } @else {
+            <br>
             }
             <div class="row">
                 <div class="col">
@@ -221,6 +223,7 @@
                     <mat-form-field appearance="outline">
                         <mat-label>Type de projet :</mat-label>
                         <mat-select formControlName="typeProjet">
+                            <mat-option value="Aucun">Aucun</mat-option>
                             @for (typeProjet of typesProjet; track $index) {
                             <mat-option [value]="typeProjet.libelle">{{ typeProjet.libelle }}</mat-option>
                             }
@@ -234,6 +237,7 @@
                     <mat-form-field appearance="outline">
                         <mat-label>Type de défaut :</mat-label>
                         <mat-select formControlName="typeDefaut">
+                            <mat-option value="Aucun">Aucun</mat-option>
                             @for (typeDefaut of typesDefaut; track $index) {
                             <mat-option [value]="typeDefaut.libelle">{{ typeDefaut.libelle }}</mat-option>
                             }
@@ -264,7 +268,7 @@
                         <mat-label>RDS :</mat-label>
                         <mat-select formControlName="rds">
                             @for (r of rds; track $index) {
-                            <mat-option [value]=[r.idRDS.toString(),r.nom,r.direction,r.service]>{{ r.nom }}, {{
+                            <mat-option [value]="[r.idRDS.toString(),r.nom,r.direction,r.service]">{{ r.nom }}, {{
                                 r.direction }}, {{ r.service }}</mat-option>
                             }
                         </mat-select>
@@ -283,8 +287,8 @@
                         <mat-select formControlName="compositions" multiple>
                             @for (composition of compositions; track $index) {
                             <mat-option
-                                [value]=[composition.idComposition,composition.idEquipe,composition.idUtilisateur]>{{
-                                composition.idComposition }} ({{ composition.idEquipe }} {{ composition.idUtilisateur
+                                [value]="[composition[0],composition[1],composition[2]]">{{
+                                composition[0]}} ({{ composition[1] }} {{ composition[2]
                                 }})</mat-option>
                             }
                         </mat-select>
