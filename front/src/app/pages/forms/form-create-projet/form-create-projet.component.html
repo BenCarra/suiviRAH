@@ -13,22 +13,23 @@
                         }
                     </mat-form-field>
                 </div>
-                <div class="col">
-                    <mat-form-field appearance="outline">
-                        <mat-label>Jira :</mat-label>
-                        <input title="jira" matInput formControlName="jira">
-                        @if (formCreate.controls['jira'].hasError('required')) {
-                        <mat-error>Jira <strong>requis</strong></mat-error>
-                        }
-                    </mat-form-field>
-                </div>
+                @if (this.formCreate.get('jira')?.enabled) {
+                    <div class="col">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Jira :</mat-label>
+                            <input title="jira" matInput formControlName="jira">
+                            @if (formCreate.get('client')?.value == "MSA") {
+                                @if (formCreate.controls['jira'].hasError('required')) {
+                                    <mat-error>Jira <strong>requis</strong></mat-error>
+                                    }
+                            }
+                        </mat-form-field>
+                    </div>
+                }
                 <div class="col">
                     <mat-form-field appearance="outline">
                         <mat-label>Technologie :</mat-label>
                         <input title="techno" matInput formControlName="techno">
-                        @if (formCreate.controls['techno'].hasError('required')) {
-                        <mat-error>Technologie <strong>requise</strong></mat-error>
-                        }
                     </mat-form-field>
                 </div>
             </div>
@@ -51,9 +52,6 @@
                             formControlName="livraisonSouhaitee">
                         <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
                         <mat-datepicker #picker1></mat-datepicker>
-                        @if (formCreate.controls['livraisonSouhaitee'].hasError('required')) {
-                        <mat-error>Livraison souhaitée <strong>requise</strong></mat-error>
-                        }
                     </mat-form-field>
                 </div>
                 <div class="col">
@@ -63,9 +61,6 @@
                             formControlName="livraisonRevisee">
                         <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
                         <mat-datepicker #picker2></mat-datepicker>
-                        @if (formCreate.controls['livraisonRevisee'].hasError('required')) {
-                        <mat-error>Livraison révisée <strong>requise</strong></mat-error>
-                        }
                     </mat-form-field>
                 </div>
             </div>
@@ -77,9 +72,6 @@
                             formControlName="affectationCDS">
                         <mat-datepicker-toggle matIconSuffix [for]="picker3"></mat-datepicker-toggle>
                         <mat-datepicker #picker3></mat-datepicker>
-                        @if (formCreate.controls['affectationCDS'].hasError('required')) {
-                        <mat-error>Affectation CDS <strong>requise</strong></mat-error>
-                        }
                     </mat-form-field>
                 </div>
                 <div class="col">
@@ -89,9 +81,6 @@
                             formControlName="priseEnCompteCDS">
                         <mat-datepicker-toggle matIconSuffix [for]="picker4"></mat-datepicker-toggle>
                         <mat-datepicker #picker4></mat-datepicker>
-                        @if (formCreate.controls['priseEnCompteCDS'].hasError('required')) {
-                        <mat-error>Prise en compte CDS <strong>requise</strong></mat-error>
-                        }
                     </mat-form-field>
                 </div>
                 <div class="col">
@@ -101,40 +90,42 @@
                             formControlName="dateEstimation">
                         <mat-datepicker-toggle matIconSuffix [for]="picker5"></mat-datepicker-toggle>
                         <mat-datepicker #picker5></mat-datepicker>
-                        @if (formCreate.controls['dateEstimation'].hasError('required')) {
-                        <mat-error>Date estimation <strong>requise</strong></mat-error>
-                        }
                     </mat-form-field>
                 </div>
             </div>
             <div class="row">
-                <div class="col">
-                    <mat-form-field appearance="outline">
-                        <mat-label>Devis estimation :</mat-label>
-                        <input title="devisEstimation" matInput formControlName="devisEstimation">
-                        @if (formCreate.controls['devisEstimation'].hasError('required')) {
-                        <mat-error>Devis estimation <strong>requis</strong></mat-error>
-                        }
-                    </mat-form-field>
-                </div>
-                <div class="col">
-                    <mat-form-field appearance="outline">
-                        <mat-label>Dont garantie :</mat-label>
-                        <input title="dontGarantie" matInput formControlName="dontGarantie">
-                        @if (formCreate.controls['devisEstimation'].hasError('required')) {
-                        <mat-error>Dont garantie <strong>requis</strong></mat-error>
-                        }
-                    </mat-form-field>
-                </div>
+                @if (formCreate.get('devisEstimation')?.enabled) {
+                    <div class="col">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Devis estimation :</mat-label>
+                            <input title="devisEstimation" matInput formControlName="devisEstimation">
+                            @if (formCreate.get('client')?.value == "MSA") {
+                                @if (formCreate.controls['devisEstimation'].hasError('required')) {
+                                <mat-error>Devis estimation <strong>requis</strong></mat-error>
+                                }
+                            }   
+                        </mat-form-field>
+                    </div>
+                }
+                @if (formCreate.get('dontGarantie')?.enabled) {
+                    <div class="col">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Dont garantie :</mat-label>
+                            <input title="dontGarantie" matInput formControlName="dontGarantie">
+                            @if (formCreate.get('client')?.value == "MSA") {
+                                @if (formCreate.controls['devisEstimation'].hasError('required')) {
+                                <mat-error>Dont garantie <strong>requis</strong></mat-error>
+                                }
+                            }
+                        </mat-form-field>
+                    </div>
+                }
                 <div class="col">
                     <mat-form-field appearance="outline">
                         <mat-label>Date feu vert :</mat-label>
                         <input title="dateFeuVert" matInput [matDatepicker]="picker6" formControlName="dateFeuVert">
                         <mat-datepicker-toggle matIconSuffix [for]="picker6"></mat-datepicker-toggle>
                         <mat-datepicker #picker6></mat-datepicker>
-                        @if (formCreate.controls['dateFeuVert'].hasError('required')) {
-                        <mat-error>Date feu vert <strong>requise</strong></mat-error>
-                        }
                     </mat-form-field>
                 </div>
             </div>
@@ -145,9 +136,6 @@
                         <input title="dateLivraison" matInput [matDatepicker]="picker7" formControlName="dateLivraison">
                         <mat-datepicker-toggle matIconSuffix [for]="picker7"></mat-datepicker-toggle>
                         <mat-datepicker #picker7></mat-datepicker>
-                        @if (formCreate.controls['dateLivraison'].hasError('required')) {
-                        <mat-error>Date livraison <strong>requise</strong></mat-error>
-                        }
                     </mat-form-field>
                 </div>
             </div>
@@ -159,20 +147,14 @@
                             formControlName="datePassageMCO">
                         <mat-datepicker-toggle matIconSuffix [for]="picker8"></mat-datepicker-toggle>
                         <mat-datepicker #picker8></mat-datepicker>
-                        @if (formCreate.controls['datePassageMCO'].hasError('required')) {
-                        <mat-error>Date passage MCO <strong>requise</strong></mat-error>
-                        }
                     </mat-form-field>
                 </div>
                 <div class="col">
                     <mat-form-field appearance="outline">
                         <mat-label>Date sortie MCO :</mat-label>
-                        <input title="dateSortieMCO" matInput [matDatepicker]="picker9" formControlName="dateSortieMCO">
+                        <input title="dateSortieMCO" matInput [min]="formCreate.get('datePassageMCO')?.value" [matDatepicker]="picker9" formControlName="dateSortieMCO">
                         <mat-datepicker-toggle matIconSuffix [for]="picker9"></mat-datepicker-toggle>
                         <mat-datepicker #picker9></mat-datepicker>
-                        @if (formCreate.controls['dateSortieMCO'].hasError('required')) {
-                        <mat-error>Date sortie MCO <strong>requise</strong></mat-error>
-                        }
                     </mat-form-field>
                 </div>
             </div>
@@ -180,16 +162,14 @@
                 <div class="col">
                     <mat-form-field appearance="outline">
                         <mat-label>Commentaires :</mat-label>
-                        <input title="commentaires" matInput formControlName="commentaires">
-                        @if (formCreate.controls['commentaires'].hasError('required')) {
-                        <mat-error>Commentaires <strong>requis</strong></mat-error>
-                        }
+                        <textarea matInput cdkTextareaAutosize="true" formControlName="commentaires" placeholder="Commentaires">
+                        </textarea>
                     </mat-form-field>
                 </div>
                 <div class="col">
                     <mat-form-field appearance="outline">
                         <mat-label>Client :</mat-label>
-                        <mat-select formControlName="client">
+                        <mat-select formControlName="client" (selectionChange)="onClientSelectionChange()">
                             @for (client of clients; track $index) {
                             <mat-option [value]="client.nomClient">{{ client.nomClient }}</mat-option>
                             }
@@ -223,9 +203,6 @@
                             <mat-option [value]="typeDefaut.libelle">{{ typeDefaut.libelle }}</mat-option>
                             }
                         </mat-select>
-                        @if (formCreate.controls['typeDefaut'].hasError('required')) {
-                        <mat-error>Type de défaut <strong>requis</strong></mat-error>
-                        }
                     </mat-form-field>
                 </div>
             </div>
@@ -243,20 +220,22 @@
                         }
                     </mat-form-field>
                 </div>
-                @if (formCreate.controls['client'].value == "Toto") {
-                <div class="col">
-                    <mat-form-field appearance="outline">
-                        <mat-label>RDS :</mat-label>
-                        <mat-select formControlName="rds">
-                            @for (r of rds; track $index) {
-                            <mat-option [value]="[r.idRDS.toString(),r.nom,r.direction,r.service]">{{ r.nom }}</mat-option>
+                @if (this.formCreate.get('rds')?.enabled) {
+                    <div class="col">
+                        <mat-form-field appearance="outline">
+                            <mat-label>RDS :</mat-label>
+                            <mat-select formControlName="rds">
+                                @for (r of rds; track $index) {
+                                <mat-option [value]="[r.idRDS.toString(),r.nom,r.direction,r.service]">{{ r.nom }}</mat-option>
+                                }
+                            </mat-select>
+                            @if (formCreate.get('client')?.value == "CALEF") {
+                                @if (formCreate.controls['rds'].hasError('required')) {
+                                    <mat-error>RDS <strong>requis</strong></mat-error>
+                                    }
                             }
-                        </mat-select>
-                        @if (formCreate.controls['rds'].hasError('required')) {
-                        <mat-error>RDS <strong>requis</strong></mat-error>
-                        }
-                    </mat-form-field>
-                </div>
+                        </mat-form-field>
+                    </div>
                 }
             </div>
             <div class="row">
@@ -270,9 +249,6 @@
                                 [value]="equipe.libelle">{{ equipe.libelle }}</mat-option>
                             }
                         </mat-select>
-                        @if (formCreate.controls['equipes'].hasError('required')) {
-                        <mat-error>Equipe <strong>requise</strong></mat-error>
-                        }
                     </mat-form-field>
                 </div>
             </div>

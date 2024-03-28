@@ -104,7 +104,10 @@ public class ProjetService {
 			projetDTO.setRds(rdsObject);
 		}
 
-		projetDTO.setLibelleEquipe(projet.getEquipe().getLibelle());
+		if (projet.getEquipe() != null) {
+			projetDTO.setLibelleEquipe(projet.getEquipe().getLibelle());
+		}
+		
 
 		return projetDTO;
 	}
@@ -383,15 +386,17 @@ public class ProjetService {
 			Client client = clientRepository.findByNom(projetDTO.getNomClient()).iterator().next();
 			Etat etat = etatRepository.findByLibelle(projetDTO.getLibelleEtat()).get();
 			TypeProjet typeProjet = typeProjetRepository.findByLibelle(projetDTO.getLibelleTypeProjet()).get();
-			Equipe equipe = equipeRepository.findByLibelle(projetDTO.getLibelleEquipe()).get();
+			TypeDefaut typeDefaut = null;
+			Equipe equipe = null;
 
-			if (projetDTO.getLibelleTypeDefaut() != "") {
-				TypeDefaut typeDefaut = typeDefautRepository.findByLibelle(projetDTO.getLibelleTypeDefaut()).get();
-				projetAModifier.setTypeDefaut(typeDefaut);
-			} else {
-				projetAModifier.setTypeDefaut(null);
+			if (equipeRepository.findByLibelle(projetDTO.getLibelleEquipe()).isPresent()){
+				equipe = equipeRepository.findByLibelle(projetDTO.getLibelleEquipe()).get();
 			}
 
+			if (typeDefautRepository.findByLibelle(projetDTO.getLibelleTypeDefaut()).isPresent()){
+				typeDefaut = typeDefautRepository.findByLibelle(projetDTO.getLibelleTypeDefaut()).get();
+			}
+			
 			if (projetDTO.getRds() != null) {
 				RDS rds = rdsRepository.findById(Integer.parseInt(projetDTO.getRds().get(0))).get();
 				projetAModifier.setRds(rds);
@@ -429,6 +434,7 @@ public class ProjetService {
 			projetAModifier.setClient(client);
 			projetAModifier.setEtat(etat);
 			projetAModifier.setTypeProjet(typeProjet);
+			projetAModifier.setTypeDefaut(typeDefaut);
 			projetAModifier.setEquipe(equipe);
 
 			projetRepository.save(projetAModifier);

@@ -53,8 +53,10 @@
         <div class="col">
           <mat-label>Actif? :</mat-label>
           <mat-radio-group formControlName="actif">
+            @if (clientById != undefined) {
             <mat-radio-button value="true" [checked]="clientById.actif == true">Oui</mat-radio-button>
             <mat-radio-button value="false" [checked]="clientById.actif == false">Non</mat-radio-button>
+            }
           </mat-radio-group>
           @if (formUpdate.controls['actif'].hasError('required')) {
           <mat-error>Actif <strong>requis</strong></mat-error>
@@ -65,8 +67,10 @@
         <div class="col">
           <mat-label>Mode de fonctionnement MCO? :</mat-label>
           <mat-radio-group formControlName="modeFonctionnementMCO">
+            @if (clientById != undefined) {
             <mat-radio-button value="true" [checked]="clientById.modeFonctionnementMCO == true">Oui</mat-radio-button>
             <mat-radio-button value="false" [checked]="clientById.modeFonctionnementMCO == false">Non</mat-radio-button>
+            }
           </mat-radio-group>
           @if (formUpdate.controls['modeFonctionnementMCO'].hasError('required')) {
           <mat-error>Mode de fonctionnement MCO <strong>requis</strong></mat-error>

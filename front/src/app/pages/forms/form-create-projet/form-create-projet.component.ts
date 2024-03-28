@@ -21,6 +21,7 @@ import { EtatProjetService } from '../../../shared/service/etat-projet.service';
 import { RDSService } from '../../../shared/service/rds.service';
 import { EquipeService } from '../../../shared/service/equipe.service';
 import { Equipe } from '../../../shared/model/equipe';
+import { CdkTextareaAutosize, TextFieldModule } from '@angular/cdk/text-field';
 
 @Component({
   selector: 'app-form-create-projet',
@@ -31,7 +32,9 @@ import { Equipe } from '../../../shared/model/equipe';
     MatCardModule,
     MatRadioModule,
     MatDatepickerModule,
-    ReactiveFormsModule],
+    ReactiveFormsModule,
+    CdkTextareaAutosize,
+    TextFieldModule],
   templateUrl: './form-create-projet.component.html',
   styleUrl: './form-create-projet.component.css'
 })
@@ -53,26 +56,26 @@ export class FormCreateProjetComponent {
     this.formCreate = new FormGroup({
       nom: new FormControl('', Validators.required),
       jira: new FormControl('', Validators.required),
-      techno: new FormControl('', Validators.required),
+      techno: new FormControl(''),
       dateDemande: new FormControl('', Validators.required),
-      livraisonSouhaitee: new FormControl('', Validators.required),
-      livraisonRevisee: new FormControl('', Validators.required),
-      affectationCDS: new FormControl('', Validators.required),
-      priseEnCompteCDS: new FormControl('', Validators.required),
-      dateEstimation: new FormControl('', Validators.required),
+      livraisonSouhaitee: new FormControl(''),
+      livraisonRevisee: new FormControl(''),
+      affectationCDS: new FormControl(''),
+      priseEnCompteCDS: new FormControl(''),
+      dateEstimation: new FormControl(''),
       devisEstimation: new FormControl('', Validators.required),
       dontGarantie: new FormControl('', Validators.required),
-      dateFeuVert: new FormControl('', Validators.required),
-      dateLivraison: new FormControl('', Validators.required),
+      dateFeuVert: new FormControl(''),
+      dateLivraison: new FormControl(''),
       datePassageMCO: new FormControl(''),
       dateSortieMCO: new FormControl(''),
-      commentaires: new FormControl('', Validators.required),
+      commentaires: new FormControl(''),
       client: new FormControl('', Validators.required),
       typeProjet: new FormControl('', Validators.required),
-      typeDefaut: new FormControl('', Validators.required),
+      typeDefaut: new FormControl(''),
       etat: new FormControl('', Validators.required),
-      rds: new FormControl(null),
-      equipes: new FormControl('', Validators.required),
+      rds: new FormControl(null, Validators.required),
+      equipes: new FormControl(''),
     })
 
     // Récupération des clients actifs
@@ -107,8 +110,35 @@ export class FormCreateProjetComponent {
     // Récupération des équipes
     this.equipeService.findAll().subscribe(data => {
       this.equipes = data;
-      console.log(this.equipes);
     })
+
+    // Affichage ou non du champ RDS selon le nom du client
+    this.onClientSelectionChange();
+
+    // Par défaut, l'état du projet est à "nouveau"
+    this.formCreate.get('etat')?.setValue("Nouveau");
+
+  }
+
+  // Méthode exécutée quand on change la valeur du champ client
+  onClientSelectionChange() {
+
+    if (this.formCreate.get('client')?.value == "CALEF") {
+      this.formCreate.get('rds')?.enable();
+    } else{
+      this.formCreate.get('rds')?.disable();
+    } 
+    
+
+    if (this.formCreate.get('client')?.value == "MSA"){
+      this.formCreate.get('jira')?.enable();
+      this.formCreate.get('devisEstimation')?.enable();
+      this.formCreate.get('dontGarantie')?.enable();
+    } else {
+      this.formCreate.get('jira')?.disable();
+      this.formCreate.get('devisEstimation')?.disable();
+      this.formCreate.get('dontGarantie')?.disable();
+    }
 
   }
 
@@ -122,27 +152,16 @@ export class FormCreateProjetComponent {
 
     if (this.formCreate.controls['nom'].hasError('required') ||
       this.formCreate.controls['jira'].hasError('required') ||
-      this.formCreate.controls['techno'].hasError('required') ||
       this.formCreate.controls['dateDemande'].hasError('required') ||
-      this.formCreate.controls['livraisonSouhaitee'].hasError('required') ||
-      this.formCreate.controls['livraisonRevisee'].hasError('required') ||
-      this.formCreate.controls['affectationCDS'].hasError('required') ||
-      this.formCreate.controls['priseEnCompteCDS'].hasError('required') ||
-      this.formCreate.controls['dateEstimation'].hasError('required') ||
       this.formCreate.controls['devisEstimation'].hasError('required') ||
       this.formCreate.controls['dontGarantie'].hasError('required') ||
-      this.formCreate.controls['dateFeuVert'].hasError('required') ||
-      this.formCreate.controls['dateLivraison'].hasError('required') ||
-      this.formCreate.controls['commentaires'].hasError('required') ||
       this.formCreate.controls['client'].hasError('required') ||
       this.formCreate.controls['typeProjet'].hasError('required') ||
-      this.formCreate.controls['typeDefaut'].hasError('required') ||
       this.formCreate.controls['etat'].hasError('required') ||
-      this.formCreate.controls['equipes'].hasError('required')) {
+      this.formCreate.controls['rds'].hasError('required')) {
       console.log("Un ou plusieurs champs sont requis");
     } else {
       this.projetCree.nomProjet = this.formCreate.get("nom")?.value;
-      this.projetCree.jira = this.formCreate.get("jira")?.value;
       this.projetCree.techno = this.formCreate.get("techno")?.value;
       this.projetCree.dateDemande = this.formCreate.get("dateDemande")?.value;
       this.projetCree.livraisonSouhaitee = this.formCreate.get("livraisonSouhaitee")?.value;
@@ -150,8 +169,6 @@ export class FormCreateProjetComponent {
       this.projetCree.affectationCDS = this.formCreate.get("affectationCDS")?.value;
       this.projetCree.priseEnCompteCDS = this.formCreate.get("priseEnCompteCDS")?.value;
       this.projetCree.dateEstimation = this.formCreate.get("dateEstimation")?.value;
-      this.projetCree.devisEstimation = this.formCreate.get("devisEstimation")?.value;
-      this.projetCree.dontGarantie = this.formCreate.get("dontGarantie")?.value;
       this.projetCree.dateFeuVert = this.formCreate.get("dateFeuVert")?.value;
       this.projetCree.dateLivraison = this.formCreate.get("dateLivraison")?.value;
 
@@ -165,19 +182,23 @@ export class FormCreateProjetComponent {
       this.projetCree.commentaires = this.formCreate.get("commentaires")?.value;
       this.projetCree.nomClient = this.formCreate.get("client")?.value;
       this.projetCree.libelleTypeProjet = this.formCreate.get("typeProjet")?.value;
-
-      if (this.formCreate.get("typeDefaut")?.value != "Aucun") {
-        this.projetCree.libelleTypeDefaut = this.formCreate.get("typeDefaut")?.value;
-      } else {
-        this.projetCree.libelleTypeDefaut = "";
-      }
-
+      this.projetCree.libelleTypeDefaut = this.formCreate.get("typeDefaut")?.value;
       this.projetCree.libelleEtat = this.formCreate.get("etat")?.value;
 
-      if (this.projetCree.nomClient == "Toto") {
+      if (this.projetCree.nomClient == "CALEF") {
         this.projetCree.rds = this.formCreate.get("rds")?.value;
       } else {
         this.projetCree.rds = null;
+      }
+
+      if (this.projetCree.nomClient == "MSA") {
+        this.projetCree.jira = this.formCreate.get("jira")?.value;
+        this.projetCree.devisEstimation = this.formCreate.get("devisEstimation")?.value;
+        this.projetCree.dontGarantie = this.formCreate.get('dontGarantie')?.value;
+      } else {
+        this.projetCree.jira = "";
+        this.projetCree.devisEstimation = 0;
+        this.projetCree.dontGarantie = 0;
       }
 
       this.projetCree.libelleEquipe = this.formCreate.get("equipes")?.value;
