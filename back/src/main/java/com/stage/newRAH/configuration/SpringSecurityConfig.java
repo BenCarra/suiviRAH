@@ -19,11 +19,13 @@ import org.springframework.security.oauth2.jwt.JwtEncoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import com.nimbusds.jose.jwk.source.ImmutableSecret;
 import com.stage.newRAH.service.CustomUserDetailsService;
 
-// @Config permet à toute application Java de collaborer avec Spring Security dans le frameword Spring
+@CrossOrigin(origins = "http://localhost:4200")
+// @Config permet à toute application Java de collaborer avec Spring Security dans le framework Spring
 @Configuration
 // @Enable informe mon application qu'elle utilisera Spring Security
 @EnableWebSecurity
@@ -44,6 +46,8 @@ public class SpringSecurityConfig {
             // je passe en mode stateless :
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> {
+                auth.requestMatchers(HttpMethod.POST, "/login").hasAuthority("CREATE_TACHE");
+                auth.requestMatchers("/calendrier").hasAuthority("CREATE_TACHE");
                 auth.requestMatchers("/utilisateurs").hasAuthority("CREATE_UTILISATEUR");
                 auth.requestMatchers("/taches").hasAuthority("CREATE_TACHE");
                 auth.requestMatchers(HttpMethod.POST,"/createUtilisateur").hasAuthority("CREATE_UTILISATEUR");
@@ -51,7 +55,7 @@ public class SpringSecurityConfig {
                 // je vais demander que toutes les requêtes soient authentifiées :
                 auth.anyRequest().authenticated();
                 })
-            // je rajoute la méthode de securité (mode d'authenfication par défaut de SpringSecurity) : Basic Auth :
+            // je rajoute la méthode de sécurité (mode d'authentification par défaut de SpringSecurity) : Basic Auth :
             .httpBasic(Customizer.withDefaults())
             .oauth2ResourceServer((oauth2) -> oauth2.jwt(Customizer.withDefaults()))
             .build();

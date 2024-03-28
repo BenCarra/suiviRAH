@@ -4,13 +4,13 @@
       <img src="/assets/img/logo-talaron.png" alt="logo">
     </div>
     <h1>CONNEXION </h1>
-      <!-- <p class="text-under-connexion">Veuillez renseigner vos identifiants</p> -->
-      <form action="/" method="post">  
+      
+      <form [formGroup]="formConnexion" (ngSubmit)="onSubmit()">  
         <div class="input-login">
-            <input type="text" id="login" name="login" placeholder="Login*" /> <br>
+            <input type="text" id="login" name="login" placeholder="Login*" formControlName="login" /> <br>
         </div>
         <div class="input-password">
-            <input type="text" id="password" name="password" placeholder="Password*" /> 
+            <input type="text" id="password" name="password" placeholder="Password*" formControlName="password" /> 
         </div>
         <div class="text-lost-password">Mot de passe oublié ?</div>
             <button type="submit">SE CONNECTER</button>
