@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.stage.newRAH.dto.TypeDefautDTO;
-import com.stage.newRAH.model.Projet;
+//import com.stage.newRAH.model.Projet;
 import com.stage.newRAH.model.TypeDefaut;
 import com.stage.newRAH.repository.TypeDefautRepository;
 
@@ -20,14 +20,14 @@ public class TypeDefautService {
 	TypeDefautRepository typeDefautRepository;
 	
 	public TypeDefautDTO mapTypeDefautToDTO(TypeDefaut typeDefaut) {
-		List<List<String>> projets = new ArrayList<>();
+		//List<List<String>> projets = new ArrayList<>();
 
 		TypeDefautDTO typeDefautDTO = new TypeDefautDTO();
 		
 		typeDefautDTO.setIdTypeDefaut(typeDefaut.getIdTypeDefaut());
 		typeDefautDTO.setLibelle(typeDefaut.getLibelle());
 
-		if (typeDefaut.getListProjets() != null) {
+		/*if (typeDefaut.getListProjets() != null) {
 			for (Projet projet : typeDefaut.getListProjets()) {
 				List<String> projetObject = new ArrayList<>();
 				projetObject.add(String.valueOf(projet.getIdProjet()));
@@ -35,7 +35,7 @@ public class TypeDefautService {
 				projets.add(projetObject);
 			}
 			typeDefautDTO.setListProjets(projets);
-		}
+		}*/
 		
 		return typeDefautDTO;
 	}

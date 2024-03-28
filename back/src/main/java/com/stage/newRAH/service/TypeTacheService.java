@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.stage.newRAH.dto.TypeTacheDTO;
-import com.stage.newRAH.model.Tache;
+//import com.stage.newRAH.model.Tache;
 import com.stage.newRAH.model.TypeTache;
 import com.stage.newRAH.repository.TypeTacheRepository;
 
@@ -20,14 +20,14 @@ public class TypeTacheService {
 	TypeTacheRepository typeTacheRepository;
 	
 	public TypeTacheDTO mapTypeTacheToDTO(TypeTache typeTache) {
-		List<List<String>> taches = new ArrayList<>();
+		//List<List<String>> taches = new ArrayList<>();
 
 		TypeTacheDTO typeTacheDTO = new TypeTacheDTO();
 		
 		typeTacheDTO.setIdTypeTache(typeTache.getIdTypeTache());
 		typeTacheDTO.setLibelle(typeTache.getLibelle());
 
-		if (typeTache.getListTaches() != null) {
+		/*if (typeTache.getListTaches() != null) {
 			for (Tache tache : typeTache.getListTaches()) {
 				List<String> tacheObject = new ArrayList<>();
 				tacheObject.add(String.valueOf(tache.getIdTache()));
@@ -35,7 +35,7 @@ public class TypeTacheService {
 				taches.add(tacheObject);
 			}
 			typeTacheDTO.setListTaches(taches);
-		}
+		}*/
 		
 		return typeTacheDTO;
 	}

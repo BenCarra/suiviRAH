@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.stage.newRAH.dto.SiteDTO;
 import com.stage.newRAH.model.Site;
-import com.stage.newRAH.model.Utilisateur;
+//import com.stage.newRAH.model.Utilisateur;
 import com.stage.newRAH.repository.SiteRepository;
 
 @Service
@@ -26,7 +26,7 @@ public class SiteService {
 
 		SiteDTO siteDTO = new SiteDTO();
 
-		List<List<String>> utilisateurs = new ArrayList<>();
+		//List<List<String>> utilisateurs = new ArrayList<>();
 
 		siteDTO.setIdSite(site.getIdSite());
 		siteDTO.setNomSite(site.getNomSite());
@@ -34,7 +34,7 @@ public class SiteService {
 		siteDTO.setCodePostalSite(site.getCodePostalSite());
 		siteDTO.setVilleSite(site.getVilleSite());
 
-		if (site.getListUtilisateurs() != null) {
+		/*if (site.getListUtilisateurs() != null) {
 
 			for (Utilisateur utilisateur : site.getListUtilisateurs()) {
 				List<String> utilisateurObject = new ArrayList<>();
@@ -45,7 +45,7 @@ public class SiteService {
 			}
 
 			siteDTO.setListUtilisateurs(utilisateurs);
-		}
+		}*/
 
 		return siteDTO;
 	}

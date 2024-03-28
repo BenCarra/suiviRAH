@@ -1,6 +1,6 @@
 package com.stage.newRAH.dto;
 
-import java.util.List;
+//import java.util.List;
 
 import lombok.Data;
 
@@ -9,7 +9,7 @@ public class TypeDefautDTO {
 
 	private int idTypeDefaut;
 	private String libelle;
-	private List<List<String>> listProjets;
+	//private List<List<String>> listProjets;
 	
 	public TypeDefautDTO() {
 		

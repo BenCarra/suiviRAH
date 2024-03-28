@@ -9,10 +9,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.stage.newRAH.dto.UtilisateurDTO;
-import com.stage.newRAH.model.Composition;
+//import com.stage.newRAH.model.Composition;
 import com.stage.newRAH.model.Equipe;
 import com.stage.newRAH.model.Site;
-import com.stage.newRAH.model.Tache;
+//import com.stage.newRAH.model.Tache;
 import com.stage.newRAH.model.TypeUtilisateur;
 import com.stage.newRAH.model.Utilisateur;
 import com.stage.newRAH.repository.CompositionRepository;
@@ -47,9 +47,9 @@ public class UtilisateurService {
 
 		UtilisateurDTO utilisateurDTO = new UtilisateurDTO();
 
-		List<List<String>> listCompositions = new ArrayList<>();
+		//List<List<String>> listCompositions = new ArrayList<>();
 
-		List<List<String>> listTaches = new ArrayList<>();
+		//List<List<String>> listTaches = new ArrayList<>();
 
 		List<List<String>> listEquipes = new ArrayList<>();
 
@@ -68,7 +68,7 @@ public class UtilisateurService {
 		if (utilisateur.getTypeUtilisateur() != null) {
 			utilisateurDTO.setLibelleTypeUtilisateur(utilisateur.getTypeUtilisateur().getLibelle());
 		}
-		if (utilisateur.getListTaches() != null) {
+		/*if (utilisateur.getListTaches() != null) {
 			for (Tache tache : utilisateur.getListTaches()) {
 				List<String> tacheObject = new ArrayList<>();
 				tacheObject.add(String.valueOf(tache.getIdTache()));
@@ -76,7 +76,7 @@ public class UtilisateurService {
 				listTaches.add(tacheObject);
 			}
 			utilisateurDTO.setListTaches(listTaches);
-		}
+		}*/
 		if (utilisateur.getListEquipes() != null) {
 			for (Equipe equipe : utilisateur.getListEquipes()) {
 				List<String> equipeObject = new ArrayList<>();
@@ -86,7 +86,7 @@ public class UtilisateurService {
 			}
 			utilisateurDTO.setListEquipes(listEquipes);
 		}
-		if (utilisateur.getListCompositions() != null) {
+		/*if (utilisateur.getListCompositions() != null) {
 			for (Composition composition : utilisateur.getListCompositions()) {
 				List<String> compositionObject = new ArrayList<>();
 				compositionObject.add(String.valueOf(composition.getIdComposition()));
@@ -96,7 +96,7 @@ public class UtilisateurService {
 				listCompositions.add(compositionObject);
 			}
 			utilisateurDTO.setListCompositions(listCompositions);
-		}
+		}*/
 
 		return utilisateurDTO;
 	}

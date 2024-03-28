@@ -1,6 +1,6 @@
 package com.stage.newRAH.dto;
 
-import java.util.List;
+//import java.util.List;
 
 import lombok.Data;
 
@@ -12,7 +12,7 @@ public class SiteDTO {
 	private String adresseSite;
 	private String codePostalSite;
 	private String villeSite;
-	private List<List<String>> listUtilisateurs;
+	//private List<List<String>> listUtilisateurs;
 
 	public SiteDTO() {
 	}

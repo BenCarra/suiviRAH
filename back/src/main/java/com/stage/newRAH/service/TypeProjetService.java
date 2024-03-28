@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.stage.newRAH.dto.TypeProjetDTO;
-import com.stage.newRAH.model.Projet;
+//import com.stage.newRAH.model.Projet;
 import com.stage.newRAH.model.TypeProjet;
 import com.stage.newRAH.repository.TypeProjetRepository;
 
@@ -21,14 +21,14 @@ public class TypeProjetService {
 
 	public TypeProjetDTO mapTypeProjetToDTO(TypeProjet typeProjet) {
 
-		List<List<String>> projets = new ArrayList<>();
+		//List<List<String>> projets = new ArrayList<>();
 
 		TypeProjetDTO typeProjetDTO = new TypeProjetDTO();
 
 		typeProjetDTO.setIdTypeProjet(typeProjet.getIdTypeProjet());
 		typeProjetDTO.setLibelle(typeProjet.getLibelle());
 
-		if (typeProjet.getListProjets() != null) {
+		/*if (typeProjet.getListProjets() != null) {
 			for (Projet projet : typeProjet.getListProjets()) {
 				List<String> projetObject = new ArrayList<>();
 				projetObject.add(String.valueOf(projet.getIdProjet()));
@@ -36,7 +36,7 @@ public class TypeProjetService {
 				projets.add(projetObject);
 			}
 			typeProjetDTO.setListProjets(projets);
-		}
+		}*/
 
 		return typeProjetDTO;
 
@@ -78,23 +78,6 @@ public class TypeProjetService {
 			return ResponseEntity.notFound().build();
 		}
 	}
-
-//	public ResponseEntity<List<TypeProjetDTO>> getTypesProjetDefaut(int id) {
-//		List<TypeProjetDTO> typesProjetDefautDTO = new ArrayList<>();
-//
-//		Iterable<Correspondance> correspondancesByTypeProjet = correspondanceRepository.findByTypeProjet(id);
-//
-//		for (Correspondance correspondance : correspondancesByTypeProjet) {
-//			if (correspondance.isEstDeTypeDefaut()) {
-//				TypeProjet typeProjet = correspondance.getTypeProjet();
-//				if (typeProjet != null) {
-//					TypeProjetDTO typeProjetDTO = this.mapTypeProjetToDTO(typeProjet);
-//					typesProjetDefautDTO.add(typeProjetDTO);
-//				}
-//			}
-//		}
-//		return ResponseEntity.ok(typesProjetDefautDTO);
-//	}
 
 	public ResponseEntity<TypeProjetDTO> createTypeProjet(TypeProjetDTO typeProjetDTO) {
 		TypeProjet nouveauTypeProjet = new TypeProjet();

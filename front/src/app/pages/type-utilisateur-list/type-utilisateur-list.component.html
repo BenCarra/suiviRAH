@@ -26,7 +26,7 @@
             <thead>
                 <tr>
                     <th>Libellé</th>
-                    <th>Utilisateurs associés</th>
+                    <!-- <th>Utilisateurs associés</th> -->
                     <th>Modifier</th>
                 </tr>
             </thead>
@@ -34,7 +34,7 @@
                 @for (typeUtilisateur of listTypesUtilisateur; track $index) {
                 <tr title="{{ typeUtilisateur.idTypeUtilisateur }}">
                     <td>{{ typeUtilisateur.libelle }}</td>
-                    <td>
+                    <!-- <td>
                         @for (utilisateur of typeUtilisateur.listUtilisateurs; track $index){
                         <ul>
                             <li>Utilisateur n°{{ utilisateur[0] }}</li>
@@ -42,7 +42,7 @@
                         </ul>
                         <br>
                         }
-                    </td>
+                    </td> -->
                     <td><button type="button" routerLink="/parametres/updateTypeUtilisateur/"
                             [queryParams]="{ id: typeUtilisateur.idTypeUtilisateur }">Modifier</button></td>
                 </tr>

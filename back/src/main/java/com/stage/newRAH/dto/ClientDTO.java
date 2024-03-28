@@ -1,6 +1,6 @@
 package com.stage.newRAH.dto;
 
-import java.util.List;
+//import java.util.List;
 
 import lombok.Data;
 
@@ -14,7 +14,7 @@ public class ClientDTO {
 	private String villeClient;
 	private boolean actif;
 	private boolean modeFonctionnementMCO;
-	private List<List<String>> listProjets;
+	//private List<List<String>> listProjets;
 	
 	public ClientDTO() {
 

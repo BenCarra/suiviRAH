@@ -6,5 +6,5 @@ export class Client {
 	villeClient!: string;
 	actif!: boolean;
 	modeFonctionnementMCO!: boolean;
-	listProjets!: string[][];
+	//listProjets!: string[][];
 }

@@ -1,6 +1,6 @@
 package com.stage.newRAH.dto;
 
-import java.util.List;
+//import java.util.List;
 
 import lombok.Data;
 
@@ -9,7 +9,7 @@ public class TypeUtilisateurDTO {
 	
 	private int idTypeUtilisateur;
 	private String libelle;
-	private List<List<String>> listUtilisateurs;
+	//private List<List<String>> listUtilisateurs;
 
 	public TypeUtilisateurDTO() {
 

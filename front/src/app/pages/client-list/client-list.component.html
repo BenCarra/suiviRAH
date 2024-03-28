@@ -40,7 +40,7 @@
                     <th>Ville</th>
                     <th>Actif</th>
                     <th>Mode de fonctionnement MCO</th>
-                    <th>Projet associé</th>
+                    <!-- <th>Projets associés</th> -->
                     <th>Modifier</th>
                 </tr>
             </thead>
@@ -53,7 +53,7 @@
                     <td>{{ client.villeClient }}</td>
                     <td>{{ client.actif }}</td>
                     <td>{{ client.modeFonctionnementMCO }}</td>
-                    <td>
+                    <!-- <td>
                         @for (projet of client.listProjets; track $index){
                         <ul>
                             <li>Projet n°{{ projet[0] }}</li>
@@ -61,7 +61,7 @@
                         </ul>
                         <br>
                         }
-                    </td>
+                    </td> -->
                     <td><button type="button" routerLink="/clients/update/"
                             [queryParams]="{ id: client.idClient}">Modifier</button></td>
                 </tr>

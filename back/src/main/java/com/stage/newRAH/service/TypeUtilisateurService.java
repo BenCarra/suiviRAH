@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.stage.newRAH.dto.TypeUtilisateurDTO;
 import com.stage.newRAH.model.TypeUtilisateur;
-import com.stage.newRAH.model.Utilisateur;
+//import com.stage.newRAH.model.Utilisateur;
 import com.stage.newRAH.repository.TypeUtilisateurRepository;
 import com.stage.newRAH.repository.UtilisateurRepository;
 
@@ -27,12 +27,12 @@ public class TypeUtilisateurService {
 
 		TypeUtilisateurDTO typeUtilisateurDTO = new TypeUtilisateurDTO();
 
-		List<List<String>> listUtilisateurs = new ArrayList<>();
+		// List<List<String>> listUtilisateurs = new ArrayList<>();
 
 		typeUtilisateurDTO.setIdTypeUtilisateur(typeUtilisateur.getIdTypeUtilisateur());
 		typeUtilisateurDTO.setLibelle(typeUtilisateur.getLibelle());
 
-		if (typeUtilisateur.getListUtilisateurs() != null) {
+		/*if (typeUtilisateur.getListUtilisateurs() != null) {
 			for (Utilisateur utilisateur : typeUtilisateur.getListUtilisateurs()) {
 				List<String> utilisateurObject = new ArrayList<>();
 				utilisateurObject.add(String.valueOf(utilisateur.getIdUtilisateur()));
@@ -41,7 +41,7 @@ public class TypeUtilisateurService {
 				listUtilisateurs.add(utilisateurObject);
 			}
 			typeUtilisateurDTO.setListUtilisateurs(listUtilisateurs);
-		};
+		};*/
 
 		return typeUtilisateurDTO;
 	}

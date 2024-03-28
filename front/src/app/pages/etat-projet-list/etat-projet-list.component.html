@@ -26,7 +26,7 @@
             <thead>
                 <tr>
                     <th>Libellé</th>
-                    <th>Projets associés</th>
+                    <!-- <th>Projets associés</th> -->
                     <th>Modifier</th>
                 </tr>
             </thead>
@@ -34,7 +34,7 @@
                 @for (etatProjet of listEtatsProjet; track $index) {
                 <tr title="{{ etatProjet.idEtat }}">
                     <td>{{ etatProjet.libelle }}</td>
-                    <td>
+                    <!-- <td>
                         @for (projet of etatProjet.listProjets; track $index){
                         <ul>
                             <li>Projet n°{{ projet[0] }}</li>
@@ -42,7 +42,7 @@
                         </ul>
                         <br>
                         }
-                    </td>
+                    </td> -->
                     <td><button type="button" routerLink="/parametres/updateEtatProjet/"
                             [queryParams]="{ id: etatProjet.idEtat}">Modifier</button></td>
                 </tr>

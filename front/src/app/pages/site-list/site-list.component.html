@@ -28,7 +28,7 @@
                     <th>Adresse</th>
                     <th>Code Postal</th>
                     <th>Ville</th>
-                    <th>Utilisateurs associés</th>
+                    <!-- <th>Utilisateurs associés</th> -->
                     <th>Modifier</th>
                 </tr>
             </thead>
@@ -39,7 +39,7 @@
                     <td>{{ site.adresseSite }}</td>
                     <td>{{ site.codePostalSite }}</td>
                     <td>{{ site.villeSite }}</td>
-                    <td>
+                    <!-- <td>
                         @for (utilisateur of site.listUtilisateurs; track $index){
                         <ul>
                             <li>Utilisateur n°{{ utilisateur[0] }}</li>
@@ -47,7 +47,7 @@
                         </ul>
                         <br>
                         }
-                    </td>
+                    </td> -->
                     <td><button type="button" routerLink="/parametres/updateSite/"
                             [queryParams]="{ id: site.idSite }">Modifier</button></td>
                 </tr>

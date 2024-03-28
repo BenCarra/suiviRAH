@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.stage.newRAH.dto.EtatDTO;
 import com.stage.newRAH.model.Etat;
-import com.stage.newRAH.model.Projet;
+//import com.stage.newRAH.model.Projet;
 import com.stage.newRAH.repository.EtatRepository;
 
 @Service
@@ -21,14 +21,14 @@ public class EtatService {
 	
 	public EtatDTO mapEtatToDTO(Etat etat) {
 
-		List<List<String>> projets = new ArrayList<>();
+		//List<List<String>> projets = new ArrayList<>();
 		
 		EtatDTO etatDTO = new EtatDTO();
 		
 		etatDTO.setIdEtat(etat.getIdEtat());
 		etatDTO.setLibelle(etat.getLibelle());
 
-		if (etat.getListProjets() != null) {
+		/*if (etat.getListProjets() != null) {
 			for (Projet projet : etat.getListProjets()) {
 				List<String> projetObject = new ArrayList<>();
 				projetObject.add(String.valueOf(projet.getIdProjet()));
@@ -36,7 +36,7 @@ public class EtatService {
 				projets.add(projetObject);
 			}
 			etatDTO.setListProjets(projets);
-		}
+		}*/
 		
 		return etatDTO;
 		

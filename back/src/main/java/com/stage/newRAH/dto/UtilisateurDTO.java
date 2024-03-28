@@ -19,9 +19,9 @@ public class UtilisateurDTO {
 	private boolean actif;
 	private String nomSite;
 	private String libelleTypeUtilisateur;
-	private List<List<String>> listTaches;
+	//private List<List<String>> listTaches;
 	private List<List<String>> listEquipes;
-	private List<List<String>> listCompositions;
+	//private List<List<String>> listCompositions;
 	
 	public UtilisateurDTO() {
 

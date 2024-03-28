@@ -57,9 +57,9 @@
                     <th>Actif</th>
                     <th>Site</th>
                     <th>Type utilisateur</th>
-                    <th>Tâches associées</th>
+                    <!-- <th>Tâches associées</th> -->
                     <th>Equipes intégrées</th>
-                    <th>Compositions intégrées</th>
+                    <!-- <th>Compositions intégrées</th> -->
                     <th>Modifier</th>
                 </tr>
             </thead>
@@ -75,7 +75,7 @@
                     <td>{{ utilisateur.actif }}</td>
                     <td>{{ utilisateur.nomSite }}</td>
                     <td>{{ utilisateur.libelleTypeUtilisateur }}</td>
-                    <td>
+                    <!-- <td>
                         @for (tache of utilisateur.listTaches; track $index){
                         <ul>
                             <li>Tâche n°{{ tache[0] }}</li>
@@ -83,7 +83,7 @@
                         </ul>
                         <br>
                         }
-                    </td>
+                    </td> -->
                     <td>
                         @for (equipe of utilisateur.listEquipes; track $index){
                         <ul>
@@ -94,7 +94,7 @@
                         <br>
                         }
                     </td>
-                    <td>
+                    <!-- <td>
                         @if (utilisateur.actif != false) {
                         @for (composition of utilisateur.listCompositions; track $index){
                         <ul>
@@ -105,7 +105,7 @@
                         <br>
                         }
                         }
-                    </td>
+                    </td> -->
                     <td><button type="button" routerLink="/utilisateurs/update/"
                             [queryParams]="{ id: utilisateur.idUtilisateur}">Modifier</button></td>
                 </tr>

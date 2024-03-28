@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.stage.newRAH.dto.ClientDTO;
 import com.stage.newRAH.model.Client;
-import com.stage.newRAH.model.Projet;
+//import com.stage.newRAH.model.Projet;
 import com.stage.newRAH.repository.ClientRepository;
 import com.stage.newRAH.repository.ProjetRepository;
 import com.stage.newRAH.repository.TacheRepository;
@@ -30,7 +30,7 @@ public class ClientService {
 	public ClientDTO mapClientToDTO(Client client) {
 		ClientDTO clientDTO = new ClientDTO();
 
-		List<List<String>> listProjets = new ArrayList<>();
+		//List<List<String>> listProjets = new ArrayList<>();
 
 		clientDTO.setIdClient(client.getIdClient());
 		clientDTO.setNomClient(client.getNomClient());
@@ -40,7 +40,7 @@ public class ClientService {
 		clientDTO.setActif(client.isActif());
 		clientDTO.setModeFonctionnementMCO(client.isModeFonctionnementMCO());
 
-		if (client.getListProjets() != null) {
+		/*if (client.getListProjets() != null) {
 			for (Projet projet : client.getListProjets()) {
 				List<String> projetObject = new ArrayList<>();
 				projetObject.add(String.valueOf(projet.getIdProjet()));
@@ -49,7 +49,7 @@ public class ClientService {
 			}
 			clientDTO.setListProjets(listProjets);
 			;
-		}
+		}*/
 
 		return clientDTO;
 	}

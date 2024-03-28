@@ -25,7 +25,7 @@
             <thead>
                 <tr>
                     <th>Libellé</th>
-                    <th>Tâches associées</th>
+                    <!-- <th>Tâches associées</th> -->
                     <th>Modifier</th>
                 </tr>
             </thead>
@@ -33,7 +33,7 @@
                 @for (typeTache of listTypesTache; track $index) {
                 <tr title="{{ typeTache.idTypeTache }}">
                     <td>{{ typeTache.libelle }}</td>
-                    <td>
+                    <!-- <td>
                         @for (tache of typeTache.listTaches; track $index){
                         <ul>
                             <li>Tâche n°{{ tache[0] }}</li>
@@ -41,7 +41,7 @@
                         </ul>
                         <br>
                         }
-                    </td>
+                    </td> -->
                     <td><button type="button" routerLink="/parametres/updateTypeTache/"
                             [queryParams]="{ id: typeTache.idTypeTache}">Modifier</button></td>
                 </tr>

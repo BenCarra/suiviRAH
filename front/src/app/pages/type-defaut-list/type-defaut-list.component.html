@@ -26,7 +26,7 @@
             <thead>
                 <tr>
                     <th>Libellé</th>
-                    <th>Projets associés</th>
+                    <!-- <th>Projets associés</th> -->
                     <th>Modifier</th>
                 </tr>
             </thead>
@@ -34,7 +34,7 @@
                 @for (typeDefaut of listTypesDefaut; track $index) {
                 <tr title="{{ typeDefaut.idTypeDefaut }}">
                     <td>{{ typeDefaut.libelle }}</td>
-                    <td>
+                    <!-- <td>
                         @for (projet of typeDefaut.listProjets; track $index){
                         <ul>
                             <li>Projet n°{{ projet[0] }}</li>
@@ -42,7 +42,7 @@
                         </ul>
                         <br>
                         }
-                    </td>
+                    </td> -->
                     <td><button type="button" routerLink="/parametres/updateTypeDefaut/"
                             [queryParams]="{ id: typeDefaut.idTypeDefaut}">Modifier</button></td>
                 </tr>
