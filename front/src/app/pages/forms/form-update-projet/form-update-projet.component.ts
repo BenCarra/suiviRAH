@@ -14,7 +14,6 @@ import { RDS } from '../../../shared/model/rds';
 import { TypeDefaut } from '../../../shared/model/type-defaut';
 import { TypeProjet } from '../../../shared/model/type-projet';
 import { ClientService } from '../../../shared/service/client.service';
-import { CompositionService } from '../../../shared/service/composition.service';
 import { EtatProjetService } from '../../../shared/service/etat-projet.service';
 import { ProjetService } from '../../../shared/service/projet.service';
 import { RDSService } from '../../../shared/service/rds.service';
@@ -68,7 +67,6 @@ export class FormUpdateProjetComponent {
       dontGarantie: new FormControl('', Validators.required),
       dateFeuVert: new FormControl('', Validators.required),
       dateLivraison: new FormControl('', Validators.required),
-      mco: new FormControl('', Validators.required),
       datePassageMCO: new FormControl(''),
       dateSortieMCO: new FormControl(''),
       commentaires: new FormControl('', Validators.required),
@@ -138,7 +136,6 @@ export class FormUpdateProjetComponent {
       this.formUpdate.get('dontGarantie')?.setValue(this.projetById.dontGarantie);
       this.formUpdate.get('dateFeuVert')?.setValue(this.projetById.dateFeuVert);
       this.formUpdate.get('dateLivraison')?.setValue(this.projetById.dateLivraison);
-      this.formUpdate.controls['mco'].setValue(this.projetById.mco); // ici, j'utilise controls pour mettre un boolean au lieu d'une string et ainsi permettre le changement visuel
       this.formUpdate.get('datePassageMCO')?.setValue(this.projetById.datePassageMCO);
       this.formUpdate.get('dateSortieMCO')?.setValue(this.projetById.dateSortieMCO);
       this.formUpdate.get('commentaires')?.setValue(this.projetById.commentaires);
@@ -183,6 +180,15 @@ export class FormUpdateProjetComponent {
     });
   }
 
+  onClickResetDatePassageMCO() {
+    this.formUpdate.get('datePassageMCO')?.setValue('');
+  }
+
+  onClickResetDateSortieMCO() {
+    this.formUpdate.get('dateSortieMCO')?.setValue('');
+  }
+    
+
   // Méthode exécutée quand on appuie sur le bouton Retour
   onClose() {
     this.router.navigateByUrl("/projets");
@@ -204,7 +210,6 @@ export class FormUpdateProjetComponent {
       this.formUpdate.controls['dontGarantie'].hasError('required') ||
       this.formUpdate.controls['dateFeuVert'].hasError('required') ||
       this.formUpdate.controls['dateLivraison'].hasError('required') ||
-      this.formUpdate.controls['mco'].hasError('required') ||
       this.formUpdate.controls['commentaires'].hasError('required') ||
       this.formUpdate.controls['client'].hasError('required') ||
       this.formUpdate.controls['typeProjet'].hasError('required') ||
@@ -226,14 +231,14 @@ export class FormUpdateProjetComponent {
       this.projetById.dontGarantie = this.formUpdate.get("dontGarantie")?.value;
       this.projetById.dateFeuVert = this.formUpdate.get("dateFeuVert")?.value;
       this.projetById.dateLivraison = this.formUpdate.get("dateLivraison")?.value;
-      this.projetById.mco = this.formUpdate.controls['mco'].value; // ici, j'utilise controls pour mettre un boolean au lieu d'une string et ainsi permettre le changement dans la base de données
+      this.projetById.datePassageMCO = this.formUpdate.get("datePassageMCO")?.value;
+      this.projetById.dateSortieMCO = this.formUpdate.get("dateSortieMCO")?.value;
 
-      if (this.projetById.mco == true) {
-        this.projetById.datePassageMCO = this.formUpdate.get("datePassageMCO")?.value;
-        this.projetById.dateSortieMCO = this.formUpdate.get("dateSortieMCO")?.value;
-      } else {
-        this.projetById.datePassageMCO = null;
-        this.projetById.dateSortieMCO = null;
+      // mco est défini à true quand seule la date de passage est donnée, sinon mco est défini à false
+      if ((this.projetById.datePassageMCO && this.projetById.dateSortieMCO) || (!this.projetById.datePassageMCO && !this.projetById.dateSortieMCO)) {
+        this.projetById.mco = false;
+      } else if (this.projetById.datePassageMCO && !this.projetById.dateSortieMCO){
+        this.projetById.mco = true;
       }
 
       this.projetById.commentaires = this.formUpdate.get("commentaires")?.value;

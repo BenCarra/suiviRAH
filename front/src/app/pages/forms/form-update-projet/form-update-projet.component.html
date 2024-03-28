@@ -153,24 +153,6 @@
             </div>
             <div class="row">
                 <div class="col">
-                    <mat-label>MCO ?</mat-label>
-                    <br>
-                    <mat-radio-group formControlName="mco">
-                        @if (projetById != undefined) {
-                        <mat-radio-button [value]="true"
-                            [checked]="formUpdate.controls['mco'].value == true">Oui</mat-radio-button>
-                        <mat-radio-button [value]="false"
-                            [checked]="formUpdate.controls['mco'].value == false">Non</mat-radio-button>
-                        }
-                    </mat-radio-group>
-                    @if (formUpdate.controls['mco'].hasError('required')) {
-                    <mat-error>MCO <strong>requis</strong></mat-error>
-                    }
-                </div>
-            </div>
-            @if (formUpdate.controls['mco'].value == true) {
-            <div class="row">
-                <div class="col">
                     <mat-form-field appearance="outline">
                         <mat-label>Date passage MCO :</mat-label>
                         <input title="datePassageMCO" matInput [matDatepicker]="picker8"
@@ -181,6 +163,7 @@
                         <mat-error>Date passage MCO <strong>requise</strong></mat-error>
                         }
                     </mat-form-field>
+                    <button mat-raised-button title="resetDatePassageMCO" type="button" (click)="onClickResetDatePassageMCO()">Réinitialiser la date de passage MCO</button>
                 </div>
                 <div class="col">
                     <mat-form-field appearance="outline">
@@ -192,12 +175,9 @@
                         <mat-error>Date sortie MCO <strong>requise</strong></mat-error>
                         }
                     </mat-form-field>
+                    <button mat-raised-button title="resetDateSortieMCO" type="button" (click)="onClickResetDateSortieMCO()">Réinitialiser la date de sortie MCO</button>
                 </div>
             </div>
-
-            } @else {
-            <br>
-            }
             <div class="row">
                 <div class="col">
                     <mat-form-field appearance="outline">

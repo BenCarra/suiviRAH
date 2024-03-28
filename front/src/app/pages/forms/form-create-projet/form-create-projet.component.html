@@ -153,20 +153,6 @@
             </div>
             <div class="row">
                 <div class="col">
-                    <mat-label>MCO ? :</mat-label>
-                    <br>
-                    <mat-radio-group formControlName="mco">
-                        <mat-radio-button [value]="true">Oui</mat-radio-button>
-                        <mat-radio-button [value]="false">Non</mat-radio-button>
-                    </mat-radio-group>
-                    @if (formCreate.controls['mco'].hasError('required')) {
-                    <mat-error>MCO <strong>requis</strong></mat-error>
-                    }
-                </div>
-            </div>
-            @if (formCreate.controls['mco'].value == true) {
-            <div class="row">
-                <div class="col">
                     <mat-form-field appearance="outline">
                         <mat-label>Date passage MCO :</mat-label>
                         <input title="datePassageMCO" matInput [matDatepicker]="picker8"
@@ -190,10 +176,6 @@
                     </mat-form-field>
                 </div>
             </div>
-
-            } @else {
-            <br>
-            }
             <div class="row">
                 <div class="col">
                     <mat-form-field appearance="outline">

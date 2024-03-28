@@ -64,7 +64,6 @@ export class FormCreateProjetComponent {
       dontGarantie: new FormControl('', Validators.required),
       dateFeuVert: new FormControl('', Validators.required),
       dateLivraison: new FormControl('', Validators.required),
-      mco: new FormControl('', Validators.required),
       datePassageMCO: new FormControl(''),
       dateSortieMCO: new FormControl(''),
       commentaires: new FormControl('', Validators.required),
@@ -134,7 +133,6 @@ export class FormCreateProjetComponent {
       this.formCreate.controls['dontGarantie'].hasError('required') ||
       this.formCreate.controls['dateFeuVert'].hasError('required') ||
       this.formCreate.controls['dateLivraison'].hasError('required') ||
-      this.formCreate.controls['mco'].hasError('required') ||
       this.formCreate.controls['commentaires'].hasError('required') ||
       this.formCreate.controls['client'].hasError('required') ||
       this.formCreate.controls['typeProjet'].hasError('required') ||
@@ -156,14 +154,12 @@ export class FormCreateProjetComponent {
       this.projetCree.dontGarantie = this.formCreate.get("dontGarantie")?.value;
       this.projetCree.dateFeuVert = this.formCreate.get("dateFeuVert")?.value;
       this.projetCree.dateLivraison = this.formCreate.get("dateLivraison")?.value;
-      this.projetCree.mco = this.formCreate.controls['mco'].value; // ici, j'utilise controls pour mettre un boolean au lieu d'une string et ainsi permettre le changement dans la base de données
 
-      if (this.projetCree.mco == true) {
-        this.projetCree.datePassageMCO = this.formCreate.get("datePassageMCO")?.value;
-        this.projetCree.dateSortieMCO = this.formCreate.get("dateSortieMCO")?.value;
-      } else {
-        this.projetCree.datePassageMCO = null;
-        this.projetCree.dateSortieMCO = null;
+      // mco est défini à true quand seule la date de passage est donnée, sinon mco est défini à false
+      if ((this.projetCree.datePassageMCO && this.projetCree.dateSortieMCO) || (!this.projetCree.datePassageMCO && !this.projetCree.dateSortieMCO)) {
+        this.projetCree.mco = false;
+      } else if (this.projetCree.datePassageMCO && !this.projetCree.dateSortieMCO){
+        this.projetCree.mco = true;
       }
 
       this.projetCree.commentaires = this.formCreate.get("commentaires")?.value;
